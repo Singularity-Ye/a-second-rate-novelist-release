@@ -46,6 +46,19 @@ jobs:
       - name: Refuse a UI-only deployment
         shell: bash
         run: test -n "$NEXT_PUBLIC_API_BASE_URL"
+      - name: Verify the public room gateway from outside the tailnet
+        shell: bash
+        run: |
+          owner="$(printf '%s' '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+          gateway="${NEXT_PUBLIC_API_BASE_URL%/}"
+          curl --fail --silent --show-error --connect-timeout 10 --max-time 30 \
+            "${gateway}/healthz" >/dev/null
+          curl --fail --silent --show-error --connect-timeout 10 --max-time 30 \
+            --request OPTIONS \
+            --header "Origin: https://${owner}.github.io" \
+            --header "Access-Control-Request-Method: POST" \
+            --header "Access-Control-Request-Headers: content-type" \
+            "${gateway}/vnext/room/messages/stream" >/dev/null
       - run: pnpm --filter pages-h5 test
       - run: pnpm --filter pages-h5 build
       - uses: actions/upload-pages-artifact@v4
