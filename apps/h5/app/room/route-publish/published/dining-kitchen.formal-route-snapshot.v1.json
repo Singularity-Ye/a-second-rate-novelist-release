@@ -1,0 +1,1035 @@
+{
+  "schemaVersion": "formal-route-snapshot.v1",
+  "publishedAt": "2026-07-28T00:00:00.000Z",
+  "source": {
+    "schemaVersion": "route-editor.v2",
+    "draftVersion": 2,
+    "sceneId": "dining-kitchen",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "coordinateSpace": "pixel-top-left-origin"
+  },
+  "scene": {
+    "sceneId": "dining-kitchen",
+    "label": "餐厨",
+    "masterSrc": "/assets/ecology/formal-scenes/dining-kitchen/dining-kitchen-scene-master-2x1-formal-v1.webp",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "foregroundLayers": [],
+    "floorStatus": "pending",
+    "anchorSemantics": {
+      "diningEntry": "dining-entry is the shared movable entry anchor at the left door / life corridor",
+      "kitchenCounter": "kitchen-counter is the shared movable cooking-counter interaction anchor",
+      "mealTable": "meal-table is the shared movable dining-table interaction anchor",
+      "routeOwnedWaypoints": "ordinary waypoints belong to one directed route and are never shared implicitly",
+      "foreground": "no full-scene transparent foreground is registered yet; do not use placement masks as a substitute"
+    }
+  },
+  "scale": {
+    "mode": "depth",
+    "farY": 505,
+    "nearY": 820,
+    "farScale": 1.2,
+    "nearScale": 1.5
+  },
+  "points": [
+    {
+      "id": "dining-entry",
+      "label": "门口 / 生活通道入口（可拖动）",
+      "role": "scene-entry",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        265,
+        885
+      ],
+      "normalized": {
+        "x": 0.14938,
+        "y": 0.997745
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.5
+    },
+    {
+      "id": "entry-counter-1",
+      "label": "门口 → 料理台节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        349,
+        718
+      ],
+      "normalized": {
+        "x": 0.196731,
+        "y": 0.80947
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.4028571428571428
+    },
+    {
+      "id": "entry-to-counter-node-1",
+      "label": "门口 → 料理台中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        487,
+        609
+      ],
+      "normalized": {
+        "x": 0.274521,
+        "y": 0.686584
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.299047619047619
+    },
+    {
+      "id": "entry-counter-2",
+      "label": "门口 → 料理台节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        609,
+        541
+      ],
+      "normalized": {
+        "x": 0.343292,
+        "y": 0.609921
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 1.2342857142857142
+    },
+    {
+      "id": "kitchen-counter",
+      "label": "料理台交互点（可拖动）",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "dining.counter",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        774,
+        503
+      ],
+      "normalized": {
+        "x": 0.436302,
+        "y": 0.56708
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 1.2
+    },
+    {
+      "id": "counter-to-entry-node-1",
+      "label": "料理台 → 门口 · 料理台交互点（可拖动）",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "dining.counter",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        727,
+        525
+      ],
+      "normalized": {
+        "x": 0.409808,
+        "y": 0.591883
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 1.219047619047619
+    },
+    {
+      "id": "counter-entry-1",
+      "label": "料理台 → 门口节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        560,
+        610
+      ],
+      "normalized": {
+        "x": 0.315671,
+        "y": 0.687711
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.3
+    },
+    {
+      "id": "counter-entry-2",
+      "label": "料理台 → 门口节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        350,
+        705
+      ],
+      "normalized": {
+        "x": 0.197294,
+        "y": 0.794814
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.3904761904761904
+    },
+    {
+      "id": "counter-to-table-node-1",
+      "label": "料理台 → 餐桌 · 料理台交互点（可拖动）",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "dining.counter",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        727,
+        525
+      ],
+      "normalized": {
+        "x": 0.409808,
+        "y": 0.591883
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 1.219047619047619
+    },
+    {
+      "id": "counter-table-1",
+      "label": "料理台 → 餐桌节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        743,
+        595
+      ],
+      "normalized": {
+        "x": 0.418828,
+        "y": 0.6708
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.2857142857142856
+    },
+    {
+      "id": "counter-to-table-node-5",
+      "label": "料理台 → 餐桌中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        764,
+        649
+      ],
+      "normalized": {
+        "x": 0.430665,
+        "y": 0.73168
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.3371428571428572
+    },
+    {
+      "id": "counter-to-table-node-2",
+      "label": "料理台 → 餐桌中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        825,
+        688
+      ],
+      "normalized": {
+        "x": 0.465051,
+        "y": 0.775648
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.3742857142857143
+    },
+    {
+      "id": "counter-to-table-node-3",
+      "label": "料理台 → 餐桌中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        895,
+        703
+      ],
+      "normalized": {
+        "x": 0.50451,
+        "y": 0.792559
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.3885714285714286
+    },
+    {
+      "id": "counter-to-table-node-4",
+      "label": "料理台 → 餐桌中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        967,
+        706
+      ],
+      "normalized": {
+        "x": 0.545096,
+        "y": 0.795941
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.3914285714285715
+    },
+    {
+      "id": "counter-table-2",
+      "label": "料理台 → 餐桌节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1093,
+        726
+      ],
+      "normalized": {
+        "x": 0.616122,
+        "y": 0.818489
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.4104761904761904
+    },
+    {
+      "id": "meal-table",
+      "label": "餐桌交互点（可拖动）",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "dining.table",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1253,
+        704
+      ],
+      "normalized": {
+        "x": 0.706313,
+        "y": 0.793687
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.3895238095238094
+    },
+    {
+      "id": "table-to-counter-node-1",
+      "label": "餐桌 → 料理台 · 餐桌交互点（可拖动）",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "dining.table",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1253,
+        704
+      ],
+      "normalized": {
+        "x": 0.706313,
+        "y": 0.793687
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.3895238095238094
+    },
+    {
+      "id": "table-counter-1",
+      "label": "餐桌 → 料理台节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1060,
+        630
+      ],
+      "normalized": {
+        "x": 0.59752,
+        "y": 0.710259
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.319047619047619
+    },
+    {
+      "id": "table-counter-2",
+      "label": "餐桌 → 料理台节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        850,
+        570
+      ],
+      "normalized": {
+        "x": 0.479143,
+        "y": 0.642616
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 1.2619047619047619
+    },
+    {
+      "id": "table-to-counter-node-4",
+      "label": "餐桌 → 料理台 · 料理台交互点（可拖动）",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "dining.counter",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        727,
+        525
+      ],
+      "normalized": {
+        "x": 0.409808,
+        "y": 0.591883
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 1.219047619047619
+    },
+    {
+      "id": "entry-table-1",
+      "label": "门口 → 餐桌节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        430,
+        805
+      ],
+      "normalized": {
+        "x": 0.24239,
+        "y": 0.907554
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.4857142857142858
+    },
+    {
+      "id": "entry-table-2",
+      "label": "门口 → 餐桌节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        760,
+        820
+      ],
+      "normalized": {
+        "x": 0.42841,
+        "y": 0.924464
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.5
+    },
+    {
+      "id": "entry-table-3",
+      "label": "门口 → 餐桌节点 3",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1040,
+        780
+      ],
+      "normalized": {
+        "x": 0.586246,
+        "y": 0.879369
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.4619047619047618
+    },
+    {
+      "id": "entry-to-table-node-5",
+      "label": "门口 → 餐桌 · 餐桌交互点（可拖动）",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "dining.table",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1253,
+        704
+      ],
+      "normalized": {
+        "x": 0.706313,
+        "y": 0.793687
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.3895238095238094
+    },
+    {
+      "id": "table-to-entry-node-1",
+      "label": "餐桌 → 门口 · 餐桌交互点（可拖动）",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "dining.table",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1253,
+        704
+      ],
+      "normalized": {
+        "x": 0.706313,
+        "y": 0.793687
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.3895238095238094
+    },
+    {
+      "id": "table-entry-1",
+      "label": "餐桌 → 门口节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1050,
+        815
+      ],
+      "normalized": {
+        "x": 0.591883,
+        "y": 0.918828
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.4952380952380953
+    },
+    {
+      "id": "table-entry-2",
+      "label": "餐桌 → 门口节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        750,
+        845
+      ],
+      "normalized": {
+        "x": 0.422773,
+        "y": 0.952649
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.5
+    },
+    {
+      "id": "table-entry-3",
+      "label": "餐桌 → 门口节点 3",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        430,
+        815
+      ],
+      "normalized": {
+        "x": 0.24239,
+        "y": 0.918828
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.4952380952380953
+    }
+  ],
+  "routes": {
+    "entry-to-counter": {
+      "id": "entry-to-counter",
+      "label": "门口 → 料理台",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "dining-entry",
+      "endPointId": "kitchen-counter",
+      "waypointIds": [
+        "dining-entry",
+        "entry-counter-1",
+        "entry-to-counter-node-1",
+        "entry-counter-2",
+        "kitchen-counter"
+      ],
+      "durationMs": 2946,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 672
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entry-to-counter-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-counter",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "dining-entry",
+          "pathEndPointId": "kitchen-counter"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "kitchen-counter",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "serve-red-bean-soup",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/kitchen-counter/dining-kitchen-serve-red-bean-soup-scene-character-2x1-formal-v3.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "kitchen-counter",
+        "stateId": "serve-red-bean-soup",
+        "assetMode": "scene",
+        "hideAfter": false
+      }
+    },
+    "counter-to-entry": {
+      "id": "counter-to-entry",
+      "label": "料理台 → 门口",
+      "kind": "walk",
+      "accent": "magenta",
+      "startPointId": "counter-to-entry-node-1",
+      "endPointId": "dining-entry",
+      "waypointIds": [
+        "counter-to-entry-node-1",
+        "counter-entry-1",
+        "counter-entry-2",
+        "dining-entry"
+      ],
+      "durationMs": 2706,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 617
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "counter-to-entry-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "leaving-kitchen",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "counter-to-entry-node-1",
+          "pathEndPointId": "dining-entry",
+          "stateId": "leaving-kitchen"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "counter-to-entry-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "leaving-kitchen",
+          "fromAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/kitchen-counter/dining-kitchen-serve-red-bean-soup-scene-character-2x1-formal-v3.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "dining-entry",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "dining-entry",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "counter-to-table": {
+      "id": "counter-to-table",
+      "label": "料理台 → 餐桌",
+      "kind": "walk",
+      "accent": "amber",
+      "startPointId": "counter-to-table-node-1",
+      "endPointId": "meal-table",
+      "waypointIds": [
+        "counter-to-table-node-1",
+        "counter-table-1",
+        "counter-to-table-node-5",
+        "counter-to-table-node-2",
+        "counter-to-table-node-3",
+        "counter-to-table-node-4",
+        "counter-table-2",
+        "meal-table"
+      ],
+      "durationMs": 2785,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 635
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "carry-bowl": {
+            "left": "/assets/ecology/formal-scenes/dining-kitchen/kitchen-counter/carry-bowl-transparent-actor-v1.png",
+            "right": "/assets/ecology/formal-scenes/dining-kitchen/kitchen-counter/carry-bowl-transparent-actor-v1.png",
+            "scale": 1.5,
+            "canonicalFacing": "right"
+          }
+        }
+      },
+      "phases": [
+        {
+          "id": "counter-to-table-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "carry-bowl",
+          "cameraFacing": "right",
+          "travelDirection": "toward-counter",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "counter-to-table-node-1",
+          "pathEndPointId": "meal-table",
+          "stateId": "carry-bowl"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "counter-to-table-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "carry-bowl",
+          "fromAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/kitchen-counter/dining-kitchen-serve-red-bean-soup-scene-character-2x1-formal-v3.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/kitchen-counter/carry-bowl-transparent-actor-v1.png",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "meal-table",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "meal-table",
+          "fromAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/kitchen-counter/carry-bowl-transparent-actor-v1.png",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/meal-table/dining-kitchen-meal-table-scene-character-2x1-formal-v6.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "meal-table",
+        "stateId": "meal-table",
+        "assetMode": "scene",
+        "hideAfter": false
+      }
+    },
+    "table-to-counter": {
+      "id": "table-to-counter",
+      "label": "餐桌 → 料理台",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "table-to-counter-node-1",
+      "endPointId": "table-to-counter-node-4",
+      "waypointIds": [
+        "table-to-counter-node-1",
+        "table-counter-1",
+        "table-counter-2",
+        "table-to-counter-node-4"
+      ],
+      "durationMs": 2439,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 556
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "carry-bowl-return": {
+            "left": "/assets/ecology/formal-scenes/dining-kitchen/meal-table/carry-empty-bowl-transparent-actor-v2.webp",
+            "right": "/assets/ecology/formal-scenes/dining-kitchen/meal-table/carry-empty-bowl-transparent-actor-v2.webp",
+            "scale": 1.5,
+            "canonicalFacing": "left"
+          }
+        }
+      },
+      "phases": [
+        {
+          "id": "table-to-counter-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "carry-bowl-return",
+          "cameraFacing": "left",
+          "travelDirection": "toward-counter",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "table-to-counter-node-1",
+          "pathEndPointId": "table-to-counter-node-4",
+          "stateId": "carry-bowl-return"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "table-to-counter-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "carry-bowl-return",
+          "fromAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/meal-table/dining-kitchen-meal-table-scene-character-2x1-formal-v6.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/meal-table/carry-empty-bowl-transparent-actor-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "table-to-counter-node-4",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "serve-red-bean-soup",
+          "fromAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/meal-table/carry-empty-bowl-transparent-actor-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/kitchen-counter/dining-kitchen-serve-red-bean-soup-scene-character-2x1-formal-v3.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "table-to-counter-node-4",
+        "stateId": "serve-red-bean-soup",
+        "assetMode": "scene",
+        "hideAfter": false
+      }
+    },
+    "entry-to-table": {
+      "id": "entry-to-table",
+      "label": "门口 → 餐桌",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "dining-entry",
+      "endPointId": "entry-to-table-node-5",
+      "waypointIds": [
+        "dining-entry",
+        "entry-table-1",
+        "entry-table-2",
+        "entry-table-3",
+        "entry-to-table-node-5"
+      ],
+      "durationMs": 4486,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1023
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entry-to-table-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-table",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "dining-entry",
+          "pathEndPointId": "entry-to-table-node-5"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "entry-to-table-node-5",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "meal-table",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/meal-table/dining-kitchen-meal-table-scene-character-2x1-formal-v6.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "entry-to-table-node-5",
+        "stateId": "meal-table",
+        "assetMode": "scene",
+        "hideAfter": false
+      }
+    },
+    "table-to-entry": {
+      "id": "table-to-entry",
+      "label": "餐桌 → 门口",
+      "kind": "walk",
+      "accent": "magenta",
+      "startPointId": "table-to-entry-node-1",
+      "endPointId": "dining-entry",
+      "waypointIds": [
+        "table-to-entry-node-1",
+        "table-entry-1",
+        "table-entry-2",
+        "table-entry-3",
+        "dining-entry"
+      ],
+      "durationMs": 4533,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1034
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "table-to-entry-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "leaving-kitchen",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "table-to-entry-node-1",
+          "pathEndPointId": "dining-entry",
+          "stateId": "leaving-kitchen"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "table-to-entry-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "leaving-kitchen",
+          "fromAssetSource": "/assets/ecology/formal-scenes/dining-kitchen/meal-table/dining-kitchen-meal-table-scene-character-2x1-formal-v6.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "dining-entry",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "dining-entry",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    }
+  }
+}

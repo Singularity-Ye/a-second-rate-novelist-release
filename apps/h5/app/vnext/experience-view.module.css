@@ -1,0 +1,805 @@
+.page {
+  --room-bg: #15131a;
+  --paper: #f3ebdd;
+  --paper-deep: #e9ddcc;
+  --ink: #211c19;
+  --muted: #70645c;
+  --accent: #a64f35;
+  --accent-active: #8c3f2a;
+  --focus: #c95f3f;
+  --danger: #8b2e2a;
+  --success: #356451;
+  --line: rgba(57, 43, 35, 0.16);
+  --night-line: rgba(243, 235, 221, 0.18);
+  --shadow: 0 18px 48px rgba(8, 6, 10, 0.28);
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 74% 18%, rgba(166, 79, 53, 0.12), transparent 34rem),
+    var(--room-bg);
+  color: var(--paper);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+  isolation: isolate;
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.page a {
+  color: var(--accent-active);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.page button,
+.page textarea,
+.page input {
+  font: inherit;
+}
+
+.page button {
+  min-height: 44px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.68rem 1rem;
+  background: var(--accent);
+  color: #fffaf1;
+  font-weight: 650;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.page button:hover:not(:disabled) {
+  background: var(--accent-active);
+  transform: translateY(-1px);
+}
+
+.page button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.page button:focus-visible,
+.page textarea:focus-visible,
+.page input:focus-visible,
+.page a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.roomScene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.roomScene::before {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 100% 5px;
+  content: "";
+  opacity: 0.55;
+}
+
+.windowGlow {
+  position: absolute;
+  top: 8vh;
+  right: 4vw;
+  width: min(29vw, 27rem);
+  height: min(52vh, 35rem);
+  border: 1px solid rgba(243, 235, 221, 0.12);
+  background:
+    linear-gradient(90deg, transparent 49.7%, rgba(243, 235, 221, 0.12) 50%, transparent 50.3%),
+    linear-gradient(transparent 49.7%, rgba(243, 235, 221, 0.12) 50%, transparent 50.3%),
+    radial-gradient(circle at 65% 28%, rgba(243, 235, 221, 0.14), transparent 0.7rem),
+    linear-gradient(160deg, #28222e 0%, #17151d 62%);
+  box-shadow: inset 0 0 5rem rgba(8, 6, 10, 0.55);
+  opacity: 0.72;
+}
+
+.lamp {
+  position: absolute;
+  top: 21vh;
+  right: 23vw;
+  width: 8.5rem;
+  height: 8.5rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 156, 91, 0.28), rgba(166, 79, 53, 0.08) 38%, transparent 70%);
+  filter: blur(2px);
+}
+
+.deskLine {
+  position: absolute;
+  right: 0;
+  bottom: 10vh;
+  width: 48vw;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(243, 235, 221, 0.22));
+}
+
+.identityBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - 3rem, 75rem);
+  margin: 0 auto;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--night-line);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.identityBar > div {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.identityBar p {
+  margin: 0;
+  color: rgba(243, 235, 221, 0.72);
+}
+
+.wordmark {
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif CJK SC", serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.aiBadge {
+  border: 1px solid rgba(243, 235, 221, 0.22);
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  color: rgba(243, 235, 221, 0.78);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+}
+
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.72fr) minmax(28rem, 1.28fr);
+  gap: clamp(2.5rem, 8vw, 9rem);
+  align-items: flex-start;
+  width: min(100% - 3rem, 75rem);
+  margin: 0 auto;
+  padding: clamp(4rem, 10vh, 8rem) 0 6rem;
+}
+
+.promiseBlock {
+  position: sticky;
+  top: 6rem;
+  max-width: 29rem;
+  padding-top: 1.1rem;
+}
+
+.promiseBlock h1 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif CJK SC", serif;
+  font-size: clamp(2.7rem, 5vw, 5.25rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+}
+
+.promiseBlock > p:last-child {
+  max-width: 31ch;
+  margin: 1.5rem 0 0;
+  color: rgba(243, 235, 221, 0.72);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.eyebrow {
+  margin: 0 0 1.2rem;
+  color: #d88d70;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.statusPaper,
+.admissionPaper,
+.manuscript,
+.storyInput,
+.safetyRail,
+.errorMessage {
+  grid-column: 2;
+  width: 100%;
+}
+
+.statusPaper,
+.admissionPaper,
+.manuscript,
+.exitCard {
+  position: relative;
+  border: 1px solid rgba(57, 43, 35, 0.14);
+  border-radius: 12px;
+  background:
+    linear-gradient(rgba(57, 43, 35, 0.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: 100% 1.8rem;
+  box-shadow: var(--shadow);
+  color: var(--ink);
+}
+
+.statusPaper,
+.admissionPaper {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.statusPaper::before,
+.admissionPaper::before,
+.manuscript::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.2rem;
+  width: 1px;
+  background: rgba(166, 79, 53, 0.22);
+  content: "";
+}
+
+.statusPaper h2,
+.admissionPaper h2,
+.manuscript h2,
+.safetyPanel h2,
+.exitCard h1 {
+  margin: 0.45rem 0 1rem;
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif CJK SC", serif;
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  letter-spacing: -0.025em;
+  line-height: 1.22;
+}
+
+.statusPaper > p,
+.admissionPaper > p,
+.manuscript > p,
+.exitCard p {
+  max-width: 46ch;
+  margin: 0.65rem 0;
+  line-height: 1.78;
+}
+
+.statusKicker {
+  color: var(--accent-active);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.statusHeader {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.stateMark {
+  flex: 0 0 auto;
+  width: 0.72rem;
+  height: 0.72rem;
+  margin-top: 0.35rem;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 1px var(--success);
+}
+
+.sceneCopy {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  color: var(--muted);
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif CJK SC", serif;
+}
+
+.admissionPaper {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.admissionPaper > button {
+  justify-self: start;
+  margin-top: 0.4rem;
+}
+
+.checkRow {
+  display: grid;
+  grid-template-columns: 2.75rem 1fr;
+  align-items: center;
+  min-height: 3.4rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.checkRow input {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.systemNote {
+  color: var(--danger);
+  font-size: 0.86rem;
+}
+
+.understanding {
+  position: relative;
+  margin: 1.7rem 0 0;
+  border-top: 1px solid var(--line);
+  padding: 1.3rem 0 0 1.1rem;
+}
+
+.understanding::before {
+  position: absolute;
+  top: 1.35rem;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--accent);
+  content: "";
+}
+
+.understanding > span,
+.manuscript > span,
+.panelHeading span,
+.exitCard > span {
+  color: var(--accent-active);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.understanding h3,
+.controlGroup h3 {
+  margin: 0.25rem 0 0.6rem;
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif CJK SC", serif;
+  font-size: 1.2rem;
+}
+
+.understanding p {
+  margin: 0.55rem 0;
+  line-height: 1.7;
+}
+
+.question {
+  border-left: 2px solid var(--accent);
+  padding: 0.65rem 0.9rem;
+  background: rgba(166, 79, 53, 0.06);
+}
+
+.question strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--accent-active);
+}
+
+.inlineActions,
+.statusActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.ghostButton {
+  border-color: rgba(166, 79, 53, 0.42) !important;
+  background: transparent !important;
+  color: var(--accent-active) !important;
+}
+
+.ghostButton:hover:not(:disabled) {
+  border-color: var(--accent) !important;
+  background: rgba(166, 79, 53, 0.07) !important;
+}
+
+.textButton {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: var(--muted) !important;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.correctionForm,
+.appealForm {
+  margin-top: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.correctionForm label,
+.appealForm label,
+.storyInput label {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.correctionForm textarea,
+.appealForm textarea,
+.storyInput textarea {
+  width: 100%;
+  min-height: 8rem;
+  resize: vertical;
+  border: 1px solid rgba(57, 43, 35, 0.28);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  background: rgba(255, 250, 241, 0.7);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+.reminder {
+  margin-top: 1rem;
+  border-left: 3px solid var(--accent);
+  padding: 0.8rem 1rem;
+  background: rgba(166, 79, 53, 0.07);
+}
+
+.reminder p {
+  margin: 0.35rem 0;
+  line-height: 1.6;
+}
+
+.manuscript {
+  padding: clamp(2rem, 6vw, 4.2rem);
+  background-size: 100% 2rem;
+}
+
+.manuscript > p {
+  max-width: 42ch;
+  white-space: pre-wrap;
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif CJK SC", serif;
+  font-size: clamp(1.05rem, 2vw, 1.22rem);
+  line-height: 2;
+}
+
+.storyInput {
+  border: 1px solid var(--night-line);
+  border-radius: 12px;
+  padding: clamp(1.2rem, 3vw, 1.75rem);
+  background: rgba(20, 18, 24, 0.82);
+  box-shadow: 0 16px 42px rgba(8, 6, 10, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.storyInput label {
+  color: var(--paper);
+  font-family: "Songti SC", STSong, SimSun, "Noto Serif CJK SC", serif;
+  font-size: 1.12rem;
+}
+
+.storyInput textarea {
+  min-height: 9.5rem;
+  border-color: rgba(243, 235, 221, 0.18);
+  background: rgba(243, 235, 221, 0.96);
+}
+
+.storyInput textarea:disabled {
+  min-height: 5.5rem;
+  opacity: 0.6;
+}
+
+.inputFooter {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.9rem;
+}
+
+.inputFooter small {
+  max-width: 37ch;
+  color: rgba(243, 235, 221, 0.64);
+  line-height: 1.5;
+}
+
+.safetyRail {
+  border-top: 1px solid var(--night-line);
+  padding-top: 1rem;
+}
+
+.utilityButton {
+  border-color: var(--night-line) !important;
+  background: transparent !important;
+  color: rgba(243, 235, 221, 0.78) !important;
+  font-weight: 550 !important;
+}
+
+.safetyPanel {
+  margin-top: 1rem;
+  border: 1px solid var(--night-line);
+  border-radius: 12px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: #211e26;
+  color: var(--paper);
+}
+
+.safetyPanel > p {
+  max-width: 58ch;
+  color: rgba(243, 235, 221, 0.72);
+  line-height: 1.65;
+}
+
+.panelHeading {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.panelHeading h2 {
+  margin-bottom: 0.5rem;
+}
+
+.safetyPanel .textButton {
+  color: rgba(243, 235, 221, 0.75) !important;
+}
+
+.controlGroup {
+  margin-top: 1.4rem;
+  border-top: 1px solid var(--night-line);
+  padding-top: 1.2rem;
+}
+
+.controlGroup > p,
+.caseRow p {
+  color: rgba(243, 235, 221, 0.7);
+  line-height: 1.6;
+}
+
+.controlRow,
+.caseRow {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4.2rem;
+  border-top: 1px solid rgba(243, 235, 221, 0.1);
+  padding: 0.8rem 0;
+}
+
+.controlRow small {
+  display: block;
+  margin-top: 0.2rem;
+  color: rgba(243, 235, 221, 0.62);
+}
+
+.caseRow {
+  align-items: flex-start;
+}
+
+.caseRow > div:first-child {
+  flex: 1;
+}
+
+.caseRow p {
+  margin: 0.3rem 0 0;
+}
+
+.statusText {
+  color: rgba(243, 235, 221, 0.66);
+}
+
+.dangerButton {
+  border-color: rgba(255, 219, 211, 0.2) !important;
+  background: var(--danger) !important;
+}
+
+.reminder {
+  margin: 0 0 1rem;
+  border: 1px solid rgba(229, 156, 91, 0.42);
+  border-left-width: 4px;
+  border-radius: 8px;
+  color: var(--paper);
+}
+
+.successMessage,
+.errorMessage {
+  margin: 1rem 0 0;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  line-height: 1.6;
+}
+
+.successMessage {
+  border: 1px solid rgba(97, 164, 132, 0.4);
+  background: rgba(53, 100, 81, 0.2);
+  color: #d7f1e3;
+}
+
+.errorMessage {
+  border: 1px solid rgba(201, 95, 63, 0.42);
+  background: rgba(139, 46, 42, 0.18);
+  color: #ffe5dc;
+}
+
+.errorMessage p {
+  margin: 0.3rem 0;
+}
+
+.errorMessage span {
+  color: rgba(255, 229, 220, 0.72);
+  font-size: 0.88rem;
+}
+
+.errorMessage .ghostButton {
+  display: block;
+  margin-top: 0.8rem;
+  border-color: rgba(255, 229, 220, 0.5) !important;
+  color: #ffe5dc !important;
+}
+
+.statusPaper + .errorMessage,
+.admissionPaper + .errorMessage,
+.safetyRail .errorMessage {
+  grid-column: auto;
+}
+
+.exitCard {
+  width: min(100% - 2rem, 40rem);
+  margin: 15vh auto;
+  padding: clamp(2rem, 6vw, 4rem);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 800px) {
+  .identityBar {
+    align-items: flex-start;
+    width: min(100% - 2rem, 42rem);
+  }
+
+  .identityBar > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .identityBar p {
+    max-width: 18ch;
+    text-align: right;
+    line-height: 1.45;
+  }
+
+  .stage {
+    display: block;
+    width: min(100% - 2rem, 42rem);
+    padding: 3.4rem 0 4rem;
+  }
+
+  .promiseBlock {
+    position: static;
+    margin-bottom: 2.4rem;
+  }
+
+  .promiseBlock h1 {
+    max-width: 11ch;
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .statusPaper,
+  .admissionPaper,
+  .manuscript,
+  .storyInput,
+  .safetyRail,
+  .errorMessage {
+    margin-top: 1rem;
+  }
+
+  .windowGlow {
+    top: 11rem;
+    right: -22vw;
+    width: 78vw;
+    height: 43vh;
+    opacity: 0.42;
+  }
+
+  .lamp {
+    top: 26rem;
+    right: -3rem;
+  }
+
+  .deskLine {
+    display: none;
+  }
+
+  .inputFooter,
+  .controlRow,
+  .caseRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .inputFooter button,
+  .controlRow button,
+  .caseRow > button {
+    width: 100%;
+  }
+
+  .statusPaper,
+  .admissionPaper {
+    padding-left: 2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .identityBar {
+    width: min(100% - 1.5rem, 26rem);
+  }
+
+  .identityBar p {
+    max-width: 13ch;
+    font-size: 0.68rem;
+  }
+
+  .stage {
+    width: min(100% - 1.5rem, 26rem);
+    padding-top: 2.7rem;
+  }
+
+  .statusPaper,
+  .admissionPaper,
+  .manuscript,
+  .storyInput,
+  .safetyPanel {
+    border-radius: 10px;
+  }
+
+  .statusPaper,
+  .admissionPaper,
+  .manuscript {
+    padding-right: 1.15rem;
+    padding-left: 1.75rem;
+  }
+
+  .inlineActions,
+  .statusActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .inlineActions button,
+  .statusActions button,
+  .admissionPaper > button,
+  .utilityButton {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before,
+  .page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "pages-h5",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prebuild": "node scripts/validate-pages-env.mjs && node scripts/prepare-public.mjs",
+    "build": "next build",
+    "postbuild": "node scripts/rewrite-public-paths.mjs",
+    "test": "node --test scripts/*.test.mjs"
+  },
+  "dependencies": {
+    "@erliu/shared-contracts": "workspace:*",
+    "next": "15.5.21",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "a-second-rate-novelist-release",
+  "private": true,
+  "packageManager": "pnpm@10.28.2",
+  "scripts": {
+    "test": "pnpm --filter pages-h5 test",
+    "build": "pnpm --filter pages-h5 build",
+    "build:h5": "pnpm --filter h5 build"
+  }
+}

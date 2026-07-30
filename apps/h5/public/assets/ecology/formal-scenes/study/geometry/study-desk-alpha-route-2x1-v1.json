@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "scene-geometry.v3",
+  "sceneId": "study",
+  "status": "alpha-foreground-route",
+  "coordinateSpace": "pixel-top-left-origin",
+  "canvas": {
+    "width": 1774,
+    "height": 887
+  },
+  "source": {
+    "sceneMasterRef": "/assets/ecology/formal-scenes/study/study-scene-master-2x1-formal-v2.webp",
+    "deskForegroundRef": "/assets/ecology/formal-scenes/study/geometry/foreground/study-desk-table-cutout-2x1-imagegen-v2.webp",
+    "chairForegroundRef": "/assets/ecology/formal-scenes/study/geometry/foreground/study-chair-cutout-2x1-user-v1.webp",
+    "deskForegroundRole": "transparent-alpha-depth-occluder",
+    "annotationMethod": "route anchors checked against the clean mother image; transparent desk and user-provided chair alpha are runtime-only occlusion sources",
+    "confidence": "alpha assets are the visual source of truth; no transparent furniture image is painted and no manual desk polygon is used"
+  },
+  "actorFootprint": {
+    "shape": "round-base-contact-circle",
+    "radiusPx": 26,
+    "contactPoint": "lowest opaque pixel of the actor asset",
+    "obstacleClearanceMeaning": "desk alpha is a depth layer, not a collision polygon"
+  },
+  "layerPolicy": {
+    "order": [
+      "scene-background-with-visible-furniture",
+      "actor-shadow",
+      "actor-occlusion-mask",
+      "actor-sprite",
+      "ui"
+    ],
+    "obstacleForegroundOcclusion": {
+      "enabled": true,
+      "source": "deskForegroundRef and chairForegroundRef alpha channels",
+      "actorMayEnterOcclusionPolygon": true,
+      "activation": "route-direction",
+      "renderMode": "inverse-alpha-mask-only"
+    },
+    "collisionPolicy": "floor-and-route-anchor-only; desk alpha controls depth"
+  },
+  "alphaForeground": {
+    "id": "study-desk-table-alpha-foreground",
+    "source": "/assets/ecology/formal-scenes/study/geometry/foreground/study-desk-table-cutout-2x1-imagegen-v2.webp",
+    "sourceOfTruth": "transparent-alpha",
+    "alphaThreshold": 8,
+    "opaqueBounds": {
+      "minX": 768,
+      "minY": 303,
+      "maxX": 1204,
+      "maxY": 731
+    },
+    "depthPolicy": "route-direction",
+    "actorMayEnterVisualRange": true
+  },
+  "floorPlanes": [
+    {
+      "id": "study-main-wood-floor",
+      "walkable": true,
+      "polygon": [
+        [0, 486],
+        [180, 474],
+        [390, 455],
+        [620, 426],
+        [850, 397],
+        [1070, 386],
+        [1260, 395],
+        [1428, 422],
+        [1502, 470],
+        [1774, 470],
+        [1774, 887],
+        [0, 887]
+      ]
+    },
+    {
+      "id": "study-terrace-stone-floor",
+      "walkable": true,
+      "polygon": [
+        [1455, 287],
+        [1774, 282],
+        [1774, 470],
+        [1500, 468],
+        [1455, 425]
+      ]
+    }
+  ],
+  "obstacles": [],
+  "foregroundOccluders": [],
+  "waypoints": [
+    {
+      "id": "writing-seat",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [869, 745],
+      "safeZonePolygon": [[835, 730], [900, 730], [900, 770], [835, 770]],
+      "actionId": "writing-seat"
+    },
+    {
+      "id": "stand-by-desk",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [603, 745],
+      "safeZonePolygon": [[565, 720], [640, 720], [640, 770], [565, 770]],
+      "actionId": "stand-by-desk"
+    },
+    {
+      "id": "seat-to-door-curve-1",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [950, 760],
+      "safeZonePolygon": [[925, 735], [975, 735], [975, 785], [925, 785]]
+    },
+    {
+      "id": "seat-to-door-curve-2",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1040, 758],
+      "safeZonePolygon": [[1015, 733], [1065, 733], [1065, 783], [1015, 783]]
+    },
+    {
+      "id": "seat-to-door-curve-3",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1120, 730],
+      "safeZonePolygon": [[1095, 705], [1145, 705], [1145, 755], [1095, 755]]
+    },
+    {
+      "id": "seat-to-door-curve-4",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1180, 690],
+      "safeZonePolygon": [[1155, 665], [1205, 665], [1205, 715], [1155, 715]]
+    },
+    {
+      "id": "door-to-seat-back-1",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1240, 600],
+      "safeZonePolygon": [[1215, 575], [1265, 575], [1265, 625], [1215, 625]]
+    },
+    {
+      "id": "door-to-seat-back-2",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1160, 540],
+      "safeZonePolygon": [[1135, 515], [1185, 515], [1185, 565], [1135, 565]]
+    },
+    {
+      "id": "door-to-seat-back-3",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1060, 500],
+      "safeZonePolygon": [[1035, 475], [1085, 475], [1085, 525], [1035, 525]]
+    },
+    {
+      "id": "door-to-seat-back-4",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [950, 490],
+      "safeZonePolygon": [[925, 465], [975, 465], [975, 515], [925, 515]]
+    },
+    {
+      "id": "door-to-seat-back-5",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [830, 510],
+      "safeZonePolygon": [[805, 485], [855, 485], [855, 535], [805, 535]]
+    },
+    {
+      "id": "desk-left-turn",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [720, 580],
+      "safeZonePolygon": [[695, 555], [745, 555], [745, 605], [695, 605]]
+    },
+    {
+      "id": "desk-left-approach",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [650, 660],
+      "safeZonePolygon": [[625, 635], [675, 635], [675, 685], [625, 685]]
+    },
+    {
+      "id": "desk-front-clearance",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [763, 781],
+      "safeZonePolygon": [[725, 760], [800, 760], [800, 810], [725, 810]]
+    },
+    {
+      "id": "rug-south-edge",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1064, 781],
+      "safeZonePolygon": [[1025, 758], [1105, 758], [1105, 810], [1025, 810]]
+    },
+    {
+      "id": "right-life-corridor",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1230, 650],
+      "safeZonePolygon": [[1205, 625], [1255, 625], [1255, 675], [1205, 675]]
+    },
+    {
+      "id": "terrace-lookout",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1495, 540],
+      "safeZonePolygon": [[1468, 510], [1525, 510], [1525, 575], [1468, 575]],
+      "actionId": "terrace-lookout"
+    },
+    {
+      "id": "attic-ladder-approach",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1190, 550],
+      "safeZonePolygon": [[1150, 520], [1220, 520], [1220, 580], [1150, 580]],
+      "targetSceneId": "attic"
+    },
+    {
+      "id": "terrace-door-approach",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1495, 540],
+      "safeZonePolygon": [[1468, 510], [1525, 510], [1525, 575], [1468, 575]],
+      "targetSceneId": "terrace-greenery"
+    }
+  ],
+  "routes": [
+    {
+      "id": "study-writing-to-stand-by-desk",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["writing-seat", "stand-by-desk"]
+    },
+    {
+      "id": "study-writing-to-terrace-lookout",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["writing-seat", "seat-to-door-curve-1", "seat-to-door-curve-2", "seat-to-door-curve-3", "seat-to-door-curve-4", "right-life-corridor", "terrace-lookout"]
+    },
+    {
+      "id": "study-stand-by-desk-to-terrace-lookout",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["stand-by-desk", "seat-to-door-curve-1", "seat-to-door-curve-2", "seat-to-door-curve-3", "seat-to-door-curve-4", "right-life-corridor", "terrace-lookout"]
+    },
+    {
+      "id": "study-stand-by-desk-to-writing",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["stand-by-desk", "writing-seat"]
+    },
+    {
+      "id": "study-terrace-lookout-to-stand-by-desk",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["terrace-lookout", "door-to-seat-back-1", "door-to-seat-back-2", "door-to-seat-back-3", "door-to-seat-back-4", "door-to-seat-back-5", "desk-left-turn", "desk-left-approach", "stand-by-desk"]
+    },
+    {
+      "id": "study-terrace-lookout-to-writing",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["terrace-lookout", "door-to-seat-back-1", "door-to-seat-back-2", "door-to-seat-back-3", "door-to-seat-back-4", "door-to-seat-back-5", "desk-left-turn", "desk-left-approach", "writing-seat"]
+    }
+  ],
+  "qaContract": {
+    "sampleStepPx": 4,
+    "requiredChecks": [
+      "every waypoint contactPoint is on its floorPlane",
+      "every waypoint safeZone contains its contactPoint",
+      "every route sample is on the declared floorPlane",
+      "desk and user-provided chair depth are controlled by transparent alpha and route direction",
+      "transparent furniture is never painted; only the inverse alpha mask clips the actor"
+    ]
+  }
+}

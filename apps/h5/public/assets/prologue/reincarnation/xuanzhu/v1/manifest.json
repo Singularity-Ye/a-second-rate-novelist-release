@@ -1,0 +1,31 @@
+{
+  "assetPackId": "paper-mirror:xuanzhu:origin-comic:v1",
+  "runtimeStatus": "selected-for-release",
+  "artReviewStatus": "user-selected-from-candidates",
+  "sourceDirectory": "纸镜｜漫画分镜设计/01_修仙老祖/assets",
+  "pages": [
+    { "pageId": "B1", "file": "b01.webp", "source": "xuanzhu-b01-blood-and-blunt-iron-candidate-v2.webp", "bytes": 410962, "sha256": "50983aec41f2b45347faf5282f35adb358487e615b6f5e77ed4a7d3f4d426892" },
+    { "pageId": "B2", "file": "b02.webp", "source": "xuanzhu-b02-blunt-sword-bone-candidate-v2.webp", "bytes": 365326, "sha256": "9ad7223ca2b68c8ab62f57f1d2b4459ee1c803b59424d43e0807d71d32ea0c55" },
+    { "pageId": "B3", "file": "b03.webp", "source": "xuanzhu-b03-sword-mound-candidate-v1.webp", "bytes": 455118, "sha256": "73602b4627298a0fd4679f79972854400369c596bbc3d97d53270d5562555169" },
+    { "pageId": "B4", "file": "b04.webp", "source": "xuanzhu-b04-old-friend-candidate-v1.webp", "bytes": 390786, "sha256": "e3169ace0cfada4eb792f403ac18de1a91c693a42293178347947c146dd31693" },
+    { "pageId": "B5", "file": "b05.webp", "source": "xuanzhu-b5-widescreen-recomposed-candidate-v1.webp", "bytes": 511414, "sha256": "ac920abc4f3d34fc212606071581ddda7e427f73c275846959a10841acf8eb5f" },
+    { "pageId": "B6", "file": "b06.webp", "source": "xuanzhu-b06-sword-teaching-candidate-v1.webp", "bytes": 351742, "sha256": "3240918a151a9b657362391a137e8dba40a87385ead2a6d2222598c55ce8ccb2" },
+    { "pageId": "B7", "file": "b07.webp", "source": "xuanzhu-b7-widescreen-recomposed-candidate-v1.webp", "bytes": 432676, "sha256": "03f5b8941d68807242609148640dd0e48d08e35f509ac7875f1527be598cb870" },
+    { "pageId": "B8", "file": "b08.webp", "source": "xuanzhu-b08-sword-grave-candidate-v1.webp", "bytes": 386396, "sha256": "871b2ed69d47974947a8170db5e6875d063f0f63f368065842bcf2025b685659" },
+    { "pageId": "B9", "file": "b09.webp", "source": "xuanzhu-b09-thunder-split-candidate-v2.webp", "bytes": 429316, "sha256": "ded046f91d1fc2d4d2d72823d81f30ce54cce5fde84234be3b974e305ec153e0" },
+    { "pageId": "B10", "file": "b10.webp", "source": "xuanzhu-b10-ask-heaven-candidate-v2.webp", "bytes": 400800, "sha256": "5db1d7665fe8c84d910e07549eb8041544ed655401c6531d4f1fb90cd912f674" },
+    { "pageId": "B11", "file": "b11.webp", "source": "xuanzhu-b11-truck-impact-candidate-v1.webp", "bytes": 476854, "sha256": "3599cae4c4f2192dfa8fca1f233bc091738bb405cf118c1db176b9a9eb31cfcb" }
+  ],
+  "characterCard": {
+    "file": "character-card.webp",
+    "source": "xuanzhu-character-card-approved-v1.webp",
+    "bytes": 335790,
+    "sha256": "32e9131659b61b82ed4c4a9e36a418a2c35251358fb1f739a11ad579f57f191f"
+  },
+  "excludedClasses": [
+    "duplicate-old-version",
+    "portrait-layout",
+    "reference-only",
+    "character-sheet"
+  ]
+}

@@ -1,0 +1,1195 @@
+{
+  "schemaVersion": "formal-route-snapshot.v1",
+  "publishedAt": "2026-07-27T00:00:00.000Z",
+  "source": {
+    "schemaVersion": "route-editor.v2",
+    "draftVersion": 2,
+    "sceneId": "terrace-greenery",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "coordinateSpace": "pixel-top-left-origin"
+  },
+  "scene": {
+    "sceneId": "terrace-greenery",
+    "label": "露台",
+    "masterSrc": "/assets/ecology/formal-scenes/terrace-greenery/terrace-greenery-scene-master-paper-diorama-formal-v4-lossless.webp",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "foregroundLayers": [],
+    "floorStatus": "pending",
+    "anchorSemantics": {
+      "terraceEntry": "terrace-entry 是左下角维护梯的共享入口锚点",
+      "terraceBench": "terrace-bench 是长椅前方的看夜景交互点",
+      "turtlePond": "turtle-pond 是小龟池前方的照看交互点",
+      "telescope": "terrace-telescope 是花盆前方的浇花交互点（保留旧 ID 以兼容既有路线）",
+      "routeOwnedWaypoints": "普通 waypoint 只属于当前方向路线，不会隐式复用",
+      "foreground": "露台暂未注册透明遮挡层，不用摆放蒙版冒充正式遮挡物"
+    }
+  },
+  "scale": {
+    "mode": "depth",
+    "farY": 330,
+    "nearY": 760,
+    "farScale": 0.88,
+    "nearScale": 1.18
+  },
+  "points": [
+    {
+      "id": "terrace-entry",
+      "label": "露台梯口",
+      "role": "scene-entry",
+      "anchorKind": "portal",
+      "anchorKey": "portal.terrace-greenery",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        477,
+        575
+      ],
+      "normalized": {
+        "x": 0.268884,
+        "y": 0.648253
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0509302325581396
+    },
+    {
+      "id": "entry-to-bench-node-1",
+      "label": "梯口 → 长椅中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        655,
+        506
+      ],
+      "normalized": {
+        "x": 0.369222,
+        "y": 0.570462
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0027906976744185
+    },
+    {
+      "id": "entry-to-bench-node-2",
+      "label": "梯口 → 长椅中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        827,
+        462
+      ],
+      "normalized": {
+        "x": 0.466178,
+        "y": 0.520857
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 0.9720930232558139
+    },
+    {
+      "id": "entry-to-bench-node-3",
+      "label": "梯口 → 长椅中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        955,
+        425
+      ],
+      "normalized": {
+        "x": 0.538331,
+        "y": 0.479143
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9462790697674418
+    },
+    {
+      "id": "entry-to-bench-node-4",
+      "label": "梯口 → 长椅中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1047,
+        412
+      ],
+      "normalized": {
+        "x": 0.590192,
+        "y": 0.464487
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9372093023255814
+    },
+    {
+      "id": "entry-to-bench-node-5",
+      "label": "梯口 → 长椅中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1125,
+        410
+      ],
+      "normalized": {
+        "x": 0.63416,
+        "y": 0.462232
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.935813953488372
+    },
+    {
+      "id": "terrace-bench",
+      "label": "长椅看夜景点",
+      "role": "lounge",
+      "anchorKind": "interaction",
+      "anchorKey": "terrace.bench",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1198,
+        402
+      ],
+      "normalized": {
+        "x": 0.67531,
+        "y": 0.453213
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9302325581395349
+    },
+    {
+      "id": "bench-to-entry-node-1",
+      "label": "长椅 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1101,
+        416
+      ],
+      "normalized": {
+        "x": 0.620631,
+        "y": 0.468997
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.94
+    },
+    {
+      "id": "bench-to-entry-node-2",
+      "label": "长椅 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        997,
+        438
+      ],
+      "normalized": {
+        "x": 0.562007,
+        "y": 0.493799
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9553488372093023
+    },
+    {
+      "id": "bench-to-entry-node-3",
+      "label": "长椅 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        815,
+        478
+      ],
+      "normalized": {
+        "x": 0.459414,
+        "y": 0.538895
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 0.9832558139534884
+    },
+    {
+      "id": "bench-to-entry-node-4",
+      "label": "长椅 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        643,
+        520
+      ],
+      "normalized": {
+        "x": 0.362458,
+        "y": 0.586246
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0125581395348837
+    },
+    {
+      "id": "entry-to-turtle-pond-node-1",
+      "label": "梯口 → 小龟池中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        648,
+        540
+      ],
+      "normalized": {
+        "x": 0.365276,
+        "y": 0.608794
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0265116279069768
+    },
+    {
+      "id": "entry-to-turtle-pond-node-2",
+      "label": "梯口 → 小龟池中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        787,
+        522
+      ],
+      "normalized": {
+        "x": 0.44363,
+        "y": 0.588501
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.013953488372093
+    },
+    {
+      "id": "entry-to-turtle-pond-node-3",
+      "label": "梯口 → 小龟池中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        894,
+        536
+      ],
+      "normalized": {
+        "x": 0.503946,
+        "y": 0.604284
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.023720930232558
+    },
+    {
+      "id": "entry-to-turtle-pond-node-4",
+      "label": "梯口 → 小龟池中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        965,
+        556
+      ],
+      "normalized": {
+        "x": 0.543968,
+        "y": 0.626832
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0376744186046511
+    },
+    {
+      "id": "turtle-pond",
+      "label": "小龟池照看点",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "terrace.turtle-pond",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1036,
+        604
+      ],
+      "normalized": {
+        "x": 0.583991,
+        "y": 0.680947
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0711627906976744
+    },
+    {
+      "id": "turtle-pond-to-entry-node-1",
+      "label": "小龟池 → 梯口 · 小龟池照看点",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "terrace.turtle-pond",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1054,
+        602
+      ],
+      "normalized": {
+        "x": 0.594138,
+        "y": 0.678692
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.069767441860465
+    },
+    {
+      "id": "turtle-pond-to-entry-node-2",
+      "label": "小龟池 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        921,
+        573
+      ],
+      "normalized": {
+        "x": 0.519166,
+        "y": 0.645998
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0495348837209302
+    },
+    {
+      "id": "turtle-pond-to-entry-node-3",
+      "label": "小龟池 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        797,
+        562
+      ],
+      "normalized": {
+        "x": 0.449267,
+        "y": 0.633596
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.041860465116279
+    },
+    {
+      "id": "turtle-pond-to-entry-node-4",
+      "label": "小龟池 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        624,
+        566
+      ],
+      "normalized": {
+        "x": 0.351747,
+        "y": 0.638106
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0446511627906976
+    },
+    {
+      "id": "entry-to-telescope-node-9",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        554,
+        608
+      ],
+      "normalized": {
+        "x": 0.312289,
+        "y": 0.685457
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.073953488372093
+    },
+    {
+      "id": "entry-to-telescope-node-1",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        652,
+        623
+      ],
+      "normalized": {
+        "x": 0.367531,
+        "y": 0.702368
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0844186046511628
+    },
+    {
+      "id": "entry-to-telescope-node-5",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        730,
+        614
+      ],
+      "normalized": {
+        "x": 0.411499,
+        "y": 0.692221
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0781395348837208
+    },
+    {
+      "id": "entry-to-telescope-node-2",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        784,
+        596
+      ],
+      "normalized": {
+        "x": 0.441939,
+        "y": 0.671928
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0655813953488371
+    },
+    {
+      "id": "entry-to-telescope-node-6",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        844,
+        563
+      ],
+      "normalized": {
+        "x": 0.475761,
+        "y": 0.634724
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0425581395348837
+    },
+    {
+      "id": "entry-to-telescope-node-3",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        875,
+        526
+      ],
+      "normalized": {
+        "x": 0.493236,
+        "y": 0.59301
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0167441860465116
+    },
+    {
+      "id": "entry-to-telescope-node-7",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        879,
+        475
+      ],
+      "normalized": {
+        "x": 0.49549,
+        "y": 0.535513
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 0.9811627906976744
+    },
+    {
+      "id": "entry-to-telescope-node-4",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        863,
+        447
+      ],
+      "normalized": {
+        "x": 0.486471,
+        "y": 0.503946
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9616279069767442
+    },
+    {
+      "id": "entry-to-telescope-node-8",
+      "label": "梯口 →浇花中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        826,
+        430
+      ],
+      "normalized": {
+        "x": 0.465614,
+        "y": 0.48478
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9497674418604651
+    },
+    {
+      "id": "terrace-telescope",
+      "label": "浇花点",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "terrace.plant",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        787,
+        425
+      ],
+      "normalized": {
+        "x": 0.44363,
+        "y": 0.479143
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9462790697674418
+    },
+    {
+      "id": "telescope-to-entry-node-1",
+      "label": "浇花 → 梯口 · 浇花观景点",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "terrace.plant",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        787,
+        417
+      ],
+      "normalized": {
+        "x": 0.44363,
+        "y": 0.470124
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9406976744186046
+    },
+    {
+      "id": "telescope-to-entry-node-2",
+      "label": "浇花→ 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        803,
+        455
+      ],
+      "normalized": {
+        "x": 0.452649,
+        "y": 0.512965
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 0.9672093023255814
+    },
+    {
+      "id": "telescope-to-entry-node-3",
+      "label": "浇花→ 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        790,
+        512
+      ],
+      "normalized": {
+        "x": 0.445321,
+        "y": 0.577227
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0069767441860464
+    },
+    {
+      "id": "telescope-to-entry-node-4",
+      "label": "浇花→ 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        725,
+        556
+      ],
+      "normalized": {
+        "x": 0.408681,
+        "y": 0.626832
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0376744186046511
+    },
+    {
+      "id": "telescope-to-entry-node-5",
+      "label": "浇花→ 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        664,
+        577
+      ],
+      "normalized": {
+        "x": 0.374295,
+        "y": 0.650507
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0523255813953487
+    },
+    {
+      "id": "telescope-to-entry-node-6",
+      "label": "浇花→ 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        574,
+        589
+      ],
+      "normalized": {
+        "x": 0.323563,
+        "y": 0.664036
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0606976744186047
+    }
+  ],
+  "routes": {
+    "entry-to-bench": {
+      "id": "entry-to-bench",
+      "label": "梯口 → 长椅",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "terrace-entry",
+      "endPointId": "terrace-bench",
+      "waypointIds": [
+        "terrace-entry",
+        "entry-to-bench-node-1",
+        "entry-to-bench-node-2",
+        "entry-to-bench-node-3",
+        "entry-to-bench-node-4",
+        "entry-to-bench-node-5",
+        "terrace-bench"
+      ],
+      "durationMs": 3272,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 746
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entry-to-bench-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "next-state",
+          "cameraFacing": "right",
+          "travelDirection": "toward-lounge",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "terrace-entry",
+          "pathEndPointId": "terrace-bench",
+          "stateId": "next-state"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "terrace-entry",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "fromAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "terrace-bench",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "toAssetSource": "/assets/ecology/formal-scenes/terrace-greenery/terrace-seated-relaxed-hands-in-pockets-character-asset-cropped-lossless.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "terrace-bench",
+        "stateId": "next-state",
+        "assetMode": "actor",
+        "hideAfter": false
+      }
+    },
+    "bench-to-entry": {
+      "id": "bench-to-entry",
+      "label": "长椅 → 梯口",
+      "kind": "walk",
+      "accent": "magenta",
+      "startPointId": "terrace-bench",
+      "endPointId": "terrace-entry",
+      "waypointIds": [
+        "terrace-bench",
+        "bench-to-entry-node-1",
+        "bench-to-entry-node-2",
+        "bench-to-entry-node-3",
+        "bench-to-entry-node-4",
+        "terrace-entry"
+      ],
+      "durationMs": 3257,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 743
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "bench-to-entry-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "next-state",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "terrace-bench",
+          "pathEndPointId": "terrace-entry",
+          "stateId": "next-state"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "terrace-bench",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "fromAssetSource": "/assets/ecology/formal-scenes/terrace-greenery/terrace-seated-relaxed-hands-in-pockets-character-asset-cropped-lossless.webp",
+          "fromAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "terrace-entry",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "terrace-entry",
+        "stateId": "next-state",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "entry-to-turtle-pond": {
+      "id": "entry-to-turtle-pond",
+      "label": "梯口 → 小龟池",
+      "kind": "walk",
+      "accent": "amber",
+      "startPointId": "terrace-entry",
+      "endPointId": "turtle-pond",
+      "waypointIds": [
+        "terrace-entry",
+        "entry-to-turtle-pond-node-1",
+        "entry-to-turtle-pond-node-2",
+        "entry-to-turtle-pond-node-3",
+        "entry-to-turtle-pond-node-4",
+        "turtle-pond"
+      ],
+      "durationMs": 2553,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 582
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entry-to-turtle-pond-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "next-state",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "terrace-entry",
+          "pathEndPointId": "turtle-pond",
+          "stateId": "next-state"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "terrace-entry",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "fromAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "turtle-pond",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "toAssetSource": "/assets/ecology/formal-scenes/terrace-greenery/terrace-turtle-character-facing-right-asset-cropped-lossless.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "turtle-pond",
+        "stateId": "next-state",
+        "assetMode": "actor",
+        "hideAfter": false
+      }
+    },
+    "turtle-pond-to-entry": {
+      "id": "turtle-pond-to-entry",
+      "label": "小龟池 → 梯口",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "turtle-pond-to-entry-node-1",
+      "endPointId": "terrace-entry",
+      "waypointIds": [
+        "turtle-pond-to-entry-node-1",
+        "turtle-pond-to-entry-node-2",
+        "turtle-pond-to-entry-node-3",
+        "turtle-pond-to-entry-node-4",
+        "terrace-entry"
+      ],
+      "durationMs": 2548,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 581
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "turtle-pond-to-entry-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "next-state",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "turtle-pond-to-entry-node-1",
+          "pathEndPointId": "terrace-entry",
+          "stateId": "next-state"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "turtle-pond-to-entry-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "fromAssetSource": "/assets/ecology/formal-scenes/terrace-greenery/terrace-turtle-character-facing-right-asset-cropped-lossless.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "terrace-entry",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "terrace-entry",
+        "stateId": "next-state",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "entry-to-telescope": {
+      "id": "entry-to-telescope",
+      "label": "梯口 → 浇花",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "terrace-entry",
+      "endPointId": "terrace-telescope",
+      "waypointIds": [
+        "terrace-entry",
+        "entry-to-telescope-node-9",
+        "entry-to-telescope-node-1",
+        "entry-to-telescope-node-5",
+        "entry-to-telescope-node-2",
+        "entry-to-telescope-node-6",
+        "entry-to-telescope-node-3",
+        "entry-to-telescope-node-7",
+        "entry-to-telescope-node-4",
+        "entry-to-telescope-node-8",
+        "terrace-telescope"
+      ],
+      "durationMs": 2625,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 599
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entry-to-telescope-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.7269312589117911,
+          "actionId": "next-state",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "terrace-entry",
+          "pathEndPointId": "entry-to-telescope-node-3",
+          "stateId": "next-state"
+        },
+        {
+          "id": "entry-to-telescope-phase-2",
+          "startProgress": 0.7269312589117911,
+          "endProgress": 1,
+          "actionId": "next-state",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "entry-to-telescope-node-3",
+          "pathEndPointId": "terrace-telescope",
+          "stateId": "next-state"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "terrace-entry",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "fromAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "entry-to-telescope-node-3",
+          "progress": 0.7269312589117911,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "terrace-telescope",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "toAssetSource": "/assets/ecology/formal-scenes/terrace-greenery/terrace-watering-character-asset-cropped-lossless.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "terrace-telescope",
+        "stateId": "next-state",
+        "assetMode": "actor",
+        "hideAfter": false
+      }
+    },
+    "telescope-to-entry": {
+      "id": "telescope-to-entry",
+      "label": "浇花 → 梯口",
+      "kind": "walk",
+      "accent": "magenta",
+      "startPointId": "telescope-to-entry-node-1",
+      "endPointId": "terrace-entry",
+      "waypointIds": [
+        "telescope-to-entry-node-1",
+        "telescope-to-entry-node-2",
+        "telescope-to-entry-node-3",
+        "telescope-to-entry-node-4",
+        "telescope-to-entry-node-5",
+        "telescope-to-entry-node-6",
+        "terrace-entry"
+      ],
+      "durationMs": 1893,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 432
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "telescope-to-entry-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "next-state",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "standing",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "telescope-to-entry-node-1",
+          "pathEndPointId": "terrace-entry",
+          "stateId": "next-state"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "telescope-to-entry-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "fromAssetSource": "/assets/ecology/formal-scenes/terrace-greenery/terrace-watering-character-asset-cropped-lossless.webp",
+          "fromAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "terrace-entry",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "next-state",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "terrace-entry",
+        "stateId": "next-state",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    }
+  }
+}

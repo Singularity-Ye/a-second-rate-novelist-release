@@ -1,0 +1,37 @@
+.DS_Store
+node_modules/
+.next/
+.next-dev/
+.next*/
+dist/
+playwright-report/
+test-results/
+*.tsbuildinfo
+__pycache__/
+*.py[cod]
+
+# Runtime credentials belong in host secret storage, never Git.
+.env
+.env.*
+!.env.example
+!**/*.env.example
+*.private.env
+*.private.ps1
+
+# Local development logs, browser profiles, scratch files, and generated review output.
+.dev-server-logs/
+.tmp/
+.tmp-*
+tmp/
+apps/h5/.next-build-assets/
+apps/h5/.next-build-image/
+apps/h5/.next-dev-3001/
+apps/h5/.next-cleanup-check/
+output/ui-review/
+output/imagegen/
+apps/pages-h5/public/
+apps/pages-h5/out/
+
+# Machine-local browser/runtime snapshots must never become release inputs.
+codex-study-localstorage-summary.json
+_image-compression-backup/
