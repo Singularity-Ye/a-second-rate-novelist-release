@@ -1,11 +1,12 @@
 import assert from "node:assert/strict";
-import { readFile, stat } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const sourceRoot = resolve(scriptDir, "../../h5/public");
+const routeSnapshotRoot = resolve(scriptDir, "../../h5/app/room/route-publish/published");
 const allowlistPath = resolve(scriptDir, "public-assets.allowlist.json");
 
 async function readAllowlist() {
@@ -48,4 +49,15 @@ test("the Xuanzhu release package contains only eleven pages, one card and its m
     "assets/prologue/reincarnation/xuanzhu/v1/manifest.json",
   ].sort();
   assert.deepEqual(xuanzhu, expected);
+});
+
+test("published route snapshots reference public assets instead of embedding image data", async () => {
+  const snapshots = (await readdir(routeSnapshotRoot))
+    .filter((name) => name.endsWith(".formal-route-snapshot.v1.json"));
+
+  assert.equal(snapshots.length > 0, true);
+  for (const snapshot of snapshots) {
+    const source = await readFile(resolve(routeSnapshotRoot, snapshot), "utf8");
+    assert.equal(source.includes("data:image/"), false, snapshot);
+  }
 });
