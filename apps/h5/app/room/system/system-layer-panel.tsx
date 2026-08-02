@@ -85,6 +85,22 @@ const chatStatusLabels: Readonly<Record<ChatStatus, string>> = {
 
 type GatewayState = "checking" | "admission" | "active" | "error";
 
+function taskVisualFor(
+  status: CreativeSupportTaskStatus,
+  evidenceStatus: keyof typeof evidenceStatusLabels,
+) {
+  if (evidenceStatus === "needs-revision") {
+    return { kind: "revision", icon: "icon-revision-v2.png", stamp: "返修" } as const;
+  }
+  if (status === "deferred") {
+    return { kind: "rest", icon: "icon-teacup-v2.png", stamp: "休息" } as const;
+  }
+  if (status === "accepted" || status === "scoped") {
+    return { kind: "progress", icon: "icon-quill-v2.png", stamp: "推进" } as const;
+  }
+  return { kind: "care", icon: "icon-heart-v2.png", stamp: "建议" } as const;
+}
+
 const projectionPollStatuses = new Set<ExperienceProjection["status"]>([
   "listening",
   "writing",
@@ -395,6 +411,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     const route = getFormalSceneRoute("study", binding.task.routeKey);
     return Boolean(activity && route);
   }, [binding.task.activityKey, binding.task.routeKey]);
+  const taskVisual = taskVisualFor(binding.task.status, binding.task.evidence.status);
 
   const visibleMessages = channelMessages(binding, chatMode);
   const displayedMessages = displayMode === "chat_focus"
@@ -998,23 +1015,30 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
 
           {chatMode === "novelist" ? (
             <div className={styles.novelistWorkspace} data-testid="novelist-conversation-workspace">
-              {dialogueView}
-              {composerView}
+              <div className={styles.novelistMain}>
+                {dialogueView}
+                {composerView}
+              </div>
 
-              <section className={styles.systemTaskSuggestion} data-testid="system-task-suggestion">
+              <section className={styles.systemTaskSuggestion} data-testid="system-task-suggestion" data-task-visual={taskVisual.kind}>
                 <header>
                   <div><span>子系统建议</span><small>辅助材料，不替你发号施令</small></div>
                   <b>未发布</b>
                 </header>
                 <div className={styles.todayCard} data-testid="system-task" data-task-status={binding.task.status}>
-                  <span>建议</span>
+                  <img
+                    className={styles.taskCardIcon}
+                    src={`/assets/ui/system-layer-materials-v2/${taskVisual.icon}`}
+                    alt=""
+                    aria-hidden="true"
+                  />
                   <div>
                     <strong>{projection?.headline ?? binding.task.title}</strong>
                     <small>{projection?.body ?? binding.task.whyNow}</small>
                   </div>
                   {projection?.status === "draft_ready" ? (
                     <button type="button" onClick={() => void openDraft()}>读稿</button>
-                  ) : <b>{taskStatusLabels[binding.task.status]}</b>}
+                  ) : <b>{taskVisual.stamp}</b>}
                 </div>
                 <div className={styles.quickReplies} aria-label="把建议说给小说家">
                   <button type="button" data-testid="system-task-accept" onClick={() => void sendMessage("继续写吧")}>继续推进 <kbd>1</kbd></button>
