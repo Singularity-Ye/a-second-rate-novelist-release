@@ -1,0 +1,21 @@
+name: release-promote
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_sha:
+        required: true
+      from_environment:
+        required: true
+      to_environment:
+        required: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate immutable artifact
+        run: echo "artifact=${{ inputs.artifact_sha }}"
+      - name: Validate manual promote order
+        run: test "${{ inputs.from_environment }}" != "${{ inputs.to_environment }}"

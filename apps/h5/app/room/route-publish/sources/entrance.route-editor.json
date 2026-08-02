@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "route-editor.v2",
+  "sceneId": "entrance",
+  "coordinateSpace": "pixel-top-left-origin",
+  "canvas": { "width": 1774, "height": 887 },
+  "scale": { "mode": "depth", "farY": 420, "nearY": 820, "farScale": 0.82, "nearScale": 1.2 },
+  "points": [
+    { "id": "entrance-home-door", "label": "家门内侧入口", "role": "scene-entry", "anchorKind": "portal", "anchorKey": "portal.entrance.home-door", "pixel": [795, 600] },
+    { "id": "entrance-elevator", "label": "电梯口", "role": "waypoint", "anchorKind": "interaction", "anchorKey": "entrance.elevator", "pixel": [236, 610] },
+    { "id": "entrance-mailbox", "label": "信箱", "role": "waypoint", "anchorKind": "interaction", "anchorKey": "entrance.mailbox", "pixel": [356, 575] },
+    { "id": "entrance-postcard-rack", "label": "明信片架", "role": "waypoint", "anchorKind": "interaction", "anchorKey": "entrance.postcard-rack", "pixel": [445, 575] },
+    { "id": "entrance-coat-rack", "label": "衣帽架", "role": "waypoint", "anchorKind": "interaction", "anchorKey": "entrance.coat-rack", "pixel": [935, 585] },
+    { "id": "entrance-umbrella-rack", "label": "雨伞位", "role": "waypoint", "anchorKind": "interaction", "anchorKey": "entrance.umbrella-rack", "pixel": [1002, 585] },
+    { "id": "entrance-outside-threshold", "label": "外出楼梯口", "role": "scene-entry", "anchorKind": "portal", "anchorKey": "portal.entrance.outside", "pixel": [1215, 735] },
+    { "id": "entrance-night-view", "label": "栏杆夜景", "role": "waypoint", "anchorKind": "interaction", "anchorKey": "entrance.night-view", "pixel": [1390, 620] }
+  ],
+  "routes": {
+    "entrance-to-mailbox": ["entrance-home-door", "entrance-mailbox"],
+    "mailbox-to-entrance": ["entrance-mailbox", "entrance-home-door"],
+    "entrance-to-postcard-rack": ["entrance-home-door", "entrance-postcard-rack"],
+    "postcard-rack-to-entrance": ["entrance-postcard-rack", "entrance-home-door"],
+    "entrance-to-coat-rack": ["entrance-home-door", "entrance-coat-rack"],
+    "coat-rack-to-entrance": ["entrance-coat-rack", "entrance-home-door"],
+    "entrance-to-outside": ["entrance-home-door", "entrance-outside-threshold"],
+    "outside-to-entrance": ["entrance-outside-threshold", "entrance-home-door"]
+  },
+  "routeMeta": {
+    "entrance-to-mailbox": { "id": "entrance-to-mailbox", "label": "家门 → 信箱", "kind": "walk", "accent": "cyan", "initialFacing": "left" },
+    "mailbox-to-entrance": { "id": "mailbox-to-entrance", "label": "信箱 → 家门", "kind": "walk", "accent": "magenta", "initialFacing": "right", "interactionEvents": [{ "pointId": "entrance-mailbox", "interactionId": "entrance-mailbox", "stateId": "empty" }] },
+    "entrance-to-postcard-rack": { "id": "entrance-to-postcard-rack", "label": "家门 → 明信片架", "kind": "walk", "accent": "amber", "initialFacing": "left" },
+    "postcard-rack-to-entrance": { "id": "postcard-rack-to-entrance", "label": "明信片架 → 家门", "kind": "walk", "accent": "violet", "initialFacing": "right", "interactionEvents": [{ "pointId": "entrance-postcard-rack", "interactionId": "entrance-postcard-rack", "stateId": "empty" }] },
+    "entrance-to-coat-rack": { "id": "entrance-to-coat-rack", "label": "家门 → 衣帽架", "kind": "walk", "accent": "cyan", "initialFacing": "right" },
+    "coat-rack-to-entrance": { "id": "coat-rack-to-entrance", "label": "衣帽架 → 家门", "kind": "walk", "accent": "magenta", "initialFacing": "left", "interactionEvents": [{ "pointId": "entrance-coat-rack", "interactionId": "entrance-coat-rack", "stateId": "empty" }] },
+    "entrance-to-outside": { "id": "entrance-to-outside", "label": "家门 → 外出楼梯口", "kind": "walk", "accent": "amber", "initialFacing": "right" },
+    "outside-to-entrance": { "id": "outside-to-entrance", "label": "外出楼梯口 → 家门", "kind": "walk", "accent": "violet", "initialFacing": "left", "interactionEvents": [{ "pointId": "entrance-home-door", "interactionId": "entrance-coat-rack", "stateId": "on-rack" }] }
+  },
+  "sceneInteractions": {
+    "entrance-mailbox": { "id": "entrance-mailbox", "label": "信箱里的来信", "kind": "pickup-prop", "anchorPointId": "entrance-mailbox", "initialStateId": "ready", "assets": [{ "id": "entrance-mail-letter-asset", "label": "母图提取·信件", "src": "/assets/ecology/formal-scenes/entrance/interactions/entrance-mail-letter-extracted-v4.webp", "mode": "scene", "zIndex": 12, "scale": 0.3, "offset": [0, -36] }], "states": [{ "id": "ready", "label": "有信件", "visibleAssetIds": ["entrance-mail-letter-asset"] }, { "id": "empty", "label": "已取走", "visibleAssetIds": [] }] },
+    "entrance-postcard-rack": { "id": "entrance-postcard-rack", "label": "明信片架", "kind": "pickup-prop", "anchorPointId": "entrance-postcard-rack", "initialStateId": "ready", "assets": [{ "id": "entrance-postcard-asset", "label": "母图提取·明信片", "src": "/assets/ecology/formal-scenes/entrance/interactions/entrance-postcard-extracted-v4.webp", "mode": "scene", "zIndex": 12, "scale": 0.3, "offset": [0, -32] }], "states": [{ "id": "ready", "label": "有可带走的明信片", "visibleAssetIds": ["entrance-postcard-asset"] }, { "id": "empty", "label": "已取走", "visibleAssetIds": [] }] },
+    "entrance-coat-rack": { "id": "entrance-coat-rack", "label": "衣帽架上的外套", "kind": "pickup-prop", "anchorPointId": "entrance-coat-rack", "initialStateId": "on-rack", "assets": [{ "id": "entrance-coat-asset", "label": "母图提取·外套", "src": "/assets/ecology/formal-scenes/entrance/interactions/entrance-coat-extracted-v4.webp", "mode": "scene", "zIndex": 12, "scale": 0.65, "offset": [0, -8] }], "states": [{ "id": "on-rack", "label": "外套挂在架上", "visibleAssetIds": ["entrance-coat-asset"] }, { "id": "empty", "label": "外套已带走", "visibleAssetIds": [] }] },
+    "entrance-umbrella-rack": { "id": "entrance-umbrella-rack", "label": "雨伞位", "kind": "pickup-prop", "anchorPointId": "entrance-umbrella-rack", "initialStateId": "on-rack", "assets": [{ "id": "entrance-umbrella-asset", "label": "母图提取·雨伞", "src": "/assets/ecology/formal-scenes/entrance/interactions/entrance-umbrella-extracted-v4.webp", "mode": "scene", "zIndex": 12, "scale": 0.65, "offset": [0, -8] }], "states": [{ "id": "on-rack", "label": "雨伞在架上", "visibleAssetIds": ["entrance-umbrella-asset"] }, { "id": "carried", "label": "雨伞已带走", "visibleAssetIds": [] }] }
+  }
+}

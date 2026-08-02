@@ -1,0 +1,19 @@
+{
+  "routes": [
+    {
+      "environment_key": "shared-dev",
+      "severity": "warn",
+      "channel": "slack:#shared-dev-alerts"
+    },
+    {
+      "environment_key": "staging",
+      "severity": "warn",
+      "channel": "slack:#staging-alerts"
+    },
+    {
+      "environment_key": "live",
+      "severity": "critical",
+      "channel": "pagerduty:erliu-live"
+    }
+  ]
+}

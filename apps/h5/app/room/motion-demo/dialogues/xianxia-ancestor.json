@@ -1,0 +1,176 @@
+{
+  "characterId": "xianxia_ancestor",
+  "characterName": "修仙老祖",
+  "originTitle": "引气期大能 / 闭关三千载尊者",
+  "dialogues": {
+    "prologue": [
+      {
+        "id": "p01",
+        "speaker": "修仙老祖",
+        "text": "老夫闭关三千载，护阵法宝俱备！今日必破鼎化神，羽化登仙！",
+        "emotion": "heroic"
+      },
+      {
+        "id": "p02",
+        "speaker": "系统旁白",
+        "text": "（虚空撕裂，一辆大运重卡破空而出，将老祖凌空创飞！）",
+        "emotion": "shock"
+      },
+      {
+        "id": "p03",
+        "speaker": "修仙老祖",
+        "text": "老夫...老夫是被一辆会发光的异界铁盒子给创出了新道途——！！",
+        "emotion": "screaming"
+      },
+      {
+        "id": "p04",
+        "speaker": "子系统AI",
+        "text": "【滴！恭喜老祖成功撞大运。请进行 3 轮性格基因打标。】",
+        "emotion": "monotone"
+      },
+      {
+        "id": "r1_attitude",
+        "speaker": "第一轮: 面对转生遭遇的认知态度",
+        "options": [
+          { "gene": "霸道救世", "text": "老夫即便沦为系统，亦要踏破天道！带飞宿主有何难！" },
+          { "gene": "严谨求知", "text": "尔子系统究竟何方神圣？老夫被撞飞是否尔等阴谋？！" },
+          { "gene": "清修咸鱼", "text": "闭关三千载一朝毁于一旦...做人太累，做系统总该清净了吧。" }
+        ]
+      },
+      {
+        "id": "r2_target_lock",
+        "speaker": "第二轮: 面对强锁二流小说家的态度",
+        "options": [
+          { "gene": "严师高冷", "text": "这小子浑身卡文废柴气，若非子系统强锁，老夫一掌拍飞他！" },
+          { "gene": "热血护短", "text": "罢罢罢，遇到老夫是这凡人的造化，老夫便当收了个记名弟子！" },
+          { "gene": "共情温情", "text": "看他卡文这愁苦样...倒是像极了老夫当年卡在突破瓶颈的模样。" }
+        ]
+      },
+      {
+        "id": "r3_writing_method",
+        "speaker": "第三轮: 干预写作的执行手段",
+        "options": [
+          { "gene": "雷霆催更", "text": "敢少写一字，老夫叫子系统给你放雷劫背景音！" },
+          { "gene": "丹道助攻", "text": "待本座用真火将其废稿炼化为灵气，助他灵感大作！" },
+          { "gene": "傲娇观察", "text": "本座先看他能折腾出什么花样，若写得难看本座再出手！" }
+        ]
+      },
+      {
+        "id": "p05",
+        "speaker": "修仙老祖",
+        "text": "善！让本座四处搜罗商界大佬...老夫若绑定他们，三日内便可重修化神！",
+        "emotion": "ambitious"
+      },
+      {
+        "id": "p06",
+        "speaker": "子系统AI",
+        "text": "【警告！强制作业发布：目标锁定——落魄二流小说家小韩！】",
+        "emotion": "alarm"
+      },
+      {
+        "id": "p07",
+        "speaker": "修仙老祖",
+        "text": "什么？！老夫看中的商界大佬呢？你让老夫去带飞这个卡文挂黑眼圈的废柴？！",
+        "emotion": "furious"
+      },
+      {
+        "id": "p08",
+        "speaker": "修仙老祖",
+        "text": "这小破屋里的小子浑身散发着卡文怨气，莫非是‘魔丸降世’？！",
+        "emotion": "suspicious"
+      },
+      {
+        "id": "p09",
+        "speaker": "宿主小韩",
+        "text": "等...等一下！我只是昨晚卡文挂着黑眼圈而已啊！别用看魔丸的眼神看着我啊！！",
+        "emotion": "panicked"
+      }
+    ],
+    "study": [
+      {
+        "id": "st01",
+        "speaker": "修仙老祖",
+        "text": "急急如律令！检测到宿主心魔作祟！给本座按回椅子上写——！！",
+        "systemAction": "god_hand_pinch"
+      },
+      {
+        "id": "st02",
+        "speaker": "宿主小韩",
+        "text": "系统大哥放开我！我这就写还不行吗！急急如律令是这么用的吗！！",
+        "systemAction": "bubble_hero_complaint"
+      }
+    ],
+    "bedroom": [
+      {
+        "id": "bd01",
+        "speaker": "修仙老祖",
+        "text": "这弹簧软床颇具灵气，适合本座闭目吐纳休养生息。",
+        "systemAction": "wobble_idle"
+      },
+      {
+        "id": "bd02",
+        "speaker": "宿主小韩",
+        "text": "系统大哥你坐在我床上盘腿打坐，我睡觉好有压力啊！",
+        "systemAction": "idle_sweat"
+      }
+    ],
+    "kitchen": [
+      {
+        "id": "kt01",
+        "speaker": "修仙老祖",
+        "text": "此乃何种赤豆九品炼体汤？香气竟如此诱人！",
+        "systemAction": "steam_rise"
+      },
+      {
+        "id": "kt02",
+        "speaker": "宿主小韩",
+        "text": "大哥...那只是普通的红豆汤，不是什么九品丹药啊！",
+        "systemAction": "eat_soup"
+      }
+    ],
+    "balcony": [
+      {
+        "id": "bc01",
+        "speaker": "修仙老祖",
+        "text": "远处那些发光的琉璃高楼，莫非也是这大运天道的道场？",
+        "systemAction": "parallax_shift"
+      },
+      {
+        "id": "bc02",
+        "speaker": "宿主小韩",
+        "text": "万家灯火里，是不是也有人在看我的故事？",
+        "systemAction": "night_view"
+      }
+    ],
+    "washroom": [
+      {
+        "id": "ws01",
+        "speaker": "修仙老祖",
+        "text": "本座乃堂堂正人君子，岂会偷看你洗澡！速速洗完出来写稿！",
+        "systemAction": "door_closed"
+      },
+      {
+        "id": "ws02",
+        "speaker": "修仙老祖",
+        "text": "这镜面水汽凝结之处，竟有这小子写的‘明日男主必须反击’！",
+        "systemAction": "mirror_fog_inspect"
+      }
+    ],
+    "hallway": [
+      {
+        "id": "hw01",
+        "speaker": "修仙老祖",
+        "text": "天道退稿封印？待本座用真火将其炼化！",
+        "systemAction": "paper_butterfly"
+      }
+    ],
+    "attic": [
+      {
+        "id": "at01",
+        "speaker": "修仙老祖",
+        "text": "此龟龟壳上纹路似蕴含河图洛书...居然比你这废柴卡文更久！",
+        "systemAction": "turtle_inspect"
+      }
+    ]
+  }
+}

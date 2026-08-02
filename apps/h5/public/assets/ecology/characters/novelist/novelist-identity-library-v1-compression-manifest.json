@@ -1,0 +1,57 @@
+{
+  "tool": "tools/vnext/compress-image-assets.py",
+  "defaults": {
+    "maxEdge": 1774,
+    "minEdge": 256,
+    "quality": 72,
+    "maxKb": 100
+  },
+  "sourceRoot": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\.tmp\\world-lab-dev\\accepted-character-sources-v1",
+  "outputRoot": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\characters\\novelist\\",
+  "assets": [
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\.tmp\\world-lab-dev\\accepted-character-sources-v1\\novelist-cartoon-pose-sheet-reference-v1.png",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\characters\\novelist-cartoon-pose-sheet-reference-v1.webp",
+      "format": "WEBP",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 84306,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\.tmp\\world-lab-dev\\accepted-character-sources-v1\\novelist-front-standing-reference-v1.png",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\characters\\novelist-front-standing-reference-v1.webp",
+      "format": "WEBP",
+      "width": 941,
+      "height": 1672,
+      "alpha": false,
+      "bytes": 63338,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\.tmp\\world-lab-dev\\accepted-character-sources-v1\\novelist-motion-three-quarter-reference-v1.png",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\characters\\novelist-motion-three-quarter-reference-v1.webp",
+      "format": "WEBP",
+      "width": 1024,
+      "height": 1536,
+      "alpha": false,
+      "bytes": 74542,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\.tmp\\world-lab-dev\\accepted-character-sources-v1\\novelist-writing-back-three-quarter-reference-v1.png",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\characters\\novelist-writing-back-three-quarter-reference-v1.webp",
+      "format": "WEBP",
+      "width": 1024,
+      "height": 1536,
+      "alpha": false,
+      "bytes": 90092,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    }
+  ]
+}

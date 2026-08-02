@@ -1,0 +1,90 @@
+{
+  "accounts": [
+    {
+      "account_id": "79f8f830-6571-4dbd-9e08-809ea931e024",
+      "account_token": "wx-openid-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-30T13:42:31.353Z",
+      "updated_at": "2026-03-30T13:42:31.353Z"
+    },
+    {
+      "account_id": "866e3e00-0fcd-4c65-b1ad-23081fefa041",
+      "account_token": "wx-openid-restore",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-30T13:42:31.484Z",
+      "updated_at": "2026-03-30T13:42:31.486Z"
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": "04e6033c-afa0-4e4d-8400-55575399a92e",
+      "account_id": "78198cd9-13ef-4de2-afff-0dd30296b799",
+      "last_seen_at": "2026-03-30T13:42:31.353Z"
+    },
+    {
+      "session_id": "8a313507-5282-404f-bc95-67efb52fe708",
+      "account_id": "866e3e00-0fcd-4c65-b1ad-23081fefa041",
+      "last_seen_at": "2026-03-30T13:42:31.487Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "c9a3eee6-f2b0-463c-a2b7-9da7ecde67ff",
+      "channel_message_id": "wx-msg-001",
+      "channel": "wechat",
+      "text": "先记下来，我想看更暧昧一点。",
+      "account_id": "78198cd9-13ef-4de2-afff-0dd30296b799",
+      "created_at": "2026-03-30T13:42:31.353Z"
+    }
+  ],
+  "deepLinks": [],
+  "onboardingSessions": [
+    {
+      "session_id": "17f14551-b8d8-4450-8041-675c01a993ff",
+      "account_id": "ead3f1c1-fb8d-4309-8d19-49e17583e36f",
+      "answers": {
+        "reading_archive": "我最喜欢《房思琪的初恋乐园》和东野圭吾。"
+      },
+      "status": "collecting",
+      "updated_at": "2026-03-30T13:42:31.218Z"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "8d0e480e-c809-4821-8101-2ac199b7965f",
+      "account_id": "ead3f1c1-fb8d-4309-8d19-49e17583e36f",
+      "reading_archive": {
+        "favorite_books": [
+          "我最喜欢《房思琪的初恋乐园》和东野圭吾。"
+        ]
+      },
+      "taste_archive": {
+        "relationship_preference": [],
+        "pace": "",
+        "emotion": "",
+        "ending": ""
+      },
+      "boundaries": {
+        "red_lines": []
+      },
+      "collaboration_mode": "read_only",
+      "safety_mode": "default",
+      "profile_status": "draft",
+      "last_confirmed_at": null,
+      "version_no": 1
+    }
+  ],
+  "eventLogs": [
+    {
+      "event_name": "onboarding_step_complete",
+      "account_id": "ead3f1c1-fb8d-4309-8d19-49e17583e36f",
+      "payload": {
+        "step_name": "reading_archive",
+        "has_manual_edits": false
+      },
+      "created_at": "2026-03-30T13:42:31.218Z"
+    }
+  ]
+}

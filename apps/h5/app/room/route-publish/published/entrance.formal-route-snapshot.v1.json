@@ -1,0 +1,688 @@
+{
+  "schemaVersion": "formal-route-snapshot.v1",
+  "publishedAt": "2026-07-28T00:00:00.000Z",
+  "source": {
+    "schemaVersion": "route-editor.v2",
+    "draftVersion": 2,
+    "sceneId": "entrance",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "coordinateSpace": "pixel-top-left-origin"
+  },
+  "scene": {
+    "sceneId": "entrance",
+    "label": "玄关",
+    "masterSrc": "/assets/ecology/formal-scenes/entrance/entrance-scene-master-transit-hub-v2-interaction-clean.webp",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "foregroundLayers": [],
+    "interactions": [
+      {
+        "id": "entrance-mailbox",
+        "label": "信箱里的来信",
+        "kind": "pickup-prop",
+        "anchorPointId": "entrance-mailbox",
+        "initialStateId": "ready",
+        "assets": [
+          {
+            "id": "entrance-mail-letter-asset",
+            "label": "母图提取·信件",
+            "src": "/assets/ecology/formal-scenes/entrance/interactions/entrance-mail-letter-extracted-v4.webp",
+            "mode": "scene",
+            "zIndex": 12,
+            "scale": 0.3,
+            "offset": {
+              "x": 0,
+              "y": -0.040586
+            }
+          }
+        ],
+        "states": [
+          {
+            "id": "ready",
+            "label": "有信件",
+            "visibleAssetIds": [
+              "entrance-mail-letter-asset"
+            ]
+          },
+          {
+            "id": "empty",
+            "label": "已取走",
+            "visibleAssetIds": []
+          }
+        ]
+      },
+      {
+        "id": "entrance-postcard-rack",
+        "label": "明信片架",
+        "kind": "pickup-prop",
+        "anchorPointId": "entrance-postcard-rack",
+        "initialStateId": "ready",
+        "assets": [
+          {
+            "id": "entrance-postcard-asset",
+            "label": "母图提取·明信片",
+            "src": "/assets/ecology/formal-scenes/entrance/interactions/entrance-postcard-extracted-v4.webp",
+            "mode": "scene",
+            "zIndex": 12,
+            "scale": 0.3,
+            "offset": {
+              "x": 0,
+              "y": -0.036077
+            }
+          }
+        ],
+        "states": [
+          {
+            "id": "ready",
+            "label": "有可带走的明信片",
+            "visibleAssetIds": [
+              "entrance-postcard-asset"
+            ]
+          },
+          {
+            "id": "empty",
+            "label": "已取走",
+            "visibleAssetIds": []
+          }
+        ]
+      },
+      {
+        "id": "entrance-coat-rack",
+        "label": "衣帽架上的外套",
+        "kind": "pickup-prop",
+        "anchorPointId": "entrance-coat-rack",
+        "initialStateId": "on-rack",
+        "assets": [
+          {
+            "id": "entrance-coat-asset",
+            "label": "母图提取·外套",
+            "src": "/assets/ecology/formal-scenes/entrance/interactions/entrance-coat-extracted-v4.webp",
+            "mode": "scene",
+            "zIndex": 12,
+            "scale": 0.65,
+            "offset": {
+              "x": 0,
+              "y": -0.009019
+            }
+          }
+        ],
+        "states": [
+          {
+            "id": "on-rack",
+            "label": "外套挂在架上",
+            "visibleAssetIds": [
+              "entrance-coat-asset"
+            ]
+          },
+          {
+            "id": "empty",
+            "label": "外套已带走",
+            "visibleAssetIds": []
+          }
+        ]
+      },
+      {
+        "id": "entrance-umbrella-rack",
+        "label": "雨伞位",
+        "kind": "pickup-prop",
+        "anchorPointId": "entrance-umbrella-rack",
+        "initialStateId": "on-rack",
+        "assets": [
+          {
+            "id": "entrance-umbrella-asset",
+            "label": "母图提取·雨伞",
+            "src": "/assets/ecology/formal-scenes/entrance/interactions/entrance-umbrella-extracted-v4.webp",
+            "mode": "scene",
+            "zIndex": 12,
+            "scale": 0.65,
+            "offset": {
+              "x": 0,
+              "y": -0.009019
+            }
+          }
+        ],
+        "states": [
+          {
+            "id": "on-rack",
+            "label": "雨伞在架上",
+            "visibleAssetIds": [
+              "entrance-umbrella-asset"
+            ]
+          },
+          {
+            "id": "carried",
+            "label": "雨伞已带走",
+            "visibleAssetIds": []
+          }
+        ]
+      }
+    ],
+    "floorStatus": "pending",
+    "anchorSemantics": {
+      "homeDoor": "portal.entrance.home-door 是室内与门外中转台的共享入口",
+      "elevator": "entrance.elevator 是左侧电梯交互点，不是场景出口",
+      "mailbox": "entrance.mailbox 是可取信件的持久场景组件锚点",
+      "postcardRack": "entrance.postcard-rack 是明信片架组件锚点",
+      "coatRack": "entrance.coat-rack 是外套在架上/被带走的组件锚点",
+      "umbrellaRack": "entrance.umbrella-rack 是雨伞在架上/被带走的组件锚点",
+      "outside": "portal.entrance.outside 是通往门外采风/场景旅程的出口",
+      "nightView": "entrance.night-view 是栏杆夜景观察点，不会瞬移到其它场景",
+      "componentContract": "场景组件独立于角色动作资产；路线只通过 interactionEvents 改变组件状态"
+    }
+  },
+  "scale": {
+    "mode": "depth",
+    "farY": 420,
+    "nearY": 820,
+    "farScale": 0.82,
+    "nearScale": 1.2
+  },
+  "points": [
+    {
+      "id": "entrance-home-door",
+      "label": "家门内侧入口",
+      "role": "scene-entry",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance.home-door",
+      "anchorSource": "authored",
+      "pixel": [
+        795,
+        600
+      ],
+      "normalized": {
+        "x": 0.44814,
+        "y": 0.676437
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 0.991
+    },
+    {
+      "id": "entrance-mailbox",
+      "label": "信箱",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "entrance.mailbox",
+      "anchorSource": "authored",
+      "pixel": [
+        356,
+        575
+      ],
+      "normalized": {
+        "x": 0.200676,
+        "y": 0.648253
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 0.9672499999999999
+    },
+    {
+      "id": "mailbox-to-entrance-node-1",
+      "label": "信箱 → 家门 · 信箱",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "entrance.mailbox",
+      "anchorSource": "authored",
+      "pixel": [
+        356,
+        575
+      ],
+      "normalized": {
+        "x": 0.200676,
+        "y": 0.648253
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 0.9672499999999999
+    },
+    {
+      "id": "entrance-postcard-rack",
+      "label": "明信片架",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "entrance.postcard-rack",
+      "anchorSource": "authored",
+      "pixel": [
+        445,
+        575
+      ],
+      "normalized": {
+        "x": 0.250846,
+        "y": 0.648253
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 0.9672499999999999
+    },
+    {
+      "id": "postcard-rack-to-entrance-node-1",
+      "label": "明信片架 → 家门 · 明信片架",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "entrance.postcard-rack",
+      "anchorSource": "authored",
+      "pixel": [
+        445,
+        575
+      ],
+      "normalized": {
+        "x": 0.250846,
+        "y": 0.648253
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 0.9672499999999999
+    },
+    {
+      "id": "entrance-coat-rack",
+      "label": "衣帽架",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "entrance.coat-rack",
+      "anchorSource": "authored",
+      "pixel": [
+        935,
+        585
+      ],
+      "normalized": {
+        "x": 0.527057,
+        "y": 0.659526
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 0.97675
+    },
+    {
+      "id": "coat-rack-to-entrance-node-1",
+      "label": "衣帽架 → 家门 · 衣帽架",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "entrance.coat-rack",
+      "anchorSource": "authored",
+      "pixel": [
+        935,
+        585
+      ],
+      "normalized": {
+        "x": 0.527057,
+        "y": 0.659526
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 0.97675
+    },
+    {
+      "id": "entrance-outside-threshold",
+      "label": "外出楼梯口",
+      "role": "scene-entry",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance.outside",
+      "anchorSource": "authored",
+      "pixel": [
+        1215,
+        735
+      ],
+      "normalized": {
+        "x": 0.684893,
+        "y": 0.828636
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.11925
+    },
+    {
+      "id": "entrance-umbrella-rack",
+      "label": "雨伞位",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "entrance.umbrella-rack",
+      "anchorSource": "authored",
+      "pixel": [
+        1002,
+        585
+      ],
+      "normalized": {
+        "x": 0.564825,
+        "y": 0.659526
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 0.97675
+    }
+  ],
+  "routes": {
+    "entrance-to-mailbox": {
+      "id": "entrance-to-mailbox",
+      "label": "家门 → 信箱",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "entrance-home-door",
+      "endPointId": "entrance-mailbox",
+      "waypointIds": [
+        "entrance-home-door",
+        "entrance-mailbox"
+      ],
+      "durationMs": 1929,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 440
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entrance-to-mailbox-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "entrance-home-door",
+          "pathEndPointId": "entrance-mailbox"
+        }
+      ],
+      "events": [],
+      "terminal": {
+        "pointId": "entrance-mailbox",
+        "hideAfter": false
+      }
+    },
+    "mailbox-to-entrance": {
+      "id": "mailbox-to-entrance",
+      "label": "信箱 → 家门",
+      "kind": "walk",
+      "accent": "magenta",
+      "startPointId": "mailbox-to-entrance-node-1",
+      "endPointId": "entrance-home-door",
+      "waypointIds": [
+        "mailbox-to-entrance-node-1",
+        "entrance-home-door"
+      ],
+      "durationMs": 1929,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 440
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "mailbox-to-entrance-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "mailbox-to-entrance-node-1",
+          "pathEndPointId": "entrance-home-door"
+        }
+      ],
+      "events": [],
+      "terminal": {
+        "pointId": "entrance-home-door",
+        "hideAfter": false
+      }
+    },
+    "entrance-to-postcard-rack": {
+      "id": "entrance-to-postcard-rack",
+      "label": "家门 → 明信片架",
+      "kind": "walk",
+      "accent": "amber",
+      "startPointId": "entrance-home-door",
+      "endPointId": "entrance-postcard-rack",
+      "waypointIds": [
+        "entrance-home-door",
+        "entrance-postcard-rack"
+      ],
+      "durationMs": 1539,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 351
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entrance-to-postcard-rack-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "entrance-home-door",
+          "pathEndPointId": "entrance-postcard-rack"
+        }
+      ],
+      "events": [],
+      "terminal": {
+        "pointId": "entrance-postcard-rack",
+        "hideAfter": false
+      }
+    },
+    "postcard-rack-to-entrance": {
+      "id": "postcard-rack-to-entrance",
+      "label": "明信片架 → 家门",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "postcard-rack-to-entrance-node-1",
+      "endPointId": "entrance-home-door",
+      "waypointIds": [
+        "postcard-rack-to-entrance-node-1",
+        "entrance-home-door"
+      ],
+      "durationMs": 1539,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 351
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "postcard-rack-to-entrance-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "postcard-rack-to-entrance-node-1",
+          "pathEndPointId": "entrance-home-door"
+        }
+      ],
+      "events": [],
+      "terminal": {
+        "pointId": "entrance-home-door",
+        "hideAfter": false
+      }
+    },
+    "entrance-to-coat-rack": {
+      "id": "entrance-to-coat-rack",
+      "label": "家门 → 衣帽架",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "entrance-home-door",
+      "endPointId": "entrance-coat-rack",
+      "waypointIds": [
+        "entrance-home-door",
+        "entrance-coat-rack"
+      ],
+      "durationMs": 618,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 141
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entrance-to-coat-rack-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "entrance-home-door",
+          "pathEndPointId": "entrance-coat-rack"
+        }
+      ],
+      "events": [],
+      "terminal": {
+        "pointId": "entrance-coat-rack",
+        "hideAfter": false
+      }
+    },
+    "coat-rack-to-entrance": {
+      "id": "coat-rack-to-entrance",
+      "label": "衣帽架 → 家门",
+      "kind": "walk",
+      "accent": "magenta",
+      "startPointId": "coat-rack-to-entrance-node-1",
+      "endPointId": "entrance-home-door",
+      "waypointIds": [
+        "coat-rack-to-entrance-node-1",
+        "entrance-home-door"
+      ],
+      "durationMs": 618,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 141
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "coat-rack-to-entrance-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "coat-rack-to-entrance-node-1",
+          "pathEndPointId": "entrance-home-door"
+        }
+      ],
+      "events": [],
+      "terminal": {
+        "pointId": "entrance-home-door",
+        "hideAfter": false
+      }
+    },
+    "entrance-to-outside": {
+      "id": "entrance-to-outside",
+      "label": "家门 → 外出楼梯口",
+      "kind": "walk",
+      "accent": "amber",
+      "startPointId": "entrance-home-door",
+      "endPointId": "entrance-outside-threshold",
+      "waypointIds": [
+        "entrance-home-door",
+        "entrance-outside-threshold"
+      ],
+      "durationMs": 1935,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 441
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "entrance-to-outside-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "entrance-home-door",
+          "pathEndPointId": "entrance-outside-threshold"
+        }
+      ],
+      "events": [],
+      "terminal": {
+        "pointId": "entrance-outside-threshold",
+        "hideAfter": false
+      }
+    },
+    "outside-to-entrance": {
+      "id": "outside-to-entrance",
+      "label": "外出楼梯口 → 家门",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "entrance-outside-threshold",
+      "endPointId": "entrance-home-door",
+      "waypointIds": [
+        "entrance-outside-threshold",
+        "entrance-home-door"
+      ],
+      "durationMs": 1935,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 441
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "outside-to-entrance-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "entrance-outside-threshold",
+          "pathEndPointId": "entrance-home-door"
+        }
+      ],
+      "events": [],
+      "interactionEvents": [
+        {
+          "pointId": "entrance-home-door",
+          "progress": 1,
+          "interactionId": "entrance-coat-rack",
+          "stateId": "on-rack"
+        }
+      ],
+      "terminal": {
+        "pointId": "entrance-home-door",
+        "hideAfter": false
+      }
+    }
+  }
+}

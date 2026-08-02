@@ -1,0 +1,419 @@
+{
+  "schemaVersion": "scene-geometry.v2",
+  "sceneId": "study",
+  "status": "proof-of-concept",
+  "coordinateSpace": "pixel-top-left-origin",
+  "canvas": {
+    "width": 1774,
+    "height": 887
+  },
+  "source": {
+    "sceneMasterRef": "/assets/ecology/formal-scenes/study/study-scene-master-2x1-formal-v2.webp",
+    "sceneMasterRole": "clean-2x1-mother-image",
+    "annotationMethod": "manual floor and furniture footprint annotation from the clean master",
+    "confidence": "layout-grade, not pixel-mask truth"
+  },
+  "actorFootprint": {
+    "shape": "round-base-contact-circle",
+    "radiusPx": 26,
+    "contactPoint": "lowest opaque pixel of the rounded cardboard base",
+    "obstacleClearanceMeaning": "each obstacle clearancePx already includes the actor radius plus a small manual uncertainty margin",
+    "movementLayerPolicy": "actor-under-obstacle-foreground-with-floor-contact"
+  },
+  "layerPolicy": {
+    "order": [
+      "scene-background",
+      "actor-shadow",
+      "actor-sprite",
+      "obstacle-foreground",
+      "ui"
+    ],
+    "obstacleForegroundOcclusion": {
+      "enabled": true,
+      "source": "same-clean-master-clipped-to-foreground-occluder-polygon",
+      "actorMayEnterOcclusionPolygon": true,
+      "activation": "depth-edge-per-occluder; collision and rendering are separate"
+    },
+    "collisionPolicy": "route-specific-floor-and-clearance-audit"
+  },
+  "floorPlanes": [
+    {
+      "id": "study-main-wood-floor",
+      "label": "主屋内木地板（含地毯表面）",
+      "walkable": true,
+      "surfaceKind": "interior-floor",
+      "polygon": [
+        [0, 486],
+        [180, 474],
+        [390, 455],
+        [620, 426],
+        [850, 397],
+        [1070, 386],
+        [1260, 395],
+        [1428, 422],
+        [1502, 470],
+        [1774, 470],
+        [1774, 887],
+        [0, 887]
+      ]
+    },
+    {
+      "id": "study-terrace-stone-floor",
+      "label": "右侧露台可见石地面",
+      "walkable": true,
+      "surfaceKind": "terrace-transition",
+      "polygon": [
+        [1455, 287],
+        [1774, 282],
+        [1774, 470],
+        [1500, 468],
+        [1455, 425]
+      ]
+    }
+  ],
+  "surfaceRegions": [
+    {
+      "id": "study-rug",
+      "label": "地毯（不是障碍物）",
+      "kind": "walkable-surface",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [663, 493],
+        [1046, 432],
+        [1348, 550],
+        [1038, 812],
+        [665, 662]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "left-storage-cabinet",
+      "label": "左侧矮柜与叠书",
+      "kind": "furniture",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [402, 475],
+        [552, 485],
+        [553, 574],
+        [410, 585]
+      ],
+      "clearancePx": 24,
+      "reason": "矮柜实体占地，角色不能穿过柜体"
+    },
+    {
+      "id": "bookcase-base",
+      "label": "书架底座",
+      "kind": "furniture",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [642, 367],
+        [824, 376],
+        [825, 468],
+        [650, 467]
+      ],
+      "clearancePx": 24,
+      "reason": "书架与落地书本的实体底座"
+    },
+    {
+      "id": "desk-and-drawers",
+      "label": "书桌桌面与抽屉柜体",
+      "kind": "furniture",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [806, 382],
+        [1115, 454],
+        [1085, 511],
+        [1076, 612],
+        [899, 564],
+        [808, 431]
+      ],
+      "clearancePx": 30,
+      "reason": "桌面、桌柜和桌腿形成连续实体占地"
+    },
+    {
+      "id": "desk-chair",
+      "label": "书桌前木椅",
+      "kind": "furniture",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [804, 496],
+        [941, 532],
+        [953, 686],
+        [845, 655]
+      ],
+      "clearancePx": 18,
+      "reason": "椅背、椅面和椅腿的接地范围"
+    },
+    {
+      "id": "ladder-foot",
+      "label": "阁楼梯脚与下段踏步",
+      "kind": "ladder",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [1010, 381],
+        [1115, 400],
+        [1134, 477],
+        [1034, 458]
+      ],
+      "clearancePx": 22,
+      "reason": "梯脚和下段结构阻挡地面通行"
+    },
+    {
+      "id": "wastebasket",
+      "label": "书桌右前纸篓",
+      "kind": "furniture",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [1092, 635],
+        [1173, 645],
+        [1165, 723],
+        [1102, 715]
+      ],
+      "clearancePx": 16,
+      "reason": "纸篓占用桌右前方地面"
+    },
+    {
+      "id": "right-storage-cabinet",
+      "label": "露台门左侧矮柜",
+      "kind": "furniture",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [1178, 338],
+        [1344, 365],
+        [1352, 483],
+        [1193, 456]
+      ],
+      "clearancePx": 24,
+      "reason": "门侧柜体占地"
+    },
+    {
+      "id": "terrace-door-left-frame",
+      "label": "露台门左侧门框",
+      "kind": "architecture",
+      "floorPlaneRef": "study-main-wood-floor",
+      "polygon": [
+        [1402, 309],
+        [1460, 300],
+        [1467, 509],
+        [1414, 514]
+      ],
+      "clearancePx": 20,
+      "reason": "门框不是地面，不能穿过"
+    },
+    {
+      "id": "terrace-door-right-frame",
+      "label": "露台门右侧门框",
+      "kind": "architecture",
+      "floorPlaneRef": "study-terrace-stone-floor",
+      "polygon": [
+        [1535, 286],
+        [1580, 300],
+        [1580, 480],
+        [1532, 492]
+      ],
+      "clearancePx": 20,
+      "reason": "门框和墙边不是可行走区域"
+    },
+    {
+      "id": "terrace-table-and-chairs",
+      "label": "露台桌椅",
+      "kind": "furniture",
+      "floorPlaneRef": "study-terrace-stone-floor",
+      "polygon": [
+        [1580, 298],
+        [1774, 300],
+        [1774, 468],
+        [1570, 458]
+      ],
+      "clearancePx": 24,
+      "reason": "露台可见桌椅不允许穿越"
+    }
+  ],
+  "foregroundOccluders": [
+    {
+      "id": "desk-top-surface",
+      "floorPlaneRef": "study-main-wood-floor",
+      "sourceObstacleId": "desk-and-drawers",
+      "maskRef": "/assets/ecology/formal-scenes/study/geometry/masks/desk-top-surface-mask-2x1-v1.webp",
+      "polygon": [
+        [806, 382],
+        [1115, 454],
+        [1085, 511],
+        [808, 431]
+      ],
+      "depthRule": {
+        "axis": "y-at-x",
+        "edge": [[808, 431], [1085, 511]],
+        "actorSide": "above"
+      }
+    },
+    {
+      "id": "desk-drawer-front",
+      "floorPlaneRef": "study-main-wood-floor",
+      "sourceObstacleId": "desk-and-drawers",
+      "maskRef": "/assets/ecology/formal-scenes/study/geometry/masks/desk-front-facade-mask-2x1-v1.webp",
+      "polygon": [
+        [900, 461],
+        [1085, 511],
+        [1076, 612],
+        [899, 564]
+      ],
+      "depthRule": {
+        "axis": "y-at-x",
+        "edge": [[808, 431], [1085, 511]],
+        "actorSide": "above"
+      }
+    }
+  ],
+  "waypoints": [
+    {
+      "id": "writing-seat",
+      "label": "书桌前写作接地点",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [869, 745],
+      "safeZonePolygon": [[835, 730], [900, 730], [900, 770], [835, 770]],
+      "actionId": "writing-seat"
+    },
+    {
+      "id": "stand-by-desk",
+      "label": "书桌左前侧站立接地点",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [603, 745],
+      "safeZonePolygon": [[565, 720], [640, 720], [640, 770], [565, 770]],
+      "actionId": "stand-by-desk"
+    },
+    {
+      "id": "desk-front-clearance",
+      "label": "桌前空地中继点",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [763, 781],
+      "safeZonePolygon": [[725, 760], [800, 760], [800, 810], [725, 810]]
+    },
+    {
+      "id": "rug-south-edge",
+      "label": "地毯南侧外沿",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1064, 781],
+      "safeZonePolygon": [[1025, 758], [1105, 758], [1105, 810], [1025, 810]]
+    },
+    {
+      "id": "right-life-corridor",
+      "label": "右侧生活通道",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1207, 745],
+      "safeZonePolygon": [[1170, 720], [1245, 720], [1245, 770], [1170, 770]]
+    },
+    {
+      "id": "terrace-lookout",
+      "label": "露台门内侧看景",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1277, 710],
+      "safeZonePolygon": [[1245, 680], [1310, 680], [1310, 740], [1245, 740]],
+      "actionId": "terrace-lookout"
+    },
+    {
+      "id": "attic-ladder-approach",
+      "label": "阁楼梯脚前安全接近点",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1190, 550],
+      "safeZonePolygon": [[1150, 520], [1220, 520], [1220, 580], [1150, 580]],
+      "targetSceneId": "attic"
+    },
+    {
+      "id": "terrace-door-approach",
+      "label": "露台门槛内侧安全接近点",
+      "floorPlaneRef": "study-main-wood-floor",
+      "contactPoint": [1495, 540],
+      "safeZonePolygon": [[1468, 510], [1525, 510], [1525, 575], [1468, 575]],
+      "targetSceneId": "terrace-greenery"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "study-writing-hotspot",
+      "kind": "action",
+      "label": "写作",
+      "waypointRef": "writing-seat",
+      "actionId": "writing-seat"
+    },
+    {
+      "id": "study-stand-hotspot",
+      "kind": "action",
+      "label": "书桌旁站立",
+      "waypointRef": "stand-by-desk",
+      "actionId": "stand-by-desk"
+    },
+    {
+      "id": "study-lookout-hotspot",
+      "kind": "action",
+      "label": "门内看景",
+      "waypointRef": "terrace-lookout",
+      "actionId": "terrace-lookout"
+    },
+    {
+      "id": "study-attic-hotspot",
+      "kind": "scene-entry",
+      "label": "阁楼梯口",
+      "waypointRef": "attic-ladder-approach",
+      "targetSceneId": "attic"
+    },
+    {
+      "id": "study-terrace-hotspot",
+      "kind": "scene-entry",
+      "label": "露台入口",
+      "waypointRef": "terrace-door-approach",
+      "targetSceneId": "terrace-greenery"
+    }
+  ],
+  "routes": [
+    {
+      "id": "study-writing-to-stand-by-desk",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["writing-seat", "stand-by-desk"]
+    },
+    {
+      "id": "study-writing-to-terrace-lookout",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["writing-seat", "stand-by-desk", "desk-front-clearance", "rug-south-edge", "right-life-corridor", "terrace-lookout"]
+    },
+    {
+      "id": "study-stand-by-desk-to-terrace-lookout",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["stand-by-desk", "desk-front-clearance", "rug-south-edge", "right-life-corridor", "terrace-lookout"]
+    },
+    {
+      "id": "study-stand-by-desk-to-writing",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["stand-by-desk", "writing-seat"]
+    },
+    {
+      "id": "study-terrace-lookout-to-stand-by-desk",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["terrace-lookout", "right-life-corridor", "rug-south-edge", "desk-front-clearance", "stand-by-desk"]
+    },
+    {
+      "id": "study-terrace-lookout-to-writing",
+      "floorPlaneRef": "study-main-wood-floor",
+      "waypointIds": ["terrace-lookout", "right-life-corridor", "rug-south-edge", "desk-front-clearance", "stand-by-desk", "writing-seat"]
+    }
+  ],
+  "qaContract": {
+    "sampleStepPx": 4,
+    "requiredChecks": [
+      "every waypoint contactPoint is on its floorPlane",
+      "every waypoint safeZone contains its contactPoint",
+      "every route sample is on the declared floorPlane",
+      "every route sample stays outside every obstacle clearance",
+      "every obstacle polygon stays inside the canvas",
+      "uniform actor scale only; no independent x/y scale"
+    ],
+    "knownLimitations": [
+      "polygons are manual layout-grade footprints, not pixel-perfect segmentation",
+      "desk collision footprint and desk foreground occluders are separate; only the desk front-edge depth rule may clip the actor",
+      "chair, ladder and other furniture still use collision-only POC polygons and are not approved as foreground occluders",
+      "terrace stone floor is included as a separate plane but current study routes stop inside the room",
+      "this file does not authorize runtime actor rendering until actorShadowAlpha and final 2:1 masks pass their own gate"
+    ]
+  }
+}

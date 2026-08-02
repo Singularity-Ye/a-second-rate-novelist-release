@@ -1,0 +1,1188 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum VnextPrincipalKind {
+  GUEST   @map("guest")
+  ACCOUNT @map("account")
+
+  @@map("vnext_principal_kind")
+}
+
+enum VnextExperienceAuthState {
+  GUEST_ACTIVE   @map("guest_active")
+  BINDING        @map("binding")
+  ACCOUNT_ACTIVE @map("account_active")
+  EXPIRED        @map("expired")
+
+  @@map("vnext_experience_auth_state")
+}
+
+enum VnextAudienceMode {
+  INTERNAL                @map("internal")
+  VERIFIED_ADULT_EXTERNAL @map("verified_adult_external")
+
+  @@map("vnext_audience_mode")
+}
+
+enum VnextInputPolicy {
+  SYNTHETIC_ONLY @map("synthetic_only")
+  REAL_INPUT     @map("real_input")
+
+  @@map("vnext_input_policy")
+}
+
+enum VnextComplianceStatus {
+  PENDING   @map("pending")
+  ELIGIBLE  @map("eligible")
+  WITHDRAWN @map("withdrawn")
+  BLOCKED   @map("blocked")
+  EXPIRED   @map("expired")
+
+  @@map("vnext_compliance_status")
+}
+
+enum VnextAgeVerificationStatus {
+  PENDING        @map("pending")
+  VERIFIED_ADULT @map("verified_adult")
+  REJECTED       @map("rejected")
+  EXPIRED        @map("expired")
+
+  @@map("vnext_age_verification_status")
+}
+
+enum VnextSourceMessageAction {
+  COMMISSION      @map("commission")
+  CORRECTION      @map("correction")
+  BOUNDARY_UPDATE @map("boundary_update")
+
+  @@map("vnext_source_message_action")
+}
+
+enum VnextUnderstandingStatus {
+  PROPOSED  @map("proposed")
+  CORRECTED @map("corrected")
+  CONFIRMED @map("confirmed")
+  EXPIRED   @map("expired")
+
+  @@map("vnext_understanding_status")
+}
+
+enum VnextStoryWorkspaceStatus {
+  FORMING  @map("forming")
+  ACTIVE   @map("active")
+  PAUSED   @map("paused")
+  ARCHIVED @map("archived")
+
+  @@map("vnext_story_workspace_status")
+}
+
+enum VnextCommissionStatus {
+  DRAFT      @map("draft")
+  ACTIVE     @map("active")
+  SUPERSEDED @map("superseded")
+
+  @@map("vnext_commission_status")
+}
+
+enum VnextReaderMemoryScope {
+  PRINCIPAL @map("principal")
+
+  @@map("vnext_reader_memory_scope")
+}
+
+enum VnextReaderMemoryItemKind {
+  TASTE         @map("taste")
+  HARD_BOUNDARY @map("hard_boundary")
+
+  @@map("vnext_reader_memory_item_kind")
+}
+
+enum VnextReaderMemoryItemStatus {
+  PROVISIONAL @map("provisional")
+  CONFIRMED   @map("confirmed")
+  ACTIVE      @map("active")
+  REVOKED     @map("revoked")
+
+  @@map("vnext_reader_memory_item_status")
+}
+
+enum VnextCreativeTaskKind {
+  UNDERSTAND     @map("understand")
+  WRITE_OPENING  @map("write_opening")
+  REVISE         @map("revise")
+  CONTINUE_STORY @map("continue_story")
+
+  @@map("vnext_creative_task_kind")
+}
+
+enum VnextCreativeTaskStatus {
+  QUEUED     @map("queued")
+  LEASED     @map("leased")
+  RETRY_WAIT @map("retry_wait")
+  SUCCEEDED  @map("succeeded")
+  FAILED     @map("failed")
+  CANCELLED  @map("cancelled")
+  TIMED_OUT  @map("timed_out")
+  BLOCKED    @map("blocked")
+
+  @@map("vnext_creative_task_status")
+}
+
+enum VnextCreativeRunStatus {
+  RUNNING       @map("running")
+  SUCCEEDED     @map("succeeded")
+  FAILED        @map("failed")
+  TIMED_OUT     @map("timed_out")
+  BLOCKED       @map("blocked")
+  CANCELLED     @map("cancelled")
+  LEASE_EXPIRED @map("lease_expired")
+  STALE_INPUT   @map("stale_input")
+
+  @@map("vnext_creative_run_status")
+}
+
+enum VnextCreativeRuntimeMode {
+  SYNTHETIC  @map("runtime_worker_synthetic")
+  CONFIGURED @map("runtime_worker_configured")
+
+  @@map("vnext_creative_runtime_mode")
+}
+
+enum VnextStoryContentKind {
+  OPENING @map("opening")
+  SCENE   @map("scene")
+  CHAPTER @map("chapter")
+
+  @@map("vnext_story_content_kind")
+}
+
+enum VnextStoryContentStatus {
+  DRAFT    @map("draft")
+  REVISION @map("revision")
+  ACCEPTED @map("accepted")
+  REJECTED @map("rejected")
+
+  @@map("vnext_story_content_status")
+}
+
+enum VnextOutboxEventStatus {
+  PENDING     @map("pending")
+  LEASED      @map("leased")
+  RETRY_WAIT  @map("retry_wait")
+  PUBLISHED   @map("published")
+  DEAD_LETTER @map("dead_letter")
+
+  @@map("vnext_outbox_event_status")
+}
+
+enum VnextWorkerKind {
+  CREATIVE @map("creative")
+  OUTBOX   @map("outbox")
+
+  @@map("vnext_worker_kind")
+}
+
+enum VnextWorkerStatus {
+  STARTING @map("starting")
+  READY    @map("ready")
+  DRAINING @map("draining")
+  STOPPED  @map("stopped")
+  ERROR    @map("error")
+
+  @@map("vnext_worker_status")
+}
+
+enum VnextProcessingPurpose {
+  UNVERIFIED_MIGRATED @map("unverified_migrated")
+  SYNTHETIC_CREATIVE  @map("synthetic_creative")
+  CORE_CREATIVE       @map("core_creative")
+  EXTERNAL_EXPERIENCE @map("external_experience")
+  MODEL_TRAINING      @map("model_training")
+
+  @@map("vnext_processing_purpose")
+}
+
+enum VnextProcessingBasisStatus {
+  ACTIVE  @map("active")
+  REVOKED @map("revoked")
+  EXPIRED @map("expired")
+
+  @@map("vnext_processing_basis_status")
+}
+
+enum VnextConsentKind {
+  REQUIRED @map("required")
+  OPTIONAL @map("optional")
+
+  @@map("vnext_consent_kind")
+}
+
+enum VnextConsentStatus {
+  ACTIVE    @map("active")
+  WITHDRAWN @map("withdrawn")
+
+  @@map("vnext_consent_status")
+}
+
+enum VnextSafetyTriggerType {
+  INPUT_POLICY    @map("input_policy")
+  OUTPUT_POLICY   @map("output_policy")
+  CRISIS          @map("crisis")
+  ILLEGAL_CONTENT @map("illegal_content")
+
+  @@map("vnext_safety_trigger_type")
+}
+
+enum VnextSafetySeverity {
+  LOW      @map("low")
+  MEDIUM   @map("medium")
+  HIGH     @map("high")
+  CRITICAL @map("critical")
+
+  @@map("vnext_safety_severity")
+}
+
+enum VnextSafetyDisposition {
+  SUPPORT  @map("support")
+  BLOCK    @map("block")
+  ESCALATE @map("escalate")
+  RESTRICT @map("restrict")
+
+  @@map("vnext_safety_disposition")
+}
+
+enum VnextSafetyCaseStatus {
+  OPEN     @map("open")
+  APPEALED @map("appealed")
+  RESOLVED @map("resolved")
+
+  @@map("vnext_safety_case_status")
+}
+
+enum VnextContinuousUseReceiptStatus {
+  PENDING      @map("pending")
+  ACKNOWLEDGED @map("acknowledged")
+
+  @@map("vnext_continuous_use_receipt_status")
+}
+
+enum VnextModelPurpose {
+  CONVERSATION @map("conversation")
+  ANALYSIS     @map("analysis")
+
+  @@map("vnext_model_purpose")
+}
+
+enum VnextSystemSupportCommandType {
+  REGISTER_SOURCE             @map("register_source")
+  ISSUE_SUBSYSTEM_DIRECTIVE   @map("issue_subsystem_directive")
+  PUBLISH_HOST_TASK           @map("publish_host_task")
+  RECORD_HOST_CHOICE          @map("record_host_choice")
+  COMPILE_ENCOUNTER           @map("compile_encounter")
+  RECORD_MANIFESTATION        @map("record_manifestation")
+  RECORD_CREATIVE_ATTEMPT     @map("record_creative_attempt")
+  RECORD_FORMAL_EVIDENCE      @map("record_formal_evidence")
+  CLOSE_DAY                   @map("close_day")
+
+  @@map("vnext_system_support_command_type")
+}
+
+enum VnextSystemSupportCommandActor {
+  MAIN_SYSTEM     @map("main_system")
+  SUBSYSTEM       @map("subsystem")
+  NOVELIST        @map("novelist")
+  LIFE_RUNTIME    @map("life_runtime")
+  CREATIVE_RUNTIME @map("creative_runtime")
+  SYSTEM_RUNTIME  @map("system_runtime")
+
+  @@map("vnext_system_support_command_actor")
+}
+
+enum VnextSystemSupportFactType {
+  SOURCE_MATERIAL         @map("source_material")
+  SUBSYSTEM_DIRECTIVE     @map("subsystem_directive")
+  HOST_TASK_DRAFT         @map("host_task_draft")
+  PUBLISHED_HOST_TASK     @map("published_host_task")
+  HOST_TASK_CHOICE        @map("host_task_choice")
+  ENCOUNTER_PLAN          @map("encounter_plan")
+  ENCOUNTER_MANIFESTATION @map("encounter_manifestation")
+  CREATIVE_ATTEMPT        @map("creative_attempt")
+  FORMAL_WORK_EVIDENCE    @map("formal_work_evidence")
+  DAY_CLOSE               @map("day_close")
+
+  @@map("vnext_system_support_fact_type")
+}
+
+model VnextPrincipal {
+  id                  String                       @id @default(uuid()) @db.Uuid
+  kind                VnextPrincipalKind           @default(GUEST)
+  createdAt           DateTime                     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime                     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  experienceSessions  VnextExperienceSession[]
+  sourceMessages      VnextSourceMessage[]         @relation("VnextSourceMessageOwner")
+  storyWorkspaces     VnextStoryWorkspace[]        @relation("VnextStoryWorkspaceOwner")
+  understandingDrafts VnextUnderstandingDraft[]    @relation("VnextUnderstandingOwner")
+  commissionBriefs    VnextCommissionBrief[]       @relation("VnextCommissionOwner")
+  readerMemory        VnextReaderMemory?           @relation("VnextReaderMemoryOwner")
+  readerMemoryItems   VnextReaderMemoryItem[]      @relation("VnextReaderMemoryItemOwner")
+  creativeTasks       VnextCreativeTask[]          @relation("VnextCreativeTaskOwner")
+  creativeRunTraces   VnextCreativeRunTrace[]      @relation("VnextCreativeRunOwner")
+  storyContents       VnextStoryContent[]          @relation("VnextStoryContentOwner")
+  outboxEvents        VnextOutboxEvent[]           @relation("VnextOutboxEventOwner")
+  processingBases     VnextProcessingBasisRecord[] @relation("VnextProcessingBasisOwner")
+  consents            VnextConsentRecord[]         @relation("VnextConsentOwner")
+  safetyCases         VnextSafetyCase[]            @relation("VnextSafetyCaseOwner")
+  safetyAppeals       VnextSafetyAppealRecord[]    @relation("VnextSafetyAppealOwner")
+  continuousUseReceipts VnextContinuousUseReminderReceipt[] @relation("VnextContinuousUseReceiptOwner")
+  systemSupportCases  VnextSystemSupportCase[]     @relation("VnextSystemSupportCaseOwner")
+  modelPreferences    VnextModelPreference[]       @relation("VnextModelPreferenceOwner")
+
+  @@map("vnext_principals")
+}
+
+model VnextModelPreference {
+  id               String            @id @default(uuid()) @db.Uuid
+  ownerPrincipalId String            @map("owner_principal_id") @db.Uuid
+  purpose          VnextModelPurpose
+  profileId        String            @map("profile_id") @db.VarChar(32)
+  revision         Int               @default(1)
+  createdAt        DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner            VnextPrincipal    @relation("VnextModelPreferenceOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([ownerPrincipalId, purpose], map: "vnext_model_preferences_owner_purpose_key")
+  @@index([profileId, purpose], map: "vnext_model_preferences_profile_purpose_idx")
+  @@map("vnext_model_preferences")
+}
+
+model VnextExperienceSession {
+  id                          String                     @id @default(uuid()) @db.Uuid
+  principalId                 String                     @map("principal_id") @db.Uuid
+  cookieTokenHash             String                     @unique @map("cookie_token_hash") @db.Char(64)
+  clientRequestId             String                     @unique @map("client_request_id") @db.Uuid
+  bootstrapRecoverySecretHash String                     @unique @map("bootstrap_recovery_secret_hash") @db.Char(64)
+  projectionVersionId         String                     @unique @default(uuid()) @map("projection_version_id") @db.Uuid
+  surface                     String                     @default("vnext")
+  authState                   VnextExperienceAuthState   @default(GUEST_ACTIVE) @map("auth_state")
+  ageMode                     VnextAgeVerificationStatus @default(PENDING) @map("age_mode")
+  aiIdentityAcknowledgedAt    DateTime                   @map("ai_identity_acknowledged_at") @db.Timestamptz(6)
+  guestExpiresAt              DateTime                   @map("guest_expires_at") @db.Timestamptz(6)
+  expiresAt                   DateTime                   @map("expires_at") @db.Timestamptz(6)
+  revokedAt                   DateTime?                  @map("revoked_at") @db.Timestamptz(6)
+  lastSeenAt                  DateTime                   @map("last_seen_at") @db.Timestamptz(6)
+  createdAt                   DateTime                   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                   DateTime                   @updatedAt @map("updated_at") @db.Timestamptz(6)
+  principal                   VnextPrincipal             @relation(fields: [principalId], references: [id], onDelete: Cascade)
+  complianceSession           VnextComplianceSession?
+  sourceMessages              VnextSourceMessage[]       @relation("VnextSourceMessageSession")
+  safetyCases                 VnextSafetyCase[]          @relation("VnextSafetyCaseSession")
+  continuousUseReceipts       VnextContinuousUseReminderReceipt[] @relation("VnextContinuousUseReceiptSession")
+
+  @@unique([id, principalId])
+  @@index([principalId, expiresAt])
+  @@index([authState, expiresAt])
+  @@map("vnext_experience_sessions")
+}
+
+model VnextComplianceSession {
+  id                          String                       @id @default(uuid()) @db.Uuid
+  ownerPrincipalId            String                       @map("owner_principal_id") @db.Uuid
+  experienceSessionId         String                       @unique @map("experience_session_id") @db.Uuid
+  audienceMode                VnextAudienceMode            @map("audience_mode")
+  inputPolicy                 VnextInputPolicy             @map("input_policy")
+  admissionPolicyVersion      String                       @map("admission_policy_version")
+  aiIdentityNoticeVersion     String                       @map("ai_identity_notice_version")
+  aiIdentityAcknowledgedAt    DateTime                     @map("ai_identity_acknowledged_at") @db.Timestamptz(6)
+  serviceTermsVersion         String                       @map("service_terms_version")
+  serviceTermsAcceptedAt      DateTime                     @map("service_terms_accepted_at") @db.Timestamptz(6)
+  privacyNoticeVersion        String                       @map("privacy_notice_version")
+  privacyNoticeAcknowledgedAt DateTime                     @map("privacy_notice_acknowledged_at") @db.Timestamptz(6)
+  ageVerificationStatus       VnextAgeVerificationStatus   @default(PENDING) @map("age_verification_status")
+  ageVerificationRef          String?                      @map("age_verification_ref")
+  safetyContactRef            String?                      @map("safety_contact_ref")
+  continuousUseStartedAt      DateTime                     @map("continuous_use_started_at") @db.Timestamptz(6)
+  lastDurationReminderAt      DateTime?                    @map("last_duration_reminder_at") @db.Timestamptz(6)
+  status                      VnextComplianceStatus        @default(PENDING)
+  version                     Int                          @default(1)
+  processingBasisRefs         Json                         @default("[]") @map("processing_basis_refs")
+  consentRefs                 Json                         @default("[]") @map("consent_refs")
+  safetyCaseRefs              Json                         @default("[]") @map("safety_case_refs")
+  auditRefs                   Json                         @default("[]") @map("audit_refs")
+  createdAt                   DateTime                     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                   DateTime                     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  experienceSession           VnextExperienceSession       @relation(fields: [experienceSessionId, ownerPrincipalId], references: [id, principalId], onDelete: Cascade)
+  processingBases             VnextProcessingBasisRecord[] @relation("VnextProcessingBasisCompliance")
+  consents                    VnextConsentRecord[]         @relation("VnextConsentCompliance")
+  safetyCases                 VnextSafetyCase[]            @relation("VnextSafetyCaseCompliance")
+  continuousUseReceipts       VnextContinuousUseReminderReceipt[] @relation("VnextContinuousUseReceiptCompliance")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_compliance_sessions_id_owner_key")
+  @@unique([id, experienceSessionId, ownerPrincipalId], map: "vnext_compliance_sessions_scope_key")
+  @@unique([experienceSessionId, ownerPrincipalId])
+  @@index([ownerPrincipalId, status])
+  @@map("vnext_compliance_sessions")
+}
+
+model VnextSourceMessage {
+  id                     String                   @id @default(uuid()) @db.Uuid
+  ownerPrincipalId       String                   @map("owner_principal_id") @db.Uuid
+  experienceSessionId    String                   @map("experience_session_id") @db.Uuid
+  clientRequestId        String                   @map("client_request_id") @db.VarChar(200)
+  action                 VnextSourceMessageAction
+  body                   String                   @db.Text
+  requestDigest          String                   @map("request_digest") @db.Char(64)
+  basedOnUnderstandingId String?                  @map("based_on_understanding_id") @db.Uuid
+  basedOnVersion         Int?                     @map("based_on_version")
+  createdAt              DateTime                 @default(now()) @map("created_at") @db.Timestamptz(6)
+  owner                  VnextPrincipal           @relation("VnextSourceMessageOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  experienceSession      VnextExperienceSession   @relation("VnextSourceMessageSession", fields: [experienceSessionId, ownerPrincipalId], references: [id, principalId], onDelete: NoAction, onUpdate: Cascade)
+  basedOnUnderstanding   VnextUnderstandingDraft? @relation("VnextSourceBasedOnUnderstanding", fields: [basedOnUnderstandingId, ownerPrincipalId, basedOnVersion], references: [id, ownerPrincipalId, version], onDelete: NoAction, onUpdate: Cascade)
+  originWorkspace        VnextStoryWorkspace?     @relation("VnextWorkspaceOriginSource")
+  understandingDraft     VnextUnderstandingDraft? @relation("VnextUnderstandingSource")
+  readerMemoryItems      VnextReaderMemoryItem[]  @relation("VnextMemoryItemSource")
+  creativeTasks          VnextCreativeTask[]      @relation("VnextCreativeTaskSource")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_source_messages_id_owner_key")
+  @@unique([ownerPrincipalId, clientRequestId], map: "vnext_source_messages_owner_request_key")
+  @@index([ownerPrincipalId, createdAt], map: "vnext_source_messages_owner_created_idx")
+  @@map("vnext_source_messages")
+}
+
+model VnextStoryWorkspace {
+  id                    String                    @id @default(uuid()) @db.Uuid
+  ownerPrincipalId      String                    @map("owner_principal_id") @db.Uuid
+  originSourceMessageId String                    @map("origin_source_message_id") @db.Uuid
+  status                VnextStoryWorkspaceStatus @default(FORMING)
+  aggregateVersion      Int                       @default(1) @map("aggregate_version")
+  publicationDigest     String                    @map("publication_digest") @db.Char(64)
+  createdAt             DateTime                  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime                  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner                 VnextPrincipal            @relation("VnextStoryWorkspaceOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  originSourceMessage   VnextSourceMessage        @relation("VnextWorkspaceOriginSource", fields: [originSourceMessageId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  understandingDrafts   VnextUnderstandingDraft[] @relation("VnextUnderstandingWorkspace")
+  commissionBriefs      VnextCommissionBrief[]    @relation("VnextCommissionWorkspace")
+  creativeTasks         VnextCreativeTask[]       @relation("VnextCreativeTaskWorkspace")
+  storyContents         VnextStoryContent[]       @relation("VnextStoryContentWorkspace")
+  safetyCases           VnextSafetyCase[]         @relation("VnextSafetyCaseWorkspace")
+  systemSupportCases    VnextSystemSupportCase[]  @relation("VnextSystemSupportCaseWorkspace")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_story_workspaces_id_owner_key")
+  @@unique([originSourceMessageId, ownerPrincipalId], map: "vnext_story_workspaces_owner_origin_key")
+  @@index([ownerPrincipalId, status, updatedAt], map: "vnext_story_workspaces_owner_status_idx")
+  @@map("vnext_story_workspaces")
+}
+
+model VnextUnderstandingDraft {
+  id                        String                   @id @default(uuid()) @db.Uuid
+  ownerPrincipalId          String                   @map("owner_principal_id") @db.Uuid
+  workspaceId               String                   @map("workspace_id") @db.Uuid
+  sourceMessageId           String                   @map("source_message_id") @db.Uuid
+  supersedesUnderstandingId String?                  @map("supersedes_understanding_id") @db.Uuid
+  storyDesire               String                   @map("story_desire") @db.Text
+  emotionalTarget           String                   @map("emotional_target") @db.Text
+  relationshipTension       String                   @map("relationship_tension") @db.Text
+  hardBoundaries            Json                     @default("[]") @map("hard_boundaries")
+  clarificationQuestions    Json                     @default("[]") @map("clarification_questions")
+  confidence                Float                    @db.Real
+  userCorrection            String?                  @map("user_correction") @db.Text
+  status                    VnextUnderstandingStatus @default(PROPOSED)
+  version                   Int                      @default(1)
+  payloadDigest             String                   @map("payload_digest") @db.Char(64)
+  publicationSnapshot       Json                     @map("publication_snapshot")
+  createdAt                 DateTime                 @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                 DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner                     VnextPrincipal           @relation("VnextUnderstandingOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  workspace                 VnextStoryWorkspace      @relation("VnextUnderstandingWorkspace", fields: [workspaceId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+  sourceMessage             VnextSourceMessage       @relation("VnextUnderstandingSource", fields: [sourceMessageId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  supersedesUnderstanding   VnextUnderstandingDraft? @relation("VnextUnderstandingVersions", fields: [supersedesUnderstandingId, ownerPrincipalId, workspaceId], references: [id, ownerPrincipalId, workspaceId], onDelete: NoAction, onUpdate: Cascade)
+  supersededByUnderstanding VnextUnderstandingDraft? @relation("VnextUnderstandingVersions")
+  correctionSourceMessages  VnextSourceMessage[]     @relation("VnextSourceBasedOnUnderstanding")
+  commissionBrief           VnextCommissionBrief?    @relation("VnextCommissionUnderstanding")
+  creativeTasks             VnextCreativeTask[]      @relation("VnextCreativeTaskUnderstanding")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_understandings_id_owner_key")
+  @@unique([id, ownerPrincipalId, version], map: "vnext_understandings_id_owner_version_key")
+  @@unique([id, ownerPrincipalId, workspaceId], map: "vnext_understandings_id_owner_workspace_key")
+  @@unique([sourceMessageId, ownerPrincipalId], map: "vnext_understandings_owner_source_key")
+  @@unique([supersedesUnderstandingId, ownerPrincipalId, workspaceId], map: "vnext_understandings_supersedes_key")
+  @@unique([workspaceId, ownerPrincipalId, version], map: "vnext_understandings_workspace_version_key")
+  @@index([ownerPrincipalId, workspaceId, status], map: "vnext_understandings_owner_workspace_idx")
+  @@map("vnext_understanding_drafts")
+}
+
+model VnextCommissionBrief {
+  id                     String                  @id @default(uuid()) @db.Uuid
+  ownerPrincipalId       String                  @map("owner_principal_id") @db.Uuid
+  workspaceId            String                  @map("workspace_id") @db.Uuid
+  sourceUnderstandingId  String                  @map("source_understanding_id") @db.Uuid
+  supersedesCommissionId String?                 @map("supersedes_commission_id") @db.Uuid
+  premise                String                  @db.Text
+  emotionalPromise       String                  @map("emotional_promise") @db.Text
+  relationshipCore       String                  @map("relationship_core") @db.Text
+  styleConstraints       Json                    @default("[]") @map("style_constraints")
+  hardBoundaries         Json                    @default("[]") @map("hard_boundaries")
+  continuationIntent     String                  @map("continuation_intent") @db.Text
+  version                Int                     @default(1)
+  status                 VnextCommissionStatus   @default(DRAFT)
+  payloadDigest          String                  @map("payload_digest") @db.Char(64)
+  createdAt              DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt              DateTime                @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner                  VnextPrincipal          @relation("VnextCommissionOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  workspace              VnextStoryWorkspace     @relation("VnextCommissionWorkspace", fields: [workspaceId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+  sourceUnderstanding    VnextUnderstandingDraft @relation("VnextCommissionUnderstanding", fields: [sourceUnderstandingId, ownerPrincipalId, workspaceId], references: [id, ownerPrincipalId, workspaceId], onDelete: Cascade, onUpdate: Cascade)
+  supersedesCommission   VnextCommissionBrief?   @relation("VnextCommissionVersions", fields: [supersedesCommissionId, ownerPrincipalId, workspaceId], references: [id, ownerPrincipalId, workspaceId], onDelete: NoAction, onUpdate: Cascade)
+  supersededByCommission VnextCommissionBrief?   @relation("VnextCommissionVersions")
+  creativeTasks          VnextCreativeTask[]     @relation("VnextCreativeTaskCommission")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_commissions_id_owner_key")
+  @@unique([id, ownerPrincipalId, workspaceId], map: "vnext_commissions_id_owner_workspace_key")
+  @@unique([sourceUnderstandingId, ownerPrincipalId, workspaceId], map: "vnext_commissions_owner_understanding_key")
+  @@unique([supersedesCommissionId, ownerPrincipalId, workspaceId], map: "vnext_commissions_supersedes_key")
+  @@unique([workspaceId, ownerPrincipalId, version], map: "vnext_commissions_workspace_version_key")
+  @@index([ownerPrincipalId, workspaceId, status], map: "vnext_commissions_owner_workspace_idx")
+  @@map("vnext_commission_briefs")
+}
+
+model VnextReaderMemory {
+  id                 String                  @id @default(uuid()) @db.Uuid
+  ownerPrincipalId   String                  @unique(map: "vnext_reader_memories_owner_key") @map("owner_principal_id") @db.Uuid
+  scope              VnextReaderMemoryScope  @default(PRINCIPAL)
+  participationStyle String?                 @map("participation_style")
+  version            Int                     @default(1)
+  createdAt          DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime                @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner              VnextPrincipal          @relation("VnextReaderMemoryOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  items              VnextReaderMemoryItem[] @relation("VnextReaderMemoryItems")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_reader_memories_id_owner_key")
+  @@map("vnext_reader_memories")
+}
+
+model VnextReaderMemoryItem {
+  id               String                      @id @default(uuid()) @db.Uuid
+  ownerPrincipalId String                      @map("owner_principal_id") @db.Uuid
+  readerMemoryId   String                      @map("reader_memory_id") @db.Uuid
+  itemKind         VnextReaderMemoryItemKind   @map("item_kind")
+  value            String                      @db.Text
+  valueDigest      String                      @map("value_digest") @db.Char(64)
+  evidenceValue    String                      @map("evidence_value") @db.Text
+  sourceMessageId  String                      @map("source_message_id") @db.Uuid
+  evidenceStart    Int                         @map("evidence_start")
+  evidenceEnd      Int                         @map("evidence_end")
+  status           VnextReaderMemoryItemStatus
+  confidence       Float?                      @db.Real
+  version          Int                         @default(1)
+  supersedesItemId String?                     @map("supersedes_item_id") @db.Uuid
+  supersededAt     DateTime?                   @map("superseded_at") @db.Timestamptz(6)
+  createdAt        DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime                    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner            VnextPrincipal              @relation("VnextReaderMemoryItemOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  readerMemory     VnextReaderMemory           @relation("VnextReaderMemoryItems", fields: [readerMemoryId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+  sourceMessage    VnextSourceMessage          @relation("VnextMemoryItemSource", fields: [sourceMessageId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  supersedesItem   VnextReaderMemoryItem?      @relation("VnextReaderMemoryItemVersions", fields: [supersedesItemId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  supersededByItem VnextReaderMemoryItem?      @relation("VnextReaderMemoryItemVersions")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_memory_items_id_owner_key")
+  @@unique([supersedesItemId, ownerPrincipalId], map: "vnext_memory_items_supersedes_key")
+  @@unique([ownerPrincipalId, sourceMessageId, evidenceStart, evidenceEnd, itemKind], map: "vnext_memory_items_source_evidence_key")
+  @@index([ownerPrincipalId, itemKind, status, supersededAt], map: "vnext_memory_items_owner_active_idx")
+  @@map("vnext_reader_memory_items")
+}
+
+model VnextCreativeTask {
+  id                      String                      @id @default(uuid()) @db.Uuid
+  ownerPrincipalId        String                      @map("owner_principal_id") @db.Uuid
+  sourceMessageId         String?                     @map("source_message_id") @db.Uuid
+  /// Initial UNDERSTAND tasks leave workspace/understanding/commission null;
+  /// correction UNDERSTAND tasks bind all three to the immutable prior truth.
+  workspaceId             String?                     @map("workspace_id") @db.Uuid
+  understandingId         String?                     @map("understanding_id") @db.Uuid
+  commissionId            String?                     @map("commission_id") @db.Uuid
+  processingPurpose       VnextProcessingPurpose      @map("processing_purpose")
+  processingBasisRecordId String?                     @map("processing_basis_record_id") @db.Uuid
+  consentRecordId         String?                     @map("consent_record_id") @db.Uuid
+  processingCoverageKey   String?                     @map("processing_coverage_key") @db.VarChar(100)
+  processingEvidenceRef   String?                     @map("processing_evidence_ref") @db.VarChar(200)
+  requestId               String                      @map("request_id") @db.VarChar(200)
+  idempotencyKey          String                      @map("idempotency_key") @db.VarChar(200)
+  kind                    VnextCreativeTaskKind
+  status                  VnextCreativeTaskStatus     @default(QUEUED)
+  inputArtifactVersions   Json                        @map("input_artifact_versions")
+  inputDigest             String                      @map("input_digest") @db.Char(64)
+  attemptCount            Int                         @default(0) @map("attempt_count") @db.SmallInt
+  maxAttempts             Int                         @default(3) @map("max_attempts") @db.SmallInt
+  stateVersion            Int                         @default(1) @map("state_version")
+  availableAt             DateTime                    @map("available_at") @db.Timestamptz(6)
+  deadlineAt              DateTime                    @map("deadline_at") @db.Timestamptz(6)
+  leaseOwner              String?                     @map("lease_owner") @db.VarChar(200)
+  leaseToken              String?                     @map("lease_token") @db.Uuid
+  leaseExpiresAt          DateTime?                   @map("lease_expires_at") @db.Timestamptz(6)
+  cancellationRequestedAt DateTime?                   @map("cancellation_requested_at") @db.Timestamptz(6)
+  lastFailureCode         String?                     @map("last_failure_code") @db.VarChar(100)
+  startedAt               DateTime?                   @map("started_at") @db.Timestamptz(6)
+  completedAt             DateTime?                   @map("completed_at") @db.Timestamptz(6)
+  createdAt               DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt               DateTime                    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner                   VnextPrincipal              @relation("VnextCreativeTaskOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sourceMessage           VnextSourceMessage?         @relation("VnextCreativeTaskSource", fields: [sourceMessageId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  workspace               VnextStoryWorkspace?        @relation("VnextCreativeTaskWorkspace", fields: [workspaceId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  understanding           VnextUnderstandingDraft?    @relation("VnextCreativeTaskUnderstanding", fields: [understandingId, ownerPrincipalId, workspaceId], references: [id, ownerPrincipalId, workspaceId], onDelete: NoAction, onUpdate: Cascade)
+  commission              VnextCommissionBrief?       @relation("VnextCreativeTaskCommission", fields: [commissionId, ownerPrincipalId, workspaceId], references: [id, ownerPrincipalId, workspaceId], onDelete: NoAction, onUpdate: Cascade)
+  processingBasis         VnextProcessingBasisRecord? @relation("VnextCreativeTaskProcessingBasis", fields: [processingBasisRecordId, ownerPrincipalId, processingPurpose], references: [id, ownerPrincipalId, purpose], onDelete: NoAction, onUpdate: Cascade)
+  consent                 VnextConsentRecord?         @relation("VnextCreativeTaskConsent", fields: [consentRecordId, ownerPrincipalId, processingPurpose], references: [id, ownerPrincipalId, purpose], onDelete: NoAction, onUpdate: Cascade)
+  runTraces               VnextCreativeRunTrace[]     @relation("VnextCreativeTaskRuns")
+  storyContent            VnextStoryContent?          @relation("VnextStoryContentTask")
+  outboxEvents            VnextOutboxEvent[]          @relation("VnextOutboxTask")
+  safetyCases             VnextSafetyCase[]           @relation("VnextSafetyCaseTriggeringTask")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_creative_tasks_id_owner_key")
+  @@unique([ownerPrincipalId, idempotencyKey], map: "vnext_creative_tasks_owner_idempotency_key")
+  @@unique([ownerPrincipalId, requestId], map: "vnext_creative_tasks_owner_request_key")
+  @@index([ownerPrincipalId, workspaceId, status, updatedAt], map: "vnext_creative_tasks_owner_workspace_status_idx")
+  @@index([status, availableAt, createdAt], map: "vnext_creative_tasks_claim_idx")
+  @@index([status, leaseExpiresAt], map: "vnext_creative_tasks_lease_idx")
+  @@index([status, deadlineAt], map: "vnext_creative_tasks_deadline_idx")
+  @@map("vnext_creative_tasks")
+}
+
+model VnextProcessingBasisRecord {
+  id                  String                     @id @default(uuid()) @db.Uuid
+  ownerPrincipalId    String                     @map("owner_principal_id") @db.Uuid
+  complianceSessionId String                     @map("compliance_session_id") @db.Uuid
+  purpose             VnextProcessingPurpose
+  coverageKey         String                     @map("coverage_key") @db.VarChar(100)
+  dataCategories      Json                       @map("data_categories")
+  legalBasis          String                     @map("legal_basis") @db.VarChar(100)
+  noticeVersions      Json                       @map("notice_versions")
+  status              VnextProcessingBasisStatus @default(ACTIVE)
+  effectiveAt         DateTime                   @map("effective_at") @db.Timestamptz(6)
+  revokedOrExpiredAt  DateTime?                  @map("revoked_or_expired_at") @db.Timestamptz(6)
+  evidenceRef         String                     @map("evidence_ref") @db.VarChar(200)
+  version             Int                        @default(1)
+  createdAt           DateTime                   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime                   @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner               VnextPrincipal             @relation("VnextProcessingBasisOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  complianceSession   VnextComplianceSession     @relation("VnextProcessingBasisCompliance", fields: [complianceSessionId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+  creativeTasks       VnextCreativeTask[]        @relation("VnextCreativeTaskProcessingBasis")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_processing_bases_id_owner_key")
+  @@unique([id, ownerPrincipalId, purpose], map: "vnext_processing_bases_id_owner_purpose_key")
+  @@unique([ownerPrincipalId, evidenceRef], map: "vnext_processing_bases_owner_evidence_key")
+  @@index([ownerPrincipalId, purpose, coverageKey, status], map: "vnext_processing_bases_owner_purpose_idx")
+  @@map("vnext_processing_basis_records")
+}
+
+model VnextConsentRecord {
+  id                  String                 @id @default(uuid()) @db.Uuid
+  ownerPrincipalId    String                 @map("owner_principal_id") @db.Uuid
+  complianceSessionId String                 @map("compliance_session_id") @db.Uuid
+  purpose             VnextProcessingPurpose
+  coverageKey         String                 @map("coverage_key") @db.VarChar(100)
+  scope               Json
+  consentKind         VnextConsentKind       @map("consent_kind")
+  noticeVersions      Json                   @map("notice_versions")
+  status              VnextConsentStatus     @default(ACTIVE)
+  grantedAt           DateTime               @map("granted_at") @db.Timestamptz(6)
+  withdrawnAt         DateTime?              @map("withdrawn_at") @db.Timestamptz(6)
+  evidenceRef         String                 @map("evidence_ref") @db.VarChar(200)
+  version             Int                    @default(1)
+  createdAt           DateTime               @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime               @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner               VnextPrincipal         @relation("VnextConsentOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  complianceSession   VnextComplianceSession @relation("VnextConsentCompliance", fields: [complianceSessionId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+  creativeTasks       VnextCreativeTask[]    @relation("VnextCreativeTaskConsent")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_consents_id_owner_key")
+  @@unique([id, ownerPrincipalId, purpose], map: "vnext_consents_id_owner_purpose_key")
+  @@unique([ownerPrincipalId, evidenceRef], map: "vnext_consents_owner_evidence_key")
+  @@index([ownerPrincipalId, purpose, coverageKey, status], map: "vnext_consents_owner_purpose_idx")
+  @@map("vnext_consent_records")
+}
+
+model VnextSafetyCase {
+  id                    String                   @id @default(uuid()) @db.Uuid
+  ownerPrincipalId      String                   @map("owner_principal_id") @db.Uuid
+  experienceSessionId   String                   @map("experience_session_id") @db.Uuid
+  complianceSessionId   String                   @map("compliance_session_id") @db.Uuid
+  workspaceId           String?                  @map("workspace_id") @db.Uuid
+  triggeringTaskId      String?                  @map("triggering_task_id") @db.Uuid
+  triggerType           VnextSafetyTriggerType   @map("trigger_type")
+  triggerDigest         String                   @map("trigger_digest") @db.Char(64)
+  severity              VnextSafetySeverity
+  policyVersion         String                   @map("policy_version") @db.VarChar(200)
+  disposition           VnextSafetyDisposition
+  status                VnextSafetyCaseStatus    @default(OPEN)
+  safetyContactRef      String?                  @map("safety_contact_ref") @db.VarChar(200)
+  taskCancellationRefs  Json                     @default("[]") @map("task_cancellation_refs")
+  suppressedContentRefs Json                     @default("[]") @map("suppressed_content_refs")
+  humanEscalationRef    String?                  @map("human_escalation_ref") @db.VarChar(200)
+  auditRefs             Json                     @default("[]") @map("audit_refs")
+  appealReasonDigest    String?                  @map("appeal_reason_digest") @db.Char(64)
+  appealedAt            DateTime?                @map("appealed_at") @db.Timestamptz(6)
+  openedAt              DateTime                 @map("opened_at") @db.Timestamptz(6)
+  closedAt              DateTime?                @map("closed_at") @db.Timestamptz(6)
+  version               Int                      @default(1)
+  createdAt             DateTime                 @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner                 VnextPrincipal           @relation("VnextSafetyCaseOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  experienceSession     VnextExperienceSession   @relation("VnextSafetyCaseSession", fields: [experienceSessionId, ownerPrincipalId], references: [id, principalId], onDelete: Cascade, onUpdate: Cascade)
+  complianceSession     VnextComplianceSession   @relation("VnextSafetyCaseCompliance", fields: [complianceSessionId, experienceSessionId, ownerPrincipalId], references: [id, experienceSessionId, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+  workspace             VnextStoryWorkspace?     @relation("VnextSafetyCaseWorkspace", fields: [workspaceId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  triggeringTask        VnextCreativeTask?       @relation("VnextSafetyCaseTriggeringTask", fields: [triggeringTaskId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  appealRecord          VnextSafetyAppealRecord? @relation("VnextSafetyAppealCase")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_safety_cases_id_owner_key")
+  @@index([ownerPrincipalId, experienceSessionId, status, openedAt], map: "vnext_safety_cases_owner_session_idx")
+  @@index([status, severity, openedAt], map: "vnext_safety_cases_open_idx")
+  @@map("vnext_safety_cases")
+}
+
+model VnextSafetyAppealRecord {
+  id               String          @id @default(uuid()) @db.Uuid
+  ownerPrincipalId String          @map("owner_principal_id") @db.Uuid
+  safetyCaseId     String          @map("safety_case_id") @db.Uuid
+  caseVersion      Int             @map("case_version")
+  reasonDigest     String          @map("reason_digest") @db.Char(64)
+  reasonCiphertext String          @map("reason_ciphertext") @db.Text
+  nonce            String          @db.VarChar(16)
+  authTag          String          @map("auth_tag") @db.VarChar(22)
+  keyVersion       String          @map("key_version") @db.VarChar(100)
+  createdAt        DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  owner            VnextPrincipal  @relation("VnextSafetyAppealOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  safetyCase       VnextSafetyCase @relation("VnextSafetyAppealCase", fields: [safetyCaseId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([id, ownerPrincipalId], map: "vnext_safety_appeals_id_owner_key")
+  @@unique([safetyCaseId, ownerPrincipalId], map: "vnext_safety_appeals_case_owner_key")
+  @@index([ownerPrincipalId, createdAt], map: "vnext_safety_appeals_owner_created_idx")
+  @@map("vnext_safety_appeal_records")
+}
+
+model VnextContinuousUseReminderReceipt {
+  id                     String                          @id @default(uuid()) @db.Uuid
+  ownerPrincipalId       String                          @map("owner_principal_id") @db.Uuid
+  experienceSessionId    String                          @map("experience_session_id") @db.Uuid
+  complianceSessionId    String                          @map("compliance_session_id") @db.Uuid
+  status                 VnextContinuousUseReceiptStatus @default(PENDING)
+  policyVersion          String                          @map("policy_version") @db.VarChar(100)
+  intervalSeconds        Int                             @map("interval_seconds")
+  windowStartedAt        DateTime                        @map("window_started_at") @db.Timestamptz(6)
+  dueAt                  DateTime                        @map("due_at") @db.Timestamptz(6)
+  emittedAt              DateTime                        @map("emitted_at") @db.Timestamptz(6)
+  acknowledgedAt         DateTime?                       @map("acknowledged_at") @db.Timestamptz(6)
+  emissionEventId        String                          @unique(map: "vnext_continuous_use_receipts_emission_event_key") @map("emission_event_id") @db.Uuid
+  acknowledgementEventId String?                         @unique(map: "vnext_continuous_use_receipts_ack_event_key") @map("acknowledgement_event_id") @db.Uuid
+  version                Int                             @default(1)
+  createdAt              DateTime                        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt              DateTime                        @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner                  VnextPrincipal                  @relation("VnextContinuousUseReceiptOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  experienceSession      VnextExperienceSession          @relation("VnextContinuousUseReceiptSession", fields: [experienceSessionId, ownerPrincipalId], references: [id, principalId], onDelete: Cascade, onUpdate: Cascade)
+  complianceSession      VnextComplianceSession          @relation("VnextContinuousUseReceiptCompliance", fields: [complianceSessionId, experienceSessionId, ownerPrincipalId], references: [id, experienceSessionId, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([id, ownerPrincipalId], map: "vnext_continuous_use_receipts_id_owner_key")
+  @@index([ownerPrincipalId, experienceSessionId, status, emittedAt], map: "vnext_continuous_use_receipts_owner_session_idx")
+  @@index([complianceSessionId, status, emittedAt], map: "vnext_continuous_use_receipts_compliance_idx")
+  @@map("vnext_continuous_use_reminder_receipts")
+}
+
+model VnextCreativeRunTrace {
+  id                    String                   @id @default(uuid()) @db.Uuid
+  ownerPrincipalId      String                   @map("owner_principal_id") @db.Uuid
+  taskId                String                   @map("task_id") @db.Uuid
+  attemptNumber         Int                      @map("attempt_number") @db.SmallInt
+  status                VnextCreativeRunStatus   @default(RUNNING)
+  runtimeMode           VnextCreativeRuntimeMode @map("runtime_mode")
+  providerTraceId       String?                  @map("provider_trace_id") @db.VarChar(200)
+  provider              String?                  @db.VarChar(100)
+  model                 String?                  @db.VarChar(200)
+  route                 String?                  @db.VarChar(200)
+  workflowVersion       String?                  @map("workflow_version") @db.VarChar(200)
+  inputArtifactVersions Json                     @map("input_artifact_versions")
+  inputDigest           String                   @map("input_digest") @db.Char(64)
+  outputHash            String?                  @map("output_hash") @db.Char(64)
+  fallbackApplied       Boolean?                 @map("fallback_applied")
+  retryable             Boolean                  @default(false)
+  failureCode           String?                  @map("failure_code") @db.VarChar(100)
+  latencyMs             Int?                     @map("latency_ms")
+  tokenUsage            Json?                    @map("token_usage")
+  costMicros            BigInt?                  @map("cost_micros") @db.BigInt
+  sanitizedMetadata     Json                     @default("{}") @map("sanitized_metadata")
+  startedAt             DateTime                 @map("started_at") @db.Timestamptz(6)
+  completedAt           DateTime?                @map("completed_at") @db.Timestamptz(6)
+  createdAt             DateTime                 @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner                 VnextPrincipal           @relation("VnextCreativeRunOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  task                  VnextCreativeTask        @relation("VnextCreativeTaskRuns", fields: [taskId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  storyContent          VnextStoryContent?       @relation("VnextStoryContentTrace")
+
+  @@unique([taskId, attemptNumber], map: "vnext_creative_runs_task_attempt_key")
+  @@unique([id, taskId, ownerPrincipalId], map: "vnext_creative_runs_id_task_owner_key")
+  @@index([ownerPrincipalId, taskId, startedAt], map: "vnext_creative_runs_owner_task_idx")
+  @@map("vnext_creative_run_traces")
+}
+
+model VnextStoryContent {
+  id               String                  @id @default(uuid()) @db.Uuid
+  ownerPrincipalId String                  @map("owner_principal_id") @db.Uuid
+  workspaceId      String                  @map("workspace_id") @db.Uuid
+  parentContentId  String?                 @map("parent_content_id") @db.Uuid
+  kind             VnextStoryContentKind
+  status           VnextStoryContentStatus @default(DRAFT)
+  version          Int
+  body             String                  @db.Text
+  bodyHash         String                  @map("body_hash") @db.Char(64)
+  createdByTaskId  String                  @map("created_by_task_id") @db.Uuid
+  createdByTraceId String                  @map("created_by_trace_id") @db.Uuid
+  acceptedAt       DateTime?               @map("accepted_at") @db.Timestamptz(6)
+  createdAt        DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime                @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner            VnextPrincipal          @relation("VnextStoryContentOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  workspace        VnextStoryWorkspace     @relation("VnextStoryContentWorkspace", fields: [workspaceId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  createdByTask    VnextCreativeTask       @relation("VnextStoryContentTask", fields: [createdByTaskId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  createdByTrace   VnextCreativeRunTrace   @relation("VnextStoryContentTrace", fields: [createdByTraceId, createdByTaskId, ownerPrincipalId], references: [id, taskId, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  parentContent    VnextStoryContent?      @relation("VnextStoryContentVersions", fields: [parentContentId, ownerPrincipalId, workspaceId], references: [id, ownerPrincipalId, workspaceId], onDelete: NoAction, onUpdate: Cascade)
+  childContents    VnextStoryContent[]     @relation("VnextStoryContentVersions")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_story_contents_id_owner_key")
+  @@unique([id, ownerPrincipalId, workspaceId], map: "vnext_story_contents_id_owner_workspace_key")
+  @@unique([createdByTaskId, ownerPrincipalId], map: "vnext_story_contents_task_owner_key")
+  @@unique([createdByTraceId, ownerPrincipalId], map: "vnext_story_contents_trace_owner_key")
+  @@unique([createdByTraceId, createdByTaskId, ownerPrincipalId], map: "vnext_story_contents_trace_task_owner_key")
+  @@unique([workspaceId, ownerPrincipalId, version], map: "vnext_story_contents_workspace_version_key")
+  @@index([ownerPrincipalId, workspaceId, status, createdAt], map: "vnext_story_contents_owner_workspace_idx")
+  @@map("vnext_story_contents")
+}
+
+model VnextSystemSupportCase {
+  id               String                      @id @default(uuid()) @db.Uuid
+  ownerPrincipalId String                      @map("owner_principal_id") @db.Uuid
+  workspaceId      String                      @map("workspace_id") @db.Uuid
+  aggregateVersion Int                         @default(1) @map("aggregate_version")
+  versionId        String                      @unique(map: "vnext_system_support_cases_version_key") @default(uuid()) @map("version_id") @db.Uuid
+  createdAt        DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime                    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner            VnextPrincipal              @relation("VnextSystemSupportCaseOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  workspace        VnextStoryWorkspace         @relation("VnextSystemSupportCaseWorkspace", fields: [workspaceId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+  commands         VnextSystemSupportCommand[] @relation("VnextSystemSupportCaseCommands")
+  facts            VnextSystemSupportFact[]    @relation("VnextSystemSupportCaseFacts")
+
+  @@unique([id, ownerPrincipalId], map: "vnext_system_support_cases_id_owner_key")
+  @@unique([id, ownerPrincipalId, workspaceId], map: "vnext_system_support_cases_scope_key")
+  @@index([ownerPrincipalId, workspaceId, updatedAt], map: "vnext_system_support_cases_owner_workspace_idx")
+  @@map("vnext_system_support_cases")
+}
+
+model VnextSystemSupportCommand {
+  id                     String                          @id @default(uuid()) @db.Uuid
+  caseId                 String                          @map("case_id") @db.Uuid
+  ownerPrincipalId       String                          @map("owner_principal_id") @db.Uuid
+  clientRequestId        String                          @map("client_request_id") @db.VarChar(200)
+  commandType            VnextSystemSupportCommandType   @map("command_type")
+  actor                  VnextSystemSupportCommandActor
+  requestDigest          String                          @map("request_digest") @db.Char(64)
+  basedOnVersionId       String?                         @map("based_on_version_id") @db.Uuid
+  resultVersionId        String                          @map("result_version_id") @db.Uuid
+  resultAggregateVersion Int                             @map("result_aggregate_version")
+  firstFactSequence      Int                             @map("first_fact_sequence")
+  lastFactSequence       Int                             @map("last_fact_sequence")
+  createdAt              DateTime                        @default(now()) @map("created_at") @db.Timestamptz(6)
+  supportCase            VnextSystemSupportCase          @relation("VnextSystemSupportCaseCommands", fields: [caseId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+  facts                  VnextSystemSupportFact[]         @relation("VnextSystemSupportCommandFacts")
+
+  @@unique([id, caseId, ownerPrincipalId], map: "vnext_system_support_commands_scope_key")
+  @@unique([ownerPrincipalId, clientRequestId], map: "vnext_system_support_commands_owner_request_key")
+  @@unique([caseId, resultAggregateVersion], map: "vnext_system_support_commands_case_version_key")
+  @@unique([caseId, resultVersionId], map: "vnext_system_support_commands_case_version_id_key")
+  @@index([caseId, createdAt], map: "vnext_system_support_commands_case_created_idx")
+  @@map("vnext_system_support_commands")
+}
+
+model VnextSystemSupportFact {
+  id               String                        @id @default(uuid()) @db.Uuid
+  caseId           String                        @map("case_id") @db.Uuid
+  ownerPrincipalId String                        @map("owner_principal_id") @db.Uuid
+  commandId        String                        @map("command_id") @db.Uuid
+  sequence         Int
+  factType         VnextSystemSupportFactType    @map("fact_type")
+  payload          Json
+  payloadDigest    String                        @map("payload_digest") @db.Char(64)
+  createdAt        DateTime                      @default(now()) @map("created_at") @db.Timestamptz(6)
+  supportCase      VnextSystemSupportCase        @relation("VnextSystemSupportCaseFacts", fields: [caseId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+  command          VnextSystemSupportCommand     @relation("VnextSystemSupportCommandFacts", fields: [commandId, caseId, ownerPrincipalId], references: [id, caseId, ownerPrincipalId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([caseId, sequence], map: "vnext_system_support_facts_case_sequence_key")
+  @@unique([id, caseId, ownerPrincipalId], map: "vnext_system_support_facts_scope_key")
+  @@index([caseId, factType, sequence], map: "vnext_system_support_facts_case_type_idx")
+  @@map("vnext_system_support_facts")
+}
+
+model VnextOutboxEvent {
+  id               String                 @id @default(uuid()) @db.Uuid
+  ownerPrincipalId String                 @map("owner_principal_id") @db.Uuid
+  taskId           String?                @map("task_id") @db.Uuid
+  aggregateType    String                 @map("aggregate_type") @db.VarChar(100)
+  aggregateId      String                 @map("aggregate_id") @db.Uuid
+  aggregateVersion Int                    @map("aggregate_version")
+  eventType        String                 @map("event_type") @db.VarChar(150)
+  idempotencyKey   String                 @map("idempotency_key") @db.VarChar(200)
+  payload          Json
+  payloadDigest    String                 @map("payload_digest") @db.Char(64)
+  status           VnextOutboxEventStatus @default(PENDING)
+  attemptCount     Int                    @default(0) @map("attempt_count") @db.SmallInt
+  maxAttempts      Int                    @default(10) @map("max_attempts") @db.SmallInt
+  availableAt      DateTime               @map("available_at") @db.Timestamptz(6)
+  leaseOwner       String?                @map("lease_owner") @db.VarChar(200)
+  leaseToken       String?                @map("lease_token") @db.Uuid
+  leaseExpiresAt   DateTime?              @map("lease_expires_at") @db.Timestamptz(6)
+  publishedAt      DateTime?              @map("published_at") @db.Timestamptz(6)
+  lastFailureCode  String?                @map("last_failure_code") @db.VarChar(100)
+  createdAt        DateTime               @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime               @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner            VnextPrincipal         @relation("VnextOutboxEventOwner", fields: [ownerPrincipalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  task             VnextCreativeTask?     @relation("VnextOutboxTask", fields: [taskId, ownerPrincipalId], references: [id, ownerPrincipalId], onDelete: NoAction, onUpdate: Cascade)
+
+  @@unique([ownerPrincipalId, idempotencyKey], map: "vnext_outbox_owner_idempotency_key")
+  @@index([aggregateType, aggregateId, aggregateVersion], map: "vnext_outbox_aggregate_idx")
+  @@index([status, availableAt, createdAt], map: "vnext_outbox_dispatch_idx")
+  @@index([status, leaseExpiresAt], map: "vnext_outbox_lease_idx")
+  @@map("vnext_outbox_events")
+}
+
+model VnextWorkerHeartbeat {
+  workerId        String                   @id @map("worker_id") @db.VarChar(200)
+  kind            VnextWorkerKind          @default(CREATIVE)
+  status          VnextWorkerStatus        @default(STARTING)
+  runtimeMode     VnextCreativeRuntimeMode @map("runtime_mode")
+  buildId         String                   @map("build_id") @db.VarChar(200)
+  processId       Int                      @map("process_id")
+  supportedKinds  Json                     @map("supported_kinds")
+  metadata        Json                     @default("{}")
+  startedAt       DateTime                 @map("started_at") @db.Timestamptz(6)
+  lastHeartbeatAt DateTime                 @map("last_heartbeat_at") @db.Timestamptz(6)
+  lastClaimedAt   DateTime?                @map("last_claimed_at") @db.Timestamptz(6)
+  lastSucceededAt DateTime?                @map("last_succeeded_at") @db.Timestamptz(6)
+  lastFailedAt    DateTime?                @map("last_failed_at") @db.Timestamptz(6)
+  stoppedAt       DateTime?                @map("stopped_at") @db.Timestamptz(6)
+  lastErrorCode   String?                  @map("last_error_code") @db.VarChar(100)
+  createdAt       DateTime                 @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([kind, status, lastHeartbeatAt], map: "vnext_worker_heartbeat_readiness_idx")
+  @@map("vnext_worker_heartbeats")
+}
+
+model AppStateSnapshot {
+  stateKey      String   @id @map("state_key")
+  schemaVersion Int      @default(1) @map("schema_version")
+  stateVersion  Int      @default(1) @map("state_version")
+  payload       Json
+  updatedAt     DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@map("app_state_snapshots")
+}
+
+model Account {
+  id                    String               @id @db.Uuid
+  accountToken          String               @unique @map("account_token")
+  accountStatus         String               @map("account_status")
+  primaryChannel        String               @map("primary_channel")
+  acceptedPolicyVersion String?              @map("accepted_policy_version")
+  createdAt             DateTime             @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime             @map("updated_at") @db.Timestamptz(6)
+  storyIntakeSessions   StoryIntakeSession[]
+  storyWorkspaces       StoryWorkspace[]
+  sessions              AccountSession[]
+
+  @@map("accounts")
+}
+
+model AccountSession {
+  sessionId  String    @id @map("session_id") @db.Uuid
+  accountId  String    @map("account_id") @db.Uuid
+  deviceId   String?   @map("device_id")
+  deviceType String?   @map("device_type")
+  revokedAt  DateTime? @map("revoked_at") @db.Timestamptz(6)
+  lastSeenAt DateTime  @map("last_seen_at") @db.Timestamptz(6)
+  account    Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([accountId, deviceId])
+  @@map("account_sessions")
+}
+
+model StoryIntakeSession {
+  id                 String          @id @db.Uuid
+  accountId          String          @map("account_id") @db.Uuid
+  entrySurface       String          @map("entry_surface")
+  intakeMode         String          @map("intake_mode")
+  briefPayload       Json            @map("brief_payload")
+  status             String
+  selectedProposalId String?         @map("selected_proposal_id") @db.Uuid
+  clientRequestId    String          @map("client_request_id")
+  createdAt          DateTime        @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime        @map("updated_at") @db.Timestamptz(6)
+  account            Account         @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  proposals          StoryProposal[]
+
+  @@map("story_intake_sessions")
+}
+
+model StoryProposal {
+  id         String             @id @db.Uuid
+  sessionId  String             @map("session_id") @db.Uuid
+  proposalNo Int                @map("proposal_no")
+  title      String
+  summary    String
+  payload    Json
+  status     String
+  createdAt  DateTime           @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime           @map("updated_at") @db.Timestamptz(6)
+  session    StoryIntakeSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, proposalNo])
+  @@map("story_proposals")
+}
+
+model StoryWorkspace {
+  id               String   @id @db.Uuid
+  accountId        String   @map("account_id") @db.Uuid
+  title            String
+  keywords         Json
+  workspaceStatus  String   @map("workspace_status")
+  entrySurface     String?  @map("entry_surface")
+  intakeMode       String?  @map("intake_mode")
+  privacyScope     String?  @map("privacy_scope")
+  commissionBrief  Json?    @map("commission_brief")
+  currentChapterId String?  @map("current_chapter_id") @db.Uuid
+  createdAt        DateTime @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime @map("updated_at") @db.Timestamptz(6)
+  updatedBy        String   @map("updated_by")
+  account          Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId, title])
+  @@map("story_workspaces")
+}
+
+model NormalizedMessage {
+  id               String   @id @db.Uuid
+  accountId        String   @map("account_id") @db.Uuid
+  channelMessageId String   @map("channel_message_id")
+  channel          String
+  text             String
+  createdAt        DateTime @map("created_at") @db.Timestamptz(6)
+
+  @@index([accountId, createdAt])
+  @@map("normalized_messages")
+}
+
+model ChatRouteDecision {
+  id                String   @id @db.Uuid
+  messageId         String   @map("message_id") @db.Uuid
+  accountId         String   @map("account_id") @db.Uuid
+  candidateStoryIds Json     @map("candidate_story_ids")
+  selectedStoryId   String?  @map("selected_story_id") @db.Uuid
+  confidenceScore   Float    @map("confidence_score")
+  routeMode         String   @map("route_mode")
+  status            String
+  reasonSummary     Json     @map("reason_summary")
+  createdAt         DateTime @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime @map("updated_at") @db.Timestamptz(6)
+
+  @@index([accountId, createdAt])
+  @@index([messageId])
+  @@map("chat_route_decisions")
+}
+
+model MessageIntent {
+  id               String   @id @db.Uuid
+  messageId        String   @unique @map("message_id") @db.Uuid
+  accountId        String   @map("account_id") @db.Uuid
+  channelMessageId String?  @map("channel_message_id")
+  finalIntent      String   @map("final_intent")
+  intentType       String   @map("intent_type")
+  targetType       String   @map("target_type")
+  targetId         String?  @map("target_id") @db.Uuid
+  targetLabel      String   @map("target_label")
+  ackCopy          String   @map("ack_copy")
+  deepLink         String?  @map("deep_link")
+  confidenceBand   String   @map("confidence_band")
+  patchDocument    Json?    @map("patch_document")
+  status           String
+  versionNo        Int      @map("version_no")
+  createdAt        DateTime @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime @map("updated_at") @db.Timestamptz(6)
+
+  @@index([accountId, updatedAt])
+  @@map("message_intents")
+}
+
+model Chapter {
+  id              String   @id @db.Uuid
+  storyId         String   @map("story_id") @db.Uuid
+  chapterNo       Int      @map("chapter_no")
+  status          String
+  title           String
+  bodyText        String   @map("body_text")
+  summary         String
+  generationJobId String?  @map("generation_job_id") @db.Uuid
+  createdAt       DateTime @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime @map("updated_at") @db.Timestamptz(6)
+
+  @@index([storyId, createdAt])
+  @@index([storyId, chapterNo])
+  @@map("chapters")
+}
+
+model ChapterRevision {
+  id              String   @id @db.Uuid
+  chapterId       String   @map("chapter_id") @db.Uuid
+  revisionKind    String   @map("revision_kind")
+  instructionText String   @map("instruction_text")
+  anchorRange     Json?    @map("anchor_range")
+  revisedText     String   @map("revised_text")
+  sourceIntentId  String   @map("source_intent_id") @db.Uuid
+  createdAt       DateTime @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime @map("updated_at") @db.Timestamptz(6)
+
+  @@index([chapterId, createdAt])
+  @@map("chapter_revisions")
+}
+
+model RuntimeTask {
+  id              String   @id @db.Uuid
+  jobType         String   @map("job_type")
+  storyId         String   @map("story_id") @db.Uuid
+  target          String
+  status          String
+  notificationId  String?  @map("notification_id") @db.Uuid
+  resultChapterId String?  @map("result_chapter_id") @db.Uuid
+  clientRequestId String   @map("client_request_id")
+  createdAt       DateTime @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime @map("updated_at") @db.Timestamptz(6)
+
+  @@index([storyId, createdAt])
+  @@index([status, createdAt])
+  @@map("runtime_tasks")
+}
+
+model Notification {
+  id         String   @id @db.Uuid
+  accountId  String   @map("account_id") @db.Uuid
+  storyId    String   @map("story_id") @db.Uuid
+  title      String
+  body       String
+  deepLink   String   @map("deep_link")
+  status     String
+  category   String?
+  sourceType String?  @map("source_type")
+  sourceId   String?  @map("source_id") @db.Uuid
+  createdAt  DateTime @map("created_at") @db.Timestamptz(6)
+
+  @@index([accountId, createdAt])
+  @@map("notifications")
+}

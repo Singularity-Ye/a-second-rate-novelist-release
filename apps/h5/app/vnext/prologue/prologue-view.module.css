@@ -1,0 +1,182 @@
+.scene {
+  --ink: #f8f1df;
+  --muted: rgba(248, 241, 223, 0.66);
+  --line: rgba(248, 241, 223, 0.18);
+  --gold: #e8b75d;
+  --orange: #f0713f;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--ink);
+  background: #080b16;
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+.background,
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.background {
+  background:
+    linear-gradient(180deg, rgba(7, 9, 21, 0.2), rgba(7, 9, 21, 0.46)),
+    url("/assets/prologue/transfer-hub-v1.png") center / cover no-repeat;
+}
+
+.background::before,
+.background::after {
+  position: absolute;
+  content: "";
+  border-radius: 999px;
+  border: 1px solid rgba(232, 183, 93, 0.13);
+  transform: rotate(-18deg);
+}
+
+.background::before { inset: 13% 22% 18%; box-shadow: 0 0 0 42px rgba(232, 183, 93, 0.025), 0 0 0 86px rgba(232, 183, 93, 0.018); }
+.background::after { inset: 29% 36% 31%; border-color: rgba(116, 170, 205, 0.15); }
+
+.grain {
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+.topbar,
+.layout { position: relative; z-index: 1; }
+
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1rem, 5vw, 5.2rem) 0;
+}
+
+.backLink { color: var(--muted); font-size: 0.78rem; text-decoration: none; }
+.backLink:hover { color: var(--ink); }
+.kicker { margin: 1.2rem 0 0.35rem; color: var(--gold); font-size: 0.68rem; letter-spacing: 0.16em; }
+.topbar h1 { margin: 0; font-family: "Songti SC", SimSun, serif; font-size: clamp(1.7rem, 3vw, 2.6rem); font-weight: 600; letter-spacing: 0.08em; }
+.topStatus { display: grid; grid-template-columns: auto auto; align-items: center; gap: 0.35rem 0.55rem; padding: 0.65rem 0.85rem; border: 1px solid var(--line); border-radius: 999px; background: rgba(4, 7, 15, 0.38); color: var(--muted); font-size: 0.78rem; backdrop-filter: blur(12px); }
+.topStatus small { grid-column: 2; color: rgba(248, 241, 223, 0.42); font-size: 0.62rem; }
+.statusDot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--gold); box-shadow: 0 0 16px var(--gold); }
+
+.layout { display: grid; grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr) minmax(12rem, 15rem); align-items: center; gap: clamp(1rem, 3vw, 3.2rem); width: min(1380px, calc(100% - 2rem)); min-height: calc(100svh - 8rem); margin: 0 auto; padding: 2rem 0 3rem; }
+.panel { border: 1px solid var(--line); border-radius: 1rem; background: rgba(6, 8, 18, 0.44); box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.24); backdrop-filter: blur(18px); }
+.logPanel, .identityPanel { padding: 1.15rem; }
+.panelLabel { color: var(--gold); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.logLine { margin-top: 0.9rem; color: var(--muted); font-size: 0.75rem; line-height: 1.5; }
+.logRule, .panelRule { height: 1px; margin: 1.2rem 0; background: var(--line); }
+.routeRow { display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 0.75rem; color: var(--muted); font-size: 0.72rem; }
+.routeRow b { color: var(--gold); font-weight: 600; }
+.panelNote { margin: 1.2rem 0 0; color: rgba(248, 241, 223, 0.43); font-size: 0.66rem; line-height: 1.55; }
+.identityPanel { text-align: center; }
+.identityGlyph { display: grid; place-items: center; width: 5.8rem; height: 5.8rem; margin: 1.2rem auto; border: 1px solid rgba(232, 183, 93, 0.48); border-radius: 50%; color: var(--gold); font-family: "Songti SC", SimSun, serif; font-size: 2.5rem; box-shadow: 0 0 2rem rgba(232, 183, 93, 0.11); }
+.identityPanel h2 { margin: 0; font-family: "Songti SC", SimSun, serif; font-size: 1.25rem; }
+.identityPanel p { margin: 0.5rem 0 0; color: var(--muted); font-size: 0.78rem; }
+.identityPanel small { color: var(--muted); font-size: 0.66rem; }
+.progressTrack { height: 0.25rem; margin: 0.85rem 0 0.5rem; overflow: hidden; border-radius: 999px; background: rgba(248, 241, 223, 0.12); }
+.progressTrack span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--orange), var(--gold)); transition: width 360ms ease; }
+
+.storyArea { min-width: 0; }
+.locationTag { margin: 0 0 0.8rem; color: var(--muted); font-size: 0.7rem; letter-spacing: 0.12em; text-align: center; }
+.storyCard { min-height: 28rem; padding: clamp(1.2rem, 4vw, 3rem); border: 1px solid rgba(248, 241, 223, 0.24); border-radius: 1.3rem; background: linear-gradient(145deg, rgba(19, 17, 34, 0.76), rgba(10, 12, 24, 0.78)); box-shadow: 0 2rem 8rem rgba(0, 0, 0, 0.38); }
+.cardTopline { display: flex; justify-content: space-between; color: var(--gold); font-size: 0.67rem; letter-spacing: 0.14em; }
+.sceneText { max-width: 44rem; margin: 2.5rem auto 1.2rem; font-family: "Songti SC", SimSun, serif; font-size: clamp(1.2rem, 2.5vw, 1.75rem); line-height: 1.8; text-align: center; }
+.systemLog, .eventQuote, .dialogue, .taskCard { max-width: 42rem; margin: 1.3rem auto; padding: 1rem 1.15rem; border-left: 2px solid var(--gold); background: rgba(0, 0, 0, 0.18); color: var(--muted); font-size: 0.86rem; line-height: 1.75; }
+.systemLog { display: grid; gap: 0.2rem; }
+.systemLog strong, .boundBadge { color: var(--gold); }
+.eventQuote { color: var(--ink); font-family: "Songti SC", SimSun, serif; font-size: 1.05rem; }
+.lifeMeta { display: flex; justify-content: space-between; max-width: 42rem; margin: 1.25rem auto 0; color: var(--muted); font-size: 0.68rem; letter-spacing: 0.08em; }
+.prompt { margin: 1.4rem 0 0.75rem; color: var(--muted); text-align: center; }
+.choiceGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; max-width: 42rem; margin: 1rem auto 0; }
+.choice { display: flex; align-items: flex-start; gap: 0.8rem; min-height: 4.4rem; padding: 0.85rem; border: 1px solid var(--line); border-radius: 0.8rem; color: var(--ink); background: rgba(255, 255, 255, 0.045); text-align: left; cursor: pointer; transition: border-color 160ms ease, transform 160ms ease, background 160ms ease; }
+.choice:hover, .choice:focus-visible { border-color: rgba(232, 183, 93, 0.72); background: rgba(232, 183, 93, 0.1); transform: translateY(-2px); outline: none; }
+.choiceIndex { display: grid; flex: 0 0 auto; place-items: center; width: 1.55rem; height: 1.55rem; border: 1px solid rgba(232, 183, 93, 0.5); border-radius: 50%; color: var(--gold); font-size: 0.7rem; }
+.choice b { display: block; margin-bottom: 0.3rem; font-size: 0.8rem; }
+.choice small { display: block; color: var(--muted); font-size: 0.69rem; line-height: 1.45; }
+.boundBadge { max-width: 42rem; margin: 1.4rem auto; padding-bottom: 0.75rem; border-bottom: 1px solid var(--line); font-size: 0.74rem; letter-spacing: 0.1em; text-align: center; }
+.dialogue p { margin: 0.45rem 0; }
+.dialogue b { color: var(--gold); }
+.taskCard { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; border-left-color: var(--orange); }
+.taskCard h2 { margin: 0.4rem 0 0; font-family: "Songti SC", SimSun, serif; font-size: 1.15rem; }
+.taskCard p { max-width: 15rem; margin: 0; color: var(--muted); font-size: 0.72rem; }
+.finalActions { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.3rem; color: var(--muted); font-size: 0.68rem; }
+.primaryButton { display: block; margin: 1.5rem auto 0; padding: 0.65rem 1rem; border: 1px solid rgba(232, 183, 93, 0.6); border-radius: 999px; color: #1c1520; background: var(--gold); font-weight: 700; cursor: pointer; }
+.primaryButton:disabled { cursor: wait; opacity: 0.52; }
+
+.comicHeader { display: flex; justify-content: space-between; gap: 1rem; max-width: 42rem; margin: 2rem auto 0.65rem; color: var(--muted); font-size: 0.68rem; letter-spacing: 0.1em; }
+.comicHeader span:first-child { color: var(--gold); }
+.comicPanel { position: relative; min-height: 18rem; max-width: 42rem; margin: 0 auto; overflow: hidden; border: 1px solid rgba(248, 241, 223, 0.3); border-radius: 0.95rem; background: linear-gradient(135deg, rgba(9, 14, 32, 0.96), rgba(29, 17, 44, 0.92)); box-shadow: inset 0 -6rem 7rem rgba(0, 0, 0, 0.38), 0 1rem 3rem rgba(0, 0, 0, 0.24); }
+.comicPanel::before, .comicPanel::after { position: absolute; content: ""; pointer-events: none; }
+.comicPanel::before { inset: 14% 18%; border: 1px solid rgba(232, 183, 93, 0.32); border-radius: 50%; transform: rotate(-14deg); box-shadow: 0 0 0 2rem rgba(232, 183, 93, 0.04), 0 0 3rem rgba(94, 144, 224, 0.18); }
+.comicPanel::after { inset: 0; background: linear-gradient(130deg, transparent 22%, rgba(255, 255, 255, 0.05) 48%, transparent 52%); transform: translateX(-55%); animation: panelSweep 5s ease-in-out infinite; }
+.comicPanelGlow { position: absolute; inset: auto -10% -42% 25%; height: 80%; border-radius: 50%; background: rgba(105, 85, 220, 0.3); filter: blur(2.4rem); }
+.comicPanelStamp { position: absolute; top: 1rem; right: 1rem; color: rgba(248, 241, 223, 0.4); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.58rem; letter-spacing: 0.08em; }
+.comicPanelCopy { position: absolute; right: 8%; bottom: 2rem; left: 8%; z-index: 1; }
+.comicPanelCopy strong { display: block; max-width: 32rem; color: var(--ink); font-family: "Songti SC", SimSun, serif; font-size: clamp(1.2rem, 3vw, 2rem); line-height: 1.35; text-shadow: 0 2px 1rem rgba(0, 0, 0, 0.7); }
+.comicPanelCopy p { max-width: 36rem; margin: 0.8rem 0 0; color: rgba(248, 241, 223, 0.8); font-size: 0.85rem; line-height: 1.75; text-shadow: 0 1px 0.8rem rgba(0, 0, 0, 0.85); }
+.comicCaption { max-width: 42rem; margin: 0.8rem auto 0; color: rgba(248, 241, 223, 0.48); font-size: 0.67rem; line-height: 1.5; text-align: center; }
+.comic-paper { background: linear-gradient(135deg, rgba(19, 24, 39, 0.9), rgba(38, 31, 61, 0.96)); }
+.comic-paper .comicPanelGlow, .comic-ink .comicPanelGlow { background: rgba(221, 225, 255, 0.2); }
+.comic-screen { background: linear-gradient(135deg, rgba(8, 21, 39, 0.96), rgba(15, 57, 77, 0.9)); }
+.comic-blue { background: linear-gradient(135deg, rgba(6, 19, 42, 0.96), rgba(19, 73, 97, 0.9)); }
+.comic-curtain, .comic-gold { background: linear-gradient(135deg, rgba(45, 11, 31, 0.96), rgba(87, 43, 28, 0.94)); }
+.comic-stone { background: linear-gradient(135deg, rgba(18, 22, 39, 0.96), rgba(39, 33, 64, 0.94)); }
+.comic-thunder, .comic-summit, .comic-white { background: linear-gradient(135deg, rgba(20, 14, 49, 0.96), rgba(55, 34, 93, 0.92)); }
+.comic-thunder .comicPanelGlow { background: rgba(116, 108, 255, 0.34); }
+.comic-summit .comicPanelGlow { background: rgba(240, 184, 81, 0.3); }
+.comic-white .comicPanelGlow { background: rgba(238, 240, 255, 0.26); }
+
+.accidentStage { position: relative; max-width: 42rem; min-height: 18rem; margin: 2rem auto 0; overflow: hidden; border: 1px solid rgba(248, 241, 223, 0.25); border-radius: 0.95rem; background: #05050c; }
+.accidentFlash { position: absolute; inset: -20%; background: radial-gradient(circle at 70% 42%, rgba(255, 255, 255, 0.95) 0 2%, rgba(157, 113, 255, 0.26) 11%, transparent 38%); opacity: 0; transition: opacity 300ms ease; }
+.accidentStage[data-beat="0"] .accidentFlash { opacity: 0.6; }
+.accidentStage[data-beat="1"] .accidentFlash { opacity: 1; animation: accidentFlash 900ms ease-in-out infinite alternate; }
+.accidentStage[data-beat="2"] .accidentFlash { opacity: 0.28; }
+.accidentImageSlot { position: absolute; top: 1rem; right: 1rem; display: grid; gap: 0.25rem; padding: 0.5rem 0.65rem; border: 1px dashed rgba(248, 241, 223, 0.3); color: rgba(248, 241, 223, 0.56); font-size: 0.7rem; }
+.accidentImageSlot small { color: rgba(248, 241, 223, 0.34); font-size: 0.58rem; }
+.accidentCopy { position: absolute; right: 8%; bottom: 2rem; left: 8%; z-index: 1; }
+.accidentCopy strong { color: var(--gold); font-family: "Songti SC", SimSun, serif; font-size: 2rem; }
+.accidentCopy p { max-width: 35rem; margin: 0.75rem 0 0; color: var(--ink); font-size: 0.9rem; line-height: 1.75; text-shadow: 0 1px 1rem #000; }
+
+.awakeningStage { max-width: 42rem; min-height: 18rem; margin: 2rem auto 0; display: grid; grid-template-columns: 0.8fr 1.2fr; align-items: center; gap: 1.4rem; padding: 1.5rem; border: 1px solid rgba(248, 241, 223, 0.2); border-radius: 0.95rem; background: #020208; }
+.awakeningEye { position: relative; display: grid; place-items: center; height: 7rem; overflow: hidden; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(232, 183, 93, 0.95) 0 3%, rgba(83, 58, 136, 0.8) 4% 16%, rgba(1, 1, 5, 0.98) 18% 46%, transparent 48%); box-shadow: 0 0 3rem rgba(232, 183, 93, 0.35); animation: eyeOpen 1300ms ease-out both; }
+.awakeningEye::before, .awakeningEye::after { position: absolute; left: -10%; width: 120%; height: 55%; content: ""; border-radius: 50%; background: #020208; }
+.awakeningEye::before { top: -30%; transform: rotate(6deg); }
+.awakeningEye::after { bottom: -30%; transform: rotate(-6deg); }
+.awakeningEye span { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: #f8f1df; box-shadow: 0 0 1rem #e8b75d; }
+.awakeningCopy { display: grid; gap: 0.65rem; color: var(--muted); font-size: 0.82rem; line-height: 1.6; }
+.awakeningCopy strong { color: var(--gold); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+.awakeningCopy p { margin: 0; }
+
+@keyframes panelSweep { 0%, 30% { transform: translateX(-55%); } 65%, 100% { transform: translateX(55%); } }
+@keyframes accidentFlash { from { opacity: 0.45; transform: scale(0.96); } to { opacity: 1; transform: scale(1.05); } }
+@keyframes eyeOpen { from { filter: blur(7px); opacity: 0; transform: scale(0.9); } to { filter: blur(0); opacity: 1; transform: scale(1); } }
+
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; align-items: stretch; width: min(760px, calc(100% - 1rem)); }
+  .storyArea { order: -1; }
+  .logPanel, .identityPanel { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.55rem 1rem; }
+  .logPanel .panelLabel, .identityPanel .panelLabel { grid-column: 1 / -1; }
+  .logLine, .routeRow, .panelNote, .panelRule, .logRule, .identityPanel p, .identityPanel small, .progressTrack { margin-top: 0; }
+  .identityGlyph { width: 3rem; height: 3rem; margin: 0; font-size: 1.4rem; }
+  .identityPanel h2 { text-align: left; }
+}
+
+@media (max-width: 560px) {
+  .topbar { padding: 1rem 0.8rem 0; }
+  .topStatus { max-width: 9rem; }
+  .layout { padding-top: 1rem; }
+  .storyCard { min-height: 0; padding: 1rem; }
+  .sceneText { margin-top: 1.5rem; font-size: 1.15rem; }
+  .choiceGrid { grid-template-columns: 1fr; }
+  .taskCard, .finalActions { align-items: stretch; flex-direction: column; }
+  .comicHeader { font-size: 0.6rem; }
+  .comicPanel, .accidentStage { min-height: 20rem; }
+  .awakeningStage { grid-template-columns: 1fr; min-height: 25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice, .progressTrack span, .comicPanel::after, .accidentFlash, .awakeningEye { transition: none; animation: none; }
+}

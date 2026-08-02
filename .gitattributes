@@ -1,0 +1,2 @@
+# Shell entrypoints are mounted directly into Linux containers.
+*.sh text eol=lf

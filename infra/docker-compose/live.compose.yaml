@@ -1,0 +1,19 @@
+services:
+  backend:
+    image: ghcr.io/erliu/backend:${ARTIFACT_SHA:-live}
+    environment:
+      APP_ENV: live
+      ENVIRONMENT_KEY: live
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4000/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  h5:
+    image: ghcr.io/erliu/h5:${ARTIFACT_SHA:-live}
+    environment:
+      APP_ENV: live
+  ops:
+    image: ghcr.io/erliu/ops:${ARTIFACT_SHA:-live}
+    environment:
+      APP_ENV: live

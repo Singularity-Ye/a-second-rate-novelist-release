@@ -1,0 +1,5041 @@
+{
+  "accounts": [
+    {
+      "account_id": "648400be-6242-47b2-8d9b-4d14253ac713",
+      "account_token": "h5-guest-0c8987bd-8cad-4736-8602-ab927f21dda0",
+      "account_status": "guest",
+      "primary_channel": "h5",
+      "created_at": "2026-03-31T06:48:39.871Z",
+      "updated_at": "2026-03-31T06:48:39.871Z"
+    },
+    {
+      "account_id": "dd8c46e9-505a-4b72-a488-7128dd29d713",
+      "account_token": "probe-shared-001",
+      "account_status": "guest",
+      "primary_channel": "h5",
+      "created_at": "2026-03-31T06:49:44.702Z",
+      "updated_at": "2026-03-31T06:49:44.702Z"
+    },
+    {
+      "account_id": "0484d89a-431e-4a8d-bcae-b6eb2526899c",
+      "account_token": "probe-shared-ldrun-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T06:59:02.965Z",
+      "updated_at": "2026-03-31T06:59:02.965Z"
+    },
+    {
+      "account_id": "68df8490-e073-4049-89c1-6b167e739d3a",
+      "account_token": "probe-shared-ldrun-raw-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T06:59:28.667Z",
+      "updated_at": "2026-03-31T06:59:28.667Z"
+    },
+    {
+      "account_id": "809f47a8-9cc7-4786-a583-64b272466b27",
+      "account_token": "probe-shared-new-url-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T07:02:15.141Z",
+      "updated_at": "2026-03-31T07:02:15.141Z"
+    },
+    {
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "account_token": "h5-guest-77f4c1a3-597a-4f74-9c92-896b17f3ac86",
+      "account_status": "guest",
+      "primary_channel": "h5",
+      "created_at": "2026-03-31T07:02:52.443Z",
+      "updated_at": "2026-03-31T07:02:52.443Z"
+    },
+    {
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "account_token": "hosted-shared-dev-001",
+      "account_status": "active",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T07:02:55.364Z",
+      "updated_at": "2026-03-31T07:15:59.211Z",
+      "accepted_policy_version": "policy-v1"
+    },
+    {
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "account_token": "h5-guest-4298d2db-0f17-4676-bb64-ad11391f732e",
+      "account_status": "guest",
+      "primary_channel": "h5",
+      "created_at": "2026-03-31T07:08:22.015Z",
+      "updated_at": "2026-03-31T07:08:22.015Z"
+    },
+    {
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "account_token": "h5-guest-5689ff96-0431-4afa-b558-11b898ecca65",
+      "account_status": "guest",
+      "primary_channel": "h5",
+      "created_at": "2026-03-31T07:09:35.110Z",
+      "updated_at": "2026-03-31T07:09:35.110Z"
+    },
+    {
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "account_token": "h5-guest-2dbf9a47-b5f6-47ed-b599-4a9c7e35a08f",
+      "account_status": "guest",
+      "primary_channel": "h5",
+      "created_at": "2026-03-31T07:15:54.135Z",
+      "updated_at": "2026-03-31T07:15:54.135Z"
+    },
+    {
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "account_token": "wx-openid-m3-export-ui-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T08:21:08.992Z",
+      "updated_at": "2026-03-31T08:21:09.018Z"
+    },
+    {
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "account_token": "wx-openid-m3-e2e-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T08:21:15.672Z",
+      "updated_at": "2026-03-31T08:21:15.694Z"
+    },
+    {
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "account_token": "wx-openid-m3-e2e-003",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T08:21:21.792Z",
+      "updated_at": "2026-03-31T08:21:21.817Z"
+    },
+    {
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "account_token": "wx-openid-m3-e2e-002",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T08:21:27.509Z",
+      "updated_at": "2026-03-31T08:21:27.543Z"
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": "05287406-bd15-4b7a-8882-812012e90ba3",
+      "account_id": "648400be-6242-47b2-8d9b-4d14253ac713",
+      "device_id": "2fd2fb47-2efb-46ee-89f5-241d3111e4a5",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T06:48:39.872Z"
+    },
+    {
+      "session_id": "f9bd829c-c374-4758-bc15-a8388a0c1335",
+      "account_id": "dd8c46e9-505a-4b72-a488-7128dd29d713",
+      "device_id": "075967d4-df5c-4b45-a683-7cf01c69d69e",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T06:49:44.703Z"
+    },
+    {
+      "session_id": "c7bb493b-520d-45f5-be9f-1ae9b4667b3c",
+      "account_id": "0484d89a-431e-4a8d-bcae-b6eb2526899c",
+      "device_id": "ef0a87cd-7ee5-4a3b-b614-705841d90500",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T06:59:02.966Z"
+    },
+    {
+      "session_id": "a77b6137-8716-43f7-88c9-80b4f33b2e8d",
+      "account_id": "68df8490-e073-4049-89c1-6b167e739d3a",
+      "device_id": "9ff818d5-3580-4b10-b571-3b2d81eb1244",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T06:59:28.667Z"
+    },
+    {
+      "session_id": "9c2aa9b0-04af-4c36-af86-9e45c5b221d3",
+      "account_id": "809f47a8-9cc7-4786-a583-64b272466b27",
+      "device_id": "1acb3b67-55aa-44d8-a4e9-0adc5986ab74",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T07:02:15.142Z"
+    },
+    {
+      "session_id": "08754e4c-5dd9-4b66-8d90-8ef7fabe1cd0",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "device_id": "3c1e101d-17aa-41e4-b79b-272448fc4f86",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T07:02:53.479Z"
+    },
+    {
+      "session_id": "d27b0993-a396-4440-a8ab-6f1470e0f6d9",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "device_id": "3bdc6cee-e944-4743-ae8a-5a34c15e9740",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T07:15:56.884Z"
+    },
+    {
+      "session_id": "dcc6323f-330a-4ed7-8662-51a31e1e78c7",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "device_id": "wechat:wechat-hosted-shared-dev-001",
+      "device_type": "wechat",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T07:15:59.211Z"
+    },
+    {
+      "session_id": "cb75e33c-0f92-4a8a-ae94-87ed7cf02663",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "device_id": "a12af3cf-4258-409b-8a96-d9207f7509f5",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T07:08:23.096Z"
+    },
+    {
+      "session_id": "1c83d52f-8da4-4515-beb5-e5f50b1393f6",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "device_id": "89a3a1cb-db4c-4291-9c93-495496ca4e41",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T07:09:36.544Z"
+    },
+    {
+      "session_id": "e01ee8f1-8e5b-49ce-88f3-936b9c5af251",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "device_id": "4a42dd2a-1af2-4d6b-a433-11a405f6db6d",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T07:15:55.224Z"
+    },
+    {
+      "session_id": "423d6f9e-bbcb-4cd0-86e9-b1436843be3c",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "device_id": "9598c242-1e10-4c8d-bc9c-7f3747e63f88",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T08:21:08.994Z"
+    },
+    {
+      "session_id": "68c49e5f-55ca-44bc-ac90-ba9d167ee2e1",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "device_id": "25513e9a-0b91-4f00-8fb3-f050778b78f4",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T08:21:15.673Z"
+    },
+    {
+      "session_id": "dfecb929-b26c-4cdc-9376-9e80fa40d269",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "device_id": "ca470f14-d094-4c54-88db-4851153f6802",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T08:21:21.794Z"
+    },
+    {
+      "session_id": "605f1d11-aa4b-4f20-8ec7-f834bcca3afe",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "device_id": "c8629cfb-8e12-430f-b841-6c5c95ed2c6d",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T08:21:27.510Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "473b6c8d-4837-4944-aef6-b9e9e005a6a2",
+      "channel_message_id": "h5-room-entry-bc811237-3efd-4545-98eb-85ddade5c07d",
+      "channel": "h5",
+      "text": "先带我进入房间看看。",
+      "account_id": "648400be-6242-47b2-8d9b-4d14253ac713",
+      "created_at": "2026-03-31T06:48:39.872Z"
+    },
+    {
+      "id": "04dde31c-1d48-4cd8-86d9-492c9ed7d972",
+      "channel_message_id": "probe-shared-001",
+      "channel": "h5",
+      "text": "probe",
+      "account_id": "dd8c46e9-505a-4b72-a488-7128dd29d713",
+      "created_at": "2026-03-31T06:49:44.703Z"
+    },
+    {
+      "id": "ac3f7df9-9199-4e9c-ace9-49eeab19dad9",
+      "channel_message_id": "probe-shared-ldrun-001",
+      "channel": "wechat",
+      "text": "check deep link",
+      "account_id": "0484d89a-431e-4a8d-bcae-b6eb2526899c",
+      "created_at": "2026-03-31T06:59:02.967Z"
+    },
+    {
+      "id": "93c6a918-ee40-4279-b335-f08b1da9eebd",
+      "channel_message_id": "probe-shared-ldrun-raw-001",
+      "channel": "wechat",
+      "text": "check deep link raw",
+      "account_id": "68df8490-e073-4049-89c1-6b167e739d3a",
+      "created_at": "2026-03-31T06:59:28.667Z"
+    },
+    {
+      "id": "b61d11d1-ff3d-43c9-b94e-ae8a225f263b",
+      "channel_message_id": "probe-shared-new-url-001",
+      "channel": "wechat",
+      "text": "check deep link new url",
+      "account_id": "809f47a8-9cc7-4786-a583-64b272466b27",
+      "created_at": "2026-03-31T07:02:15.142Z"
+    },
+    {
+      "id": "43f7dbf9-072d-4839-86a2-ad520ad7a31d",
+      "channel_message_id": "h5-room-entry-268d7f64-b049-4771-a5b4-9a2298332ca9",
+      "channel": "h5",
+      "text": "先带我进入房间看看。",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "created_at": "2026-03-31T07:02:52.444Z"
+    },
+    {
+      "id": "906ca4cd-8d4e-4676-85d6-bc04095faf37",
+      "channel_message_id": "hosted-shared-dev-msg-001",
+      "channel": "wechat",
+      "text": "我要在 shared-dev hosted preview 上检查主路径是否可用。",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "created_at": "2026-03-31T07:02:55.365Z"
+    },
+    {
+      "id": "5b33c75a-3df0-4cd4-be9c-30bee66b7957",
+      "channel_message_id": "h5-room-entry-6fbfb25e-3d67-4903-a264-d21a2ca52a1f",
+      "channel": "h5",
+      "text": "先带我进入房间看看。",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "created_at": "2026-03-31T07:08:22.018Z"
+    },
+    {
+      "id": "91428ee1-93f7-4b34-a562-e801f19b075f",
+      "channel_message_id": "hosted-shared-dev-msg-001",
+      "channel": "wechat",
+      "text": "我要在 shared-dev hosted preview 上检查主路径是否可用。",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "created_at": "2026-03-31T07:08:24.875Z"
+    },
+    {
+      "id": "b2d6fc11-624b-47d4-8ced-3c07d2501a6d",
+      "channel_message_id": "h5-room-entry-ac1ca5dd-abd0-4c8b-ad2c-01a49148f67a",
+      "channel": "h5",
+      "text": "先带我进入房间看看。",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "created_at": "2026-03-31T07:09:35.114Z"
+    },
+    {
+      "id": "a35dcb7c-04d1-45d4-b250-58c95f83cf34",
+      "channel_message_id": "hosted-shared-dev-msg-001",
+      "channel": "wechat",
+      "text": "我要在 shared-dev hosted preview 上检查主路径是否可用。",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "created_at": "2026-03-31T07:09:37.808Z"
+    },
+    {
+      "id": "5ddcb6fa-be1d-4358-bddd-3483996c6960",
+      "channel_message_id": "h5-room-entry-adb3f164-1ab8-49a4-b4e1-72d7e5dcb178",
+      "channel": "h5",
+      "text": "先带我进入房间看看。",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "created_at": "2026-03-31T07:15:54.137Z"
+    },
+    {
+      "id": "f84ca4ba-9cae-435f-a63d-fdded42075b4",
+      "channel_message_id": "hosted-shared-dev-msg-001",
+      "channel": "wechat",
+      "text": "我要在 shared-dev hosted preview 上检查主路径是否可用。",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "created_at": "2026-03-31T07:15:56.885Z"
+    },
+    {
+      "id": "a4469804-51de-4539-80a2-b951ef2a97f2",
+      "channel_message_id": "wx-m3-export-ui-001",
+      "channel": "wechat",
+      "text": "先准备一条可以进入 readiness 前台流程的故事。",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "created_at": "2026-03-31T08:21:08.995Z"
+    },
+    {
+      "id": "3aa521d9-a359-4893-9ac5-80a2c26ccdbb",
+      "channel_message_id": "wx-m3-e2e-001",
+      "channel": "wechat",
+      "text": "先准备一条能进入导出链的故事。",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "created_at": "2026-03-31T08:21:15.673Z"
+    },
+    {
+      "id": "d4e10e5b-0d46-4bb7-8c27-b2e900d58752",
+      "channel_message_id": "wx-m3-e2e-003",
+      "channel": "wechat",
+      "text": "先准备一条能进入导出链的故事。",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "created_at": "2026-03-31T08:21:21.795Z"
+    },
+    {
+      "id": "48bb3780-d22e-4af8-9678-67e7b7d53198",
+      "channel_message_id": "wx-m3-e2e-002",
+      "channel": "wechat",
+      "text": "先准备一条能进入导出链的故事。",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "created_at": "2026-03-31T08:21:27.512Z"
+    }
+  ],
+  "deepLinks": [],
+  "storyWorkspaces": [
+    {
+      "id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "title": "雨夜列车",
+      "keywords": [
+        "雨夜列车",
+        "为了 hosted preview UAT 准备一个最小故事闭环。"
+      ],
+      "workspace_status": "active",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "privacy_scope": "private",
+      "commission_brief": {
+        "proposal_id": "03cde735-f034-4d76-b989-cd9045d5b28e",
+        "title": "雨夜列车",
+        "summary": "旧城夜班车上的重逢拉扯。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+        "intake_mode": "only_feeling",
+        "entry_surface": "chat",
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "tone_hint": "保持慢热拉扯，但别太快确认关系。",
+        "serialization_scope": "long_form"
+      },
+      "current_chapter_id": null,
+      "created_at": "2026-03-31T07:02:56.989Z",
+      "updated_at": "2026-03-31T07:02:56.989Z",
+      "updated_by": "story-intake"
+    },
+    {
+      "id": "03a0b9a7-2326-443b-b579-c9d819ef8231",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "title": "雨夜列车",
+      "keywords": [
+        "雨夜列车",
+        "为了 hosted preview UAT 准备一个最小故事闭环。"
+      ],
+      "workspace_status": "active",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "privacy_scope": "private",
+      "commission_brief": {
+        "proposal_id": "ccdd61df-b734-447d-841e-e7b1fc159563",
+        "title": "雨夜列车",
+        "summary": "旧城夜班车上的重逢拉扯。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+        "intake_mode": "only_feeling",
+        "entry_surface": "chat",
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "tone_hint": "保持慢热拉扯，但别太快确认关系。",
+        "serialization_scope": "long_form"
+      },
+      "current_chapter_id": null,
+      "created_at": "2026-03-31T07:08:26.593Z",
+      "updated_at": "2026-03-31T07:08:26.593Z",
+      "updated_by": "story-intake"
+    },
+    {
+      "id": "5f527ec1-8c86-4e4a-9823-285e5af98b29",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "title": "雨夜列车",
+      "keywords": [
+        "雨夜列车",
+        "为了 hosted preview UAT 准备一个最小故事闭环。"
+      ],
+      "workspace_status": "active",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "privacy_scope": "private",
+      "commission_brief": {
+        "proposal_id": "b4848921-70fe-46fb-b84c-6c030f845ca3",
+        "title": "雨夜列车",
+        "summary": "旧城夜班车上的重逢拉扯。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+        "intake_mode": "only_feeling",
+        "entry_surface": "chat",
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "tone_hint": "保持慢热拉扯，但别太快确认关系。",
+        "serialization_scope": "long_form"
+      },
+      "current_chapter_id": null,
+      "created_at": "2026-03-31T07:09:39.748Z",
+      "updated_at": "2026-03-31T07:09:39.748Z",
+      "updated_by": "story-intake"
+    },
+    {
+      "id": "16a4d79b-882e-4862-aa57-7d66de9a61f5",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "title": "雨夜列车",
+      "keywords": [
+        "雨夜列车",
+        "为了 hosted preview UAT 准备一个最小故事闭环。"
+      ],
+      "workspace_status": "active",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "privacy_scope": "private",
+      "commission_brief": {
+        "proposal_id": "b113bf2a-133a-4268-9b00-2efb5deecf3e",
+        "title": "雨夜列车",
+        "summary": "旧城夜班车上的重逢拉扯。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+        "intake_mode": "only_feeling",
+        "entry_surface": "chat",
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "tone_hint": "保持慢热拉扯，但别太快确认关系。",
+        "serialization_scope": "long_form"
+      },
+      "current_chapter_id": null,
+      "created_at": "2026-03-31T07:15:58.698Z",
+      "updated_at": "2026-03-31T07:15:58.698Z",
+      "updated_by": "story-intake"
+    },
+    {
+      "id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "title": "雨夜列车",
+      "keywords": [
+        "雨夜列车",
+        "我要从 exports 页面直接发起风控、导出和 waiver。"
+      ],
+      "workspace_status": "active",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "privacy_scope": "private",
+      "commission_brief": {
+        "proposal_id": "96ccdd67-84a5-411c-9e4d-51495b195fb4",
+        "title": "雨夜列车",
+        "summary": "旧城夜班车上的重逢拉扯。 基底感觉：我要从 exports 页面直接发起风控、导出和 waiver。",
+        "intake_mode": "only_feeling",
+        "entry_surface": "chat",
+        "seed_text": "我要从 exports 页面直接发起风控、导出和 waiver。",
+        "tone_hint": "保持慢热拉扯，但别太快确认关系。",
+        "serialization_scope": "long_form"
+      },
+      "current_chapter_id": "74f7a526-1a9f-4388-ad6e-72e638e14c61",
+      "created_at": "2026-03-31T08:21:09.014Z",
+      "updated_at": "2026-03-31T08:21:09.026Z",
+      "updated_by": "story-intake"
+    },
+    {
+      "id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "title": "雨夜列车",
+      "keywords": [
+        "雨夜列车",
+        "我要验证导出、证据和风控链。"
+      ],
+      "workspace_status": "active",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "privacy_scope": "private",
+      "commission_brief": {
+        "proposal_id": "e11bc1c6-3d50-461c-86bf-1ac23c798564",
+        "title": "雨夜列车",
+        "summary": "旧城夜班车上的重逢拉扯。 基底感觉：我要验证导出、证据和风控链。",
+        "intake_mode": "only_feeling",
+        "entry_surface": "chat",
+        "seed_text": "我要验证导出、证据和风控链。",
+        "tone_hint": "保持慢热拉扯，但别太快确认关系。",
+        "serialization_scope": "long_form"
+      },
+      "current_chapter_id": "8cb315d8-ae7b-4a69-95cf-b0f3e450c565",
+      "created_at": "2026-03-31T08:21:15.692Z",
+      "updated_at": "2026-03-31T08:21:15.699Z",
+      "updated_by": "story-intake"
+    },
+    {
+      "id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "title": "雨夜列车",
+      "keywords": [
+        "雨夜列车",
+        "我要验证导出、证据和风控链。"
+      ],
+      "workspace_status": "active",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "privacy_scope": "private",
+      "commission_brief": {
+        "proposal_id": "6f6d4ccb-ca44-460d-b299-bab62ec44445",
+        "title": "雨夜列车",
+        "summary": "旧城夜班车上的重逢拉扯。 基底感觉：我要验证导出、证据和风控链。",
+        "intake_mode": "only_feeling",
+        "entry_surface": "chat",
+        "seed_text": "我要验证导出、证据和风控链。",
+        "tone_hint": "保持慢热拉扯，但别太快确认关系。",
+        "serialization_scope": "long_form"
+      },
+      "current_chapter_id": "652893bd-e4d4-4a8d-99cf-5b80cd3ca149",
+      "created_at": "2026-03-31T08:21:21.814Z",
+      "updated_at": "2026-03-31T08:21:21.822Z",
+      "updated_by": "story-intake"
+    },
+    {
+      "id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "title": "雨夜列车",
+      "keywords": [
+        "雨夜列车",
+        "我要验证导出、证据和风控链。"
+      ],
+      "workspace_status": "active",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "privacy_scope": "private",
+      "commission_brief": {
+        "proposal_id": "5a2a9cca-9e11-4bd2-bbd3-ba6598e60482",
+        "title": "雨夜列车",
+        "summary": "旧城夜班车上的重逢拉扯。 基底感觉：我要验证导出、证据和风控链。",
+        "intake_mode": "only_feeling",
+        "entry_surface": "chat",
+        "seed_text": "我要验证导出、证据和风控链。",
+        "tone_hint": "保持慢热拉扯，但别太快确认关系。",
+        "serialization_scope": "long_form"
+      },
+      "current_chapter_id": "6f18e3f2-c6de-4c7d-ac1a-1912261c85b2",
+      "created_at": "2026-03-31T08:21:27.538Z",
+      "updated_at": "2026-03-31T08:21:27.549Z",
+      "updated_by": "story-intake"
+    }
+  ],
+  "storyIntakeSessions": [
+    {
+      "id": "15c81f3d-e39a-40dd-aff5-ee1f8cf0a37a",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "brief_payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。"
+      },
+      "status": "converted",
+      "selected_proposal_id": "03cde735-f034-4d76-b989-cd9045d5b28e",
+      "client_request_id": "hosted-shared-dev-msg-001-session",
+      "created_at": "2026-03-31T07:02:55.891Z",
+      "updated_at": "2026-03-31T07:02:56.989Z"
+    },
+    {
+      "id": "5361a4b0-bef3-4fac-adba-52c125307244",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "brief_payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。"
+      },
+      "status": "converted",
+      "selected_proposal_id": "ccdd61df-b734-447d-841e-e7b1fc159563",
+      "client_request_id": "hosted-shared-dev-msg-001-session",
+      "created_at": "2026-03-31T07:08:25.486Z",
+      "updated_at": "2026-03-31T07:08:26.593Z"
+    },
+    {
+      "id": "2a30a99a-d09a-4a7a-9ab3-ababfa673de6",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "brief_payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。"
+      },
+      "status": "converted",
+      "selected_proposal_id": "b4848921-70fe-46fb-b84c-6c030f845ca3",
+      "client_request_id": "hosted-shared-dev-msg-001-session",
+      "created_at": "2026-03-31T07:09:38.435Z",
+      "updated_at": "2026-03-31T07:09:39.748Z"
+    },
+    {
+      "id": "0a20da55-46d9-4c2a-9221-3c7ade97cdcb",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "brief_payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。"
+      },
+      "status": "converted",
+      "selected_proposal_id": "b113bf2a-133a-4268-9b00-2efb5deecf3e",
+      "client_request_id": "hosted-shared-dev-msg-001-session",
+      "created_at": "2026-03-31T07:15:57.575Z",
+      "updated_at": "2026-03-31T07:15:58.698Z"
+    },
+    {
+      "id": "ae4ae28a-c67b-4aa1-9b41-2aac3692589f",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "brief_payload": {
+        "seed_text": "我要从 exports 页面直接发起风控、导出和 waiver。"
+      },
+      "status": "converted",
+      "selected_proposal_id": "96ccdd67-84a5-411c-9e4d-51495b195fb4",
+      "client_request_id": "wx-m3-export-ui-001-session",
+      "created_at": "2026-03-31T08:21:09.006Z",
+      "updated_at": "2026-03-31T08:21:09.014Z"
+    },
+    {
+      "id": "1df85643-f829-4e4a-8d06-0c883fbd87f6",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "brief_payload": {
+        "seed_text": "我要验证导出、证据和风控链。"
+      },
+      "status": "converted",
+      "selected_proposal_id": "e11bc1c6-3d50-461c-86bf-1ac23c798564",
+      "client_request_id": "wx-m3-e2e-001-session",
+      "created_at": "2026-03-31T08:21:15.684Z",
+      "updated_at": "2026-03-31T08:21:15.692Z"
+    },
+    {
+      "id": "500b2905-9836-4180-8c02-2f74b8c74045",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "brief_payload": {
+        "seed_text": "我要验证导出、证据和风控链。"
+      },
+      "status": "converted",
+      "selected_proposal_id": "6f6d4ccb-ca44-460d-b299-bab62ec44445",
+      "client_request_id": "wx-m3-e2e-003-session",
+      "created_at": "2026-03-31T08:21:21.806Z",
+      "updated_at": "2026-03-31T08:21:21.814Z"
+    },
+    {
+      "id": "70cf2d4b-3889-43fa-98eb-2c5a86f6e71b",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "entry_surface": "chat",
+      "intake_mode": "only_feeling",
+      "brief_payload": {
+        "seed_text": "我要验证导出、证据和风控链。"
+      },
+      "status": "converted",
+      "selected_proposal_id": "5a2a9cca-9e11-4bd2-bbd3-ba6598e60482",
+      "client_request_id": "wx-m3-e2e-002-session",
+      "created_at": "2026-03-31T08:21:27.528Z",
+      "updated_at": "2026-03-31T08:21:27.538Z"
+    }
+  ],
+  "storyProposals": [
+    {
+      "id": "03cde735-f034-4d76-b989-cd9045d5b28e",
+      "session_id": "15c81f3d-e39a-40dd-aff5-ee1f8cf0a37a",
+      "proposal_no": 1,
+      "title": "雨夜列车",
+      "summary": "旧城夜班车上的重逢拉扯。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "旧识重逢",
+        "atmosphere": "潮湿、克制、暧昧",
+        "intake_mode": "only_feeling"
+      },
+      "status": "selected",
+      "created_at": "2026-03-31T07:02:56.466Z",
+      "updated_at": "2026-03-31T07:02:56.989Z"
+    },
+    {
+      "id": "f892c339-d8f9-4b5f-a7d7-af0b8e5fef1e",
+      "session_id": "15c81f3d-e39a-40dd-aff5-ee1f8cf0a37a",
+      "proposal_no": 2,
+      "title": "玻璃海",
+      "summary": "海风里的失而复得。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "错过后的再靠近",
+        "atmosphere": "清冷、试探、余温未散",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T07:02:56.466Z",
+      "updated_at": "2026-03-31T07:02:56.989Z"
+    },
+    {
+      "id": "a10ba86a-5e6f-4b25-9f98-d238cd667722",
+      "session_id": "15c81f3d-e39a-40dd-aff5-ee1f8cf0a37a",
+      "proposal_no": 3,
+      "title": "倒带告白",
+      "summary": "在告白失败前一夜重写命运。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "从朋友边缘逼近恋人",
+        "atmosphere": "时差感、拉扯感、命运回弹",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T07:02:56.466Z",
+      "updated_at": "2026-03-31T07:02:56.989Z"
+    },
+    {
+      "id": "ccdd61df-b734-447d-841e-e7b1fc159563",
+      "session_id": "5361a4b0-bef3-4fac-adba-52c125307244",
+      "proposal_no": 1,
+      "title": "雨夜列车",
+      "summary": "旧城夜班车上的重逢拉扯。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "旧识重逢",
+        "atmosphere": "潮湿、克制、暧昧",
+        "intake_mode": "only_feeling"
+      },
+      "status": "selected",
+      "created_at": "2026-03-31T07:08:26.014Z",
+      "updated_at": "2026-03-31T07:08:26.593Z"
+    },
+    {
+      "id": "95a4509a-d84b-44ab-bdc2-c0353d302a70",
+      "session_id": "5361a4b0-bef3-4fac-adba-52c125307244",
+      "proposal_no": 2,
+      "title": "玻璃海",
+      "summary": "海风里的失而复得。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "错过后的再靠近",
+        "atmosphere": "清冷、试探、余温未散",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T07:08:26.014Z",
+      "updated_at": "2026-03-31T07:08:26.593Z"
+    },
+    {
+      "id": "9337aec6-26fc-44c7-a264-59a1e55f5bb3",
+      "session_id": "5361a4b0-bef3-4fac-adba-52c125307244",
+      "proposal_no": 3,
+      "title": "倒带告白",
+      "summary": "在告白失败前一夜重写命运。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "从朋友边缘逼近恋人",
+        "atmosphere": "时差感、拉扯感、命运回弹",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T07:08:26.014Z",
+      "updated_at": "2026-03-31T07:08:26.593Z"
+    },
+    {
+      "id": "b4848921-70fe-46fb-b84c-6c030f845ca3",
+      "session_id": "2a30a99a-d09a-4a7a-9ab3-ababfa673de6",
+      "proposal_no": 1,
+      "title": "雨夜列车",
+      "summary": "旧城夜班车上的重逢拉扯。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "旧识重逢",
+        "atmosphere": "潮湿、克制、暧昧",
+        "intake_mode": "only_feeling"
+      },
+      "status": "selected",
+      "created_at": "2026-03-31T07:09:39.192Z",
+      "updated_at": "2026-03-31T07:09:39.748Z"
+    },
+    {
+      "id": "1b5438f6-b8ca-405b-908b-79a03aec5241",
+      "session_id": "2a30a99a-d09a-4a7a-9ab3-ababfa673de6",
+      "proposal_no": 2,
+      "title": "玻璃海",
+      "summary": "海风里的失而复得。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "错过后的再靠近",
+        "atmosphere": "清冷、试探、余温未散",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T07:09:39.192Z",
+      "updated_at": "2026-03-31T07:09:39.748Z"
+    },
+    {
+      "id": "ef26ab4c-caa0-450f-b221-e1d1d84180ab",
+      "session_id": "2a30a99a-d09a-4a7a-9ab3-ababfa673de6",
+      "proposal_no": 3,
+      "title": "倒带告白",
+      "summary": "在告白失败前一夜重写命运。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "从朋友边缘逼近恋人",
+        "atmosphere": "时差感、拉扯感、命运回弹",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T07:09:39.192Z",
+      "updated_at": "2026-03-31T07:09:39.748Z"
+    },
+    {
+      "id": "b113bf2a-133a-4268-9b00-2efb5deecf3e",
+      "session_id": "0a20da55-46d9-4c2a-9221-3c7ade97cdcb",
+      "proposal_no": 1,
+      "title": "雨夜列车",
+      "summary": "旧城夜班车上的重逢拉扯。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "旧识重逢",
+        "atmosphere": "潮湿、克制、暧昧",
+        "intake_mode": "only_feeling"
+      },
+      "status": "selected",
+      "created_at": "2026-03-31T07:15:58.186Z",
+      "updated_at": "2026-03-31T07:15:58.698Z"
+    },
+    {
+      "id": "3a3c52c9-ee25-42da-a10b-f0131e1bfee5",
+      "session_id": "0a20da55-46d9-4c2a-9221-3c7ade97cdcb",
+      "proposal_no": 2,
+      "title": "玻璃海",
+      "summary": "海风里的失而复得。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "错过后的再靠近",
+        "atmosphere": "清冷、试探、余温未散",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T07:15:58.186Z",
+      "updated_at": "2026-03-31T07:15:58.698Z"
+    },
+    {
+      "id": "96f4b488-87b9-46cd-beda-31ccba87304e",
+      "session_id": "0a20da55-46d9-4c2a-9221-3c7ade97cdcb",
+      "proposal_no": 3,
+      "title": "倒带告白",
+      "summary": "在告白失败前一夜重写命运。 基底感觉：为了 hosted preview UAT 准备一个最小故事闭环。",
+      "payload": {
+        "seed_text": "为了 hosted preview UAT 准备一个最小故事闭环。",
+        "relationship": "从朋友边缘逼近恋人",
+        "atmosphere": "时差感、拉扯感、命运回弹",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T07:15:58.186Z",
+      "updated_at": "2026-03-31T07:15:58.698Z"
+    },
+    {
+      "id": "96ccdd67-84a5-411c-9e4d-51495b195fb4",
+      "session_id": "ae4ae28a-c67b-4aa1-9b41-2aac3692589f",
+      "proposal_no": 1,
+      "title": "雨夜列车",
+      "summary": "旧城夜班车上的重逢拉扯。 基底感觉：我要从 exports 页面直接发起风控、导出和 waiver。",
+      "payload": {
+        "seed_text": "我要从 exports 页面直接发起风控、导出和 waiver。",
+        "relationship": "旧识重逢",
+        "atmosphere": "潮湿、克制、暧昧",
+        "intake_mode": "only_feeling"
+      },
+      "status": "selected",
+      "created_at": "2026-03-31T08:21:09.010Z",
+      "updated_at": "2026-03-31T08:21:09.014Z"
+    },
+    {
+      "id": "641130c8-7365-4a93-b0fd-6c55aa75fae9",
+      "session_id": "ae4ae28a-c67b-4aa1-9b41-2aac3692589f",
+      "proposal_no": 2,
+      "title": "玻璃海",
+      "summary": "海风里的失而复得。 基底感觉：我要从 exports 页面直接发起风控、导出和 waiver。",
+      "payload": {
+        "seed_text": "我要从 exports 页面直接发起风控、导出和 waiver。",
+        "relationship": "错过后的再靠近",
+        "atmosphere": "清冷、试探、余温未散",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T08:21:09.010Z",
+      "updated_at": "2026-03-31T08:21:09.014Z"
+    },
+    {
+      "id": "08149482-bfbe-4f97-ba77-3da5741eceaa",
+      "session_id": "ae4ae28a-c67b-4aa1-9b41-2aac3692589f",
+      "proposal_no": 3,
+      "title": "倒带告白",
+      "summary": "在告白失败前一夜重写命运。 基底感觉：我要从 exports 页面直接发起风控、导出和 waiver。",
+      "payload": {
+        "seed_text": "我要从 exports 页面直接发起风控、导出和 waiver。",
+        "relationship": "从朋友边缘逼近恋人",
+        "atmosphere": "时差感、拉扯感、命运回弹",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T08:21:09.010Z",
+      "updated_at": "2026-03-31T08:21:09.014Z"
+    },
+    {
+      "id": "e11bc1c6-3d50-461c-86bf-1ac23c798564",
+      "session_id": "1df85643-f829-4e4a-8d06-0c883fbd87f6",
+      "proposal_no": 1,
+      "title": "雨夜列车",
+      "summary": "旧城夜班车上的重逢拉扯。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "旧识重逢",
+        "atmosphere": "潮湿、克制、暧昧",
+        "intake_mode": "only_feeling"
+      },
+      "status": "selected",
+      "created_at": "2026-03-31T08:21:15.688Z",
+      "updated_at": "2026-03-31T08:21:15.692Z"
+    },
+    {
+      "id": "675ffab3-3491-466e-ac49-cd1d0798bd79",
+      "session_id": "1df85643-f829-4e4a-8d06-0c883fbd87f6",
+      "proposal_no": 2,
+      "title": "玻璃海",
+      "summary": "海风里的失而复得。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "错过后的再靠近",
+        "atmosphere": "清冷、试探、余温未散",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T08:21:15.688Z",
+      "updated_at": "2026-03-31T08:21:15.692Z"
+    },
+    {
+      "id": "e3d07d91-b6ff-4564-ba57-d4d19aac8dfe",
+      "session_id": "1df85643-f829-4e4a-8d06-0c883fbd87f6",
+      "proposal_no": 3,
+      "title": "倒带告白",
+      "summary": "在告白失败前一夜重写命运。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "从朋友边缘逼近恋人",
+        "atmosphere": "时差感、拉扯感、命运回弹",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T08:21:15.688Z",
+      "updated_at": "2026-03-31T08:21:15.692Z"
+    },
+    {
+      "id": "6f6d4ccb-ca44-460d-b299-bab62ec44445",
+      "session_id": "500b2905-9836-4180-8c02-2f74b8c74045",
+      "proposal_no": 1,
+      "title": "雨夜列车",
+      "summary": "旧城夜班车上的重逢拉扯。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "旧识重逢",
+        "atmosphere": "潮湿、克制、暧昧",
+        "intake_mode": "only_feeling"
+      },
+      "status": "selected",
+      "created_at": "2026-03-31T08:21:21.810Z",
+      "updated_at": "2026-03-31T08:21:21.814Z"
+    },
+    {
+      "id": "4380fe7c-c609-4db8-b799-254ce238bf22",
+      "session_id": "500b2905-9836-4180-8c02-2f74b8c74045",
+      "proposal_no": 2,
+      "title": "玻璃海",
+      "summary": "海风里的失而复得。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "错过后的再靠近",
+        "atmosphere": "清冷、试探、余温未散",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T08:21:21.810Z",
+      "updated_at": "2026-03-31T08:21:21.814Z"
+    },
+    {
+      "id": "1775efee-451d-4452-b48c-59e14e6d0271",
+      "session_id": "500b2905-9836-4180-8c02-2f74b8c74045",
+      "proposal_no": 3,
+      "title": "倒带告白",
+      "summary": "在告白失败前一夜重写命运。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "从朋友边缘逼近恋人",
+        "atmosphere": "时差感、拉扯感、命运回弹",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T08:21:21.810Z",
+      "updated_at": "2026-03-31T08:21:21.814Z"
+    },
+    {
+      "id": "5a2a9cca-9e11-4bd2-bbd3-ba6598e60482",
+      "session_id": "70cf2d4b-3889-43fa-98eb-2c5a86f6e71b",
+      "proposal_no": 1,
+      "title": "雨夜列车",
+      "summary": "旧城夜班车上的重逢拉扯。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "旧识重逢",
+        "atmosphere": "潮湿、克制、暧昧",
+        "intake_mode": "only_feeling"
+      },
+      "status": "selected",
+      "created_at": "2026-03-31T08:21:27.533Z",
+      "updated_at": "2026-03-31T08:21:27.538Z"
+    },
+    {
+      "id": "b653795e-30e3-4881-b743-d80fae5979dd",
+      "session_id": "70cf2d4b-3889-43fa-98eb-2c5a86f6e71b",
+      "proposal_no": 2,
+      "title": "玻璃海",
+      "summary": "海风里的失而复得。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "错过后的再靠近",
+        "atmosphere": "清冷、试探、余温未散",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T08:21:27.533Z",
+      "updated_at": "2026-03-31T08:21:27.538Z"
+    },
+    {
+      "id": "21d9e71c-b2e8-4166-b16f-c7570a57b8e6",
+      "session_id": "70cf2d4b-3889-43fa-98eb-2c5a86f6e71b",
+      "proposal_no": 3,
+      "title": "倒带告白",
+      "summary": "在告白失败前一夜重写命运。 基底感觉：我要验证导出、证据和风控链。",
+      "payload": {
+        "seed_text": "我要验证导出、证据和风控链。",
+        "relationship": "从朋友边缘逼近恋人",
+        "atmosphere": "时差感、拉扯感、命运回弹",
+        "intake_mode": "only_feeling"
+      },
+      "status": "discarded",
+      "created_at": "2026-03-31T08:21:27.533Z",
+      "updated_at": "2026-03-31T08:21:27.538Z"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "74f7a526-1a9f-4388-ad6e-72e638e14c61",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "chapter_no": 1,
+      "status": "generated",
+      "title": "第一章 · 雨夜列车",
+      "body_text": "第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "summary": "雨夜列车 的开篇试读已生成。",
+      "generation_job_id": "523eca96-ba8d-4eb3-b2e3-95ee083d89d0",
+      "created_at": "2026-03-31T08:21:09.026Z",
+      "updated_at": "2026-03-31T08:21:09.026Z"
+    },
+    {
+      "id": "8cb315d8-ae7b-4a69-95cf-b0f3e450c565",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "chapter_no": 1,
+      "status": "generated",
+      "title": "第一章 · 雨夜列车",
+      "body_text": "第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "summary": "雨夜列车 的开篇试读已生成。",
+      "generation_job_id": "67b82637-cb48-49b4-964c-5d5b102a2186",
+      "created_at": "2026-03-31T08:21:15.699Z",
+      "updated_at": "2026-03-31T08:21:15.699Z"
+    },
+    {
+      "id": "652893bd-e4d4-4a8d-99cf-5b80cd3ca149",
+      "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "chapter_no": 1,
+      "status": "generated",
+      "title": "第一章 · 雨夜列车",
+      "body_text": "第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "summary": "雨夜列车 的开篇试读已生成。",
+      "generation_job_id": "dd87446f-61ef-4313-89a8-a1d9c98a1ccc",
+      "created_at": "2026-03-31T08:21:21.822Z",
+      "updated_at": "2026-03-31T08:21:21.822Z"
+    },
+    {
+      "id": "6f18e3f2-c6de-4c7d-ac1a-1912261c85b2",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "chapter_no": 1,
+      "status": "generated",
+      "title": "第一章 · 雨夜列车",
+      "body_text": "第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "summary": "雨夜列车 的开篇试读已生成。",
+      "generation_job_id": "00f8a550-6195-4465-9d5a-2e311d59e1aa",
+      "created_at": "2026-03-31T08:21:27.549Z",
+      "updated_at": "2026-03-31T08:21:27.549Z"
+    }
+  ],
+  "chapterRevisions": [],
+  "runtimeTasks": [
+    {
+      "id": "523eca96-ba8d-4eb3-b2e3-95ee083d89d0",
+      "job_type": "chapter_generate",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "target": "first_chapter",
+      "status": "completed",
+      "notification_id": "331f1b31-e887-4c24-a2ff-a6ae42d56ef6",
+      "result_chapter_id": "74f7a526-1a9f-4388-ad6e-72e638e14c61",
+      "client_request_id": "wx-m3-export-ui-001-generate",
+      "created_at": "2026-03-31T08:21:09.023Z",
+      "updated_at": "2026-03-31T08:21:09.026Z"
+    },
+    {
+      "id": "67b82637-cb48-49b4-964c-5d5b102a2186",
+      "job_type": "chapter_generate",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "target": "first_chapter",
+      "status": "completed",
+      "notification_id": "1c47ca18-8e88-4560-99a9-98d67709f1cd",
+      "result_chapter_id": "8cb315d8-ae7b-4a69-95cf-b0f3e450c565",
+      "client_request_id": "wx-m3-e2e-001-generate",
+      "created_at": "2026-03-31T08:21:15.698Z",
+      "updated_at": "2026-03-31T08:21:15.699Z"
+    },
+    {
+      "id": "dd87446f-61ef-4313-89a8-a1d9c98a1ccc",
+      "job_type": "chapter_generate",
+      "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "target": "first_chapter",
+      "status": "completed",
+      "notification_id": "6a48c297-a5d8-44fc-9dd2-5d85124c4e0f",
+      "result_chapter_id": "652893bd-e4d4-4a8d-99cf-5b80cd3ca149",
+      "client_request_id": "wx-m3-e2e-003-generate",
+      "created_at": "2026-03-31T08:21:21.820Z",
+      "updated_at": "2026-03-31T08:21:21.822Z"
+    },
+    {
+      "id": "00f8a550-6195-4465-9d5a-2e311d59e1aa",
+      "job_type": "chapter_generate",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "target": "first_chapter",
+      "status": "completed",
+      "notification_id": "8aef3b33-84a5-4d8f-af30-c76b58860916",
+      "result_chapter_id": "6f18e3f2-c6de-4c7d-ac1a-1912261c85b2",
+      "client_request_id": "wx-m3-e2e-002-generate",
+      "created_at": "2026-03-31T08:21:27.546Z",
+      "updated_at": "2026-03-31T08:21:27.549Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "551a1b9f-fbd2-4df3-bda2-a0577ff1228a",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "title": "account upgrade completed",
+      "body": "游客故事、通知与权益已并入正式账户。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/profile/account?account_token=hosted-shared-dev-001",
+      "status": "delivered",
+      "category": "system",
+      "source_type": "account_upgrade",
+      "source_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "created_at": "2026-03-31T07:02:57.603Z"
+    },
+    {
+      "id": "ce2a697c-efa7-4cdb-83d2-72e9b56a47c0",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "title": "membership upgraded",
+      "body": "当前方案已升级为 plan_plus。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/profile/account/membership?account_token=hosted-shared-dev-001",
+      "status": "delivered",
+      "category": "membership",
+      "source_type": "membership_order",
+      "source_id": "d4a4c660-6521-416a-8a5f-141130e1f1f1",
+      "created_at": "2026-03-31T07:02:58.377Z"
+    },
+    {
+      "id": "0936b339-2afb-4787-8548-98d072135eea",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "title": "account upgrade completed",
+      "body": "游客故事、通知与权益已并入正式账户。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/profile/account?account_token=hosted-shared-dev-001",
+      "status": "delivered",
+      "category": "system",
+      "source_type": "account_upgrade",
+      "source_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "created_at": "2026-03-31T07:08:27.198Z"
+    },
+    {
+      "id": "18d05788-a48b-4ef9-98ae-4367325c3be9",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "title": "membership upgraded",
+      "body": "当前方案已升级为 plan_plus。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/profile/account/membership?account_token=hosted-shared-dev-001",
+      "status": "delivered",
+      "category": "membership",
+      "source_type": "membership_order",
+      "source_id": "58e7417f-e079-40f5-8e48-9714bb91a157",
+      "created_at": "2026-03-31T07:08:27.907Z"
+    },
+    {
+      "id": "9ef39c9f-535f-4b2b-b3e9-a2f02543846b",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "title": "account upgrade completed",
+      "body": "游客故事、通知与权益已并入正式账户。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/profile/account?account_token=hosted-shared-dev-001",
+      "status": "delivered",
+      "category": "system",
+      "source_type": "account_upgrade",
+      "source_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "created_at": "2026-03-31T07:09:40.279Z"
+    },
+    {
+      "id": "972f12e4-08d8-4510-a52a-a8a22fcefd18",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "title": "membership upgraded",
+      "body": "当前方案已升级为 plan_plus。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/profile/account/membership?account_token=hosted-shared-dev-001",
+      "status": "delivered",
+      "category": "membership",
+      "source_type": "membership_order",
+      "source_id": "7a6157a1-05d7-4145-b341-ac4f4d506a3a",
+      "created_at": "2026-03-31T07:09:40.961Z"
+    },
+    {
+      "id": "b0c85761-4ec1-4e84-964a-79a84d3b4247",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "title": "account upgrade completed",
+      "body": "游客故事、通知与权益已并入正式账户。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/profile/account?account_token=hosted-shared-dev-001",
+      "status": "delivered",
+      "category": "system",
+      "source_type": "account_upgrade",
+      "source_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "created_at": "2026-03-31T07:15:59.211Z"
+    },
+    {
+      "id": "50029871-2f1d-4fe3-be0c-db4571292ea7",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "title": "membership upgraded",
+      "body": "当前方案已升级为 plan_plus。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/profile/account/membership?account_token=hosted-shared-dev-001",
+      "status": "delivered",
+      "category": "membership",
+      "source_type": "membership_order",
+      "source_id": "a3f490f8-0d6c-4690-b27f-172d8b2c41f6",
+      "created_at": "2026-03-31T07:15:59.730Z"
+    },
+    {
+      "id": "331f1b31-e887-4c24-a2ff-a6ae42d56ef6",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "title": "雨夜列车 第一章已送达",
+      "body": "可以直接打开阅读器继续往下看。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/stories/9d3d5233-cb0a-4682-83c0-45900b924205/chapters/74f7a526-1a9f-4388-ad6e-72e638e14c61",
+      "status": "unread",
+      "created_at": "2026-03-31T08:21:09.026Z"
+    },
+    {
+      "id": "b246f5ba-98ce-4aae-882f-f46261b73b28",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "title": "雨夜列车 导出已完成",
+      "body": "PDF 失败，已保留可下载兜底工件。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/stories/9d3d5233-cb0a-4682-83c0-45900b924205/exports/3062ef75-9730-48f2-8f7f-a160d7b45ea2",
+      "status": "delivered",
+      "category": "export",
+      "source_type": "export_job",
+      "source_id": "3062ef75-9730-48f2-8f7f-a160d7b45ea2",
+      "created_at": "2026-03-31T08:21:09.485Z"
+    },
+    {
+      "id": "1c47ca18-8e88-4560-99a9-98d67709f1cd",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "title": "雨夜列车 第一章已送达",
+      "body": "可以直接打开阅读器继续往下看。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/stories/0264cbe1-b088-4a73-8328-10dc6e3e6529/chapters/8cb315d8-ae7b-4a69-95cf-b0f3e450c565",
+      "status": "unread",
+      "created_at": "2026-03-31T08:21:15.699Z"
+    },
+    {
+      "id": "c1d70d0c-f7d7-4880-8f48-7a0954e3b588",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "title": "雨夜列车 导出已完成",
+      "body": "PDF 失败，已保留可下载兜底工件。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/stories/0264cbe1-b088-4a73-8328-10dc6e3e6529/exports/45744999-8a1d-4bed-972d-072b06382c1e",
+      "status": "delivered",
+      "category": "export",
+      "source_type": "export_job",
+      "source_id": "45744999-8a1d-4bed-972d-072b06382c1e",
+      "created_at": "2026-03-31T08:21:15.725Z"
+    },
+    {
+      "id": "6a48c297-a5d8-44fc-9dd2-5d85124c4e0f",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "title": "雨夜列车 第一章已送达",
+      "body": "可以直接打开阅读器继续往下看。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/stories/c157fd18-38d8-4e21-8b43-c063290bd9f2/chapters/652893bd-e4d4-4a8d-99cf-5b80cd3ca149",
+      "status": "unread",
+      "created_at": "2026-03-31T08:21:21.822Z"
+    },
+    {
+      "id": "868c8ce6-36fd-4797-b352-85c93873ce39",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "title": "雨夜列车 导出已完成",
+      "body": "导出工件与证据包已经准备好。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/stories/c157fd18-38d8-4e21-8b43-c063290bd9f2/exports/9d6959da-9b4b-4325-b2c2-062dd54f03e5",
+      "status": "delivered",
+      "category": "export",
+      "source_type": "export_job",
+      "source_id": "9d6959da-9b4b-4325-b2c2-062dd54f03e5",
+      "created_at": "2026-03-31T08:21:21.848Z"
+    },
+    {
+      "id": "8aef3b33-84a5-4d8f-af30-c76b58860916",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "title": "雨夜列车 第一章已送达",
+      "body": "可以直接打开阅读器继续往下看。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/stories/9f70a77d-13d0-446b-b5cb-d99619949c98/chapters/6f18e3f2-c6de-4c7d-ac1a-1912261c85b2",
+      "status": "unread",
+      "created_at": "2026-03-31T08:21:27.549Z"
+    },
+    {
+      "id": "49e389b2-c80f-4f0f-8e0b-3ec7b54ee887",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "title": "雨夜列车 导出已完成",
+      "body": "导出工件与证据包已经准备好。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/stories/9f70a77d-13d0-446b-b5cb-d99619949c98/exports/ea304d85-bd9a-401b-b56f-509142186495",
+      "status": "delivered",
+      "category": "export",
+      "source_type": "export_job",
+      "source_id": "ea304d85-bd9a-401b-b56f-509142186495",
+      "created_at": "2026-03-31T08:21:27.589Z"
+    }
+  ],
+  "onboardingSessions": [],
+  "profiles": [],
+  "chatRouteDecisions": [
+    {
+      "id": "b8124e50-17ff-4e2c-ac0a-0fcdd5da1c4a",
+      "message_id": "473b6c8d-4837-4944-aef6-b9e9e005a6a2",
+      "account_id": "648400be-6242-47b2-8d9b-4d14253ac713",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T06:48:39.873Z",
+      "updated_at": "2026-03-31T06:48:39.873Z"
+    },
+    {
+      "id": "7dbc3152-7bd4-4ffe-9c54-d5d4a29780ed",
+      "message_id": "04dde31c-1d48-4cd8-86d9-492c9ed7d972",
+      "account_id": "dd8c46e9-505a-4b72-a488-7128dd29d713",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T06:49:44.704Z",
+      "updated_at": "2026-03-31T06:49:44.704Z"
+    },
+    {
+      "id": "36e4a67c-9ff0-4f59-a90f-47816f0bc1b8",
+      "message_id": "ac3f7df9-9199-4e9c-ace9-49eeab19dad9",
+      "account_id": "0484d89a-431e-4a8d-bcae-b6eb2526899c",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T06:59:02.968Z",
+      "updated_at": "2026-03-31T06:59:02.968Z"
+    },
+    {
+      "id": "8b9724fc-22df-4de8-8c6c-0b9b41687291",
+      "message_id": "93c6a918-ee40-4279-b335-f08b1da9eebd",
+      "account_id": "68df8490-e073-4049-89c1-6b167e739d3a",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T06:59:28.668Z",
+      "updated_at": "2026-03-31T06:59:28.668Z"
+    },
+    {
+      "id": "fb406d24-083d-4baf-9d1a-52cffcbf80e7",
+      "message_id": "b61d11d1-ff3d-43c9-b94e-ae8a225f263b",
+      "account_id": "809f47a8-9cc7-4786-a583-64b272466b27",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T07:02:15.142Z",
+      "updated_at": "2026-03-31T07:02:15.142Z"
+    },
+    {
+      "id": "61ca4104-c2f5-45de-89d2-47b0214872de",
+      "message_id": "43f7dbf9-072d-4839-86a2-ad520ad7a31d",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T07:02:52.445Z",
+      "updated_at": "2026-03-31T07:02:52.445Z"
+    },
+    {
+      "id": "75890de9-1d7f-4c0e-b16c-dd9b33480de4",
+      "message_id": "906ca4cd-8d4e-4676-85d6-bc04095faf37",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T07:02:55.366Z",
+      "updated_at": "2026-03-31T07:02:55.366Z"
+    },
+    {
+      "id": "78064fc9-1535-4e51-a58c-e2830193992c",
+      "message_id": "5b33c75a-3df0-4cd4-be9c-30bee66b7957",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T07:08:22.019Z",
+      "updated_at": "2026-03-31T07:08:22.019Z"
+    },
+    {
+      "id": "1f178100-a7e1-4310-8f64-3eb91da936cd",
+      "message_id": "91428ee1-93f7-4b34-a562-e801f19b075f",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "candidate_story_ids": [
+        "83ac7da6-f914-4ade-9c42-408f64955b52"
+      ],
+      "selected_story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "confidence_score": 0.2,
+      "route_mode": "auto",
+      "status": "auto_resolved",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+        "fallback_mode": "none"
+      },
+      "created_at": "2026-03-31T07:08:24.877Z",
+      "updated_at": "2026-03-31T07:08:24.877Z"
+    },
+    {
+      "id": "75f6cef2-07b2-4508-98d5-7825648b2b7d",
+      "message_id": "b2d6fc11-624b-47d4-8ced-3c07d2501a6d",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T07:09:35.116Z",
+      "updated_at": "2026-03-31T07:09:35.116Z"
+    },
+    {
+      "id": "dc83cffa-5f00-4a41-9081-93141a2b40ec",
+      "message_id": "a35dcb7c-04d1-45d4-b250-58c95f83cf34",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "candidate_story_ids": [
+        "03a0b9a7-2326-443b-b579-c9d819ef8231",
+        "83ac7da6-f914-4ade-9c42-408f64955b52"
+      ],
+      "selected_story_id": null,
+      "confidence_score": 0.2,
+      "route_mode": "parked",
+      "status": "ambiguous",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": "03a0b9a7-2326-443b-b579-c9d819ef8231",
+        "fallback_mode": "none"
+      },
+      "created_at": "2026-03-31T07:09:37.810Z",
+      "updated_at": "2026-03-31T07:09:37.810Z"
+    },
+    {
+      "id": "4bd0a7d7-6491-4293-91b9-6aec26287e0d",
+      "message_id": "5ddcb6fa-be1d-4358-bddd-3483996c6960",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T07:15:54.139Z",
+      "updated_at": "2026-03-31T07:15:54.139Z"
+    },
+    {
+      "id": "b54ea4c2-ff53-4ce6-acaa-601fbdd9f772",
+      "message_id": "f84ca4ba-9cae-435f-a63d-fdded42075b4",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "candidate_story_ids": [
+        "5f527ec1-8c86-4e4a-9823-285e5af98b29",
+        "83ac7da6-f914-4ade-9c42-408f64955b52",
+        "03a0b9a7-2326-443b-b579-c9d819ef8231"
+      ],
+      "selected_story_id": null,
+      "confidence_score": 0.2,
+      "route_mode": "parked",
+      "status": "ambiguous",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": "5f527ec1-8c86-4e4a-9823-285e5af98b29",
+        "fallback_mode": "none"
+      },
+      "created_at": "2026-03-31T07:15:56.887Z",
+      "updated_at": "2026-03-31T07:15:56.887Z"
+    },
+    {
+      "id": "d182bab1-5d55-40f6-818f-0899d00e7f3c",
+      "message_id": "a4469804-51de-4539-80a2-b951ef2a97f2",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T08:21:08.998Z",
+      "updated_at": "2026-03-31T08:21:08.998Z"
+    },
+    {
+      "id": "1253faa7-7296-40a8-8451-dd1e738d7e0d",
+      "message_id": "3aa521d9-a359-4893-9ac5-80a2c26ccdbb",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T08:21:15.676Z",
+      "updated_at": "2026-03-31T08:21:15.676Z"
+    },
+    {
+      "id": "e93543a9-3f79-4fa9-82c3-17d12880762c",
+      "message_id": "d4e10e5b-0d46-4bb7-8c27-b2e900d58752",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T08:21:21.797Z",
+      "updated_at": "2026-03-31T08:21:21.797Z"
+    },
+    {
+      "id": "78e9abeb-8205-4da8-9327-1e7806e8c4b9",
+      "message_id": "48bb3780-d22e-4af8-9678-67e7b7d53198",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T08:21:27.516Z",
+      "updated_at": "2026-03-31T08:21:27.516Z"
+    }
+  ],
+  "messageIntents": [
+    {
+      "id": "c2dd6be1-3b0c-42b9-a1a9-242fe14a8605",
+      "message_id": "473b6c8d-4837-4944-aef6-b9e9e005a6a2",
+      "account_id": "648400be-6242-47b2-8d9b-4d14253ac713",
+      "channel_message_id": "h5-room-entry-bc811237-3efd-4545-98eb-85ddade5c07d",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://wicked-animals-lie.loca.lt/chat?token=eyJhY2NvdW50X2lkIjoiNjQ4NDAwYmUtNjI0Mi00N2IyLThkOWItNGQxNDI1M2FjNzEzIiwiYWNjb3VudF90b2tlbiI6Img1LWd1ZXN0LTBjODk4N2JkLThjYWQtNDczNi04NjAyLWFiOTI3ZjIxZGRhMCIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6MTg6MzkuODcyWiJ9.w2cKvdjNV0Ch9bjg8L8f4yLEM8zyGRcJuQFkEb0BKTs&routeDecisionId=b8124e50-17ff-4e2c-ac0a-0fcdd5da1c4a",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T06:48:39.874Z",
+      "updated_at": "2026-03-31T06:48:39.874Z"
+    },
+    {
+      "id": "b538fb5b-b93b-4bf3-908e-2a95ffedd18c",
+      "message_id": "04dde31c-1d48-4cd8-86d9-492c9ed7d972",
+      "account_id": "dd8c46e9-505a-4b72-a488-7128dd29d713",
+      "channel_message_id": "probe-shared-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://wicked-animals-lie.loca.lt/chat?token=eyJhY2NvdW50X2lkIjoiZGQ4YzQ2ZTktNTA1YS00YjcyLWE0ODgtNzEyOGRkMjlkNzEzIiwiYWNjb3VudF90b2tlbiI6InByb2JlLXNoYXJlZC0wMDEiLCJ0YXJnZXRfcm91dGUiOiIvY2hhdCIsImV4cGlyZXNfYXQiOiIyMDI2LTAzLTMxVDA3OjE5OjQ0LjcwMloifQ.jC6P5tnhw3hQ0Oa6sy_Nx3jFZHIFDg-ac4gIeS1H0TU&routeDecisionId=7dbc3152-7bd4-4ffe-9c54-d5d4a29780ed",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T06:49:44.704Z",
+      "updated_at": "2026-03-31T06:49:44.704Z"
+    },
+    {
+      "id": "e5b24555-49cf-4aab-bf16-c5e176f6380a",
+      "message_id": "ac3f7df9-9199-4e9c-ace9-49eeab19dad9",
+      "account_id": "0484d89a-431e-4a8d-bcae-b6eb2526899c",
+      "channel_message_id": "probe-shared-ldrun-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://wicked-animals-lie.loca.lt/chat?token=eyJhY2NvdW50X2lkIjoiMDQ4NGQ4OWEtNDMxZS00YThkLWJjYWUtYjZlYjI1MjY4OTljIiwiYWNjb3VudF90b2tlbiI6InByb2JlLXNoYXJlZC1sZHJ1bi0wMDEiLCJ0YXJnZXRfcm91dGUiOiIvY2hhdCIsImV4cGlyZXNfYXQiOiIyMDI2LTAzLTMxVDA3OjI5OjAyLjk2NVoifQ.jAiVNp73DyRxdezRqEP6v62pS2bp-wpoew1axEm6QQI&routeDecisionId=36e4a67c-9ff0-4f59-a90f-47816f0bc1b8",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T06:59:02.968Z",
+      "updated_at": "2026-03-31T06:59:02.968Z"
+    },
+    {
+      "id": "646c9fd3-7ccf-4ebe-acde-6913237f0419",
+      "message_id": "93c6a918-ee40-4279-b335-f08b1da9eebd",
+      "account_id": "68df8490-e073-4049-89c1-6b167e739d3a",
+      "channel_message_id": "probe-shared-ldrun-raw-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://wicked-animals-lie.loca.lt/chat?token=eyJhY2NvdW50X2lkIjoiNjhkZjg0OTAtZTA3My00MDQ5LTg5YzEtNmIxNjdlNzM5ZDNhIiwiYWNjb3VudF90b2tlbiI6InByb2JlLXNoYXJlZC1sZHJ1bi1yYXctMDAxIiwidGFyZ2V0X3JvdXRlIjoiL2NoYXQiLCJleHBpcmVzX2F0IjoiMjAyNi0wMy0zMVQwNzoyOToyOC42NjdaIn0.wT8jRpjolJF2ydWmD2eoe01tMF71spsHDFZbOf0vy-E&routeDecisionId=8b9724fc-22df-4de8-8c6c-0b9b41687291",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T06:59:28.669Z",
+      "updated_at": "2026-03-31T06:59:28.669Z"
+    },
+    {
+      "id": "71a58c0c-22b0-48b6-8414-dc5ded6384b2",
+      "message_id": "b61d11d1-ff3d-43c9-b94e-ae8a225f263b",
+      "account_id": "809f47a8-9cc7-4786-a583-64b272466b27",
+      "channel_message_id": "probe-shared-new-url-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiODA5ZjQ3YTgtOWNjNy00Nzg2LWE1ODMtNjRiMjcyNDY2YjI3IiwiYWNjb3VudF90b2tlbiI6InByb2JlLXNoYXJlZC1uZXctdXJsLTAwMSIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6MzI6MTUuMTQxWiJ9.qbC_vJemtZCzNXnVPzWKn_XeYZ4LciBxeztAxvVPIcA&routeDecisionId=fb406d24-083d-4baf-9d1a-52cffcbf80e7",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:02:15.143Z",
+      "updated_at": "2026-03-31T07:02:15.143Z"
+    },
+    {
+      "id": "0a45eb4b-15d8-49d7-9669-77a68f2f66b7",
+      "message_id": "43f7dbf9-072d-4839-86a2-ad520ad7a31d",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "channel_message_id": "h5-room-entry-268d7f64-b049-4771-a5b4-9a2298332ca9",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiYWE4MjgxODAtYzkwNy00YTg3LTg5OTgtNzQ5Y2NkMjY1OWNkIiwiYWNjb3VudF90b2tlbiI6Img1LWd1ZXN0LTc3ZjRjMWEzLTU5N2EtNGY3NC05YzkyLTg5NmIxN2YzYWM4NiIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6MzI6NTIuNDQzWiJ9.vuMuG0_E9y_rWWWYJtEvtBlNt_WXFsKl8iO-EbKcbCg&routeDecisionId=61ca4104-c2f5-45de-89d2-47b0214872de",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:02:52.446Z",
+      "updated_at": "2026-03-31T07:02:52.446Z"
+    },
+    {
+      "id": "0343e394-80d3-4838-88d9-5d4ef1ac48fa",
+      "message_id": "906ca4cd-8d4e-4676-85d6-bc04095faf37",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "channel_message_id": "hosted-shared-dev-msg-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiYzAyMGYyNGQtOTQ0ZC00NDcyLWI2NGItMzA2MGUxM2Q2ZGRiIiwiYWNjb3VudF90b2tlbiI6Imhvc3RlZC1zaGFyZWQtZGV2LTAwMSIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6MzI6NTUuMzY0WiJ9.G-c_pHxo12pm7OFg8Fr1Azb2QUyQhQdMJR-aPh3API8&routeDecisionId=75890de9-1d7f-4c0e-b16c-dd9b33480de4",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:02:55.366Z",
+      "updated_at": "2026-03-31T07:02:55.366Z"
+    },
+    {
+      "id": "6e49ab62-f4c1-4d28-91af-b0021990903c",
+      "message_id": "5b33c75a-3df0-4cd4-be9c-30bee66b7957",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "channel_message_id": "h5-room-entry-6fbfb25e-3d67-4903-a264-d21a2ca52a1f",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiOWU2ODYwNzUtODdhYi00ZGE1LWJjNzMtNTE5Zjg1NzIxMWE4IiwiYWNjb3VudF90b2tlbiI6Img1LWd1ZXN0LTQyOThkMmRiLTBmMTctNDY3Ni1iYjY0LWFkMTEzOTFmNzMyZSIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6Mzg6MjIuMDE2WiJ9.I6L9Pksej6a1A1lG8F8Qlj6E1ll0HJGfORd12Neaebc&routeDecisionId=78064fc9-1535-4e51-a58c-e2830193992c",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:08:22.020Z",
+      "updated_at": "2026-03-31T07:08:22.020Z"
+    },
+    {
+      "id": "f39f4e33-568a-414d-ad4a-3166a5d11558",
+      "message_id": "91428ee1-93f7-4b34-a562-e801f19b075f",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "channel_message_id": "hosted-shared-dev-msg-001",
+      "final_intent": "story_context",
+      "intent_type": "story_context",
+      "target_type": "story_workspace",
+      "target_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+      "target_label": "雨夜列车",
+      "ack_copy": "我先把这句记到《雨夜列车》里，后面可以继续接着写。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiYzAyMGYyNGQtOTQ0ZC00NDcyLWI2NGItMzA2MGUxM2Q2ZGRiIiwiYWNjb3VudF90b2tlbiI6Imhvc3RlZC1zaGFyZWQtZGV2LTAwMSIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6Mzg6MjQuODcyWiJ9.1viH8doHx6Hz2uWGggcz7BIsPVlb1kDmc5QXnPcHvVY&routeDecisionId=1f178100-a7e1-4310-8f64-3eb91da936cd&storyId=83ac7da6-f914-4ade-9c42-408f64955b52",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:08:24.878Z",
+      "updated_at": "2026-03-31T07:08:24.878Z"
+    },
+    {
+      "id": "1f11b4ab-44df-4e71-8ce9-b30169bd0626",
+      "message_id": "b2d6fc11-624b-47d4-8ced-3c07d2501a6d",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "channel_message_id": "h5-room-entry-ac1ca5dd-abd0-4c8b-ad2c-01a49148f67a",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiMzI3MzgxZTAtZWQ3OC00OWM4LTg1OGUtZDkwNGFmYmFhYjRjIiwiYWNjb3VudF90b2tlbiI6Img1LWd1ZXN0LTU2ODlmZjk2LTA0MzEtNGFmYS1iNTU4LTExYjg5OGVjY2E2NSIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6Mzk6MzUuMTEwWiJ9.s8QHak7z6UfNkjGAMUlH1SsXNvt3QaPjK0nYK5SO-Ds&routeDecisionId=75f6cef2-07b2-4508-98d5-7825648b2b7d",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:09:35.117Z",
+      "updated_at": "2026-03-31T07:09:35.117Z"
+    },
+    {
+      "id": "72c9f840-c1dc-46be-80b8-f69553bb767e",
+      "message_id": "a35dcb7c-04d1-45d4-b250-58c95f83cf34",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "channel_message_id": "hosted-shared-dev-msg-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "route_decision",
+      "target_id": "dc83cffa-5f00-4a41-9081-93141a2b40ec",
+      "target_label": "待你确认的故事线",
+      "ack_copy": "我先替你记下了，但这句可能落在不止一条故事线里，选一下要归到哪本。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiYzAyMGYyNGQtOTQ0ZC00NDcyLWI2NGItMzA2MGUxM2Q2ZGRiIiwiYWNjb3VudF90b2tlbiI6Imhvc3RlZC1zaGFyZWQtZGV2LTAwMSIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6Mzk6MzcuODA0WiJ9.PXeD5EPcBrDJ26pq9liqy2eeLlv5-O82wadzRgfy1sQ&routeDecisionId=dc83cffa-5f00-4a41-9081-93141a2b40ec&candidates=%255B%257B%2522story_id%2522%253A%252203a0b9a7-2326-443b-b579-c9d819ef8231%2522%252C%2522story_title%2522%253A%2522%25E9%259B%25A8%25E5%25A4%259C%25E5%2588%2597%25E8%25BD%25A6%2522%257D%252C%257B%2522story_id%2522%253A%252283ac7da6-f914-4ade-9c42-408f64955b52%2522%252C%2522story_title%2522%253A%2522%25E9%259B%25A8%25E5%25A4%259C%25E5%2588%2597%25E8%25BD%25A6%2522%257D%255D",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:09:37.812Z",
+      "updated_at": "2026-03-31T07:09:37.812Z"
+    },
+    {
+      "id": "951d5bd8-f6ef-416f-b9de-b3e5438624a0",
+      "message_id": "5ddcb6fa-be1d-4358-bddd-3483996c6960",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "channel_message_id": "h5-room-entry-adb3f164-1ab8-49a4-b4e1-72d7e5dcb178",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiZWYzOTRiOWEtODA1Yy00NzhhLTk5Y2QtNzg0YWIzYzI4ZWM5IiwiYWNjb3VudF90b2tlbiI6Img1LWd1ZXN0LTJkYmY5YTQ3LWI1ZjYtNDdlZC1iNTk5LTRhOWM3ZTM1YTA4ZiIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6NDU6NTQuMTM1WiJ9.9-mlrVyvkxo72yZBgM08cZgs0r7Sw9HE5hCSU_0WAxM&routeDecisionId=4bd0a7d7-6491-4293-91b9-6aec26287e0d",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:15:54.140Z",
+      "updated_at": "2026-03-31T07:15:54.140Z"
+    },
+    {
+      "id": "3165a577-02aa-4254-9971-691215384e33",
+      "message_id": "f84ca4ba-9cae-435f-a63d-fdded42075b4",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "channel_message_id": "hosted-shared-dev-msg-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "route_decision",
+      "target_id": "b54ea4c2-ff53-4ce6-acaa-601fbdd9f772",
+      "target_label": "待你确认的故事线",
+      "ack_copy": "我先替你记下了，但这句可能落在不止一条故事线里，选一下要归到哪本。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiYzAyMGYyNGQtOTQ0ZC00NDcyLWI2NGItMzA2MGUxM2Q2ZGRiIiwiYWNjb3VudF90b2tlbiI6Imhvc3RlZC1zaGFyZWQtZGV2LTAwMSIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6NDU6NTYuODgyWiJ9.8PLqxoEasTvC14LRs-yDTPyQpPzE1i2aW5i8RHLDc5k&routeDecisionId=b54ea4c2-ff53-4ce6-acaa-601fbdd9f772&candidates=%255B%257B%2522story_id%2522%253A%25225f527ec1-8c86-4e4a-9823-285e5af98b29%2522%252C%2522story_title%2522%253A%2522%25E9%259B%25A8%25E5%25A4%259C%25E5%2588%2597%25E8%25BD%25A6%2522%257D%252C%257B%2522story_id%2522%253A%252283ac7da6-f914-4ade-9c42-408f64955b52%2522%252C%2522story_title%2522%253A%2522%25E9%259B%25A8%25E5%25A4%259C%25E5%2588%2597%25E8%25BD%25A6%2522%257D%252C%257B%2522story_id%2522%253A%252203a0b9a7-2326-443b-b579-c9d819ef8231%2522%252C%2522story_title%2522%253A%2522%25E9%259B%25A8%25E5%25A4%259C%25E5%2588%2597%25E8%25BD%25A6%2522%257D%255D",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:15:56.888Z",
+      "updated_at": "2026-03-31T07:15:56.888Z"
+    },
+    {
+      "id": "039d4f0c-e126-48c1-b29b-69aeca681337",
+      "message_id": "a4469804-51de-4539-80a2-b951ef2a97f2",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "channel_message_id": "wx-m3-export-ui-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiMTMyM2IwN2YtZDU3NC00MTcxLTg4MTQtMWJmZWE0YTFhYjU1IiwiYWNjb3VudF90b2tlbiI6Ind4LW9wZW5pZC1tMy1leHBvcnQtdWktMDAxIiwidGFyZ2V0X3JvdXRlIjoiL2NoYXQiLCJleHBpcmVzX2F0IjoiMjAyNi0wMy0zMVQwODo1MTowOC45OTJaIn0.kkfnaCPnGxA0knf4z7GGamkhFd2-IKKPlYTA_F7BCyk&routeDecisionId=d182bab1-5d55-40f6-818f-0899d00e7f3c",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T08:21:08.999Z",
+      "updated_at": "2026-03-31T08:21:08.999Z"
+    },
+    {
+      "id": "1291141e-39fc-4bc1-9eff-311220f0cc0c",
+      "message_id": "3aa521d9-a359-4893-9ac5-80a2c26ccdbb",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "channel_message_id": "wx-m3-e2e-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiODQyYmU2OWYtMWFhMi00MWU3LThkN2YtNWFmODNiOGYyNWRjIiwiYWNjb3VudF90b2tlbiI6Ind4LW9wZW5pZC1tMy1lMmUtMDAxIiwidGFyZ2V0X3JvdXRlIjoiL2NoYXQiLCJleHBpcmVzX2F0IjoiMjAyNi0wMy0zMVQwODo1MToxNS42NzJaIn0.bfjVsAfMPi_hlDpp4jHSRDymHdIbG2ZWFQNLEJTJVmY&routeDecisionId=1253faa7-7296-40a8-8451-dd1e738d7e0d",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T08:21:15.677Z",
+      "updated_at": "2026-03-31T08:21:15.677Z"
+    },
+    {
+      "id": "007c2838-b9ec-4725-bc4a-ec0072c3ab8b",
+      "message_id": "d4e10e5b-0d46-4bb7-8c27-b2e900d58752",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "channel_message_id": "wx-m3-e2e-003",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiMWM4NDc3MWItYTgyYi00YjU0LWJiNWQtYWNiNzFlNzJkN2I1IiwiYWNjb3VudF90b2tlbiI6Ind4LW9wZW5pZC1tMy1lMmUtMDAzIiwidGFyZ2V0X3JvdXRlIjoiL2NoYXQiLCJleHBpcmVzX2F0IjoiMjAyNi0wMy0zMVQwODo1MToyMS43OTJaIn0.T2I_keUlFdhINXROnYhstL7_SxZJ9EBOcDOGJRKbAlA&routeDecisionId=e93543a9-3f79-4fa9-82c3-17d12880762c",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T08:21:21.798Z",
+      "updated_at": "2026-03-31T08:21:21.798Z"
+    },
+    {
+      "id": "6d5f4c4e-0615-44f8-b59c-6c5e6e23275a",
+      "message_id": "48bb3780-d22e-4af8-9678-67e7b7d53198",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "channel_message_id": "wx-m3-e2e-002",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://62d7cc2c5e55d0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiZTQ1MjkwNjctMTAwMi00NjYzLTk0ZWEtYWVmODg2MzQwZTZmIiwiYWNjb3VudF90b2tlbiI6Ind4LW9wZW5pZC1tMy1lMmUtMDAyIiwidGFyZ2V0X3JvdXRlIjoiL2NoYXQiLCJleHBpcmVzX2F0IjoiMjAyNi0wMy0zMVQwODo1MToyNy41MDlaIn0.hgNRRSY7jdPhZmaTJYLU2XMvasQRsMupVkXBm3o8Q7U&routeDecisionId=78e9abeb-8205-4da8-9327-1e7806e8c4b9",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T08:21:27.518Z",
+      "updated_at": "2026-03-31T08:21:27.518Z"
+    }
+  ],
+  "relationshipContextMemories": [],
+  "canonItems": [],
+  "canonPatches": [],
+  "continuityIssues": [],
+  "contextBundles": [],
+  "storyBranches": [
+    {
+      "id": "e348b0fe-6c7d-46ad-8579-d6dc4d592cfa",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "anchor_ref": {
+        "chapter_id": "6f18e3f2-c6de-4c7d-ac1a-1912261c85b2"
+      },
+      "branch_type": "what_if",
+      "goal": "这条分支不能出站。",
+      "rights_mode": "export_blocked",
+      "merge_status": "kept_parallel",
+      "body_text": "第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。\n\n【分支尝试】这条分支不能出站。",
+      "current_branch_chapter_id": "b8b2702e-62b4-49fe-8c1d-6afe69ba8247",
+      "created_at": "2026-03-31T08:21:27.564Z",
+      "updated_at": "2026-03-31T08:21:27.564Z"
+    }
+  ],
+  "branchMergeProposals": [],
+  "referenceAssets": [],
+  "assetExtractResults": [],
+  "assetAttachments": [],
+  "personaStateSnapshots": [
+    {
+      "id": "derived-2026-03-31T07:02:54.138Z",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "story_workspace_id": null,
+      "state_code": "welcoming",
+      "label": "房间已经准备好，随时可以开新坑。",
+      "mood_tags": [
+        "待开场"
+      ],
+      "reason_refs": [
+        {
+          "ref_type": "system",
+          "ref_id": "room-ready",
+          "label": "当前没有活跃故事，房间保持待命。"
+        }
+      ],
+      "room_visual_tokens": {
+        "ambience": "welcoming",
+        "desk_state": "clear",
+        "lighting": "warm"
+      },
+      "generated_at": "2026-03-31T07:02:54.138Z",
+      "visible_until": "2026-03-31T07:17:54.138Z"
+    },
+    {
+      "id": "derived-2026-03-31T07:08:23.631Z",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "story_workspace_id": null,
+      "state_code": "welcoming",
+      "label": "房间已经准备好，随时可以开新坑。",
+      "mood_tags": [
+        "待开场"
+      ],
+      "reason_refs": [
+        {
+          "ref_type": "system",
+          "ref_id": "room-ready",
+          "label": "当前没有活跃故事，房间保持待命。"
+        }
+      ],
+      "room_visual_tokens": {
+        "ambience": "welcoming",
+        "desk_state": "clear",
+        "lighting": "warm"
+      },
+      "generated_at": "2026-03-31T07:08:23.631Z",
+      "visible_until": "2026-03-31T07:23:23.631Z"
+    },
+    {
+      "id": "derived-2026-03-31T07:09:37.124Z",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "story_workspace_id": null,
+      "state_code": "welcoming",
+      "label": "房间已经准备好，随时可以开新坑。",
+      "mood_tags": [
+        "待开场"
+      ],
+      "reason_refs": [
+        {
+          "ref_type": "system",
+          "ref_id": "room-ready",
+          "label": "当前没有活跃故事，房间保持待命。"
+        }
+      ],
+      "room_visual_tokens": {
+        "ambience": "welcoming",
+        "desk_state": "clear",
+        "lighting": "warm"
+      },
+      "generated_at": "2026-03-31T07:09:37.124Z",
+      "visible_until": "2026-03-31T07:24:37.124Z"
+    },
+    {
+      "id": "derived-2026-03-31T07:15:55.862Z",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "story_workspace_id": null,
+      "state_code": "welcoming",
+      "label": "房间已经准备好，随时可以开新坑。",
+      "mood_tags": [
+        "待开场"
+      ],
+      "reason_refs": [
+        {
+          "ref_type": "system",
+          "ref_id": "room-ready",
+          "label": "当前没有活跃故事，房间保持待命。"
+        }
+      ],
+      "room_visual_tokens": {
+        "ambience": "welcoming",
+        "desk_state": "clear",
+        "lighting": "warm"
+      },
+      "generated_at": "2026-03-31T07:15:55.862Z",
+      "visible_until": "2026-03-31T07:30:55.862Z"
+    },
+    {
+      "id": "derived-2026-03-31T08:21:09.035Z",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "story_workspace_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "state_code": "writing",
+      "label": "《雨夜列车》的最新章节正摊在灯下。",
+      "mood_tags": [
+        "最新章节",
+        "继续推进"
+      ],
+      "reason_refs": [
+        {
+          "ref_type": "story_workspace",
+          "ref_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+          "label": "当前故事：《雨夜列车》"
+        },
+        {
+          "ref_type": "chapter",
+          "ref_id": "74f7a526-1a9f-4388-ad6e-72e638e14c61",
+          "label": "当前章节：第一章 · 雨夜列车"
+        },
+        {
+          "ref_type": "notification",
+          "ref_id": "331f1b31-e887-4c24-a2ff-a6ae42d56ef6",
+          "label": "最近提醒：雨夜列车 第一章已送达"
+        }
+      ],
+      "room_visual_tokens": {
+        "ambience": "focused",
+        "desk_state": "open_chapter",
+        "lighting": "bright"
+      },
+      "generated_at": "2026-03-31T08:21:09.035Z",
+      "visible_until": "2026-03-31T08:36:09.035Z"
+    },
+    {
+      "id": "derived-2026-03-31T08:21:15.707Z",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "story_workspace_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "state_code": "writing",
+      "label": "《雨夜列车》的最新章节正摊在灯下。",
+      "mood_tags": [
+        "最新章节",
+        "继续推进"
+      ],
+      "reason_refs": [
+        {
+          "ref_type": "story_workspace",
+          "ref_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+          "label": "当前故事：《雨夜列车》"
+        },
+        {
+          "ref_type": "chapter",
+          "ref_id": "8cb315d8-ae7b-4a69-95cf-b0f3e450c565",
+          "label": "当前章节：第一章 · 雨夜列车"
+        },
+        {
+          "ref_type": "notification",
+          "ref_id": "1c47ca18-8e88-4560-99a9-98d67709f1cd",
+          "label": "最近提醒：雨夜列车 第一章已送达"
+        }
+      ],
+      "room_visual_tokens": {
+        "ambience": "focused",
+        "desk_state": "open_chapter",
+        "lighting": "bright"
+      },
+      "generated_at": "2026-03-31T08:21:15.707Z",
+      "visible_until": "2026-03-31T08:36:15.707Z"
+    },
+    {
+      "id": "derived-2026-03-31T08:21:21.828Z",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "story_workspace_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "state_code": "writing",
+      "label": "《雨夜列车》的最新章节正摊在灯下。",
+      "mood_tags": [
+        "最新章节",
+        "继续推进"
+      ],
+      "reason_refs": [
+        {
+          "ref_type": "story_workspace",
+          "ref_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+          "label": "当前故事：《雨夜列车》"
+        },
+        {
+          "ref_type": "chapter",
+          "ref_id": "652893bd-e4d4-4a8d-99cf-5b80cd3ca149",
+          "label": "当前章节：第一章 · 雨夜列车"
+        },
+        {
+          "ref_type": "notification",
+          "ref_id": "6a48c297-a5d8-44fc-9dd2-5d85124c4e0f",
+          "label": "最近提醒：雨夜列车 第一章已送达"
+        }
+      ],
+      "room_visual_tokens": {
+        "ambience": "focused",
+        "desk_state": "open_chapter",
+        "lighting": "bright"
+      },
+      "generated_at": "2026-03-31T08:21:21.828Z",
+      "visible_until": "2026-03-31T08:36:21.828Z"
+    },
+    {
+      "id": "derived-2026-03-31T08:21:27.558Z",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "story_workspace_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "state_code": "writing",
+      "label": "《雨夜列车》的最新章节正摊在灯下。",
+      "mood_tags": [
+        "最新章节",
+        "继续推进"
+      ],
+      "reason_refs": [
+        {
+          "ref_type": "story_workspace",
+          "ref_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+          "label": "当前故事：《雨夜列车》"
+        },
+        {
+          "ref_type": "chapter",
+          "ref_id": "6f18e3f2-c6de-4c7d-ac1a-1912261c85b2",
+          "label": "当前章节：第一章 · 雨夜列车"
+        },
+        {
+          "ref_type": "notification",
+          "ref_id": "8aef3b33-84a5-4d8f-af30-c76b58860916",
+          "label": "最近提醒：雨夜列车 第一章已送达"
+        }
+      ],
+      "room_visual_tokens": {
+        "ambience": "focused",
+        "desk_state": "open_chapter",
+        "lighting": "bright"
+      },
+      "generated_at": "2026-03-31T08:21:27.558Z",
+      "visible_until": "2026-03-31T08:36:27.558Z"
+    }
+  ],
+  "accountIdentities": [
+    {
+      "id": "96385aee-2e51-4d5f-9f4b-c170a1c06917",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "channel": "wechat",
+      "provider_user_id": "wechat-hosted-shared-dev-001",
+      "is_primary": true,
+      "verified_at": "2026-03-31T07:02:57.603Z"
+    }
+  ],
+  "syncConflicts": [],
+  "notificationPreferences": [],
+  "membershipPlans": [
+    {
+      "plan_id": "plan_guest",
+      "tier": "guest",
+      "story_slots": 2,
+      "export_quota": 1,
+      "branch_quota": 2,
+      "asset_storage_mb": 128,
+      "price": 0,
+      "is_active": true
+    },
+    {
+      "plan_id": "plan_plus",
+      "tier": "plus",
+      "story_slots": 6,
+      "export_quota": 8,
+      "branch_quota": 12,
+      "asset_storage_mb": 1024,
+      "price": 2900,
+      "is_active": true
+    }
+  ],
+  "membershipEntitlements": [
+    {
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "current_plan_id": "plan_plus",
+      "story_slots": 6,
+      "export_quota": 8,
+      "branch_quota": 12,
+      "asset_storage_mb": 1024,
+      "updated_at": "2026-03-31T07:15:59.730Z"
+    }
+  ],
+  "membershipOrders": [
+    {
+      "id": "d4a4c660-6521-416a-8a5f-141130e1f1f1",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "target_plan_id": "plan_plus",
+      "billing_cycle": "monthly",
+      "payment_channel": "mock_pay",
+      "trigger_reason": "hosted_preview_uat",
+      "status": "paid",
+      "payable_amount": 2900,
+      "created_at": "2026-03-31T07:02:58.377Z"
+    },
+    {
+      "id": "58e7417f-e079-40f5-8e48-9714bb91a157",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "target_plan_id": "plan_plus",
+      "billing_cycle": "monthly",
+      "payment_channel": "mock_pay",
+      "trigger_reason": "hosted_preview_uat",
+      "status": "paid",
+      "payable_amount": 2900,
+      "created_at": "2026-03-31T07:08:27.907Z"
+    },
+    {
+      "id": "7a6157a1-05d7-4145-b341-ac4f4d506a3a",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "target_plan_id": "plan_plus",
+      "billing_cycle": "monthly",
+      "payment_channel": "mock_pay",
+      "trigger_reason": "hosted_preview_uat",
+      "status": "paid",
+      "payable_amount": 2900,
+      "created_at": "2026-03-31T07:09:40.961Z"
+    },
+    {
+      "id": "a3f490f8-0d6c-4690-b27f-172d8b2c41f6",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "target_plan_id": "plan_plus",
+      "billing_cycle": "monthly",
+      "payment_channel": "mock_pay",
+      "trigger_reason": "hosted_preview_uat",
+      "status": "paid",
+      "payable_amount": 2900,
+      "created_at": "2026-03-31T07:15:59.730Z"
+    }
+  ],
+  "privacyDataRequests": [],
+  "riskChecks": [
+    {
+      "id": "2ad4254b-764d-412b-b057-51425805a174",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "export_purpose": "submission",
+      "branch_ids": [],
+      "asset_refs": [],
+      "label_mode_requested": "label_waiver_requested",
+      "result": "warn",
+      "issues": [
+        {
+          "code": "CMP-005",
+          "severity": "warn",
+          "blocking": false,
+          "object_ref": {
+            "ref_type": "story",
+            "ref_id": "9d3d5233-cb0a-4682-83c0-45900b924205"
+          },
+          "resolution_hint": "继续前请提交无显式标识申请并留存用户确认。"
+        }
+      ],
+      "required_actions": [
+        "submit_label_waiver"
+      ],
+      "valid_until": "2026-03-31T08:36:09.349Z",
+      "evidence_entry_id": "c3479e0c-30d2-45a9-a16c-e7e1ea8ebb6b",
+      "created_at": "2026-03-31T08:21:09.349Z"
+    },
+    {
+      "id": "2b61ae10-544c-4f59-85ae-91f7ccf14a16",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "export_purpose": "submission",
+      "branch_ids": [],
+      "asset_refs": [],
+      "label_mode_requested": "embedded_notice",
+      "result": "pass",
+      "issues": [],
+      "required_actions": [],
+      "valid_until": "2026-03-31T08:36:15.713Z",
+      "evidence_entry_id": "616df3f8-1b0b-4b8d-b919-ff966e4c66e2",
+      "created_at": "2026-03-31T08:21:15.713Z"
+    },
+    {
+      "id": "b76762cb-3064-4615-a47c-ec1694a7927e",
+      "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "export_purpose": "submission",
+      "branch_ids": [],
+      "asset_refs": [],
+      "label_mode_requested": "embedded_notice",
+      "result": "pass",
+      "issues": [],
+      "required_actions": [],
+      "valid_until": "2026-03-31T08:36:21.835Z",
+      "evidence_entry_id": "a9b41333-d778-40b6-a565-fda6ef367612",
+      "created_at": "2026-03-31T08:21:21.835Z"
+    },
+    {
+      "id": "6b4a224b-738b-42a7-b404-a39d9937e405",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "export_purpose": "submission",
+      "branch_ids": [
+        "e348b0fe-6c7d-46ad-8579-d6dc4d592cfa"
+      ],
+      "asset_refs": [],
+      "label_mode_requested": "embedded_notice",
+      "result": "block",
+      "issues": [
+        {
+          "code": "CMP-004",
+          "severity": "block",
+          "blocking": true,
+          "object_ref": {
+            "ref_type": "branch",
+            "ref_id": "e348b0fe-6c7d-46ad-8579-d6dc4d592cfa"
+          },
+          "resolution_hint": "移除不可导出的分支，或改为仅站内留存。"
+        }
+      ],
+      "required_actions": [
+        "remove_blocked_branch"
+      ],
+      "valid_until": "2026-03-31T08:36:27.571Z",
+      "evidence_entry_id": "9a3d7ca0-5f3a-4230-ae48-94c9e4d3a4be",
+      "created_at": "2026-03-31T08:21:27.571Z"
+    },
+    {
+      "id": "d1bb45e8-2b7a-464e-9d11-2c607caed14c",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "export_purpose": "submission",
+      "branch_ids": [],
+      "asset_refs": [],
+      "label_mode_requested": "embedded_notice",
+      "result": "pass",
+      "issues": [],
+      "required_actions": [],
+      "valid_until": "2026-03-31T08:36:27.578Z",
+      "evidence_entry_id": "89a7332a-2607-49a1-8cf0-c524a58ddfee",
+      "created_at": "2026-03-31T08:21:27.578Z"
+    }
+  ],
+  "exportJobs": [
+    {
+      "id": "3062ef75-9730-48f2-8f7f-a160d7b45ea2",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "export_purpose": "submission",
+      "requested_formats": [
+        "docx",
+        "pdf"
+      ],
+      "chapter_range": {
+        "mode": "all"
+      },
+      "branch_ids": [],
+      "include_evidence": true,
+      "include_rights_statement": true,
+      "label_mode_preference": "label_waiver_requested",
+      "risk_check_id": "2ad4254b-764d-412b-b057-51425805a174",
+      "client_request_id": "export-1774945269476",
+      "status": "partial_failed",
+      "progress_stage": "partial_failed",
+      "progress_percent": 100,
+      "notification_id": "b246f5ba-98ce-4aae-882f-f46261b73b28",
+      "evidence_pack_id": "5274a9d1-908f-4845-b764-bfc63704cd21",
+      "rights_statement_body": "作品：雨夜列车\n用途：submission\n说明：本平台提供权利服务与留证辅助，不构成版权归属承诺。\nAIGC 标识：默认随工件附带 embedded notice。",
+      "error_code": "EXP-201",
+      "error_message": "PDF 工件生成失败，已保留 docx/md 兜底导出。",
+      "created_at": "2026-03-31T08:21:09.480Z",
+      "finished_at": "2026-03-31T08:21:09.485Z",
+      "updated_at": "2026-03-31T08:21:09.485Z"
+    },
+    {
+      "id": "45744999-8a1d-4bed-972d-072b06382c1e",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "export_purpose": "submission",
+      "requested_formats": [
+        "docx",
+        "pdf"
+      ],
+      "chapter_range": {
+        "mode": "all"
+      },
+      "branch_ids": [],
+      "include_evidence": true,
+      "include_rights_statement": true,
+      "label_mode_preference": "embedded_notice",
+      "risk_check_id": "2b61ae10-544c-4f59-85ae-91f7ccf14a16",
+      "client_request_id": "req-m3-e2e-export-001",
+      "status": "partial_failed",
+      "progress_stage": "partial_failed",
+      "progress_percent": 100,
+      "notification_id": "c1d70d0c-f7d7-4880-8f48-7a0954e3b588",
+      "evidence_pack_id": "3e19bed8-2e03-4e0a-9829-af4ce0e4c633",
+      "rights_statement_body": "作品：雨夜列车\n用途：submission\n说明：本平台提供权利服务与留证辅助，不构成版权归属承诺。\nAIGC 标识：默认随工件附带 embedded notice。",
+      "error_code": "EXP-201",
+      "error_message": "PDF 工件生成失败，已保留 docx/md 兜底导出。",
+      "created_at": "2026-03-31T08:21:15.721Z",
+      "finished_at": "2026-03-31T08:21:15.725Z",
+      "updated_at": "2026-03-31T08:21:15.725Z"
+    },
+    {
+      "id": "9d6959da-9b4b-4325-b2c2-062dd54f03e5",
+      "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "export_purpose": "submission",
+      "requested_formats": [
+        "txt"
+      ],
+      "chapter_range": {
+        "mode": "all"
+      },
+      "branch_ids": [],
+      "include_evidence": false,
+      "include_rights_statement": false,
+      "label_mode_preference": "embedded_notice",
+      "risk_check_id": "b76762cb-3064-4615-a47c-ec1694a7927e",
+      "client_request_id": "req-m3-e2e-export-003",
+      "status": "succeeded",
+      "progress_stage": "succeeded",
+      "progress_percent": 100,
+      "notification_id": "868c8ce6-36fd-4797-b352-85c93873ce39",
+      "evidence_pack_id": null,
+      "rights_statement_body": null,
+      "error_code": null,
+      "error_message": null,
+      "created_at": "2026-03-31T08:21:21.844Z",
+      "finished_at": "2026-03-31T08:21:21.848Z",
+      "updated_at": "2026-03-31T08:21:21.848Z"
+    },
+    {
+      "id": "ea304d85-bd9a-401b-b56f-509142186495",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "export_purpose": "submission",
+      "requested_formats": [
+        "txt"
+      ],
+      "chapter_range": {
+        "mode": "all"
+      },
+      "branch_ids": [],
+      "include_evidence": false,
+      "include_rights_statement": false,
+      "label_mode_preference": "embedded_notice",
+      "risk_check_id": "d1bb45e8-2b7a-464e-9d11-2c607caed14c",
+      "client_request_id": "req-m3-e2e-export-002",
+      "status": "succeeded",
+      "progress_stage": "succeeded",
+      "progress_percent": 100,
+      "notification_id": "49e389b2-c80f-4f0f-8e0b-3ec7b54ee887",
+      "evidence_pack_id": null,
+      "rights_statement_body": null,
+      "error_code": null,
+      "error_message": null,
+      "created_at": "2026-03-31T08:21:27.585Z",
+      "finished_at": "2026-03-31T08:21:27.589Z",
+      "updated_at": "2026-03-31T08:21:27.589Z"
+    }
+  ],
+  "exportArtifacts": [
+    {
+      "id": "aedb5da7-8b85-4e19-ada5-5b389cfa2f3a",
+      "export_job_id": "3062ef75-9730-48f2-8f7f-a160d7b45ea2",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "format": "docx",
+      "file_name": "雨夜列车-3062ef75-9730-48f2-8f7f-a160d7b45ea2.docx",
+      "file_body": "EXPORT FORMAT: docx\nTITLE: 雨夜列车\n\n# 第一章 · 雨夜列车\n\n第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "file_size_mb": 0,
+      "object_key": "exports/3062ef75-9730-48f2-8f7f-a160d7b45ea2/docx",
+      "expires_at": "2026-04-07T08:21:09.485Z",
+      "status": "ready",
+      "created_at": "2026-03-31T08:21:09.485Z"
+    },
+    {
+      "id": "2888c000-9d1c-482d-84b5-b360d3911f68",
+      "export_job_id": "3062ef75-9730-48f2-8f7f-a160d7b45ea2",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "format": "md",
+      "file_name": "雨夜列车-3062ef75-9730-48f2-8f7f-a160d7b45ea2.md",
+      "file_body": "EXPORT FORMAT: md\nTITLE: 雨夜列车\n\n# 第一章 · 雨夜列车\n\n第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "file_size_mb": 0,
+      "object_key": "exports/3062ef75-9730-48f2-8f7f-a160d7b45ea2/md",
+      "expires_at": "2026-04-07T08:21:09.485Z",
+      "status": "ready",
+      "created_at": "2026-03-31T08:21:09.485Z"
+    },
+    {
+      "id": "0475e8a1-70fa-4cb3-b270-993b6f54edc8",
+      "export_job_id": "45744999-8a1d-4bed-972d-072b06382c1e",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "format": "docx",
+      "file_name": "雨夜列车-45744999-8a1d-4bed-972d-072b06382c1e.docx",
+      "file_body": "EXPORT FORMAT: docx\nTITLE: 雨夜列车\n\n# 第一章 · 雨夜列车\n\n第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "file_size_mb": 0,
+      "object_key": "exports/45744999-8a1d-4bed-972d-072b06382c1e/docx",
+      "expires_at": "2026-04-07T08:21:15.724Z",
+      "status": "ready",
+      "created_at": "2026-03-31T08:21:15.724Z"
+    },
+    {
+      "id": "8de43fec-7e69-47c3-a40d-9d14f68bafeb",
+      "export_job_id": "45744999-8a1d-4bed-972d-072b06382c1e",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "format": "md",
+      "file_name": "雨夜列车-45744999-8a1d-4bed-972d-072b06382c1e.md",
+      "file_body": "EXPORT FORMAT: md\nTITLE: 雨夜列车\n\n# 第一章 · 雨夜列车\n\n第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "file_size_mb": 0,
+      "object_key": "exports/45744999-8a1d-4bed-972d-072b06382c1e/md",
+      "expires_at": "2026-04-07T08:21:15.724Z",
+      "status": "ready",
+      "created_at": "2026-03-31T08:21:15.724Z"
+    },
+    {
+      "id": "fb6dfaa2-74d8-4ba6-ad8e-a3a5c7969d05",
+      "export_job_id": "9d6959da-9b4b-4325-b2c2-062dd54f03e5",
+      "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+      "format": "txt",
+      "file_name": "雨夜列车-9d6959da-9b4b-4325-b2c2-062dd54f03e5.txt",
+      "file_body": "EXPORT FORMAT: txt\nTITLE: 雨夜列车\n\n# 第一章 · 雨夜列车\n\n第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "file_size_mb": 0,
+      "object_key": "exports/9d6959da-9b4b-4325-b2c2-062dd54f03e5/txt",
+      "expires_at": "2026-04-07T08:21:21.848Z",
+      "status": "ready",
+      "created_at": "2026-03-31T08:21:21.848Z"
+    },
+    {
+      "id": "0216033f-d32f-4fa7-b97a-bc716ce3ce5d",
+      "export_job_id": "ea304d85-bd9a-401b-b56f-509142186495",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "format": "txt",
+      "file_name": "雨夜列车-ea304d85-bd9a-401b-b56f-509142186495.txt",
+      "file_body": "EXPORT FORMAT: txt\nTITLE: 雨夜列车\n\n# 第一章 · 雨夜列车\n\n第一章\n\n《雨夜列车》在雨夜里开场。她站在站台尽头，听见旧列车碾过铁轨的回声，像有人把多年前那句没说完的话又递回她手里。\n\n风从潮湿的巷口灌进来，他终于出现，只说了一句：我还是想把那本没写完的故事，亲手交给你。",
+      "file_size_mb": 0,
+      "object_key": "exports/ea304d85-bd9a-401b-b56f-509142186495/txt",
+      "expires_at": "2026-04-07T08:21:27.589Z",
+      "status": "ready",
+      "created_at": "2026-03-31T08:21:27.589Z"
+    }
+  ],
+  "evidencePacks": [
+    {
+      "id": "5274a9d1-908f-4845-b764-bfc63704cd21",
+      "export_job_id": "3062ef75-9730-48f2-8f7f-a160d7b45ea2",
+      "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+      "manifest_version": "manifest_v1",
+      "record_count": 9,
+      "object_key": "evidence-packs/3062ef75-9730-48f2-8f7f-a160d7b45ea2.json",
+      "download_body": "{\n  \"manifest_version\": \"manifest_v1\",\n  \"story_id\": \"9d3d5233-cb0a-4682-83c0-45900b924205\",\n  \"export_job_id\": \"3062ef75-9730-48f2-8f7f-a160d7b45ea2\",\n  \"records\": [\n    {\n      \"record_id\": \"audit-0-2026-03-31T08:21:09.353Z\",\n      \"record_type\": \"audit_log\",\n      \"label\": \"export_risk_check_complete\",\n      \"created_at\": \"2026-03-31T08:21:09.353Z\"\n    },\n    {\n      \"record_id\": \"audit-1-2026-03-31T08:21:09.482Z\",\n      \"record_type\": \"audit_log\",\n      \"label\": \"export_start\",\n      \"created_at\": \"2026-03-31T08:21:09.482Z\"\n    },\n    {\n      \"record_id\": \"event-0-2026-03-31T08:21:09.024Z\",\n      \"record_type\": \"event_log\",\n      \"label\": \"chapter_generation_started\",\n      \"created_at\": \"2026-03-31T08:21:09.024Z\"\n    },\n    {\n      \"record_id\": \"event-1-2026-03-31T08:21:09.036Z\",\n      \"record_type\": \"event_log\",\n      \"label\": \"persona_state_snapshot_created\",\n      \"created_at\": \"2026-03-31T08:21:09.036Z\"\n    },\n    {\n      \"record_id\": \"event-2-2026-03-31T08:21:09.353Z\",\n      \"record_type\": \"event_log\",\n      \"label\": \"export_risk_check_complete\",\n      \"created_at\": \"2026-03-31T08:21:09.353Z\"\n    },\n    {\n      \"record_id\": \"event-3-2026-03-31T08:21:09.482Z\",\n      \"record_type\": \"event_log\",\n      \"label\": \"export_start\",\n      \"created_at\": \"2026-03-31T08:21:09.482Z\"\n    },\n    {\n      \"record_id\": \"risk-2ad4254b-764d-412b-b057-51425805a174\",\n      \"record_type\": \"risk_check\",\n      \"label\": \"risk:warn\",\n      \"created_at\": \"2026-03-31T08:21:09.349Z\"\n    },\n    {\n      \"record_id\": \"artifact-0-aedb5da7-8b85-4e19-ada5-5b389cfa2f3a\",\n      \"record_type\": \"artifact\",\n      \"label\": \"artifact:aedb5da7-8b85-4e19-ada5-5b389cfa2f3a\",\n      \"created_at\": \"2026-03-31T08:21:09.485Z\"\n    },\n    {\n      \"record_id\": \"artifact-1-2888c000-9d1c-482d-84b5-b360d3911f68\",\n      \"record_type\": \"artifact\",\n      \"label\": \"artifact:2888c000-9d1c-482d-84b5-b360d3911f68\",\n      \"created_at\": \"2026-03-31T08:21:09.485Z\"\n    }\n  ]\n}",
+      "status": "ready",
+      "records": [
+        {
+          "record_id": "audit-0-2026-03-31T08:21:09.353Z",
+          "record_type": "audit_log",
+          "label": "export_risk_check_complete",
+          "created_at": "2026-03-31T08:21:09.353Z"
+        },
+        {
+          "record_id": "audit-1-2026-03-31T08:21:09.482Z",
+          "record_type": "audit_log",
+          "label": "export_start",
+          "created_at": "2026-03-31T08:21:09.482Z"
+        },
+        {
+          "record_id": "event-0-2026-03-31T08:21:09.024Z",
+          "record_type": "event_log",
+          "label": "chapter_generation_started",
+          "created_at": "2026-03-31T08:21:09.024Z"
+        },
+        {
+          "record_id": "event-1-2026-03-31T08:21:09.036Z",
+          "record_type": "event_log",
+          "label": "persona_state_snapshot_created",
+          "created_at": "2026-03-31T08:21:09.036Z"
+        },
+        {
+          "record_id": "event-2-2026-03-31T08:21:09.353Z",
+          "record_type": "event_log",
+          "label": "export_risk_check_complete",
+          "created_at": "2026-03-31T08:21:09.353Z"
+        },
+        {
+          "record_id": "event-3-2026-03-31T08:21:09.482Z",
+          "record_type": "event_log",
+          "label": "export_start",
+          "created_at": "2026-03-31T08:21:09.482Z"
+        },
+        {
+          "record_id": "risk-2ad4254b-764d-412b-b057-51425805a174",
+          "record_type": "risk_check",
+          "label": "risk:warn",
+          "created_at": "2026-03-31T08:21:09.349Z"
+        },
+        {
+          "record_id": "artifact-0-aedb5da7-8b85-4e19-ada5-5b389cfa2f3a",
+          "record_type": "artifact",
+          "label": "artifact:aedb5da7-8b85-4e19-ada5-5b389cfa2f3a",
+          "created_at": "2026-03-31T08:21:09.485Z"
+        },
+        {
+          "record_id": "artifact-1-2888c000-9d1c-482d-84b5-b360d3911f68",
+          "record_type": "artifact",
+          "label": "artifact:2888c000-9d1c-482d-84b5-b360d3911f68",
+          "created_at": "2026-03-31T08:21:09.485Z"
+        }
+      ],
+      "created_at": "2026-03-31T08:21:09.485Z"
+    },
+    {
+      "id": "3e19bed8-2e03-4e0a-9829-af4ce0e4c633",
+      "export_job_id": "45744999-8a1d-4bed-972d-072b06382c1e",
+      "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+      "manifest_version": "manifest_v1",
+      "record_count": 9,
+      "object_key": "evidence-packs/45744999-8a1d-4bed-972d-072b06382c1e.json",
+      "download_body": "{\n  \"manifest_version\": \"manifest_v1\",\n  \"story_id\": \"0264cbe1-b088-4a73-8328-10dc6e3e6529\",\n  \"export_job_id\": \"45744999-8a1d-4bed-972d-072b06382c1e\",\n  \"records\": [\n    {\n      \"record_id\": \"audit-0-2026-03-31T08:21:15.714Z\",\n      \"record_type\": \"audit_log\",\n      \"label\": \"export_risk_check_complete\",\n      \"created_at\": \"2026-03-31T08:21:15.714Z\"\n    },\n    {\n      \"record_id\": \"audit-1-2026-03-31T08:21:15.722Z\",\n      \"record_type\": \"audit_log\",\n      \"label\": \"export_start\",\n      \"created_at\": \"2026-03-31T08:21:15.722Z\"\n    },\n    {\n      \"record_id\": \"event-0-2026-03-31T08:21:15.699Z\",\n      \"record_type\": \"event_log\",\n      \"label\": \"chapter_generation_started\",\n      \"created_at\": \"2026-03-31T08:21:15.699Z\"\n    },\n    {\n      \"record_id\": \"event-1-2026-03-31T08:21:15.708Z\",\n      \"record_type\": \"event_log\",\n      \"label\": \"persona_state_snapshot_created\",\n      \"created_at\": \"2026-03-31T08:21:15.708Z\"\n    },\n    {\n      \"record_id\": \"event-2-2026-03-31T08:21:15.714Z\",\n      \"record_type\": \"event_log\",\n      \"label\": \"export_risk_check_complete\",\n      \"created_at\": \"2026-03-31T08:21:15.714Z\"\n    },\n    {\n      \"record_id\": \"event-3-2026-03-31T08:21:15.722Z\",\n      \"record_type\": \"event_log\",\n      \"label\": \"export_start\",\n      \"created_at\": \"2026-03-31T08:21:15.722Z\"\n    },\n    {\n      \"record_id\": \"risk-2b61ae10-544c-4f59-85ae-91f7ccf14a16\",\n      \"record_type\": \"risk_check\",\n      \"label\": \"risk:pass\",\n      \"created_at\": \"2026-03-31T08:21:15.713Z\"\n    },\n    {\n      \"record_id\": \"artifact-0-0475e8a1-70fa-4cb3-b270-993b6f54edc8\",\n      \"record_type\": \"artifact\",\n      \"label\": \"artifact:0475e8a1-70fa-4cb3-b270-993b6f54edc8\",\n      \"created_at\": \"2026-03-31T08:21:15.725Z\"\n    },\n    {\n      \"record_id\": \"artifact-1-8de43fec-7e69-47c3-a40d-9d14f68bafeb\",\n      \"record_type\": \"artifact\",\n      \"label\": \"artifact:8de43fec-7e69-47c3-a40d-9d14f68bafeb\",\n      \"created_at\": \"2026-03-31T08:21:15.725Z\"\n    }\n  ]\n}",
+      "status": "ready",
+      "records": [
+        {
+          "record_id": "audit-0-2026-03-31T08:21:15.714Z",
+          "record_type": "audit_log",
+          "label": "export_risk_check_complete",
+          "created_at": "2026-03-31T08:21:15.714Z"
+        },
+        {
+          "record_id": "audit-1-2026-03-31T08:21:15.722Z",
+          "record_type": "audit_log",
+          "label": "export_start",
+          "created_at": "2026-03-31T08:21:15.722Z"
+        },
+        {
+          "record_id": "event-0-2026-03-31T08:21:15.699Z",
+          "record_type": "event_log",
+          "label": "chapter_generation_started",
+          "created_at": "2026-03-31T08:21:15.699Z"
+        },
+        {
+          "record_id": "event-1-2026-03-31T08:21:15.708Z",
+          "record_type": "event_log",
+          "label": "persona_state_snapshot_created",
+          "created_at": "2026-03-31T08:21:15.708Z"
+        },
+        {
+          "record_id": "event-2-2026-03-31T08:21:15.714Z",
+          "record_type": "event_log",
+          "label": "export_risk_check_complete",
+          "created_at": "2026-03-31T08:21:15.714Z"
+        },
+        {
+          "record_id": "event-3-2026-03-31T08:21:15.722Z",
+          "record_type": "event_log",
+          "label": "export_start",
+          "created_at": "2026-03-31T08:21:15.722Z"
+        },
+        {
+          "record_id": "risk-2b61ae10-544c-4f59-85ae-91f7ccf14a16",
+          "record_type": "risk_check",
+          "label": "risk:pass",
+          "created_at": "2026-03-31T08:21:15.713Z"
+        },
+        {
+          "record_id": "artifact-0-0475e8a1-70fa-4cb3-b270-993b6f54edc8",
+          "record_type": "artifact",
+          "label": "artifact:0475e8a1-70fa-4cb3-b270-993b6f54edc8",
+          "created_at": "2026-03-31T08:21:15.725Z"
+        },
+        {
+          "record_id": "artifact-1-8de43fec-7e69-47c3-a40d-9d14f68bafeb",
+          "record_type": "artifact",
+          "label": "artifact:8de43fec-7e69-47c3-a40d-9d14f68bafeb",
+          "created_at": "2026-03-31T08:21:15.725Z"
+        }
+      ],
+      "created_at": "2026-03-31T08:21:15.725Z"
+    }
+  ],
+  "labelWaiverRequests": [
+    {
+      "id": "a466d353-4d11-4599-ae1a-9931455a383a",
+      "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+      "export_job_id": "ea304d85-bd9a-401b-b56f-509142186495",
+      "status": "pending_user_consent",
+      "justification": "用于内部灰度投递。",
+      "target_channel": "private_workshop",
+      "user_acknowledgements": [
+        "ack-aigc-origin",
+        "ack-platform-no-copyright-promise"
+      ],
+      "consent_version": "m3-label-waiver-v1",
+      "retained_until": "2026-09-27T08:21:27.598Z",
+      "ops_case_id": null,
+      "created_at": "2026-03-31T08:21:27.598Z"
+    }
+  ],
+  "eventLogs": [
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "shared-dev",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "event_name": "release_rollback",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+        "environment_key": "staging",
+        "rollback_reason": "recovery smoke rollback"
+      },
+      "created_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "648400be-6242-47b2-8d9b-4d14253ac713",
+      "payload": {
+        "message_id": "473b6c8d-4837-4944-aef6-b9e9e005a6a2",
+        "channel": "h5",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "room"
+      },
+      "created_at": "2026-03-31T06:48:39.873Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "648400be-6242-47b2-8d9b-4d14253ac713",
+      "payload": {
+        "intent_id": "c2dd6be1-3b0c-42b9-a1a9-242fe14a8605",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T06:48:39.875Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "648400be-6242-47b2-8d9b-4d14253ac713",
+      "payload": {
+        "route_decision_id": "b8124e50-17ff-4e2c-ac0a-0fcdd5da1c4a",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T06:48:39.875Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "dd8c46e9-505a-4b72-a488-7128dd29d713",
+      "payload": {
+        "message_id": "04dde31c-1d48-4cd8-86d9-492c9ed7d972",
+        "channel": "h5",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T06:49:44.703Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "dd8c46e9-505a-4b72-a488-7128dd29d713",
+      "payload": {
+        "intent_id": "b538fb5b-b93b-4bf3-908e-2a95ffedd18c",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T06:49:44.704Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "dd8c46e9-505a-4b72-a488-7128dd29d713",
+      "payload": {
+        "route_decision_id": "7dbc3152-7bd4-4ffe-9c54-d5d4a29780ed",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T06:49:44.705Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "0484d89a-431e-4a8d-bcae-b6eb2526899c",
+      "payload": {
+        "message_id": "ac3f7df9-9199-4e9c-ace9-49eeab19dad9",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T06:59:02.967Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "0484d89a-431e-4a8d-bcae-b6eb2526899c",
+      "payload": {
+        "intent_id": "e5b24555-49cf-4aab-bf16-c5e176f6380a",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T06:59:02.969Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "0484d89a-431e-4a8d-bcae-b6eb2526899c",
+      "payload": {
+        "route_decision_id": "36e4a67c-9ff0-4f59-a90f-47816f0bc1b8",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T06:59:02.970Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "shared-dev",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T06:59:13.808Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "68df8490-e073-4049-89c1-6b167e739d3a",
+      "payload": {
+        "message_id": "93c6a918-ee40-4279-b335-f08b1da9eebd",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T06:59:28.667Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "68df8490-e073-4049-89c1-6b167e739d3a",
+      "payload": {
+        "intent_id": "646c9fd3-7ccf-4ebe-acde-6913237f0419",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T06:59:28.669Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "68df8490-e073-4049-89c1-6b167e739d3a",
+      "payload": {
+        "route_decision_id": "8b9724fc-22df-4de8-8c6c-0b9b41687291",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T06:59:28.669Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "shared-dev",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T06:59:39.758Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "shared-dev",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:02:15.132Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "809f47a8-9cc7-4786-a583-64b272466b27",
+      "payload": {
+        "message_id": "b61d11d1-ff3d-43c9-b94e-ae8a225f263b",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T07:02:15.142Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "809f47a8-9cc7-4786-a583-64b272466b27",
+      "payload": {
+        "intent_id": "71a58c0c-22b0-48b6-8414-dc5ded6384b2",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:02:15.143Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "809f47a8-9cc7-4786-a583-64b272466b27",
+      "payload": {
+        "route_decision_id": "fb406d24-083d-4baf-9d1a-52cffcbf80e7",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:02:15.144Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "payload": {
+        "message_id": "43f7dbf9-072d-4839-86a2-ad520ad7a31d",
+        "channel": "h5",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "room"
+      },
+      "created_at": "2026-03-31T07:02:52.445Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "payload": {
+        "intent_id": "0a45eb4b-15d8-49d7-9669-77a68f2f66b7",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:02:52.446Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "payload": {
+        "route_decision_id": "61ca4104-c2f5-45de-89d2-47b0214872de",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:02:52.447Z"
+    },
+    {
+      "event_name": "persona_state_snapshot_created",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "payload": {
+        "snapshot_id": "derived-2026-03-31T07:02:54.138Z",
+        "state_code": "welcoming",
+        "story_id": null
+      },
+      "created_at": "2026-03-31T07:02:54.138Z"
+    },
+    {
+      "event_name": "deep_link_opened",
+      "account_id": "aa828180-c907-4a87-8998-749ccd2659cd",
+      "payload": {
+        "target_route": "/room",
+        "fallback_used": false
+      },
+      "created_at": "2026-03-31T07:02:54.139Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "message_id": "906ca4cd-8d4e-4676-85d6-bc04095faf37",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T07:02:55.366Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "intent_id": "0343e394-80d3-4838-88d9-5d4ef1ac48fa",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:02:55.367Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "route_decision_id": "75890de9-1d7f-4c0e-b16c-dd9b33480de4",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:02:55.367Z"
+    },
+    {
+      "event_name": "story_intake_started",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "entry_surface": "chat",
+        "intake_mode": "only_feeling"
+      },
+      "created_at": "2026-03-31T07:02:55.891Z"
+    },
+    {
+      "event_name": "proposal_generated",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_count": 3,
+        "latency_ms": 120
+      },
+      "created_at": "2026-03-31T07:02:56.467Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T07:02:56.991Z"
+    },
+    {
+      "event_name": "account_channel_bind_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "channel": "wechat",
+        "is_primary": true
+      },
+      "created_at": "2026-03-31T07:02:57.604Z"
+    },
+    {
+      "event_name": "membership_purchase_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "purchased_plan": "plan_plus",
+        "purchase_amount": 2900,
+        "is_first_purchase": true
+      },
+      "created_at": "2026-03-31T07:02:58.379Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "payload": {
+        "message_id": "5b33c75a-3df0-4cd4-be9c-30bee66b7957",
+        "channel": "h5",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "room"
+      },
+      "created_at": "2026-03-31T07:08:22.018Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "payload": {
+        "intent_id": "6e49ab62-f4c1-4d28-91af-b0021990903c",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:08:22.021Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "payload": {
+        "route_decision_id": "78064fc9-1535-4e51-a58c-e2830193992c",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:08:22.022Z"
+    },
+    {
+      "event_name": "persona_state_snapshot_created",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "payload": {
+        "snapshot_id": "derived-2026-03-31T07:08:23.631Z",
+        "state_code": "welcoming",
+        "story_id": null
+      },
+      "created_at": "2026-03-31T07:08:23.632Z"
+    },
+    {
+      "event_name": "deep_link_opened",
+      "account_id": "9e686075-87ab-4da5-bc73-519f857211a8",
+      "payload": {
+        "target_route": "/room",
+        "fallback_used": false
+      },
+      "created_at": "2026-03-31T07:08:23.633Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "message_id": "91428ee1-93f7-4b34-a562-e801f19b075f",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T07:08:24.876Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "intent_id": "f39f4e33-568a-414d-ad4a-3166a5d11558",
+        "intent_type": "story_context",
+        "target_type": "story_workspace",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:08:24.879Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "route_decision_id": "1f178100-a7e1-4310-8f64-3eb91da936cd",
+        "story_id": "83ac7da6-f914-4ade-9c42-408f64955b52",
+        "confidence_score": 0.2,
+        "route_mode": "auto"
+      },
+      "created_at": "2026-03-31T07:08:24.879Z"
+    },
+    {
+      "event_name": "story_intake_started",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "entry_surface": "chat",
+        "intake_mode": "only_feeling"
+      },
+      "created_at": "2026-03-31T07:08:25.487Z"
+    },
+    {
+      "event_name": "proposal_generated",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_count": 3,
+        "latency_ms": 120
+      },
+      "created_at": "2026-03-31T07:08:26.015Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T07:08:26.594Z"
+    },
+    {
+      "event_name": "account_channel_bind_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "channel": "wechat",
+        "is_primary": true
+      },
+      "created_at": "2026-03-31T07:08:27.198Z"
+    },
+    {
+      "event_name": "membership_purchase_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "purchased_plan": "plan_plus",
+        "purchase_amount": 2900,
+        "is_first_purchase": true
+      },
+      "created_at": "2026-03-31T07:08:27.907Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "payload": {
+        "message_id": "b2d6fc11-624b-47d4-8ced-3c07d2501a6d",
+        "channel": "h5",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "room"
+      },
+      "created_at": "2026-03-31T07:09:35.116Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "payload": {
+        "intent_id": "1f11b4ab-44df-4e71-8ce9-b30169bd0626",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:09:35.118Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "payload": {
+        "route_decision_id": "75f6cef2-07b2-4508-98d5-7825648b2b7d",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:09:35.118Z"
+    },
+    {
+      "event_name": "persona_state_snapshot_created",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "payload": {
+        "snapshot_id": "derived-2026-03-31T07:09:37.124Z",
+        "state_code": "welcoming",
+        "story_id": null
+      },
+      "created_at": "2026-03-31T07:09:37.125Z"
+    },
+    {
+      "event_name": "deep_link_opened",
+      "account_id": "327381e0-ed78-49c8-858e-d904afbaab4c",
+      "payload": {
+        "target_route": "/room",
+        "fallback_used": false
+      },
+      "created_at": "2026-03-31T07:09:37.127Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "message_id": "a35dcb7c-04d1-45d4-b250-58c95f83cf34",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T07:09:37.809Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "intent_id": "72c9f840-c1dc-46be-80b8-f69553bb767e",
+        "intent_type": "recent_note",
+        "target_type": "route_decision",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:09:37.813Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "route_decision_id": "dc83cffa-5f00-4a41-9081-93141a2b40ec",
+        "story_id": null,
+        "confidence_score": 0.2,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:09:37.814Z"
+    },
+    {
+      "event_name": "chat_story_disambiguation_shown",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "route_decision_id": "dc83cffa-5f00-4a41-9081-93141a2b40ec",
+        "candidate_count": 2,
+        "top_confidence": 0.2
+      },
+      "created_at": "2026-03-31T07:09:37.815Z"
+    },
+    {
+      "event_name": "story_intake_started",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "entry_surface": "chat",
+        "intake_mode": "only_feeling"
+      },
+      "created_at": "2026-03-31T07:09:38.436Z"
+    },
+    {
+      "event_name": "proposal_generated",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_count": 3,
+        "latency_ms": 120
+      },
+      "created_at": "2026-03-31T07:09:39.193Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T07:09:39.749Z"
+    },
+    {
+      "event_name": "account_channel_bind_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "channel": "wechat",
+        "is_primary": true
+      },
+      "created_at": "2026-03-31T07:09:40.281Z"
+    },
+    {
+      "event_name": "membership_purchase_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "purchased_plan": "plan_plus",
+        "purchase_amount": 2900,
+        "is_first_purchase": true
+      },
+      "created_at": "2026-03-31T07:09:40.962Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "fa447690-6e2b-4e5b-a723-1a2946560137",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-31T07:11:32.869Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "fa447690-6e2b-4e5b-a723-1a2946560137",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-31T07:11:32.888Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:11:32.924Z"
+    },
+    {
+      "event_name": "release_rollback",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "fa447690-6e2b-4e5b-a723-1a2946560137",
+        "environment_key": "staging",
+        "rollback_reason": "smoke rollback"
+      },
+      "created_at": "2026-03-31T07:11:32.936Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "8df9c326-22b1-4c13-8c86-4bf8bc811221",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-31T07:13:17.739Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "8df9c326-22b1-4c13-8c86-4bf8bc811221",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-31T07:13:17.748Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:13:17.769Z"
+    },
+    {
+      "event_name": "release_rollback",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "8df9c326-22b1-4c13-8c86-4bf8bc811221",
+        "environment_key": "staging",
+        "rollback_reason": "smoke rollback"
+      },
+      "created_at": "2026-03-31T07:13:17.777Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "shared-dev",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:13:17.893Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "payload": {
+        "message_id": "5ddcb6fa-be1d-4358-bddd-3483996c6960",
+        "channel": "h5",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "room"
+      },
+      "created_at": "2026-03-31T07:15:54.137Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "payload": {
+        "intent_id": "951d5bd8-f6ef-416f-b9de-b3e5438624a0",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:15:54.140Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "payload": {
+        "route_decision_id": "4bd0a7d7-6491-4293-91b9-6aec26287e0d",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:15:54.141Z"
+    },
+    {
+      "event_name": "persona_state_snapshot_created",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "payload": {
+        "snapshot_id": "derived-2026-03-31T07:15:55.862Z",
+        "state_code": "welcoming",
+        "story_id": null
+      },
+      "created_at": "2026-03-31T07:15:55.864Z"
+    },
+    {
+      "event_name": "deep_link_opened",
+      "account_id": "ef394b9a-805c-478a-99cd-784ab3c28ec9",
+      "payload": {
+        "target_route": "/room",
+        "fallback_used": false
+      },
+      "created_at": "2026-03-31T07:15:55.865Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "message_id": "f84ca4ba-9cae-435f-a63d-fdded42075b4",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T07:15:56.886Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "intent_id": "3165a577-02aa-4254-9971-691215384e33",
+        "intent_type": "recent_note",
+        "target_type": "route_decision",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:15:56.889Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "route_decision_id": "b54ea4c2-ff53-4ce6-acaa-601fbdd9f772",
+        "story_id": null,
+        "confidence_score": 0.2,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:15:56.890Z"
+    },
+    {
+      "event_name": "chat_story_disambiguation_shown",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "route_decision_id": "b54ea4c2-ff53-4ce6-acaa-601fbdd9f772",
+        "candidate_count": 3,
+        "top_confidence": 0.2
+      },
+      "created_at": "2026-03-31T07:15:56.890Z"
+    },
+    {
+      "event_name": "story_intake_started",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "entry_surface": "chat",
+        "intake_mode": "only_feeling"
+      },
+      "created_at": "2026-03-31T07:15:57.575Z"
+    },
+    {
+      "event_name": "proposal_generated",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_count": 3,
+        "latency_ms": 120
+      },
+      "created_at": "2026-03-31T07:15:58.187Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T07:15:58.699Z"
+    },
+    {
+      "event_name": "account_channel_bind_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "channel": "wechat",
+        "is_primary": true
+      },
+      "created_at": "2026-03-31T07:15:59.212Z"
+    },
+    {
+      "event_name": "membership_purchase_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "purchased_plan": "plan_plus",
+        "purchase_amount": 2900,
+        "is_first_purchase": true
+      },
+      "created_at": "2026-03-31T07:15:59.730Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "message_id": "a4469804-51de-4539-80a2-b951ef2a97f2",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T08:21:08.996Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "intent_id": "039d4f0c-e126-48c1-b29b-69aeca681337",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T08:21:09.000Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "route_decision_id": "d182bab1-5d55-40f6-818f-0899d00e7f3c",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T08:21:09.001Z"
+    },
+    {
+      "event_name": "story_intake_started",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "entry_surface": "chat",
+        "intake_mode": "only_feeling"
+      },
+      "created_at": "2026-03-31T08:21:09.006Z"
+    },
+    {
+      "event_name": "proposal_generated",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "proposal_count": 3,
+        "latency_ms": 120
+      },
+      "created_at": "2026-03-31T08:21:09.011Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T08:21:09.016Z"
+    },
+    {
+      "event_name": "chapter_generation_started",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "target": "first_chapter"
+      },
+      "created_at": "2026-03-31T08:21:09.024Z"
+    },
+    {
+      "event_name": "persona_state_snapshot_created",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "snapshot_id": "derived-2026-03-31T08:21:09.035Z",
+        "state_code": "writing",
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205"
+      },
+      "created_at": "2026-03-31T08:21:09.036Z"
+    },
+    {
+      "event_name": "deep_link_opened",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "target_route": "/room",
+        "fallback_used": false
+      },
+      "created_at": "2026-03-31T08:21:09.039Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "result": "warn",
+        "warning_count": 1,
+        "blocked_reason_codes": null
+      },
+      "created_at": "2026-03-31T08:21:09.353Z"
+    },
+    {
+      "event_name": "export_start",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "export_purpose": "submission",
+        "export_formats": "docx,pdf",
+        "include_evidence": true
+      },
+      "created_at": "2026-03-31T08:21:09.482Z"
+    },
+    {
+      "event_name": "rights_pack_generate",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "pack_type": "evidence_pack",
+        "risk_level": "warn"
+      },
+      "created_at": "2026-03-31T08:21:09.486Z"
+    },
+    {
+      "event_name": "export_complete",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "export_formats": "docx,md",
+        "status": "partial_failed",
+        "evidence_pack_id": "5274a9d1-908f-4845-b764-bfc63704cd21"
+      },
+      "created_at": "2026-03-31T08:21:09.488Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "message_id": "3aa521d9-a359-4893-9ac5-80a2c26ccdbb",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T08:21:15.674Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "intent_id": "1291141e-39fc-4bc1-9eff-311220f0cc0c",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T08:21:15.678Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "route_decision_id": "1253faa7-7296-40a8-8451-dd1e738d7e0d",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T08:21:15.678Z"
+    },
+    {
+      "event_name": "story_intake_started",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "entry_surface": "chat",
+        "intake_mode": "only_feeling"
+      },
+      "created_at": "2026-03-31T08:21:15.685Z"
+    },
+    {
+      "event_name": "proposal_generated",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "proposal_count": 3,
+        "latency_ms": 120
+      },
+      "created_at": "2026-03-31T08:21:15.689Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T08:21:15.693Z"
+    },
+    {
+      "event_name": "chapter_generation_started",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "target": "first_chapter"
+      },
+      "created_at": "2026-03-31T08:21:15.699Z"
+    },
+    {
+      "event_name": "persona_state_snapshot_created",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "snapshot_id": "derived-2026-03-31T08:21:15.707Z",
+        "state_code": "writing",
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529"
+      },
+      "created_at": "2026-03-31T08:21:15.708Z"
+    },
+    {
+      "event_name": "deep_link_opened",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "target_route": "/room",
+        "fallback_used": false
+      },
+      "created_at": "2026-03-31T08:21:15.709Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "result": "pass",
+        "warning_count": 0,
+        "blocked_reason_codes": null
+      },
+      "created_at": "2026-03-31T08:21:15.714Z"
+    },
+    {
+      "event_name": "export_start",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "export_purpose": "submission",
+        "export_formats": "docx,pdf",
+        "include_evidence": true
+      },
+      "created_at": "2026-03-31T08:21:15.722Z"
+    },
+    {
+      "event_name": "rights_pack_generate",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "pack_type": "evidence_pack",
+        "risk_level": "pass"
+      },
+      "created_at": "2026-03-31T08:21:15.726Z"
+    },
+    {
+      "event_name": "export_complete",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "export_formats": "docx,md",
+        "status": "partial_failed",
+        "evidence_pack_id": "3e19bed8-2e03-4e0a-9829-af4ce0e4c633"
+      },
+      "created_at": "2026-03-31T08:21:15.727Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "message_id": "d4e10e5b-0d46-4bb7-8c27-b2e900d58752",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T08:21:21.796Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "intent_id": "007c2838-b9ec-4725-bc4a-ec0072c3ab8b",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T08:21:21.799Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "route_decision_id": "e93543a9-3f79-4fa9-82c3-17d12880762c",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T08:21:21.800Z"
+    },
+    {
+      "event_name": "story_intake_started",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "entry_surface": "chat",
+        "intake_mode": "only_feeling"
+      },
+      "created_at": "2026-03-31T08:21:21.807Z"
+    },
+    {
+      "event_name": "proposal_generated",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "proposal_count": 3,
+        "latency_ms": 120
+      },
+      "created_at": "2026-03-31T08:21:21.811Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T08:21:21.815Z"
+    },
+    {
+      "event_name": "chapter_generation_started",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+        "target": "first_chapter"
+      },
+      "created_at": "2026-03-31T08:21:21.821Z"
+    },
+    {
+      "event_name": "persona_state_snapshot_created",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "snapshot_id": "derived-2026-03-31T08:21:21.828Z",
+        "state_code": "writing",
+        "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2"
+      },
+      "created_at": "2026-03-31T08:21:21.829Z"
+    },
+    {
+      "event_name": "deep_link_opened",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "target_route": "/room",
+        "fallback_used": false
+      },
+      "created_at": "2026-03-31T08:21:21.831Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+        "result": "pass",
+        "warning_count": 0,
+        "blocked_reason_codes": null
+      },
+      "created_at": "2026-03-31T08:21:21.836Z"
+    },
+    {
+      "event_name": "export_start",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+        "export_purpose": "submission",
+        "export_formats": "txt",
+        "include_evidence": false
+      },
+      "created_at": "2026-03-31T08:21:21.846Z"
+    },
+    {
+      "event_name": "export_complete",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+        "export_formats": "txt",
+        "status": "succeeded",
+        "evidence_pack_id": null
+      },
+      "created_at": "2026-03-31T08:21:21.849Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "message_id": "48bb3780-d22e-4af8-9678-67e7b7d53198",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T08:21:27.514Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "intent_id": "6d5f4c4e-0615-44f8-b59c-6c5e6e23275a",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T08:21:27.519Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "route_decision_id": "78e9abeb-8205-4da8-9327-1e7806e8c4b9",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T08:21:27.520Z"
+    },
+    {
+      "event_name": "story_intake_started",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "entry_surface": "chat",
+        "intake_mode": "only_feeling"
+      },
+      "created_at": "2026-03-31T08:21:27.529Z"
+    },
+    {
+      "event_name": "proposal_generated",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "proposal_count": 3,
+        "latency_ms": 120
+      },
+      "created_at": "2026-03-31T08:21:27.534Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T08:21:27.540Z"
+    },
+    {
+      "event_name": "chapter_generation_started",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "target": "first_chapter"
+      },
+      "created_at": "2026-03-31T08:21:27.547Z"
+    },
+    {
+      "event_name": "persona_state_snapshot_created",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "snapshot_id": "derived-2026-03-31T08:21:27.558Z",
+        "state_code": "writing",
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98"
+      },
+      "created_at": "2026-03-31T08:21:27.559Z"
+    },
+    {
+      "event_name": "deep_link_opened",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "target_route": "/room",
+        "fallback_used": false
+      },
+      "created_at": "2026-03-31T08:21:27.561Z"
+    },
+    {
+      "event_name": "branch_created",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "branch_id": "e348b0fe-6c7d-46ad-8579-d6dc4d592cfa",
+        "chapter_id": "6f18e3f2-c6de-4c7d-ac1a-1912261c85b2"
+      },
+      "created_at": "2026-03-31T08:21:27.566Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "result": "block",
+        "warning_count": 0,
+        "blocked_reason_codes": "CMP-004"
+      },
+      "created_at": "2026-03-31T08:21:27.572Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "result": "pass",
+        "warning_count": 0,
+        "blocked_reason_codes": null
+      },
+      "created_at": "2026-03-31T08:21:27.580Z"
+    },
+    {
+      "event_name": "export_start",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "export_purpose": "submission",
+        "export_formats": "txt",
+        "include_evidence": false
+      },
+      "created_at": "2026-03-31T08:21:27.586Z"
+    },
+    {
+      "event_name": "export_complete",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "export_formats": "txt",
+        "status": "succeeded",
+        "evidence_pack_id": null
+      },
+      "created_at": "2026-03-31T08:21:27.590Z"
+    },
+    {
+      "event_name": "rights_label_waiver_submit",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "export_job_id": "ea304d85-bd9a-401b-b56f-509142186495",
+        "target_channel": "private_workshop",
+        "consent_version": "m3-label-waiver-v1"
+      },
+      "created_at": "2026-03-31T08:21:27.599Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "event_name": "proposal_selected",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T07:02:56.991Z"
+    },
+    {
+      "event_name": "account_channel_bind_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "channel": "wechat",
+        "is_primary": true
+      },
+      "created_at": "2026-03-31T07:02:57.604Z"
+    },
+    {
+      "event_name": "membership_purchase_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "purchased_plan": "plan_plus",
+        "purchase_amount": 2900,
+        "is_first_purchase": true
+      },
+      "created_at": "2026-03-31T07:02:58.379Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T07:08:26.594Z"
+    },
+    {
+      "event_name": "account_channel_bind_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "channel": "wechat",
+        "is_primary": true
+      },
+      "created_at": "2026-03-31T07:08:27.198Z"
+    },
+    {
+      "event_name": "membership_purchase_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "purchased_plan": "plan_plus",
+        "purchase_amount": 2900,
+        "is_first_purchase": true
+      },
+      "created_at": "2026-03-31T07:08:27.907Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T07:09:39.749Z"
+    },
+    {
+      "event_name": "account_channel_bind_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "channel": "wechat",
+        "is_primary": true
+      },
+      "created_at": "2026-03-31T07:09:40.281Z"
+    },
+    {
+      "event_name": "membership_purchase_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "purchased_plan": "plan_plus",
+        "purchase_amount": 2900,
+        "is_first_purchase": true
+      },
+      "created_at": "2026-03-31T07:09:40.962Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T07:15:58.699Z"
+    },
+    {
+      "event_name": "account_channel_bind_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "channel": "wechat",
+        "is_primary": true
+      },
+      "created_at": "2026-03-31T07:15:59.212Z"
+    },
+    {
+      "event_name": "membership_purchase_complete",
+      "account_id": "c020f24d-944d-4472-b64b-3060e13d6ddb",
+      "payload": {
+        "purchased_plan": "plan_plus",
+        "purchase_amount": 2900,
+        "is_first_purchase": true
+      },
+      "created_at": "2026-03-31T07:15:59.730Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T08:21:09.016Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "result": "warn",
+        "warning_count": 1,
+        "blocked_reason_codes": null
+      },
+      "created_at": "2026-03-31T08:21:09.353Z"
+    },
+    {
+      "event_name": "export_start",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "export_purpose": "submission",
+        "export_formats": "docx,pdf",
+        "include_evidence": true
+      },
+      "created_at": "2026-03-31T08:21:09.482Z"
+    },
+    {
+      "event_name": "rights_pack_generate",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "pack_type": "evidence_pack",
+        "risk_level": "warn"
+      },
+      "created_at": "2026-03-31T08:21:09.486Z"
+    },
+    {
+      "event_name": "export_complete",
+      "account_id": "1323b07f-d574-4171-8814-1bfea4a1ab55",
+      "payload": {
+        "story_id": "9d3d5233-cb0a-4682-83c0-45900b924205",
+        "export_formats": "docx,md",
+        "status": "partial_failed",
+        "evidence_pack_id": "5274a9d1-908f-4845-b764-bfc63704cd21"
+      },
+      "created_at": "2026-03-31T08:21:09.488Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T08:21:15.693Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "result": "pass",
+        "warning_count": 0,
+        "blocked_reason_codes": null
+      },
+      "created_at": "2026-03-31T08:21:15.714Z"
+    },
+    {
+      "event_name": "export_start",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "export_purpose": "submission",
+        "export_formats": "docx,pdf",
+        "include_evidence": true
+      },
+      "created_at": "2026-03-31T08:21:15.722Z"
+    },
+    {
+      "event_name": "rights_pack_generate",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "pack_type": "evidence_pack",
+        "risk_level": "pass"
+      },
+      "created_at": "2026-03-31T08:21:15.726Z"
+    },
+    {
+      "event_name": "export_complete",
+      "account_id": "842be69f-1aa2-41e7-8d7f-5af83b8f25dc",
+      "payload": {
+        "story_id": "0264cbe1-b088-4a73-8328-10dc6e3e6529",
+        "export_formats": "docx,md",
+        "status": "partial_failed",
+        "evidence_pack_id": "3e19bed8-2e03-4e0a-9829-af4ce0e4c633"
+      },
+      "created_at": "2026-03-31T08:21:15.727Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T08:21:21.815Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+        "result": "pass",
+        "warning_count": 0,
+        "blocked_reason_codes": null
+      },
+      "created_at": "2026-03-31T08:21:21.836Z"
+    },
+    {
+      "event_name": "export_start",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+        "export_purpose": "submission",
+        "export_formats": "txt",
+        "include_evidence": false
+      },
+      "created_at": "2026-03-31T08:21:21.846Z"
+    },
+    {
+      "event_name": "export_complete",
+      "account_id": "1c84771b-a82b-4b54-bb5d-acb71e72d7b5",
+      "payload": {
+        "story_id": "c157fd18-38d8-4e21-8b43-c063290bd9f2",
+        "export_formats": "txt",
+        "status": "succeeded",
+        "evidence_pack_id": null
+      },
+      "created_at": "2026-03-31T08:21:21.849Z"
+    },
+    {
+      "event_name": "proposal_selected",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "proposal_no": 1,
+        "launch_first_chapter": false
+      },
+      "created_at": "2026-03-31T08:21:27.540Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "result": "block",
+        "warning_count": 0,
+        "blocked_reason_codes": "CMP-004"
+      },
+      "created_at": "2026-03-31T08:21:27.572Z"
+    },
+    {
+      "event_name": "export_risk_check_complete",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "result": "pass",
+        "warning_count": 0,
+        "blocked_reason_codes": null
+      },
+      "created_at": "2026-03-31T08:21:27.580Z"
+    },
+    {
+      "event_name": "export_start",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "export_purpose": "submission",
+        "export_formats": "txt",
+        "include_evidence": false
+      },
+      "created_at": "2026-03-31T08:21:27.586Z"
+    },
+    {
+      "event_name": "export_complete",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "export_formats": "txt",
+        "status": "succeeded",
+        "evidence_pack_id": null
+      },
+      "created_at": "2026-03-31T08:21:27.590Z"
+    },
+    {
+      "event_name": "rights_label_waiver_submit",
+      "account_id": "e4529067-1002-4663-94ea-aef886340e6f",
+      "payload": {
+        "story_id": "9f70a77d-13d0-446b-b5cb-d99619949c98",
+        "export_job_id": "ea304d85-bd9a-401b-b56f-509142186495",
+        "target_channel": "private_workshop",
+        "consent_version": "m3-label-waiver-v1"
+      },
+      "created_at": "2026-03-31T08:21:27.599Z"
+    }
+  ],
+  "metricSnapshots": [],
+  "opsCases": [],
+  "reviewDecisions": [],
+  "opsAuditLogs": [
+    {
+      "id": "8596f526-adb2-492c-95db-42ab764432ef",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "id": "0a65240f-8130-4ca0-9dd3-b46808ec010a",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "98e34613-8b13-4156-87c2-80fe3bdf4035"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "id": "a3d9e9ef-39b7-464f-9124-1e6313418651",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "26a0de8c-7909-43e2-8efe-4020fb57e7a4"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "id": "754929f2-82de-4682-8bd1-01498e381b66",
+      "actor_role": "admin",
+      "action": "release_rollback",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "c13020ec-e739-4f00-aa56-9940e73bd21e"
+      },
+      "payload": {
+        "rollback_reason": "recovery smoke rollback",
+        "include_migration_restore": true
+      },
+      "created_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "id": "fcca968a-fc3d-4cff-9989-03a4f4503af7",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "fa447690-6e2b-4e5b-a723-1a2946560137"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:11:32.869Z"
+    },
+    {
+      "id": "b8bf8fbe-852e-42b8-8ae5-3353cd4c9280",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "6a14fb1a-cc9f-43a0-81fd-71a605d44500"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:11:32.888Z"
+    },
+    {
+      "id": "7b2c8e6e-fd80-44f1-97d1-26344cdfa313",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "c4296572-89bf-4872-9420-9e31ebbcffc7"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:11:32.924Z"
+    },
+    {
+      "id": "1b95a69d-0b20-4109-9021-f891cffb544f",
+      "actor_role": "admin",
+      "action": "release_rollback",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "19ba7f78-51e4-4c75-842a-4e0be8ad8a0c"
+      },
+      "payload": {
+        "rollback_reason": "smoke rollback",
+        "include_migration_restore": true
+      },
+      "created_at": "2026-03-31T07:11:32.936Z"
+    },
+    {
+      "id": "03336dfc-af7a-4594-8f1c-daa0e1ff4db9",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "8df9c326-22b1-4c13-8c86-4bf8bc811221"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:13:17.739Z"
+    },
+    {
+      "id": "8fa6cc4c-563f-4e47-949f-36ca61a4cd93",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "8a0010bb-ddba-4769-8a3b-2302c4ccc92b"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:13:17.748Z"
+    },
+    {
+      "id": "a6b11539-dd7e-44dc-8a01-72166ef05c47",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "2ca906ce-1a82-46a1-a365-cc16d6ea301f"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:13:17.769Z"
+    },
+    {
+      "id": "23b59e63-204c-4f32-b38a-f2e0e6a08e04",
+      "actor_role": "admin",
+      "action": "release_rollback",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "6c212f8c-de94-4e99-80fd-da17366f2d90"
+      },
+      "payload": {
+        "rollback_reason": "smoke rollback",
+        "include_migration_restore": true
+      },
+      "created_at": "2026-03-31T07:13:17.777Z"
+    }
+  ],
+  "environmentRegistry": [
+    {
+      "environment_key": "shared-dev",
+      "domain": "https://62d7cc2c5e55d0.lhr.life",
+      "release_version": "seed-shared-dev",
+      "health_status": "healthy",
+      "blockers": [],
+      "artifact_channel": "shared-dev",
+      "secret_scope": "shared-dev",
+      "last_deploy_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "environment_key": "staging",
+      "domain": "https://bd01d8fea75dc0.lhr.life",
+      "release_version": "rollback:8df9c326",
+      "health_status": "healthy",
+      "blockers": [],
+      "artifact_channel": "staging",
+      "secret_scope": "staging",
+      "last_deploy_at": "2026-03-31T07:13:17.777Z"
+    },
+    {
+      "environment_key": "live",
+      "domain": "live.erliu.local",
+      "release_version": "seed-live",
+      "health_status": "healthy",
+      "blockers": [],
+      "artifact_channel": "live",
+      "secret_scope": "live",
+      "last_deploy_at": "2026-03-30T19:37:09.542Z"
+    }
+  ],
+  "releaseCandidates": [
+    {
+      "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-046-001",
+      "change_summary": "M3 release chain smoke",
+      "status": "planned",
+      "verification_plan_id": "c67cf011-53cc-483b-874b-dca362914a24",
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "release_id": "fa447690-6e2b-4e5b-a723-1a2946560137",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/app:staging-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-046-001",
+      "change_summary": "M3 release smoke",
+      "status": "planned",
+      "verification_plan_id": "ae5dd569-5c06-47a5-b0d4-3284cea868dc",
+      "created_at": "2026-03-31T07:11:32.869Z"
+    },
+    {
+      "release_id": "8df9c326-22b1-4c13-8c86-4bf8bc811221",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/app:staging-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-046-001",
+      "change_summary": "M3 release smoke",
+      "status": "planned",
+      "verification_plan_id": "a040acca-97b6-4146-a45e-61e68f54856d",
+      "created_at": "2026-03-31T07:13:17.739Z"
+    }
+  ],
+  "deploymentRuns": [
+    {
+      "deployment_id": "98e34613-8b13-4156-87c2-80fe3bdf4035",
+      "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-30T19:37:09.543Z",
+      "completed_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "deployment_id": "c13020ec-e739-4f00-aa56-9940e73bd21e",
+      "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+      "from_environment": "staging",
+      "to_environment": "staging",
+      "status": "rolled_back",
+      "verification_result": "passed",
+      "migration_status": "restored",
+      "started_at": "2026-03-30T19:37:09.549Z",
+      "completed_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "deployment_id": "6a14fb1a-cc9f-43a0-81fd-71a605d44500",
+      "release_id": "fa447690-6e2b-4e5b-a723-1a2946560137",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-31T07:11:32.888Z",
+      "completed_at": "2026-03-31T07:11:32.888Z"
+    },
+    {
+      "deployment_id": "19ba7f78-51e4-4c75-842a-4e0be8ad8a0c",
+      "release_id": "fa447690-6e2b-4e5b-a723-1a2946560137",
+      "from_environment": "staging",
+      "to_environment": "staging",
+      "status": "rolled_back",
+      "verification_result": "passed",
+      "migration_status": "restored",
+      "started_at": "2026-03-31T07:11:32.936Z",
+      "completed_at": "2026-03-31T07:11:32.936Z"
+    },
+    {
+      "deployment_id": "8a0010bb-ddba-4769-8a3b-2302c4ccc92b",
+      "release_id": "8df9c326-22b1-4c13-8c86-4bf8bc811221",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-31T07:13:17.748Z",
+      "completed_at": "2026-03-31T07:13:17.748Z"
+    },
+    {
+      "deployment_id": "6c212f8c-de94-4e99-80fd-da17366f2d90",
+      "release_id": "8df9c326-22b1-4c13-8c86-4bf8bc811221",
+      "from_environment": "staging",
+      "to_environment": "staging",
+      "status": "rolled_back",
+      "verification_result": "passed",
+      "migration_status": "restored",
+      "started_at": "2026-03-31T07:13:17.777Z",
+      "completed_at": "2026-03-31T07:13:17.777Z"
+    }
+  ],
+  "backupSnapshots": [
+    {
+      "snapshot_id": "8adc2e31-5891-4c83-b9dc-c28b6f5c421e",
+      "environment_key": "shared-dev",
+      "snapshot_type": "database",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "5cda05b3-dcfd-4ed7-bd8b-683ff9ceecff",
+      "environment_key": "shared-dev",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "60008f6f-e73c-4698-8fa0-98b1a3086846",
+      "environment_key": "shared-dev",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "snapshot_type": "database",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "c4863193-768d-4dc1-b425-3e90f56e633c",
+      "environment_key": "staging",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "9ec06987-7591-40ab-bb3b-d028ffd2a2a2",
+      "environment_key": "staging",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "d3773d76-390c-47ef-a625-d2dc1c851ea0",
+      "environment_key": "live",
+      "snapshot_type": "database",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "0ca714c7-0f11-4943-bbc4-a02e6394e5c6",
+      "environment_key": "live",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "37ca0cc9-ee1e-4e6c-a464-042fffb98807",
+      "environment_key": "live",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    }
+  ],
+  "restoreDrills": [
+    {
+      "drill_id": "26a0de8c-7909-43e2-8efe-4020fb57e7a4",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-30T19:37:09.549Z",
+      "completed_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "drill_id": "c4296572-89bf-4872-9420-9e31ebbcffc7",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-31T07:11:32.924Z",
+      "completed_at": "2026-03-31T07:11:32.924Z"
+    },
+    {
+      "drill_id": "2ca906ce-1a82-46a1-a365-cc16d6ea301f",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-31T07:13:17.769Z",
+      "completed_at": "2026-03-31T07:13:17.769Z"
+    }
+  ],
+  "alertIncidents": []
+}

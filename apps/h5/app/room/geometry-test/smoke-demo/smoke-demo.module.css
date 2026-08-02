@@ -1,0 +1,250 @@
+.page {
+  min-height: 100vh;
+  padding: 2.5rem clamp(1rem, 4vw, 4rem) 3rem;
+  color: #f6ead8;
+  background: #15100d;
+  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+}
+
+.header,
+.demoGrid,
+.explanation {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+
+.header {
+  margin-bottom: 1.2rem;
+}
+
+.eyebrow,
+.cardKicker {
+  margin: 0;
+  color: #d1a569;
+  font-size: .7rem;
+  letter-spacing: .18em;
+}
+
+.header h1 {
+  margin: .45rem 0 .5rem;
+  color: #fff4e3;
+  font-family: "Songti SC", "Noto Serif SC", serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 600;
+}
+
+.header p:last-child {
+  max-width: 48rem;
+  margin: 0;
+  color: rgba(246, 234, 216, .68);
+  line-height: 1.7;
+}
+
+.demoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.demoCard {
+  display: grid;
+  gap: .8rem;
+  padding: 1rem;
+  border: 1px solid rgba(246, 234, 216, .16);
+  border-radius: 1rem;
+  background: rgba(255, 246, 230, .045);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .22);
+}
+
+.cardHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .8rem;
+}
+
+.cardHeading h2 {
+  margin: .3rem 0 0;
+  color: #fff4e3;
+  font-size: 1.1rem;
+}
+
+.badge {
+  flex: 0 0 auto;
+  border: 1px solid rgba(148, 210, 61, .4);
+  border-radius: 999px;
+  padding: .32rem .55rem;
+  color: #dff7b2;
+  background: rgba(148, 210, 61, .08);
+  font-size: .68rem;
+}
+
+.demoCanvas {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 1;
+  border: 1px solid rgba(246, 234, 216, .14);
+  border-radius: .75rem;
+}
+
+.smokeCanvas {
+  background:
+    radial-gradient(ellipse at center, rgba(94, 127, 164, .32), transparent 50%),
+    linear-gradient(135deg, #15202e, #262022 52%, #0f1119);
+}
+
+.routeCanvas {
+  background:
+    radial-gradient(ellipse at 52% 43%, rgba(194, 145, 86, .22), transparent 48%),
+    linear-gradient(160deg, #30241c, #171311 62%, #0e0d0d);
+}
+
+.routeSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.routeLine {
+  fill: none;
+  stroke: rgba(224, 181, 112, .72);
+  stroke-width: 1.6;
+  stroke-dasharray: 3 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.eventLine {
+  stroke: rgba(148, 210, 61, .64);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.eventLabel {
+  position: absolute;
+  top: .55rem;
+  transform: translateX(-50%);
+  color: #dff7b2;
+  font-size: .66rem;
+  white-space: nowrap;
+}
+
+.routeActor {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  gap: .15rem;
+  transform: translate(-50%, -50%);
+  transition: left 40ms linear, top 40ms linear;
+}
+
+.routeActor span {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #fff1ce;
+  border-radius: 50%;
+  background: #d48b54;
+  box-shadow: 0 0 0 .4rem rgba(212, 139, 84, .16), 0 0 18px rgba(255, 214, 143, .58);
+}
+
+.routeActor small {
+  color: rgba(255, 241, 206, .8);
+  font-size: .62rem;
+  white-space: nowrap;
+}
+
+.routeSmoke {
+  inset: auto;
+  left: 0;
+  top: 0;
+  width: min(34%, 620px);
+  min-width: 120px;
+  max-width: 620px;
+  aspect-ratio: 1.16;
+  transform: translate(-50%, -72%);
+  transform-origin: 50% 72%;
+  z-index: 4;
+}
+
+.routeSmoke .actorSmokeGlow {
+  width: 100%;
+  height: 100%;
+}
+
+.routeSmoke .actorSmokePuff {
+  width: 100%;
+}
+
+.canvasCaption {
+  position: absolute;
+  right: .65rem;
+  bottom: .55rem;
+  z-index: 10;
+  padding: .25rem .4rem;
+  border-radius: .35rem;
+  color: rgba(255, 244, 227, .7);
+  background: rgba(10, 8, 7, .48);
+  font-size: .64rem;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .45rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  border: 1px solid rgba(246, 234, 216, .22);
+  border-radius: .55rem;
+  padding: .62rem .75rem;
+  color: #f6ead8;
+  background: rgba(255, 246, 230, .06);
+  cursor: pointer;
+  font: inherit;
+  font-size: .76rem;
+}
+
+.primaryButton {
+  border-color: rgba(148, 210, 61, .65);
+  color: #efffcf;
+  background: rgba(148, 210, 61, .12);
+}
+
+.primaryButton:hover,
+.primaryButton:focus-visible,
+.secondaryButton:hover,
+.secondaryButton:focus-visible {
+  border-color: #d1a569;
+  outline: none;
+}
+
+.explanation {
+  display: flex;
+  gap: .8rem;
+  margin-top: 1rem;
+  padding: .75rem .9rem;
+  border-left: 3px solid #d1a569;
+  color: rgba(246, 234, 216, .66);
+  background: rgba(255, 246, 230, .035);
+  font-size: .78rem;
+  line-height: 1.6;
+}
+
+.explanation strong {
+  flex: 0 0 auto;
+  color: #ffe0a7;
+}
+
+@media (max-width: 800px) {
+  .demoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .explanation {
+    display: block;
+  }
+}

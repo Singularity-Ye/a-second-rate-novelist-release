@@ -1,0 +1,1855 @@
+{
+  "schemaVersion": "route-editor.v2",
+  "sceneId": "bedroom",
+  "coordinateSpace": "pixel-top-left-origin",
+  "canvas": {
+    "width": 1774,
+    "height": 887
+  },
+  "scene": {
+    "master": "/assets/ecology/formal-scenes/bedroom/bedroom-scene-master-2x1-formal-v1.webp",
+    "foreground": "/assets/ecology/formal-scenes/bedroom/geometry/foreground/bedroom-bed-occluder-aligned-v1.webp",
+    "foregroundLayers": [
+      {
+        "id": "bedroom-furniture",
+        "source": "/assets/ecology/formal-scenes/bedroom/geometry/foreground/bedroom-bed-occluder-aligned-v1.webp",
+        "label": "床＋小沙发透明 alpha 遮挡层",
+        "policy": "always",
+        "zIndex": 5
+      }
+    ],
+    "floorStatus": "pending"
+  },
+  "anchorSemantics": {
+    "door": "bedroom door is one shared semantic anchor at pixel [1182, 455]",
+    "bedEdge": "bed-edge is the red-ring confirmed bed / record-player contact point at pixel [868, 357]",
+    "lounge": "lounge is the fixed contact area for the beanbag corner at pixel [1075, 579]",
+    "routeOwnedWaypoints": "ordinary waypoints belong to one route and are never shared implicitly"
+  },
+  "scale": {
+    "mode": "depth",
+    "farY": 410,
+    "nearY": 820,
+    "farScale": 0.84,
+    "nearScale": 1.28
+  },
+  "points": [
+    {
+      "id": "bedroom-door-to-lounge-2",
+      "label": "Door -> lounge node 3 / mirror switch",
+      "role": "waypoint",
+      "pixel": [
+        1032,
+        573
+      ],
+      "normalized": [
+        0.581736,
+        0.645998
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bedroom-door",
+      "label": "门固定交互点（红圈确认）",
+      "role": "door",
+      "pixel": [
+        1233,
+        497
+      ],
+      "normalized": [
+        0.695039,
+        0.560316
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bed-edge",
+      "label": "上床 / 唱片机交互点（红圈确认）",
+      "role": "bed-edge",
+      "pixel": [
+        893,
+        407
+      ],
+      "normalized": [
+        0.503382,
+        0.45885
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "lounge-corner",
+      "label": "小沙发交互点（红圈确认）",
+      "role": "lounge",
+      "pixel": [
+        1133,
+        649
+      ],
+      "normalized": [
+        0.63867,
+        0.73168
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bedroom-door-to-bed-1",
+      "label": "门 → 床/唱片机参考节点 1",
+      "role": "waypoint",
+      "pixel": [
+        1190,
+        503
+      ],
+      "normalized": [
+        0.6708,
+        0.56708
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bedroom-bed-to-door-1",
+      "label": "床/唱片机 → 门参考节点 1",
+      "role": "waypoint",
+      "pixel": [
+        953,
+        463
+      ],
+      "normalized": [
+        0.537204,
+        0.521984
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bedroom-door-to-lounge-1",
+      "label": "门 → 小沙发参考节点 1",
+      "role": "waypoint",
+      "pixel": [
+        1167,
+        498
+      ],
+      "normalized": [
+        0.657835,
+        0.561443
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bedroom-lounge-to-door-1",
+      "label": "小沙发 → 门参考节点 1",
+      "role": "waypoint",
+      "pixel": [
+        1065,
+        511
+      ],
+      "normalized": [
+        0.600338,
+        0.576099
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bedroom-bed-to-lounge-1",
+      "label": "床/唱片机 → 小沙发参考节点 1",
+      "role": "waypoint",
+      "pixel": [
+        944,
+        506
+      ],
+      "normalized": [
+        0.532131,
+        0.570462
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bedroom-lounge-to-bed-1",
+      "label": "小沙发 → 床/唱片机参考节点 1",
+      "role": "waypoint",
+      "pixel": [
+        1050,
+        604
+      ],
+      "normalized": [
+        0.591883,
+        0.680947
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "door-to-bed-node-1",
+      "label": "门 → 床 / 唱片机中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1081,
+        503
+      ],
+      "normalized": [
+        0.609357,
+        0.56708
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "door-to-bed-node-2",
+      "label": "门 → 床 / 唱片机中间节点",
+      "role": "waypoint",
+      "pixel": [
+        939,
+        452
+      ],
+      "normalized": [
+        0.529312,
+        0.509583
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bed-to-door-node-1",
+      "label": "床 / 唱片机 → 门中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1072,
+        495
+      ],
+      "normalized": [
+        0.604284,
+        0.558061
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bed-to-door-node-2",
+      "label": "床 / 唱片机 → 门中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1175,
+        504
+      ],
+      "normalized": [
+        0.662345,
+        0.568207
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "door-to-lounge-node-1",
+      "label": "门 → 小沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1050,
+        649
+      ],
+      "normalized": [
+        0.591883,
+        0.73168
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "door-to-lounge-node-2",
+      "label": "门 → 小沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1114,
+        508
+      ],
+      "normalized": [
+        0.627959,
+        0.572717
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "door-to-lounge-node-3",
+      "label": "门 → 小沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1068,
+        524
+      ],
+      "normalized": [
+        0.602029,
+        0.590755
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "door-to-lounge-node-4",
+      "label": "门 → 小沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1023,
+        621
+      ],
+      "normalized": [
+        0.576663,
+        0.700113
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "lounge-to-door-node-1",
+      "label": "小沙发 → 门中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1136,
+        494
+      ],
+      "normalized": [
+        0.640361,
+        0.556933
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "lounge-to-door-node-2",
+      "label": "小沙发 → 门中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1174,
+        486
+      ],
+      "normalized": [
+        0.661781,
+        0.547914
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "lounge-to-door-node-3",
+      "label": "小沙发 → 门中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1058,
+        627
+      ],
+      "normalized": [
+        0.596392,
+        0.706877
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "lounge-to-door-node-4",
+      "label": "小沙发 → 门中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1027,
+        580
+      ],
+      "normalized": [
+        0.578918,
+        0.65389
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bed-to-lounge-node-1",
+      "label": "床 / 唱片机 → 小沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        980,
+        580
+      ],
+      "normalized": [
+        0.552424,
+        0.65389
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "bed-to-lounge-node-2",
+      "label": "床 / 唱片机 → 小沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1029,
+        623
+      ],
+      "normalized": [
+        0.580045,
+        0.702368
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "lounge-to-bed-node-1",
+      "label": "小沙发 → 床 / 唱片机中间节点",
+      "role": "waypoint",
+      "pixel": [
+        962,
+        516
+      ],
+      "normalized": [
+        0.542277,
+        0.581736
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "lounge-to-bed-node-2",
+      "label": "小沙发 → 床 / 唱片机中间节点",
+      "role": "waypoint",
+      "pixel": [
+        921,
+        472
+      ],
+      "normalized": [
+        0.519166,
+        0.532131
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-1-node-1",
+      "label": "custom-1 · 上床 / 唱片机交互点（红圈确认）",
+      "role": "waypoint",
+      "semanticRole": "bed-edge",
+      "pixel": [
+        1215,
+        504
+      ],
+      "normalized": [
+        0.684893,
+        0.568207
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-1-node-2",
+      "label": "custom-1 · 小沙发交互点（红圈确认）",
+      "role": "waypoint",
+      "semanticRole": "lounge",
+      "pixel": [
+        586,
+        576
+      ],
+      "normalized": [
+        0.330327,
+        0.64938
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-1-node-3",
+      "label": "门→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1089,
+        595
+      ],
+      "normalized": [
+        0.613867,
+        0.6708
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-1-node-4",
+      "label": "门→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        960,
+        645
+      ],
+      "normalized": [
+        0.54115,
+        0.72717
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-1-node-5",
+      "label": "门→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        843,
+        694
+      ],
+      "normalized": [
+        0.475197,
+        0.782413
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-1-node-6",
+      "label": "门→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        700,
+        694
+      ],
+      "normalized": [
+        0.394589,
+        0.782413
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-1-node-7",
+      "label": "门→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        611,
+        678
+      ],
+      "normalized": [
+        0.344419,
+        0.764374
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-1-node-8",
+      "label": "门→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        579,
+        623
+      ],
+      "normalized": [
+        0.326381,
+        0.702368
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-2-node-9",
+      "label": "custom-2 · 门固定交互点（红圈确认）",
+      "role": "waypoint",
+      "semanticRole": "door",
+      "pixel": [
+        555,
+        568
+      ],
+      "normalized": [
+        0.312852,
+        0.640361
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-2-node-10",
+      "label": "custom-2 · 门 → 床/唱片机参考节点 1",
+      "role": "waypoint",
+      "pixel": [
+        1230,
+        502
+      ],
+      "normalized": [
+        0.693348,
+        0.565953
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-2-node-11",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        633,
+        626
+      ],
+      "normalized": [
+        0.356821,
+        0.70575
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-2-node-12",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        714,
+        649
+      ],
+      "normalized": [
+        0.40248,
+        0.73168
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-2-node-13",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        813,
+        664
+      ],
+      "normalized": [
+        0.458286,
+        0.748591
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-2-node-14",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1015,
+        637
+      ],
+      "normalized": [
+        0.572153,
+        0.718151
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-2-node-15",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1128,
+        594
+      ],
+      "normalized": [
+        0.635851,
+        0.669673
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-2-node-16",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1192,
+        556
+      ],
+      "normalized": [
+        0.671928,
+        0.626832
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-1",
+      "label": "custom-3 · custom-2 · 门固定交互点（红圈确认）",
+      "role": "waypoint",
+      "semanticRole": "door",
+      "pixel": [
+        555,
+        568
+      ],
+      "normalized": [
+        0.312852,
+        0.640361
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-2",
+      "label": "custom-3 · 新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        918,
+        425
+      ],
+      "normalized": [
+        0.517475,
+        0.479143
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-3",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "pixel": [
+        656,
+        636
+      ],
+      "normalized": [
+        0.369786,
+        0.717024
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-4",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "pixel": [
+        815,
+        680
+      ],
+      "normalized": [
+        0.459414,
+        0.766629
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-5",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "pixel": [
+        928,
+        646
+      ],
+      "normalized": [
+        0.523112,
+        0.728298
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-6",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1014,
+        584
+      ],
+      "normalized": [
+        0.57159,
+        0.658399
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-7",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "pixel": [
+        983,
+        470
+      ],
+      "normalized": [
+        0.554115,
+        0.529876
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-8",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "pixel": [
+        738,
+        660
+      ],
+      "normalized": [
+        0.416009,
+        0.744081
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-3-node-9",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1027,
+        522
+      ],
+      "normalized": [
+        0.578918,
+        0.588501
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-1",
+      "label": "custom-4 · custom-3 · 新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        914,
+        421
+      ],
+      "normalized": [
+        0.51522,
+        0.474634
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-2",
+      "label": "custom-4 · custom-3 · custom-2 · 门固定交互点（红圈确认）",
+      "role": "waypoint",
+      "semanticRole": "door",
+      "pixel": [
+        576,
+        553
+      ],
+      "normalized": [
+        0.32469,
+        0.62345
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-3",
+      "label": "唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        994,
+        475
+      ],
+      "normalized": [
+        0.560316,
+        0.535513
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-4",
+      "label": "唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1031,
+        544
+      ],
+      "normalized": [
+        0.581172,
+        0.613303
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-5",
+      "label": "唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        990,
+        622
+      ],
+      "normalized": [
+        0.558061,
+        0.70124
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-6",
+      "label": "唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        884,
+        664
+      ],
+      "normalized": [
+        0.498309,
+        0.748591
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-7",
+      "label": "唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        769,
+        691
+      ],
+      "normalized": [
+        0.433484,
+        0.77903
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-8",
+      "label": "唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        620,
+        685
+      ],
+      "normalized": [
+        0.349493,
+        0.772266
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-4-node-9",
+      "label": "唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        574,
+        623
+      ],
+      "normalized": [
+        0.323563,
+        0.702368
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-5-node-1",
+      "label": "custom-5 · custom-4 · custom-3 · 新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        563,
+        586
+      ],
+      "normalized": [
+        0.317362,
+        0.660654
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-5-node-2",
+      "label": "custom-5 · 唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1143,
+        617
+      ],
+      "normalized": [
+        0.644307,
+        0.695603
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-5-node-3",
+      "label": "床→沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        632,
+        635
+      ],
+      "normalized": [
+        0.356257,
+        0.715896
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-5-node-4",
+      "label": "床→沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        742,
+        687
+      ],
+      "normalized": [
+        0.418264,
+        0.774521
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-5-node-5",
+      "label": "床→沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        940,
+        674
+      ],
+      "normalized": [
+        0.529876,
+        0.759865
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-5-node-6",
+      "label": "床→沙发中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1063,
+        663
+      ],
+      "normalized": [
+        0.599211,
+        0.747463
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-6-node-1",
+      "label": "custom-6 · custom-5 · 唱片机→床中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1143,
+        617
+      ],
+      "normalized": [
+        0.644307,
+        0.695603
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-6-node-2",
+      "label": "custom-6 · custom-5 · custom-4 · custom-3 · 新路线 5中间节点",
+      "role": "waypoint",
+      "pixel": [
+        563,
+        586
+      ],
+      "normalized": [
+        0.317362,
+        0.660654
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-6-node-3",
+      "label": "新路线 9中间节点",
+      "role": "waypoint",
+      "pixel": [
+        1056,
+        674
+      ],
+      "normalized": [
+        0.595265,
+        0.759865
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-6-node-4",
+      "label": "新路线 9中间节点",
+      "role": "waypoint",
+      "pixel": [
+        953,
+        700
+      ],
+      "normalized": [
+        0.537204,
+        0.789177
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-6-node-5",
+      "label": "新路线 9中间节点",
+      "role": "waypoint",
+      "pixel": [
+        831,
+        706
+      ],
+      "normalized": [
+        0.468433,
+        0.795941
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-6-node-6",
+      "label": "新路线 9中间节点",
+      "role": "waypoint",
+      "pixel": [
+        694,
+        694
+      ],
+      "normalized": [
+        0.391206,
+        0.782413
+      ],
+      "scaleOverride": null
+    },
+    {
+      "id": "custom-6-node-7",
+      "label": "新路线 9中间节点",
+      "role": "waypoint",
+      "pixel": [
+        608,
+        636
+      ],
+      "normalized": [
+        0.342728,
+        0.717024
+      ],
+      "scaleOverride": null
+    }
+  ],
+  "routes": {
+    "door-to-bed": [
+      "bedroom-door",
+      "bedroom-door-to-bed-1",
+      "door-to-bed-node-1",
+      "door-to-bed-node-2",
+      "bed-edge"
+    ],
+    "bed-to-door": [
+      "bed-edge",
+      "bedroom-bed-to-door-1",
+      "bed-to-door-node-1",
+      "bed-to-door-node-2",
+      "bedroom-door"
+    ],
+    "door-to-lounge": [
+      "bedroom-door",
+      "bedroom-door-to-lounge-1",
+      "door-to-lounge-node-2",
+      "door-to-lounge-node-3",
+      "bedroom-door-to-lounge-2",
+      "door-to-lounge-node-4",
+      "door-to-lounge-node-1",
+      "lounge-corner"
+    ],
+    "lounge-to-door": [
+      "lounge-corner",
+      "lounge-to-door-node-3",
+      "lounge-to-door-node-4",
+      "bedroom-lounge-to-door-1",
+      "lounge-to-door-node-1",
+      "lounge-to-door-node-2",
+      "bedroom-door"
+    ],
+    "bed-to-lounge": [
+      "bed-edge",
+      "bedroom-bed-to-lounge-1",
+      "bed-to-lounge-node-1",
+      "bed-to-lounge-node-2",
+      "lounge-corner"
+    ],
+    "lounge-to-bed": [
+      "lounge-corner",
+      "bedroom-lounge-to-bed-1",
+      "lounge-to-bed-node-1",
+      "lounge-to-bed-node-2",
+      "bed-edge"
+    ],
+    "custom-1": [
+      "custom-1-node-1",
+      "custom-1-node-3",
+      "custom-1-node-4",
+      "custom-1-node-5",
+      "custom-1-node-6",
+      "custom-1-node-7",
+      "custom-1-node-8",
+      "custom-1-node-2"
+    ],
+    "custom-2": [
+      "custom-2-node-9",
+      "custom-2-node-11",
+      "custom-2-node-12",
+      "custom-2-node-13",
+      "custom-2-node-14",
+      "custom-2-node-15",
+      "custom-2-node-16",
+      "custom-2-node-10"
+    ],
+    "custom-3": [
+      "custom-3-node-1",
+      "custom-3-node-3",
+      "custom-3-node-8",
+      "custom-3-node-4",
+      "custom-3-node-5",
+      "custom-3-node-6",
+      "custom-3-node-9",
+      "custom-3-node-7",
+      "custom-3-node-2"
+    ],
+    "custom-4": [
+      "custom-4-node-1",
+      "custom-4-node-3",
+      "custom-4-node-4",
+      "custom-4-node-5",
+      "custom-4-node-6",
+      "custom-4-node-7",
+      "custom-4-node-8",
+      "custom-4-node-9",
+      "custom-4-node-2"
+    ],
+    "custom-5": [
+      "custom-5-node-1",
+      "custom-5-node-3",
+      "custom-5-node-4",
+      "custom-5-node-5",
+      "custom-5-node-6",
+      "custom-5-node-2"
+    ],
+    "custom-6": [
+      "custom-6-node-1",
+      "custom-6-node-3",
+      "custom-6-node-4",
+      "custom-6-node-5",
+      "custom-6-node-6",
+      "custom-6-node-7",
+      "custom-6-node-2"
+    ]
+  },
+  "routeMeta": {
+    "door-to-bed": {
+      "id": "door-to-bed",
+      "label": "门 → 唱片机",
+      "kind": "walk",
+      "accent": "magenta",
+      "initialFacing": "left",
+      "foregroundPolicy": "always",
+      "transitions": [
+        {
+          "pointId": "bedroom-door",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "bed-edge",
+          "kind": "state",
+          "targetStateId": "record-place",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-record-place-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "bedroom-door",
+      "endPointId": "bed-edge"
+    },
+    "bed-to-door": {
+      "id": "bed-to-door",
+      "label": "唱片机 → 门",
+      "kind": "walk",
+      "accent": "cyan",
+      "initialFacing": "right",
+      "foregroundPolicy": "always",
+      "transitions": [
+        {
+          "pointId": "bed-edge",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-record-place-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "bedroom-door",
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 480,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "bed-edge",
+      "endPointId": "bedroom-door"
+    },
+    "door-to-lounge": {
+      "id": "door-to-lounge",
+      "label": "门 → 小沙发",
+      "kind": "walk",
+      "accent": "amber",
+      "initialFacing": "left",
+      "facingAfterSwitch": "right",
+      "foregroundPolicy": "always",
+      "transitions": [
+        {
+          "pointId": "bedroom-door-to-lounge-2",
+          "kind": "facing",
+          "facing": "right",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "bedroom-door",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "lounge-corner",
+          "kind": "state",
+          "targetStateId": "lounge-seat",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-lounge-seat-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "facingSwitchAfterPointId": "bedroom-door-to-lounge-2",
+      "startPointId": "bedroom-door",
+      "endPointId": "lounge-corner"
+    },
+    "lounge-to-door": {
+      "id": "lounge-to-door",
+      "label": "小沙发 → 门",
+      "kind": "walk",
+      "accent": "violet",
+      "initialFacing": "left",
+      "facingAfterSwitch": "right",
+      "foregroundPolicy": "always",
+      "transitions": [
+        {
+          "pointId": "lounge-to-door-node-4",
+          "kind": "facing",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "lounge-corner",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-lounge-seat-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "bedroom-door",
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 480,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "facingSwitchAfterPointId": "lounge-to-door-node-4",
+      "startPointId": "lounge-corner",
+      "endPointId": "bedroom-door"
+    },
+    "bed-to-lounge": {
+      "id": "bed-to-lounge",
+      "label": "唱片机 → 小沙发",
+      "kind": "walk",
+      "accent": "amber",
+      "initialFacing": "right",
+      "foregroundPolicy": "always",
+      "transitions": [
+        {
+          "pointId": "bed-edge",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-record-place-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "lounge-corner",
+          "kind": "state",
+          "targetStateId": "lounge-seat",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-lounge-seat-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "bed-edge",
+      "endPointId": "lounge-corner"
+    },
+    "lounge-to-bed": {
+      "id": "lounge-to-bed",
+      "label": "小沙发 → 唱片机",
+      "kind": "walk",
+      "accent": "violet",
+      "initialFacing": "left",
+      "foregroundPolicy": "always",
+      "transitions": [
+        {
+          "pointId": "lounge-corner",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-lounge-seat-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "bed-edge",
+          "kind": "state",
+          "targetStateId": "record-place",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-record-place-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "lounge-corner",
+      "endPointId": "bed-edge"
+    },
+    "custom-1": {
+      "id": "custom-1",
+      "label": "门→床",
+      "kind": "walk",
+      "accent": "violet",
+      "transitions": [
+        {
+          "pointId": "custom-1-node-1",
+          "kind": "layer",
+          "layerModes": {
+            "bedroom-furniture": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-1-node-7",
+          "kind": "facing",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-1-node-1",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-1-node-2",
+          "kind": "state",
+          "targetStateId": "bed-sleep",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-bed-sleep-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "custom-1-node-1",
+      "endPointId": "custom-1-node-2"
+    },
+    "custom-2": {
+      "id": "custom-2",
+      "label": "床→门",
+      "kind": "walk",
+      "accent": "violet",
+      "transitions": [
+        {
+          "pointId": "custom-2-node-9",
+          "kind": "layer",
+          "layerModes": {
+            "bedroom-furniture": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-2-node-9",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-bed-sleep-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-2-node-10",
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 480,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "custom-2-node-9",
+      "endPointId": "custom-2-node-10"
+    },
+    "custom-3": {
+      "id": "custom-3",
+      "label": "床→唱片机",
+      "kind": "walk",
+      "accent": "violet",
+      "transitions": [
+        {
+          "pointId": "custom-3-node-1",
+          "kind": "layer",
+          "layerModes": {
+            "bedroom-furniture": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-3-node-6",
+          "kind": "facing",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-3-node-1",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-bed-sleep-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-3-node-2",
+          "kind": "state",
+          "targetStateId": "record-place",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-record-place-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "custom-3-node-1",
+      "endPointId": "custom-3-node-2"
+    },
+    "custom-4": {
+      "id": "custom-4",
+      "label": "唱片机→床",
+      "kind": "walk",
+      "accent": "violet",
+      "transitions": [
+        {
+          "pointId": "custom-4-node-1",
+          "kind": "layer",
+          "layerModes": {
+            "bedroom-furniture": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-4-node-8",
+          "kind": "facing",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-4-node-4",
+          "kind": "facing",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-4-node-1",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-record-place-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-4-node-2",
+          "kind": "state",
+          "targetStateId": "bed-sleep",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-bed-sleep-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "custom-4-node-1",
+      "endPointId": "custom-4-node-2"
+    },
+    "custom-5": {
+      "id": "custom-5",
+      "label": "床→沙发",
+      "kind": "walk",
+      "accent": "violet",
+      "transitions": [
+        {
+          "pointId": "custom-5-node-1",
+          "kind": "layer",
+          "layerModes": {
+            "bedroom-furniture": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-5-node-1",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-bed-sleep-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-5-node-2",
+          "kind": "state",
+          "targetStateId": "lounge-seat",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-lounge-seat-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "custom-5-node-1",
+      "endPointId": "custom-5-node-2"
+    },
+    "custom-6": {
+      "id": "custom-6",
+      "label": "沙发→床",
+      "kind": "walk",
+      "accent": "violet",
+      "transitions": [
+        {
+          "pointId": "custom-6-node-1",
+          "kind": "layer",
+          "layerModes": {
+            "bedroom-furniture": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-6-node-1",
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-lounge-seat-scene-v1-paper-identity.webp",
+          "fromAssetMode": "scene",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-6-node-2",
+          "kind": "state",
+          "targetStateId": "bed-sleep",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "toAssetSource": "/assets/ecology/formal-scenes/bedroom/states/bedroom-bed-sleep-scene-v1-paper-identity.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "startPointId": "custom-6-node-1",
+      "endPointId": "custom-6-node-2"
+    }
+  },
+  "foreground": {
+    "source": "/assets/ecology/formal-scenes/bedroom/geometry/foreground/bedroom-bed-occluder-aligned-v1.webp",
+    "layers": [
+      {
+        "id": "bedroom-furniture",
+        "source": "/assets/ecology/formal-scenes/bedroom/geometry/foreground/bedroom-bed-occluder-aligned-v1.webp",
+        "label": "床＋小沙发透明 alpha 遮挡层",
+        "policy": "always",
+        "zIndex": 5
+      }
+    ],
+    "sourceOfTruth": "transparent-alpha",
+    "directionPolicy": "route metadata controls inverse-alpha actor clipping; transparent furniture is never painted",
+    "transition": null
+  }
+}

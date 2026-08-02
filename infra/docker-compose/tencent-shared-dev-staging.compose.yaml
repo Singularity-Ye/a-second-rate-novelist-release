@@ -1,0 +1,379 @@
+x-model-profile-catalog-env: &model-profile-catalog-env
+  # Server-approved profile metadata only. Empty ENABLED/PROVIDER/MODEL values
+  # keep that profile not_configured; profile credentials never enter backend.
+  VNEXT_MODEL_PROFILE_DEEPSEEK_ENABLED: ${VNEXT_MODEL_PROFILE_DEEPSEEK_ENABLED:-}
+  VNEXT_MODEL_PROFILE_DEEPSEEK_PROVIDER: ${VNEXT_MODEL_PROFILE_DEEPSEEK_PROVIDER:-}
+  VNEXT_MODEL_PROFILE_DEEPSEEK_MODEL: ${VNEXT_MODEL_PROFILE_DEEPSEEK_MODEL:-}
+  VNEXT_MODEL_PROFILE_DEEPSEEK_PURPOSES: ${VNEXT_MODEL_PROFILE_DEEPSEEK_PURPOSES:-conversation}
+  VNEXT_MODEL_PROFILE_GPT_ENABLED: ${VNEXT_MODEL_PROFILE_GPT_ENABLED:-}
+  VNEXT_MODEL_PROFILE_GPT_PROVIDER: ${VNEXT_MODEL_PROFILE_GPT_PROVIDER:-}
+  VNEXT_MODEL_PROFILE_GPT_MODEL: ${VNEXT_MODEL_PROFILE_GPT_MODEL:-}
+  VNEXT_MODEL_PROFILE_GPT_PURPOSES: ${VNEXT_MODEL_PROFILE_GPT_PURPOSES:-conversation}
+  VNEXT_MODEL_PROFILE_GEMINI_ENABLED: ${VNEXT_MODEL_PROFILE_GEMINI_ENABLED:-}
+  VNEXT_MODEL_PROFILE_GEMINI_PROVIDER: ${VNEXT_MODEL_PROFILE_GEMINI_PROVIDER:-}
+  VNEXT_MODEL_PROFILE_GEMINI_MODEL: ${VNEXT_MODEL_PROFILE_GEMINI_MODEL:-}
+  VNEXT_MODEL_PROFILE_GEMINI_PURPOSES: ${VNEXT_MODEL_PROFILE_GEMINI_PURPOSES:-conversation}
+  VNEXT_MODEL_PROFILE_GROK_ENABLED: ${VNEXT_MODEL_PROFILE_GROK_ENABLED:-}
+  VNEXT_MODEL_PROFILE_GROK_PROVIDER: ${VNEXT_MODEL_PROFILE_GROK_PROVIDER:-}
+  VNEXT_MODEL_PROFILE_GROK_MODEL: ${VNEXT_MODEL_PROFILE_GROK_MODEL:-}
+  VNEXT_MODEL_PROFILE_GROK_PURPOSES: ${VNEXT_MODEL_PROFILE_GROK_PURPOSES:-analysis}
+  VNEXT_DEFAULT_CONVERSATION_PROFILE_ID: ${VNEXT_DEFAULT_CONVERSATION_PROFILE_ID:-}
+  VNEXT_DEFAULT_ANALYSIS_PROFILE_ID: ${VNEXT_DEFAULT_ANALYSIS_PROFILE_ID:-}
+
+x-ai-runtime-env: &ai-runtime-env
+  <<: *model-profile-catalog-env
+  # Backend traffic stays on the private Compose network. Provider credentials
+  # remain inside model-gateway; backend containers receive only the local
+  # MODEL_GATEWAY_TOKEN used to authenticate to that gateway.
+  LITELLM_BASE_URL: http://model-gateway:4317/v1
+  LITELLM_API_KEY: ${MODEL_GATEWAY_TOKEN:-}
+  MODEL_ROUTE_CREATIVE_LARGE_PROVIDER: ${MODEL_PROVIDER_ID:-configured-openai-compatible}
+  MODEL_ROUTE_CREATIVE_LARGE_MODEL: ${MODEL_NAME:-}
+  MODEL_ROUTE_CREATIVE_LIGHT_PROVIDER: ${MODEL_LIGHT_PROVIDER_ID:-${MODEL_PROVIDER_ID:-configured-openai-compatible}}
+  MODEL_ROUTE_CREATIVE_LIGHT_MODEL: ${MODEL_LIGHT_NAME:-${MODEL_NAME:-}}
+  VNEXT_CREATIVE_TIMEOUT_MS: ${MODEL_TIMEOUT_MS:-180000}
+  # Capacity values are shared by both admission providers. The base stack
+  # remains single-process memory; the company overlay explicitly selects the
+  # atomic Redis provider before any backend replica is added.
+  VNEXT_MODEL_STREAMS_PER_PRINCIPAL: ${VNEXT_MODEL_STREAMS_PER_PRINCIPAL:-1}
+  VNEXT_MODEL_STREAMS_PER_PROFILE: ${VNEXT_MODEL_STREAMS_PER_PROFILE:-2}
+  VNEXT_MODEL_STREAMS_GLOBAL: ${VNEXT_MODEL_STREAMS_GLOBAL:-4}
+  VNEXT_MODEL_STREAM_RETRY_AFTER_SECONDS: ${VNEXT_MODEL_STREAM_RETRY_AFTER_SECONDS:-2}
+  # Candidate mechanism guidance is fail-closed. Keep off outside an explicit
+  # internal shadow/A-B run; active mode never enables shadow-tier cards.
+  VNEXT_SPOILER_SAFE_MECHANISM_MODE: ${VNEXT_SPOILER_SAFE_MECHANISM_MODE:-off}
+  VNEXT_SPOILER_SAFE_MECHANISM_RETRIEVAL_LIMIT: ${VNEXT_SPOILER_SAFE_MECHANISM_RETRIEVAL_LIMIT:-3}
+  VNEXT_GATEWAY_ROUTE_ATTESTATION_VERSION: v1
+  MODEL_ROUTE_BALANCED_MID_PROVIDER: ${MODEL_ROUTE_BALANCED_MID_PROVIDER:-}
+  MODEL_ROUTE_BALANCED_MID_MODEL: ${MODEL_ROUTE_BALANCED_MID_MODEL:-}
+  MODEL_ROUTE_UTILITY_SMALL_PROVIDER: ${MODEL_ROUTE_UTILITY_SMALL_PROVIDER:-}
+  MODEL_ROUTE_UTILITY_SMALL_MODEL: ${MODEL_ROUTE_UTILITY_SMALL_MODEL:-}
+  CAPABILITY_ROUTE_ASR_PROVIDER: ${CAPABILITY_ROUTE_ASR_PROVIDER:-}
+  CAPABILITY_ROUTE_ASR_MODEL: ${CAPABILITY_ROUTE_ASR_MODEL:-}
+  CAPABILITY_ROUTE_OCR_DOCUMENT_EXTRACTION_PROVIDER: ${CAPABILITY_ROUTE_OCR_DOCUMENT_EXTRACTION_PROVIDER:-}
+  CAPABILITY_ROUTE_OCR_DOCUMENT_EXTRACTION_MODEL: ${CAPABILITY_ROUTE_OCR_DOCUMENT_EXTRACTION_MODEL:-}
+  CAPABILITY_ROUTE_VISION_UNDERSTANDING_PROVIDER: ${CAPABILITY_ROUTE_VISION_UNDERSTANDING_PROVIDER:-}
+  CAPABILITY_ROUTE_VISION_UNDERSTANDING_MODEL: ${CAPABILITY_ROUTE_VISION_UNDERSTANDING_MODEL:-}
+  CAPABILITY_ROUTE_POLICY_MODERATION_PROVIDER: ${CAPABILITY_ROUTE_POLICY_MODERATION_PROVIDER:-}
+  CAPABILITY_ROUTE_POLICY_MODERATION_MODEL: ${CAPABILITY_ROUTE_POLICY_MODERATION_MODEL:-}
+  HUMAN_REVIEW_QUEUE: ${HUMAN_REVIEW_QUEUE:-}
+  LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
+  LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
+  PROMPTFOO_ENABLED: ${PROMPTFOO_ENABLED:-}
+  OPIK_API_KEY: ${OPIK_API_KEY:-}
+  OPIK_WORKSPACE: ${OPIK_WORKSPACE:-}
+  OPIK_PROJECT_NAME: ${OPIK_PROJECT_NAME:-}
+
+services:
+  caddy:
+    image: caddy:2.9-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../caddy/certs:/etc/caddy/certs:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      shared-dev-gateway:
+        condition: service_healthy
+      staging-gateway:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
+      SHARED_DEV_DB_NAME: ${SHARED_DEV_DB_NAME}
+      SHARED_DEV_DB_USER: ${SHARED_DEV_DB_USER}
+      SHARED_DEV_DB_PASSWORD: ${SHARED_DEV_DB_PASSWORD}
+      STAGING_DB_NAME: ${STAGING_DB_NAME}
+      STAGING_DB_USER: ${STAGING_DB_USER}
+      STAGING_DB_PASSWORD: ${STAGING_DB_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ../docker/postgres-init.sh:/docker-entrypoint-initdb.d/10-init-multi-env.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.2-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis-data:/data
+
+  minio:
+    image: minio/minio:RELEASE.2025-02-07T23-21-09Z
+    restart: unless-stopped
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - minio-data:/data
+
+  minio-init:
+    image: minio/mc:RELEASE.2025-03-12T17-29-24Z
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      SHARED_DEV_BUCKET: ${SHARED_DEV_BUCKET}
+      STAGING_BUCKET: ${STAGING_BUCKET}
+    entrypoint:
+      - /bin/sh
+      - -c
+      - >
+        mc alias set erlx http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD" &&
+        mc mb --ignore-existing erlx/$$SHARED_DEV_BUCKET &&
+        mc mb --ignore-existing erlx/$$STAGING_BUCKET
+    restart: "no"
+
+  model-gateway:
+    build:
+      context: ../..
+      dockerfile: infra/docker/backend.Dockerfile
+    restart: unless-stopped
+    environment:
+      <<: *model-profile-catalog-env
+      # Explicit profile credentials are gateway-only. Every available profile
+      # is isolated to its own approved upstream and API key.
+      VNEXT_MODEL_PROFILE_DEEPSEEK_BASE_URL: ${VNEXT_MODEL_PROFILE_DEEPSEEK_BASE_URL:-}
+      VNEXT_MODEL_PROFILE_DEEPSEEK_API_KEY: ${VNEXT_MODEL_PROFILE_DEEPSEEK_API_KEY:-}
+      VNEXT_MODEL_PROFILE_GPT_BASE_URL: ${VNEXT_MODEL_PROFILE_GPT_BASE_URL:-}
+      VNEXT_MODEL_PROFILE_GPT_API_KEY: ${VNEXT_MODEL_PROFILE_GPT_API_KEY:-}
+      VNEXT_MODEL_PROFILE_GEMINI_BASE_URL: ${VNEXT_MODEL_PROFILE_GEMINI_BASE_URL:-}
+      VNEXT_MODEL_PROFILE_GEMINI_API_KEY: ${VNEXT_MODEL_PROFILE_GEMINI_API_KEY:-}
+      VNEXT_MODEL_PROFILE_GROK_BASE_URL: ${VNEXT_MODEL_PROFILE_GROK_BASE_URL:-}
+      VNEXT_MODEL_PROFILE_GROK_API_KEY: ${VNEXT_MODEL_PROFILE_GROK_API_KEY:-}
+      # Legacy large/light remain as the gateway bootstrap route until the
+      # adapter no longer requires a primary route.
+      VNEXT_UPSTREAM_BASE_URL: ${MODEL_BASE_URL:-}
+      VNEXT_UPSTREAM_API_KEY: ${MODEL_API_KEY:-}
+      VNEXT_UPSTREAM_LIGHT_BASE_URL: ${MODEL_LIGHT_BASE_URL:-}
+      VNEXT_UPSTREAM_LIGHT_API_KEY: ${MODEL_LIGHT_API_KEY:-}
+      VNEXT_LOCAL_ROUTE_ADAPTER_TOKEN: ${MODEL_GATEWAY_TOKEN:-}
+      VNEXT_LOCAL_ROUTE_ADAPTER_HOST: 0.0.0.0
+      VNEXT_LOCAL_ROUTE_ADAPTER_PORT: 4317
+      VNEXT_LOCAL_ROUTE_ADAPTER_ALLOW_CONTAINER_NETWORK: "true"
+      VNEXT_LOCAL_ROUTE_ADAPTER_TIMEOUT_MS: ${MODEL_TIMEOUT_MS:-180000}
+      MODEL_ROUTE_CREATIVE_LARGE_PROVIDER: ${MODEL_PROVIDER_ID:-configured-openai-compatible}
+      MODEL_ROUTE_CREATIVE_LARGE_MODEL: ${MODEL_NAME:-}
+      MODEL_ROUTE_CREATIVE_LIGHT_PROVIDER: ${MODEL_LIGHT_PROVIDER_ID:-${MODEL_PROVIDER_ID:-configured-openai-compatible}}
+      MODEL_ROUTE_CREATIVE_LIGHT_MODEL: ${MODEL_LIGHT_NAME:-${MODEL_NAME:-}}
+    command: ["node", "apps/backend/dist/vnext/infrastructure/local-trusted-route-adapter-main.js"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4317/healthz').then((r)=>{if(!r.ok) process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  shared-dev-backend:
+    build:
+      context: ../..
+      dockerfile: infra/docker/backend.Dockerfile
+    restart: unless-stopped
+    environment:
+      <<: *ai-runtime-env
+      APP_ENV: shared-dev
+      NODE_ENV: production
+      ENVIRONMENT_KEY: shared-dev
+      HOST: 0.0.0.0
+      PORT: 4000
+      DATABASE_URL: postgresql://${SHARED_DEV_DB_USER}:${SHARED_DEV_DB_PASSWORD}@postgres:5432/${SHARED_DEV_DB_NAME}
+      REDIS_URL: redis://redis:6379/0
+      S3_ENDPOINT: http://minio:9000
+      S3_BUCKET: ${SHARED_DEV_BUCKET}
+      AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD}
+      AWS_REGION: ${AWS_REGION}
+      ENVIRONMENT_REGISTRY_FILE: /app/infra/observability/environment-registry.json
+      H5_BASE_URL: ${H5_BASE_URL}
+      VNEXT_ALLOWED_ORIGINS: ${SHARED_DEV_VNEXT_ALLOWED_ORIGINS:-}
+      VNEXT_SESSION_COOKIE_SECURE: "true"
+      VNEXT_SESSION_TOKEN_SECRET: ${SHARED_DEV_VNEXT_SESSION_TOKEN_SECRET:-}
+      VNEXT_INTERNAL_ADMISSION_POLICY_VERSION: ${SHARED_DEV_VNEXT_INTERNAL_ADMISSION_POLICY_VERSION:-}
+      VNEXT_INTERNAL_AI_NOTICE_VERSION: ${SHARED_DEV_VNEXT_INTERNAL_AI_NOTICE_VERSION:-}
+      VNEXT_INTERNAL_TERMS_VERSION: ${SHARED_DEV_VNEXT_INTERNAL_TERMS_VERSION:-}
+      VNEXT_INTERNAL_PRIVACY_VERSION: ${SHARED_DEV_VNEXT_INTERNAL_PRIVACY_VERSION:-}
+      VNEXT_GUEST_SESSION_TTL_SECONDS: ${VNEXT_GUEST_SESSION_TTL_SECONDS:-86400}
+      VNEXT_SESSION_RATE_LIMIT_MAX: ${VNEXT_SESSION_RATE_LIMIT_MAX:-20}
+      VNEXT_SESSION_RATE_LIMIT_WINDOW_MS: ${VNEXT_SESSION_RATE_LIMIT_WINDOW_MS:-60000}
+      VNEXT_TRUST_PROXY_HOPS: "1"
+    depends_on:
+      model-gateway:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    command: ["sh", "-c", "pnpm --filter backend exec prisma migrate deploy && node apps/backend/dist/main.js"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/healthz').then((r)=>{if(!r.ok) process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  shared-dev-h5:
+    build:
+      context: ../..
+      dockerfile: infra/docker/frontend.Dockerfile
+      args:
+        APP_NAME: h5
+        NEXT_PUBLIC_API_BASE_URL: https://${SHARED_DEV_DOMAIN}/api
+        PORT: "3000"
+    restart: unless-stopped
+
+  shared-dev-ops:
+    build:
+      context: ../..
+      dockerfile: infra/docker/frontend.Dockerfile
+      args:
+        APP_NAME: ops
+        NEXT_PUBLIC_API_BASE_URL: https://${SHARED_DEV_DOMAIN}/api
+        PORT: "3000"
+    restart: unless-stopped
+
+  shared-dev-gateway:
+    build:
+      context: ../..
+      dockerfile: infra/docker/gateway.Dockerfile
+    restart: unless-stopped
+    environment:
+      PREVIEW_GATEWAY_LISTEN_HOST: 0.0.0.0
+      PREVIEW_GATEWAY_BASIC_AUTH_USERNAME: ${SHARED_DEV_BASIC_AUTH_USERNAME}
+      PREVIEW_GATEWAY_BASIC_AUTH_PASSWORD: ${SHARED_DEV_BASIC_AUTH_PASSWORD}
+      PREVIEW_GATEWAY_BASIC_AUTH_REALM: shared-dev
+      PREVIEW_GATEWAY_H5_ORIGIN: http://shared-dev-h5:3000
+      PREVIEW_GATEWAY_OPS_ORIGIN: http://shared-dev-ops:3000
+      PREVIEW_GATEWAY_BACKEND_ORIGIN: http://shared-dev-backend:4000
+    depends_on:
+      shared-dev-backend:
+        condition: service_healthy
+    command: ["tsx", "tools/preview/preview-gateway.ts", "--label", "shared-dev", "--port", "3300"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3300/healthz').then((r)=>{if(!r.ok) process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  staging-backend:
+    build:
+      context: ../..
+      dockerfile: infra/docker/backend.Dockerfile
+    restart: unless-stopped
+    environment:
+      <<: *ai-runtime-env
+      APP_ENV: staging
+      NODE_ENV: production
+      ENVIRONMENT_KEY: staging
+      HOST: 0.0.0.0
+      PORT: 4000
+      DATABASE_URL: postgresql://${STAGING_DB_USER}:${STAGING_DB_PASSWORD}@postgres:5432/${STAGING_DB_NAME}
+      REDIS_URL: redis://redis:6379/1
+      S3_ENDPOINT: http://minio:9000
+      S3_BUCKET: ${STAGING_BUCKET}
+      AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD}
+      AWS_REGION: ${AWS_REGION}
+      ENVIRONMENT_REGISTRY_FILE: /app/infra/observability/environment-registry.json
+      H5_BASE_URL: https://${STAGING_DOMAIN}
+      VNEXT_ALLOWED_ORIGINS: ${STAGING_VNEXT_ALLOWED_ORIGINS:-}
+      VNEXT_SESSION_COOKIE_SECURE: "true"
+      VNEXT_SESSION_TOKEN_SECRET: ${STAGING_VNEXT_SESSION_TOKEN_SECRET:-}
+      VNEXT_INTERNAL_ADMISSION_POLICY_VERSION: ${STAGING_VNEXT_INTERNAL_ADMISSION_POLICY_VERSION:-}
+      VNEXT_INTERNAL_AI_NOTICE_VERSION: ${STAGING_VNEXT_INTERNAL_AI_NOTICE_VERSION:-}
+      VNEXT_INTERNAL_TERMS_VERSION: ${STAGING_VNEXT_INTERNAL_TERMS_VERSION:-}
+      VNEXT_INTERNAL_PRIVACY_VERSION: ${STAGING_VNEXT_INTERNAL_PRIVACY_VERSION:-}
+      VNEXT_GUEST_SESSION_TTL_SECONDS: ${VNEXT_GUEST_SESSION_TTL_SECONDS:-86400}
+      VNEXT_SESSION_RATE_LIMIT_MAX: ${VNEXT_SESSION_RATE_LIMIT_MAX:-20}
+      VNEXT_SESSION_RATE_LIMIT_WINDOW_MS: ${VNEXT_SESSION_RATE_LIMIT_WINDOW_MS:-60000}
+      VNEXT_TRUST_PROXY_HOPS: "1"
+    depends_on:
+      model-gateway:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    command: ["sh", "-c", "pnpm --filter backend exec prisma migrate deploy && node apps/backend/dist/main.js"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/healthz').then((r)=>{if(!r.ok) process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  staging-h5:
+    build:
+      context: ../..
+      dockerfile: infra/docker/frontend.Dockerfile
+      args:
+        APP_NAME: h5
+        NEXT_PUBLIC_API_BASE_URL: https://${STAGING_DOMAIN}/api
+        PORT: "3000"
+    restart: unless-stopped
+
+  staging-ops:
+    build:
+      context: ../..
+      dockerfile: infra/docker/frontend.Dockerfile
+      args:
+        APP_NAME: ops
+        NEXT_PUBLIC_API_BASE_URL: https://${STAGING_DOMAIN}/api
+        PORT: "3000"
+    restart: unless-stopped
+
+  staging-gateway:
+    build:
+      context: ../..
+      dockerfile: infra/docker/gateway.Dockerfile
+    restart: unless-stopped
+    environment:
+      PREVIEW_GATEWAY_LISTEN_HOST: 0.0.0.0
+      PREVIEW_GATEWAY_BASIC_AUTH_USERNAME: ${STAGING_BASIC_AUTH_USERNAME}
+      PREVIEW_GATEWAY_BASIC_AUTH_PASSWORD: ${STAGING_BASIC_AUTH_PASSWORD}
+      PREVIEW_GATEWAY_BASIC_AUTH_REALM: staging
+      PREVIEW_GATEWAY_H5_ORIGIN: http://staging-h5:3000
+      PREVIEW_GATEWAY_OPS_ORIGIN: http://staging-ops:3000
+      PREVIEW_GATEWAY_BACKEND_ORIGIN: http://staging-backend:4000
+    depends_on:
+      staging-backend:
+        condition: service_healthy
+    command: ["tsx", "tools/preview/preview-gateway.ts", "--label", "staging", "--port", "3300"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3300/healthz').then((r)=>{if(!r.ok) process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  caddy-data:
+  caddy-config:
+  postgres-data:
+  redis-data:
+  minio-data:

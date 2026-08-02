@@ -1,0 +1,29 @@
+{
+  "name": "h5",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "audit:frontstage-copy": "node scripts/frontstage-copy-audit.mjs",
+    "build": "next build",
+    "test": "vitest run",
+    "dev:test": "next dev --hostname 127.0.0.1 --port 3000"
+  },
+  "dependencies": {
+    "@erliu/force-graph": "workspace:*",
+    "@erliu/shared-contracts": "workspace:*",
+    "@erliu/telemetry": "workspace:*",
+    "next": "15.5.21",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "jsdom": "^26.1.0",
+    "tslib": "^2.8.1",
+    "vitest": "^3.2.4"
+  }
+}

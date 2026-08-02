@@ -1,0 +1,54 @@
+{
+  "name": "erliu-xiaoshuojia",
+  "private": true,
+  "packageManager": "pnpm@10.28.2",
+  "scripts": {
+    "build": "tsx tools/build/workspace-build.ts",
+    "build:backend": "pnpm --filter backend prisma:generate && pnpm --filter backend... build",
+    "build:h5": "pnpm --filter h5... build",
+    "build:pages": "pnpm --filter pages-h5 build",
+    "test:room-gateway": "pnpm --filter room-gateway test",
+    "build:ops": "pnpm --filter ops... build",
+    "test": "pnpm -r --workspace-concurrency=1 test && pnpm test:deploy-build-topology && pnpm verify:vnext-types",
+    "test:deploy-build-topology": "tsx tools/build/deploy-build-topology.test.ts",
+    "test:workspace-build-boundary": "tsx tools/build/workspace-build-boundary.test.ts",
+    "verify:vnext-boundaries": "tsx tools/governance/verify-vnext-boundaries.ts",
+    "verify:vnext-types": "tsc -p tools/governance/tsconfig.vnext-type-tests.json",
+    "test:vnext:postgres": "pnpm --filter backend test:vnext:postgres",
+    "test:vnext:orchestration:postgres": "pnpm --filter backend test:vnext:orchestration:postgres",
+    "test:vnext:correction:postgres": "pnpm --filter backend test:vnext:correction:postgres",
+    "test:vnext:safety:postgres": "pnpm --filter backend test:vnext:safety:postgres",
+    "test:vnext:story-truth:postgres": "pnpm --filter backend test:vnext:story-truth:postgres",
+    "test:vnext:worker:postgres": "pnpm --filter backend vnext:worker-postgres-smoke",
+    "test:prisma:migration-truth": "tsx tools/testing/run-prisma-migration-truth-gate.ts",
+    "infra:validate": "tsx tools/infra/validate.ts",
+    "hosted:ai-preflight": "tsx tools/infra/hosted-ai-runtime-preflight.ts",
+    "pilot:pack:scaffold": "tsx tools/pilot/hosted-internal-pilot-pack.ts scaffold",
+    "pilot:pack:collect": "tsx tools/pilot/hosted-internal-pilot-pack.ts collect-day",
+    "truth-source:live-smoke": "pnpm --filter backend truth-source:live-smoke",
+    "playwright": "playwright",
+    "test:e2e:m1": "playwright test tests/e2e",
+    "test:recovery": "tsx tests/recovery/run.ts",
+    "test:deploy:smoke": "playwright test tests/e2e/m3-release-ops.spec.ts",
+    "test:contracts:m1": "tsx tests/contracts/m1/run.ts",
+    "seed:m1:reset": "tsx tools/seeds/m1/reset.ts",
+    "dev:test:e2e": "concurrently -k -s first -n backend,h5,ops -c green,blue,magenta \"pnpm --filter backend dev:test\" \"pnpm --filter h5 dev:test\" \"pnpm --filter ops dev:test\"",
+    "dev:world-lab": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/vnext/start-world-lab-local.ps1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "ajv": "^8.18.0",
+    "ajv-formats": "^3.0.1",
+    "concurrently": "^9.2.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "protobufjs@7.5.4": "7.5.5",
+      "protobufjs@8.0.0": "8.0.1",
+      "postcss@8.4.31": "8.5.18",
+      "tar@7.5.18": "7.5.19"
+    }
+  }
+}

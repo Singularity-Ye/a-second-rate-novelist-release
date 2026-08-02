@@ -1,0 +1,33 @@
+[Unit]
+Description=Second-rate Novelist public room model gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=erliu-room
+Group=erliu-room
+WorkingDirectory=/opt/second-rate-novelist-room-gateway
+EnvironmentFile=/etc/second-rate-novelist/room-gateway.env
+EnvironmentFile=/etc/second-rate-novelist/model-key.env
+ExecStart=/opt/second-rate-novelist-room-gateway/node /opt/second-rate-novelist-room-gateway/server.mjs
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=15
+
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryMax=160M
+TasksMax=32
+LimitNOFILE=1024
+
+[Install]
+WantedBy=multi-user.target

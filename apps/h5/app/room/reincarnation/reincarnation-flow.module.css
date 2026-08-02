@@ -1,0 +1,3125 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;800;900&display=swap');
+
+.container {
+  min-height: 100vh;
+  background-color: #efe0bd;
+  background-image:
+    linear-gradient(rgba(246, 232, 198, 0.72), rgba(231, 207, 164, 0.62)),
+    url("/assets/ui/paper/handmade-paper-texture-v1.webp");
+  background-repeat: repeat;
+  background-size: auto, 256px 256px;
+  color: #382417;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem 1.5rem 3.5rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: auto;
+}
+
+.container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: #efe0bd;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: #d4b886;
+  border-radius: 999px;
+  border: 2px solid #efe0bd;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: #b65d3d;
+}
+
+.topBar {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 30;
+  padding: 0.2rem 0;
+}
+
+/* Warm Friendly Back Button */
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: #f7ebcc;
+  border: 1px solid rgba(168, 98, 50, 0.4);
+  color: #59351e;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 8px rgba(89, 58, 39, 0.12);
+  transition: all 0.2s ease;
+}
+
+.backBtn:hover {
+  background: #fdf3d8;
+  border-color: #b65d3d;
+  color: #b65d3d;
+  transform: translateY(-1px);
+}
+
+.stepBadge {
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(182, 93, 61, 0.12);
+  border: 1px solid rgba(182, 93, 61, 0.35);
+  color: #b65d3d;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+/* Compact Top Binding Badge - Placed inside topBar out of artwork view */
+.existingBindingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  background: #f7ebcc;
+  border: 1px solid rgba(168, 98, 50, 0.4);
+  color: #382417;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(89, 58, 39, 0.1);
+  margin-left: auto;
+}
+
+.topBindingBtn {
+  color: #b65d3d;
+  font-weight: 800;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.18s ease;
+}
+
+.topBindingBtn:hover {
+  color: #8c4228;
+  text-decoration: underline;
+}
+
+.topBindingResetBtn {
+  background: transparent;
+  border: none;
+  color: #78350f;
+  font-size: 0.78rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+/* Base Stage Card for Steps 2-7 */
+.stageCard {
+  width: 100%;
+  max-width: 1100px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Grand Master Selection Stage */
+.characterSelectStage {
+  width: 100vw;
+  max-width: 1320px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Open Journal / RPG Character Binder 2-Page Stage - 3D Perspective Tilt */
+.journalBinderStage {
+  position: relative;
+  width: 100%;
+  max-width: 1260px;
+  min-height: 640px;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  background-color: #efe0bd;
+  background-image:
+    linear-gradient(rgba(255, 250, 240, 0.88), rgba(247, 235, 204, 0.84)),
+    url("/assets/ui/paper/warm_xianxia_paper.webp");
+  background-size: cover;
+  background-position: center;
+  border: 2.5px solid rgba(140, 75, 35, 0.5);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 32px 75px -12px rgba(56, 36, 23, 0.38),
+    0 16px 32px -16px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 6px rgba(168, 98, 50, 0.1);
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 0 auto;
+  perspective: 1200px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.journalBinderStage:hover {
+  transform: perspective(1200px) rotateY(-1.2deg) rotateX(0.8deg);
+  box-shadow:
+    0 38px 85px -12px rgba(56, 36, 23, 0.42),
+    0 20px 40px -16px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 6px rgba(168, 98, 50, 0.15);
+}
+
+/* Stitched Spine / Binder Divider line */
+.journalSpine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 360px;
+  width: 6px;
+  background: linear-gradient(180deg, rgba(100, 42, 12, 0.35) 0%, rgba(140, 66, 40, 0.2) 50%, rgba(100, 42, 12, 0.35) 100%);
+  box-shadow:
+    inset 2px 0 4px rgba(0, 0, 0, 0.2),
+    2px 0 6px rgba(0, 0, 0, 0.12),
+    -2px 0 6px rgba(255, 255, 255, 0.6);
+  z-index: 15;
+}
+
+/* Left Page: Dossier & Stats Sheet */
+.journalLeftPage {
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  background: rgba(253, 248, 235, 0.72);
+  box-shadow: inset -22px 0 35px -18px rgba(120, 53, 15, 0.14);
+  border-right: 1px solid rgba(168, 98, 50, 0.25);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+}
+
+.dossierHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-bottom: 2px dashed rgba(168, 98, 50, 0.32);
+  padding-bottom: 0.85rem;
+}
+
+.dossierBadge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #b65d3d;
+  background: rgba(182, 93, 61, 0.12);
+  padding: 0.22rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(182, 93, 61, 0.3);
+  text-transform: uppercase;
+}
+
+.attributeSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.attrList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.attrItem {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.attrLabel {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #452414;
+  width: 4.2rem;
+  flex: 0 0 auto;
+  letter-spacing: 0.04em;
+}
+
+.attrTrack {
+  flex: 1;
+  height: 9px;
+  background: rgba(168, 98, 50, 0.18);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.attrFill {
+  height: 100%;
+  background: linear-gradient(90deg, #b65d3d 0%, #d97706 100%);
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(182, 93, 61, 0.4);
+}
+
+.attrVal {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #b65d3d;
+  width: 1.6rem;
+  text-align: right;
+  flex: 0 0 auto;
+}
+
+.hexRadarWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0.4rem 0;
+  filter: drop-shadow(0 4px 8px rgba(168, 98, 50, 0.15));
+}
+
+.dossierQuote {
+  font-family: "Noto Serif SC", serif;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #2b1810;
+  font-weight: 700;
+  margin: 0;
+  font-style: normal;
+  padding: 0.9rem 1.1rem;
+  background: rgba(247, 235, 204, 0.75);
+  border-left: 3.5px solid #b65d3d;
+  border-radius: 0 0.6rem 0.6rem 0;
+  box-shadow: 0 2px 8px rgba(89, 58, 39, 0.08);
+}
+
+.dossierFooterHint {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #78350f;
+  text-align: center;
+  opacity: 0.88;
+  letter-spacing: 0.06em;
+}
+
+/* Right Page: Ink Artwork Canvas */
+.journalRightPage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.75rem;
+  box-sizing: border-box;
+  min-height: 600px;
+}
+
+/* Sword-Chi Floating Ember Particles */
+.swordChiParticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 12;
+  overflow: hidden;
+}
+
+.particleOne,
+.particleTwo,
+.particleThree {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f59e0b 0%, rgba(217, 119, 6, 0.4) 60%, transparent 100%);
+  filter: blur(1px);
+  animation: floatEmber 6s ease-in-out infinite;
+}
+
+.particleOne {
+  width: 10px;
+  height: 10px;
+  top: 70%;
+  left: 35%;
+  animation-duration: 5.5s;
+}
+
+.particleTwo {
+  width: 14px;
+  height: 14px;
+  top: 40%;
+  left: 65%;
+  animation-duration: 7s;
+  animation-delay: 1.5s;
+}
+
+.particleThree {
+  width: 8px;
+  height: 8px;
+  top: 80%;
+  left: 80%;
+  animation-duration: 4.8s;
+  animation-delay: 0.8s;
+}
+
+@keyframes floatEmber {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-80px) scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Interactive Secret Lore Pins */
+.interactiveLorePin {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  z-index: 28;
+  cursor: pointer;
+}
+
+.pinPulse {
+  width: 8px;
+  height: 8px;
+  background: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #f59e0b, 0 0 20px #d97706;
+  animation: pinGlow 1.8s infinite alternate;
+}
+
+@keyframes pinGlow {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.5); opacity: 1; }
+}
+
+.pinTag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #78350f;
+  background: rgba(253, 248, 235, 0.92);
+  padding: 0.22rem 0.68rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(245, 158, 11, 0.6);
+  box-shadow: 0 4px 12px rgba(89, 58, 39, 0.15);
+  transition: all 0.22s ease;
+  white-space: nowrap;
+}
+
+.interactiveLorePin:hover .pinTag {
+  background: #b65d3d;
+  color: #fffebf;
+  border-color: #fef08a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(182, 93, 61, 0.4);
+}
+
+.pinTooltip {
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: #2b1810;
+  color: #fffebf;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #f59e0b;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.interactiveLorePin:hover .pinTooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.artworkCanvas {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 5.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 55%, rgba(217, 119, 6, 0.14) 0%, rgba(182, 93, 61, 0.04) 55%, transparent 75%);
+  border-radius: 1rem;
+}
+
+.rightPageBottomBar {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 25;
+}
+
+/* Left Parchment Attribute Slip Overlay */
+.leftParchmentSlip {
+  position: absolute;
+  top: 5%;
+  left: 3.5%;
+  width: 25%;
+  height: 82%;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: #382417;
+  background: rgba(253, 248, 235, 0.94);
+  border: 1.5px solid rgba(168, 98, 50, 0.35);
+  border-radius: 0.85rem;
+  box-shadow: 0 8px 24px rgba(89, 58, 39, 0.12);
+}
+
+.inkStrokeTitle {
+  border-bottom: 2px solid rgba(168, 98, 50, 0.35);
+  padding-bottom: 0.35rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.inkCharacterName {
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 1.85rem;
+  color: #382417;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+}
+
+/* Vermilion Red Wax Seal Stamp Badge */
+.vermilionSealBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 0.5rem;
+  background: #b91c1c;
+  color: #fef08a;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 4px;
+  border: 1px solid #7f1d1d;
+  box-shadow: 0 2px 6px rgba(185, 28, 28, 0.3);
+  transform: rotate(-10deg);
+  transition: transform 0.22s ease;
+  user-select: none;
+}
+
+.vermilionSealBadge::after {
+  content: "印";
+}
+
+.vermilionSealBadge:hover {
+  transform: rotate(0deg) scale(1.15);
+}
+
+/* Vintage Brass Corner Mounts for Stage Canvas */
+.brassCornerTopLeft,
+.brassCornerTopRight,
+.brassCornerBottomLeft,
+.brassCornerBottomRight {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  z-index: 22;
+  pointer-events: none;
+  background-image: url("/assets/ui/paper/warm_brass_corner.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
+}
+
+.brassCornerTopLeft {
+  top: 8px;
+  left: 8px;
+}
+
+.brassCornerTopRight {
+  top: 8px;
+  right: 8px;
+  transform: scaleX(-1);
+}
+
+.brassCornerBottomLeft {
+  bottom: 8px;
+  left: 8px;
+  transform: scaleY(-1);
+}
+
+.brassCornerBottomRight {
+  bottom: 8px;
+  right: 8px;
+  transform: scale(-1);
+}
+
+.inkSubTag {
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: #b65d3d;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.attributeBarList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.attrRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.attrIcon {
+  font-size: 0.75rem;
+  color: #b65d3d;
+}
+
+.attrBarFill {
+  height: 6px;
+  background: linear-gradient(90deg, #b65d3d 0%, #d97706 100%);
+  border-radius: 3px;
+}
+
+.hexRadarChart {
+  display: flex;
+  justify-content: center;
+  margin: 0.25rem 0;
+}
+
+.leftMonologue {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #1c1917;
+  margin: 0;
+  font-style: normal;
+  font-weight: 700;
+  border-top: 1px dashed rgba(120, 53, 15, 0.4);
+  padding-top: 0.65rem;
+}
+
+/* High Contrast Subtitle */
+.leftSubtitleHint {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: #78350f;
+  text-align: center;
+  opacity: 0.95;
+  letter-spacing: 0.05em;
+}
+
+/* Center Hero Pose Stage */
+.centerHeroPoseStage {
+  position: absolute;
+  top: 2%;
+  left: 26%;
+  right: 2%;
+  bottom: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.heroPoseFullImage {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: contrast(1.05);
+  animation: floatPose 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatPose {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+.selectionPosePlaceholder {
+  border: 2px dashed #78350f;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: #451a03;
+  background: rgba(244, 239, 226, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.existingBindingOverlay {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: #f7ebcc;
+  border: 1px solid rgba(168, 98, 50, 0.4);
+  border-radius: 999px;
+  padding: 0.45rem 1.25rem;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #382417;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(89, 58, 39, 0.12);
+}
+
+/* Step 1 Sole Protagonist Bottom Bar */
+.soleProtagonistBarRow {
+  position: absolute;
+  bottom: 4%;
+  left: 4%;
+  right: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  z-index: 25;
+  box-sizing: border-box;
+}
+
+.soleProtagonistBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 1.35rem;
+  background: #f7ebcc;
+  border: 1px solid rgba(168, 98, 50, 0.4);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(89, 58, 39, 0.12);
+}
+
+.soleIcon {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #b65d3d 0%, #8c4228 100%);
+  color: #fffebf;
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(182, 93, 61, 0.3);
+}
+
+.soleMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.soleMeta strong {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #382417;
+}
+
+.soleMeta small {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #b65d3d;
+}
+
+.soleStageCtaBtn {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+  height: 3.6rem;
+  padding: 0 2.4rem;
+  background: linear-gradient(135deg, #b65d3d 0%, #8c4228 100%);
+  border: 2px solid #fbbf24;
+  border-radius: 999px;
+  color: #fffebf;
+  font-family: inherit;
+  font-size: 1.08rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  z-index: 30;
+  box-shadow:
+    0 10px 28px rgba(182, 93, 61, 0.45),
+    0 0 15px rgba(251, 191, 36, 0.2);
+  white-space: nowrap;
+}
+
+/* Shimmer Light Ray Sweep */
+.soleStageCtaBtn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 254, 191, 0.55), transparent);
+  transform: rotate(25deg);
+  transition: transform 0.65s ease;
+}
+
+.soleStageCtaBtn:hover::after {
+  transform: translateX(380%) rotate(25deg);
+}
+
+.soleStageCtaBtn:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(135deg, #d96d48 0%, #9e4629 100%);
+  border-color: #fef08a;
+  color: #ffffff;
+  box-shadow:
+    0 14px 35px rgba(217, 109, 72, 0.6),
+    0 0 22px rgba(254, 240, 138, 0.4);
+}
+
+.soleStageCtaBtn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.bottomDockBar {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+}
+
+.dockArrowBtn {
+  background: transparent;
+  border: none;
+  color: #d6d3d1;
+  font-size: 1.5rem;
+  width: 28px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dockArrowBtn:hover {
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+.dockCardGrid {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  flex: 1;
+  height: 100%;
+  align-items: center;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dockCardGrid::-webkit-scrollbar {
+  display: none;
+}
+
+/* Premium Dark Ink Stone Tablet Card (No White Ugly Box) */
+/* Warm Paper Handbook Cards */
+.dockCard {
+  min-width: 78px;
+  height: 88%;
+  background: #efe0bd;
+  border: 1px solid rgba(168, 98, 50, 0.35);
+  border-radius: 0.55rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s ease;
+  color: #382417;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(89, 58, 39, 0.12);
+}
+
+.dockCard:hover {
+  background: #fdf3d8;
+  border-color: #b65d3d;
+  color: #b65d3d;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(182, 93, 61, 0.2);
+}
+
+/* Active Selected Card: Warm Terracotta & Amber */
+.dockCardSelected {
+  background: linear-gradient(135deg, #b65d3d 0%, #8c4228 100%);
+  border: 2px solid #f59e0b;
+  color: #fffebf;
+  transform: translateY(-6px);
+  box-shadow: 0 8px 22px rgba(182, 93, 61, 0.35);
+}
+
+.dockCardSelected .dockName {
+  color: #fffebf;
+  text-shadow: none;
+}
+
+.dockCardSelected .sealStampBadge {
+  border-color: #fef08a;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fffebf;
+}
+
+.selectedRedCrest {
+  position: absolute;
+  top: -6px;
+  width: 10px;
+  height: 10px;
+  background: #b65d3d;
+  transform: rotate(45deg);
+  border: 1px solid #f59e0b;
+}
+
+.selectedRedTassel {
+  position: absolute;
+  bottom: -8px;
+  width: 6px;
+  height: 8px;
+  background: #b65d3d;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.sealStampBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(168, 98, 50, 0.4);
+  background: rgba(182, 93, 61, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #b65d3d;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.dockName {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: #382417;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+/* Warm Terracotta Confirm CTA Button - Dedicated Flex Item */
+.bottomConfirmSealBtn {
+  flex: 0 0 auto;
+  height: 3.4rem;
+  padding: 0 1.8rem;
+  background-color: #b65d3d;
+  background-image:
+    linear-gradient(135deg, rgba(217, 109, 72, 0.95) 0%, rgba(140, 66, 40, 0.98) 100%),
+    url("/assets/ui/paper/warm_cta_button_banner.webp");
+  background-size: cover;
+  background-position: center;
+  border: 1.5px solid #f59e0b;
+  border-radius: 999px;
+  color: #fffebf;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  z-index: 30;
+  box-shadow: 0 6px 20px rgba(182, 93, 61, 0.35);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.bottomConfirmSealBtn:hover {
+  transform: translateY(-2px) scale(1.03);
+  background-color: #d96d48;
+  border-color: #fef08a;
+  color: #ffffff;
+  box-shadow: 0 8px 25px rgba(217, 109, 72, 0.5);
+}
+
+/* Step 2-7 Shared Stage Headers & Cards */
+.stageHeader {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.stageEyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #f59e0b;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 1.85rem;
+  font-weight: 900;
+  margin: 0;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #a1a1aa;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Step 2: Memory Book Journal Stage - Full Impact Manga Display */
+.mangaStoryFrame {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1.5px solid rgba(168, 98, 50, 0.35);
+  border-radius: 1.25rem;
+  padding: 0.85rem 1.25rem;
+  background-color: #efe0bd;
+  background-image:
+    linear-gradient(rgba(255, 250, 240, 0.92), rgba(247, 235, 204, 0.88)),
+    url("/assets/ui/paper/warm_xianxia_paper.webp");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 20px 50px rgba(89, 58, 39, 0.16);
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  min-height: 560px;
+  height: auto;
+  box-sizing: border-box;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.mangaBeatMeta {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #b65d3d;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border-bottom: 1px dashed rgba(168, 98, 50, 0.3);
+  padding-bottom: 0.35rem;
+}
+
+.mangaStageWithFlanks {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Left & Right Flank Controls */
+.flankPageBtnLeft,
+.flankPageBtnRight {
+  flex: 0 0 auto;
+  width: 3.8rem;
+  height: 68%;
+  max-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background: #f7ebcc;
+  border: 1.5px solid rgba(168, 98, 50, 0.4);
+  border-radius: 0.85rem;
+  color: #382417;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 6px 18px rgba(89, 58, 39, 0.12);
+}
+
+.flankPageBtnLeft span,
+.flankPageBtnRight span {
+  font-size: 2.2rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #b65d3d;
+}
+
+.flankPageBtnLeft small,
+.flankPageBtnRight small {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #59351e;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.1em;
+}
+
+.flankPageBtnLeft:hover:not(:disabled),
+.flankPageBtnRight:hover:not(:disabled) {
+  background: linear-gradient(135deg, #b65d3d 0%, #8c4228 100%);
+  border-color: #f59e0b;
+  color: #fffebf;
+  transform: scale(1.04);
+  box-shadow: 0 10px 25px rgba(182, 93, 61, 0.35);
+}
+
+.flankPageBtnLeft:hover:not(:disabled) span,
+.flankPageBtnRight:hover:not(:disabled) span,
+.flankPageBtnLeft:hover:not(:disabled) small,
+.flankPageBtnRight:hover:not(:disabled) small {
+  color: #fffebf;
+}
+
+.flankPageBtnLeft:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.mangaVisual {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 0.5rem;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.comicPageVisual {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  background-color: transparent;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: none;
+}
+
+.mangaAssetFallback {
+  background: rgba(9, 9, 11, 0.9);
+  border: 2px dashed rgba(245, 158, 11, 0.3);
+  border-radius: 0.75rem;
+  padding: 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #e4e4e7;
+}
+
+.mangaAssetStatus {
+  font-size: 0.725rem;
+  color: #71717a;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.8;
+}
+
+.mangaTextSlots {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.mangaTextSlots blockquote {
+  margin: 0;
+  border-left: 3px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+  padding: 0.85rem 1.15rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  color: #fef08a;
+  line-height: 1.6;
+  font-family: 'Noto Serif SC', serif;
+}
+
+/* Step 3: Accident Docket Stage */
+.accidentStage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: rgba(18, 18, 22, 0.95);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: calc(100vh - 4.5rem);
+  box-sizing: border-box;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.accidentVisual {
+  flex: 1;
+  min-height: 0;
+  border-radius: 0.75rem;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background-color: #050505;
+}
+
+.comicPageVisual {
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 3 / 2;
+  padding: 0;
+  background-color: #060504;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.accidentVisualShade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(2, 6, 23, 0.9) 100%);
+}
+
+.accidentVisualContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.accidentReport {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  color: #fca5a5;
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+/* Step 4: System Boot Cyberpunk HUD Stage */
+.awakeningBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border: 2px solid rgba(16, 185, 129, 0.4);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.4), rgba(2, 6, 23, 0.95));
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.awakeningShade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+.systemCore {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.85rem;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #6ee7b7;
+}
+
+.awakeningConstraint {
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px dashed rgba(245, 158, 11, 0.4);
+  border-radius: 0.75rem;
+  padding: 0.85rem 1.1rem;
+  color: #fbbf24;
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Step 5: 3-Round Gene Tree Selection Parchment Slips */
+.calibrationBox {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.roundProgress {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.roundDot {
+  width: 2.5rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: all 0.3s ease;
+}
+
+.roundDotActive {
+  background: #a855f7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.roundDotDone {
+  background: #10b981;
+}
+
+.roundPrompt {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #e9d5ff;
+  margin-bottom: 0.25rem;
+}
+
+.optionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.optionBtn {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 1.1rem 1.35rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #f1f5f9;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.optionBtn:hover {
+  background: linear-gradient(135deg, rgba(51, 65, 85, 0.9), rgba(30, 41, 59, 0.95));
+  border-color: rgba(168, 85, 247, 0.6);
+  transform: translateX(6px) scale(1.01);
+  box-shadow: 0 8px 25px rgba(168, 85, 247, 0.25);
+}
+
+.optionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.optionLabel {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #e9d5ff;
+}
+
+.geneTraitTag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.optionText {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.geneBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 0.85rem;
+  font-size: 0.8125rem;
+  color: #cbd5e1;
+  flex-wrap: wrap;
+}
+
+.geneCodeBadge {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: #ffffff;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  letter-spacing: 0.08em;
+}
+
+.resetGeneButton {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #94a3b8;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.resetGeneButton:hover {
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+/* Step 6: Target Search vs Forced Lock Radar Stage */
+.radarContainer {
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 35px rgba(239, 68, 68, 0.2);
+}
+
+.alarmOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+  animation: alarmPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes alarmPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.85; }
+}
+
+.targetCard {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.targetCardLock {
+  border-color: #ef4444;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(15, 23, 42, 0.95));
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.3);
+}
+
+.targetAvatar {
+  font-size: 2.25rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+}
+
+.targetInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.targetName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.targetDesc {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+}
+
+.targetStatus {
+  color: #ef4444;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+
+.lockBadge {
+  background: #ef4444;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.35rem;
+  letter-spacing: 0.05em;
+  animation: pulse 1s infinite;
+}
+
+/* Step 7: Drop & First Encounter Dual Dialogue Slips Stage */
+.encounterBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dialogueBubble {
+  padding: 1.25rem;
+  border-radius: 1.1rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.ancestorBubble {
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(79, 70, 229, 0.25));
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  color: #f3e8ff;
+}
+
+.subsystemBubble {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 78, 59, 0.3));
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #a7f3d0;
+  font-family: monospace;
+}
+
+.heroBubble {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(120, 53, 15, 0.3));
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #fef3c7;
+}
+
+.speakerName {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+/* Action Controls & Footer Buttons */
+.hostActions, .stageFooter {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.actionBtn {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.actionBtn:hover {
+  background: linear-gradient(135deg, #b666ff 0%, #7073f8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px -5px rgba(168, 85, 247, 0.5);
+}
+
+.secondaryActionBtn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.secondaryActionBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.footerHint {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  flex: 1;
+}
+
+/* Beat Pager for Manga & Accident Steps */
+.beatPager {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.beatPager button {
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #b65d3d 0%, #8c4228 100%);
+  border: 1.5px solid #f59e0b;
+  color: #fffebf;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(182, 93, 61, 0.4);
+  letter-spacing: 0.05em;
+}
+
+.beatPager button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #d96d48 0%, #a34e30 100%);
+  border-color: #fef08a;
+  color: #ffffff;
+  box-shadow: 0 6px 22px rgba(217, 109, 72, 0.6);
+  transform: translateY(-2px);
+}
+
+.beatPager button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #64748b;
+  box-shadow: none;
+}
+
+.beatPager span {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  font-family: monospace;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+/* Mobile Responsive Fixes */
+@media (max-width: 768px) {
+  .characterSelectStage {
+    max-width: 100%;
+  }
+
+  .image2StageContainer {
+    aspect-ratio: auto;
+    min-height: 620px;
+  }
+
+  .leftParchmentSlip {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .centerHeroPoseStage {
+    position: relative;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 260px;
+  }
+
+  .bottomDockBar {
+    position: relative;
+    height: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-wrap: wrap;
+  }
+
+  .bottomConfirmSealBtn {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+/* UI polish overrides */
+.container {
+  isolation: isolate;
+}
+
+.stageBackdrop {
+  position: fixed;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  opacity: 0.16;
+  filter: saturate(0.9) contrast(0.96);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0 0 0.75rem;
+  text-align: left;
+}
+
+.existingBindingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(247, 235, 204, 0.86);
+  border: 1px solid rgba(168, 98, 50, 0.28);
+  color: #382417;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(89, 58, 39, 0.08);
+  backdrop-filter: blur(10px);
+  margin-left: auto;
+}
+
+.soleStageCtaBtn {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+  height: 3.1rem;
+  padding: 0 1.7rem;
+  background: linear-gradient(180deg, rgba(255, 247, 231, 0.98) 0%, rgba(236, 218, 176, 0.96) 100%);
+  border: 1px solid rgba(168, 98, 50, 0.35);
+  border-radius: 999px;
+  color: #59351e;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  z-index: 30;
+  box-shadow: 0 8px 20px rgba(89, 58, 39, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+}
+
+.soleStageCtaBtn::after {
+  content: none;
+}
+
+.soleStageCtaBtn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(255, 251, 242, 1) 0%, rgba(241, 226, 186, 1) 100%);
+  border-color: rgba(182, 93, 61, 0.55);
+  color: #3f2517;
+  box-shadow: 0 10px 24px rgba(89, 58, 39, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.soleStageCtaBtn:active {
+  transform: translateY(0);
+}
+
+.rightPageBottomBar {
+  gap: 0.85rem;
+}
+
+.mangaBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1rem 1.15rem;
+  background: rgba(255, 250, 240, 0.9);
+  border: 1px solid rgba(168, 98, 50, 0.28);
+  border-radius: 1rem;
+  box-shadow: 0 10px 24px rgba(89, 58, 39, 0.08);
+}
+
+.mangaHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed rgba(168, 98, 50, 0.24);
+}
+
+.mangaTitle {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #4a2d1a;
+  letter-spacing: 0.04em;
+}
+
+.mangaQuote {
+  margin: 0;
+  padding: 0.8rem 0.95rem;
+  background: rgba(247, 235, 204, 0.58);
+  border-left: 3px solid rgba(182, 93, 61, 0.58);
+  border-radius: 0.75rem;
+  color: #2d1f16;
+  font-family: "Noto Serif SC", serif;
+  line-height: 1.65;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.truckBadge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(182, 93, 61, 0.1);
+  border: 1px solid rgba(182, 93, 61, 0.28);
+  color: #8c4228;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.calibrationBox {
+  background: rgba(255, 250, 240, 0.86);
+  border: 1px solid rgba(168, 98, 50, 0.28);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #382417;
+  box-shadow: 0 10px 24px rgba(89, 58, 39, 0.08);
+}
+
+.roundProgress {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.roundDot {
+  width: 2.5rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: rgba(168, 98, 50, 0.14);
+  transition: all 0.3s ease;
+}
+
+.roundDotActive {
+  background: #b65d3d;
+  box-shadow: 0 0 10px rgba(182, 93, 61, 0.28);
+}
+
+.roundDotDone {
+  background: #0f766e;
+}
+
+.roundPrompt {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #59351e;
+  margin-bottom: 0.25rem;
+}
+
+.optionBtn {
+  background: linear-gradient(180deg, rgba(255, 251, 242, 0.98), rgba(243, 231, 200, 0.96));
+  border: 1px solid rgba(168, 98, 50, 0.22);
+  border-radius: 1rem;
+  padding: 1.1rem 1.35rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #382417;
+  box-shadow: 0 6px 16px rgba(89, 58, 39, 0.08);
+}
+
+.optionBtn:hover {
+  background: linear-gradient(180deg, rgba(255, 252, 245, 1), rgba(247, 235, 204, 0.98));
+  border-color: rgba(182, 93, 61, 0.42);
+  transform: translateX(4px);
+  box-shadow: 0 10px 22px rgba(89, 58, 39, 0.1);
+}
+
+.optionLabel {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #4a2d1a;
+}
+
+.geneTraitTag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0f766e;
+  background: rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(15, 118, 110, 0.22);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.optionText {
+  font-size: 0.875rem;
+  color: #5b4230;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.geneBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 250, 240, 0.86);
+  border: 1px solid rgba(168, 98, 50, 0.22);
+  border-radius: 0.85rem;
+  font-size: 0.8125rem;
+  color: #382417;
+  flex-wrap: wrap;
+  box-shadow: 0 8px 20px rgba(89, 58, 39, 0.08);
+}
+
+.geneCodeBadge {
+  background: linear-gradient(135deg, #b65d3d, #8c4228);
+  color: #ffffff;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  letter-spacing: 0.08em;
+}
+
+.resetGeneButton {
+  margin-left: auto;
+  background: rgba(247, 235, 204, 0.72);
+  border: 1px solid rgba(168, 98, 50, 0.24);
+  color: #6b4a34;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.resetGeneButton:hover {
+  color: #3f2517;
+  border-color: rgba(182, 93, 61, 0.44);
+}
+
+.actionBtn {
+  width: 100%;
+  padding: 0.95rem 1.35rem;
+  border-radius: 0.9rem;
+  background: linear-gradient(180deg, rgba(255, 247, 231, 0.98) 0%, rgba(236, 218, 176, 0.96) 100%);
+  border: 1px solid rgba(168, 98, 50, 0.3);
+  color: #4c2d1a;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(89, 58, 39, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.actionBtn:hover {
+  background: linear-gradient(180deg, rgba(255, 251, 242, 1) 0%, rgba(243, 228, 194, 1) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(89, 58, 39, 0.14);
+}
+
+.actionBtn[data-variant="forward"] {
+  background: linear-gradient(180deg, rgba(197, 112, 75, 1) 0%, rgba(147, 72, 43, 1) 100%);
+  border-color: rgba(251, 191, 36, 0.42);
+  color: #fff8ea;
+}
+
+.actionBtn[data-variant="forward"]:hover {
+  background: linear-gradient(180deg, rgba(214, 123, 84, 1) 0%, rgba(162, 80, 49, 1) 100%);
+  box-shadow: 0 12px 26px rgba(89, 58, 39, 0.18);
+}
+
+.actionBtn[data-variant="back"] {
+  background: rgba(247, 235, 204, 0.72);
+  color: #6b4a34;
+}
+
+.actionBtn[data-variant="back"]:hover {
+  background: rgba(255, 250, 240, 0.96);
+}
+
+.actionBtn:active {
+  transform: translateY(0);
+}
+
+.secondaryActionBtn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.85rem;
+  background: rgba(247, 235, 204, 0.68);
+  border: 1px solid rgba(168, 98, 50, 0.18);
+  color: #6b4a34;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.secondaryActionBtn:hover {
+  background: rgba(255, 250, 240, 0.94);
+  color: #3f2517;
+}
+
+.flankPageBtnLeft,
+.flankPageBtnRight {
+  flex: 0 0 auto;
+  width: 3.4rem;
+  height: 68%;
+  max-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  background: linear-gradient(180deg, rgba(255, 250, 240, 0.98), rgba(239, 224, 189, 0.95));
+  border: 1px solid rgba(168, 98, 50, 0.28);
+  border-radius: 0.95rem;
+  color: #382417;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(89, 58, 39, 0.08);
+}
+
+.flankPageBtnLeft span,
+.flankPageBtnRight span {
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #b65d3d;
+}
+
+.flankPageBtnLeft small,
+.flankPageBtnRight small {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #6b4a34;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.08em;
+}
+
+.flankPageBtnLeft:hover:not(:disabled),
+.flankPageBtnRight:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgba(255, 252, 245, 1), rgba(243, 228, 194, 0.98));
+  border-color: rgba(182, 93, 61, 0.42);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(89, 58, 39, 0.12);
+}
+
+.flankPageBtnLeft:hover:not(:disabled) span,
+.flankPageBtnRight:hover:not(:disabled) span,
+.flankPageBtnLeft:hover:not(:disabled) small,
+.flankPageBtnRight:hover:not(:disabled) small {
+  color: #4c2d1a;
+}
+
+.flankPageBtnLeft:disabled,
+.flankPageBtnRight:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.bottomConfirmSealBtn {
+  flex: 0 0 auto;
+  height: 3rem;
+  padding: 0 1.55rem;
+  background-color: #f1e0bc;
+  background-image: linear-gradient(180deg, rgba(255, 249, 235, 0.96) 0%, rgba(236, 217, 176, 0.98) 100%);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(168, 98, 50, 0.3);
+  border-radius: 999px;
+  color: #4c2d1a;
+  font-family: inherit;
+  font-size: 0.96rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  z-index: 30;
+  box-shadow: 0 8px 20px rgba(89, 58, 39, 0.12);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.bottomConfirmSealBtn:hover {
+  transform: translateY(-1px);
+  background-color: #f6ead0;
+  border-color: rgba(182, 93, 61, 0.5);
+  color: #3f2517;
+  box-shadow: 0 10px 24px rgba(89, 58, 39, 0.16);
+}
+
+/* Reincarnation visual skin v2: paper dossier + vermilion seal.
+   This layer is intentionally presentation-only: no flow/business logic changes. */
+.container {
+  --skin-primary-btn: url("/assets/ui/reincarnation-skins/primary-btn-shell.webp");
+  --skin-secondary-btn: url("/assets/ui/reincarnation-skins/secondary-btn-shell.webp");
+  --skin-option-card: url("/assets/ui/reincarnation-skins/option-card-shell.webp");
+  --skin-selected-card: url("/assets/ui/reincarnation-skins/selected-card-shell.webp");
+  --skin-panel: url("/assets/ui/reincarnation-skins/panel-shell.webp");
+  --skin-bottom-bar: url("/assets/ui/reincarnation-skins/bottom-bar-shell.webp");
+  --skin-page-tab: url("/assets/ui/reincarnation-skins/page-tab-shell.webp");
+  --skin-divider: url("/assets/ui/reincarnation-skins/divider-shell.webp");
+  --ink-dark: #322015;
+  --ink-soft: #67462f;
+  --paper-lit: rgba(255, 250, 240, 0.94);
+  --paper-mid: rgba(241, 223, 184, 0.88);
+  --seal-red: #ad4f35;
+  --seal-red-deep: #7f3524;
+  --jade: #0f766e;
+}
+
+.topBar {
+  margin-bottom: 0.55rem;
+}
+
+.backBtn,
+.stepBadge,
+.existingBindingBadge,
+.topBindingResetBtn,
+.topBindingBtn {
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+}
+
+.backBtn,
+.stepBadge,
+.existingBindingBadge {
+  background-image:
+    linear-gradient(180deg, rgba(255, 251, 242, 0.9), rgba(236, 217, 176, 0.76)),
+    var(--skin-secondary-btn);
+  background-size: 100% 100%;
+  background-position: center;
+  border-color: rgba(105, 59, 28, 0.2);
+  box-shadow:
+    0 8px 18px rgba(71, 42, 24, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.66);
+}
+
+.stepBadge {
+  color: var(--seal-red-deep);
+  letter-spacing: 0.12em;
+}
+
+.journalBinderStage {
+  border-color: rgba(95, 53, 28, 0.34);
+  background-image:
+    radial-gradient(circle at 75% 20%, rgba(204, 111, 69, 0.14), transparent 34%),
+    linear-gradient(115deg, rgba(255, 251, 242, 0.9), rgba(239, 219, 178, 0.84)),
+    url("/assets/ui/paper/warm_xianxia_paper.webp");
+  box-shadow:
+    0 38px 90px -18px rgba(56, 36, 23, 0.42),
+    0 16px 34px -18px rgba(0, 0, 0, 0.26),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.62),
+    inset 0 0 0 8px rgba(128, 72, 36, 0.06);
+}
+
+.journalBinderStage::before {
+  content: "";
+  position: absolute;
+  inset: 0.85rem;
+  border: 1px solid rgba(110, 65, 32, 0.18);
+  border-radius: 1.05rem;
+  pointer-events: none;
+  z-index: 16;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.36);
+}
+
+.journalSpine {
+  background-image:
+    linear-gradient(180deg, rgba(88, 43, 22, 0.36), rgba(165, 99, 53, 0.2), rgba(88, 43, 22, 0.36)),
+    var(--skin-divider);
+  background-size: auto, 100% 100%;
+}
+
+.journalLeftPage {
+  background:
+    linear-gradient(90deg, rgba(255, 251, 242, 0.78), rgba(248, 237, 210, 0.58)),
+    var(--paper-lit);
+}
+
+.dossierHeader {
+  border-bottom: none;
+  position: relative;
+}
+
+.mangaHeader {
+  flex-wrap: wrap;
+}
+
+.dossierHeader::after,
+.mangaHeader::after {
+  content: "";
+  display: block;
+  height: 10px;
+  width: 100%;
+  flex: 0 0 100%;
+  margin-top: 0.25rem;
+  background-image: var(--skin-divider);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.48;
+}
+
+.dossierBadge,
+.truckBadge,
+.geneTraitTag {
+  border-radius: 0.35rem;
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+  letter-spacing: 0.08em;
+}
+
+.dossierBadge,
+.truckBadge {
+  background: rgba(173, 79, 53, 0.1);
+  border-color: rgba(173, 79, 53, 0.28);
+  color: var(--seal-red-deep);
+}
+
+.dossierQuote,
+.mangaQuote,
+.dialogueBubble {
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.82), rgba(242, 226, 192, 0.72)),
+    var(--skin-panel);
+  background-size: 100% 100%;
+  background-position: center;
+  border-color: rgba(121, 68, 34, 0.2);
+  box-shadow:
+    0 12px 28px rgba(76, 45, 26, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.62);
+}
+
+.soleProtagonistBadge,
+.bottomDockBar,
+.geneBar {
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.74), rgba(236, 217, 176, 0.74)),
+    var(--skin-bottom-bar);
+  background-size: 100% 100%;
+  background-position: center;
+  border: 1px solid rgba(120, 70, 38, 0.2);
+  box-shadow:
+    0 12px 24px rgba(67, 41, 25, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.bottomDockBar {
+  padding: 0.22rem 0.35rem;
+  border-radius: 1.15rem;
+}
+
+.dockCard {
+  background-image:
+    linear-gradient(180deg, rgba(255, 251, 242, 0.86), rgba(237, 218, 178, 0.76)),
+    var(--skin-option-card);
+  background-size: 100% 100%;
+  background-position: center;
+  border-color: rgba(109, 62, 31, 0.18);
+  border-radius: 0.72rem;
+}
+
+.dockCardSelected {
+  background-image:
+    linear-gradient(180deg, rgba(177, 80, 54, 0.84), rgba(122, 51, 34, 0.88)),
+    var(--skin-selected-card);
+  border-color: rgba(246, 194, 89, 0.58);
+  color: #fff9df;
+}
+
+.soleStageCtaBtn,
+.bottomConfirmSealBtn,
+.actionBtn[data-variant="forward"] {
+  background-color: var(--seal-red);
+  background-image:
+    linear-gradient(180deg, rgba(196, 91, 61, 0.78), rgba(130, 54, 36, 0.86)),
+    var(--skin-primary-btn);
+  background-size: 100% 100%;
+  background-position: center;
+  border: 1px solid rgba(247, 196, 86, 0.34);
+  border-radius: 1rem;
+  color: #fff7dc;
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 1px rgba(62, 24, 16, 0.42);
+  box-shadow:
+    0 11px 24px rgba(106, 47, 31, 0.26),
+    inset 0 1px 0 rgba(255, 235, 170, 0.45);
+}
+
+.soleStageCtaBtn:hover,
+.bottomConfirmSealBtn:hover,
+.actionBtn[data-variant="forward"]:hover {
+  background-image:
+    linear-gradient(180deg, rgba(212, 104, 72, 0.82), rgba(143, 59, 39, 0.9)),
+    var(--skin-primary-btn);
+  border-color: rgba(255, 215, 113, 0.62);
+  color: #fffbe9;
+  transform: translateY(-2px);
+  box-shadow:
+    0 15px 30px rgba(106, 47, 31, 0.32),
+    0 0 0 3px rgba(173, 79, 53, 0.08),
+    inset 0 1px 0 rgba(255, 236, 172, 0.58);
+}
+
+.actionBtn,
+.secondaryActionBtn,
+.resetGeneButton,
+.actionBtn[data-variant="back"] {
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.84), rgba(237, 219, 180, 0.74)),
+    var(--skin-secondary-btn);
+  background-size: 100% 100%;
+  background-position: center;
+  border-color: rgba(108, 61, 30, 0.2);
+  color: var(--ink-dark);
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+  box-shadow:
+    0 9px 19px rgba(74, 45, 26, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.actionBtn:hover,
+.secondaryActionBtn:hover,
+.resetGeneButton:hover,
+.actionBtn[data-variant="back"]:hover {
+  background-image:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.92), rgba(242, 226, 192, 0.82)),
+    var(--skin-secondary-btn);
+  border-color: rgba(173, 79, 53, 0.35);
+  color: #28180f;
+}
+
+.mangaBox,
+.calibrationBox,
+.systemCore,
+.awakeningConstraint,
+.targetCard,
+.encounterBox,
+.mangaStoryFrame,
+.radarContainer {
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.86), rgba(239, 221, 183, 0.78)),
+    var(--skin-panel);
+  background-size: 100% 100%;
+  background-position: center;
+  border: 1px solid rgba(116, 66, 34, 0.22);
+  color: var(--ink-dark);
+  box-shadow:
+    0 17px 34px rgba(63, 37, 23, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
+}
+
+.radarContainer {
+  overflow: hidden;
+}
+
+.radarContainer::before {
+  content: "TARGET DOSSIER";
+  position: absolute;
+  right: 1.1rem;
+  top: 0.85rem;
+  color: rgba(127, 53, 36, 0.16);
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  pointer-events: none;
+}
+
+.alarmOverlay {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(173, 79, 53, 0.14), transparent 38%),
+    linear-gradient(90deg, transparent, rgba(173, 79, 53, 0.08), transparent);
+  opacity: 0.55;
+}
+
+.targetCard {
+  position: relative;
+  z-index: 1;
+  border-radius: 1.1rem;
+}
+
+.targetCardLock {
+  border-color: rgba(173, 79, 53, 0.42);
+  box-shadow:
+    0 17px 34px rgba(63, 37, 23, 0.14),
+    0 0 0 3px rgba(173, 79, 53, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
+}
+
+.targetAvatar {
+  background: rgba(255, 250, 240, 0.82);
+  border-color: rgba(173, 79, 53, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.targetName {
+  color: var(--ink-dark);
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+  font-weight: 900;
+}
+
+.targetDesc {
+  color: var(--ink-soft);
+}
+
+.targetStatus,
+.lockBadge {
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+  border-radius: 999px;
+}
+
+.targetStatus {
+  color: var(--seal-red-deep);
+  background: rgba(173, 79, 53, 0.08);
+  border: 1px solid rgba(173, 79, 53, 0.2);
+  padding: 0.28rem 0.65rem;
+}
+
+.lockBadge {
+  background: rgba(173, 79, 53, 0.92);
+  color: #fff8e8;
+  box-shadow: 0 8px 18px rgba(127, 53, 36, 0.18);
+}
+
+.mangaBox,
+.calibrationBox {
+  border-radius: 1.15rem;
+  padding: 1.12rem 1.28rem;
+}
+
+.calibrationBox {
+  gap: 0.72rem;
+}
+
+.optionBtn {
+  position: relative;
+  background-image:
+    linear-gradient(180deg, rgba(255, 251, 242, 0.82), rgba(237, 219, 180, 0.7)),
+    var(--skin-option-card);
+  background-size: 100% 100%;
+  background-position: center;
+  border-color: rgba(102, 58, 31, 0.18);
+  border-radius: 1.05rem;
+  padding: 1.18rem 1.45rem;
+  box-shadow:
+    0 10px 22px rgba(74, 45, 26, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.optionBtn::before {
+  content: "";
+  position: absolute;
+  left: 0.55rem;
+  top: 0.62rem;
+  bottom: 0.62rem;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(173, 79, 53, 0.15), rgba(173, 79, 53, 0.46), rgba(173, 79, 53, 0.12));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.optionBtn:hover {
+  background-image:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.9), rgba(242, 226, 192, 0.82)),
+    var(--skin-selected-card);
+  border-color: rgba(173, 79, 53, 0.38);
+  transform: translateX(5px) translateY(-1px);
+}
+
+.optionBtn:hover::before {
+  opacity: 1;
+}
+
+.optionLabel,
+.roundPrompt,
+.mangaTitle,
+.speakerName {
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+  color: var(--ink-dark);
+}
+
+.optionText {
+  color: var(--ink-soft);
+}
+
+.encounterBox {
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+}
+
+.ancestorBubble,
+.subsystemBubble,
+.heroBubble {
+  color: var(--ink-dark);
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.86), rgba(242, 226, 192, 0.78)),
+    var(--skin-panel);
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.ancestorBubble {
+  border-color: rgba(173, 79, 53, 0.32);
+}
+
+.subsystemBubble {
+  border-color: rgba(15, 118, 110, 0.3);
+}
+
+.heroBubble {
+  border-color: rgba(202, 138, 4, 0.32);
+}
+
+.speakerName {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-bottom: 0.35rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: 0.4rem;
+  background: rgba(255, 250, 240, 0.68);
+  border: 1px solid rgba(111, 66, 34, 0.16);
+}
+
+.subsystemBubble .speakerName {
+  color: var(--jade);
+}
+
+.ancestorBubble .speakerName {
+  color: var(--seal-red-deep);
+}
+
+.heroBubble .speakerName {
+  color: #8a5a10;
+}
+
+.geneTraitTag {
+  color: var(--jade);
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.roundDot {
+  background: rgba(107, 65, 35, 0.14);
+  box-shadow: inset 0 1px 2px rgba(59, 35, 20, 0.08);
+}
+
+.roundDotActive {
+  background: linear-gradient(90deg, var(--seal-red), #d68a58);
+}
+
+.roundDotDone {
+  background: linear-gradient(90deg, var(--jade), #49a49a);
+}
+
+.flankPageBtnLeft,
+.flankPageBtnRight {
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.72), rgba(237, 219, 180, 0.72)),
+    var(--skin-page-tab);
+  background-size: 100% 100%;
+  background-position: center;
+  border: none;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 10px 24px rgba(74, 45, 26, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.46);
+}
+
+.flankPageBtnLeft:hover:not(:disabled),
+.flankPageBtnRight:hover:not(:disabled) {
+  background-image:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.86), rgba(244, 226, 190, 0.8)),
+    var(--skin-page-tab);
+  transform: translateY(-2px);
+}
+
+.mangaTextSlots blockquote {
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.82), rgba(242, 226, 192, 0.72)),
+    var(--skin-panel);
+  background-size: 100% 100%;
+  border-left-color: rgba(173, 79, 53, 0.55);
+  color: var(--ink-dark);
+}
+
+.title {
+  color: var(--ink-dark);
+  font-family: "Noto Serif SC", "PingFang SC", serif;
+  letter-spacing: 0.01em;
+}
+
+.subtitle {
+  color: var(--ink-soft);
+}
+
+.stageHeader,
+.header {
+  position: relative;
+  padding: 0.4rem 0 0.2rem;
+}
+
+.stageEyebrow {
+  color: var(--seal-red-deep);
+}
+
+.hostActions {
+  align-items: stretch;
+}
+
+.hostActions .actionBtn {
+  min-height: 3rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-inline: 0.85rem;
+  }
+
+  .topBar {
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .journalBinderStage {
+    border-radius: 1rem;
+    min-height: auto;
+  }
+
+  .journalBinderStage::before {
+    inset: 0.45rem;
+  }
+
+  .soleProtagonistBarRow {
+    gap: 0.7rem;
+  }
+
+  .soleProtagonistBadge,
+  .bottomDockBar,
+  .geneBar {
+    border-radius: 0.9rem;
+  }
+
+  .soleStageCtaBtn,
+  .bottomConfirmSealBtn {
+    border-radius: 0.85rem;
+  }
+
+  .optionBtn {
+    padding: 1rem 1.05rem 1rem 1.22rem;
+  }
+
+  .flankPageBtnLeft,
+  .flankPageBtnRight {
+    width: 3rem;
+    border-radius: 1rem;
+  }
+
+  .mangaHeader {
+    align-items: flex-start;
+  }
+
+  .targetCard {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .targetStatus,
+  .lockBadge {
+    margin-left: 3.9rem;
+  }
+
+  .hostActions {
+    flex-direction: column;
+  }
+}
+
+/* Reincarnation interaction polish v3: usable, tactile, less backend-like. */
+.container {
+  scrollbar-color: rgba(138, 82, 46, 0.42) rgba(239, 224, 189, 0.58);
+}
+
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.container::-webkit-scrollbar-track {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.5), rgba(231, 207, 164, 0.5));
+  border-left: 1px solid rgba(120, 70, 38, 0.1);
+}
+
+.container::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(180deg, rgba(173, 79, 53, 0.44), rgba(113, 66, 35, 0.4));
+  border: 2px solid rgba(239, 224, 189, 0.72);
+  border-radius: 999px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, rgba(173, 79, 53, 0.62), rgba(113, 66, 35, 0.56));
+}
+
+.backBtn:focus-visible,
+.topBindingBtn:focus-visible,
+.topBindingResetBtn:focus-visible,
+.soleStageCtaBtn:focus-visible,
+.dockArrowBtn:focus-visible,
+.dockCard:focus-visible,
+.bottomConfirmSealBtn:focus-visible,
+.flankPageBtnLeft:focus-visible,
+.flankPageBtnRight:focus-visible,
+.optionBtn:focus-visible,
+.actionBtn:focus-visible,
+.secondaryActionBtn:focus-visible,
+.resetGeneButton:focus-visible,
+.beatPager button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255, 250, 240, 0.95),
+    0 0 0 5px rgba(173, 79, 53, 0.42),
+    0 14px 28px rgba(84, 49, 29, 0.16);
+}
+
+.dockArrowBtn:focus-visible {
+  color: var(--seal-red-deep);
+}
+
+.targetAvatar {
+  width: 3.15rem;
+  height: 3.15rem;
+  font-size: 1.25rem;
+  color: var(--seal-red-deep);
+  background-image:
+    radial-gradient(circle at 50% 45%, rgba(255, 250, 240, 0.92), rgba(235, 213, 174, 0.82)),
+    var(--skin-secondary-btn);
+  background-size: 100% 100%;
+}
+
+.targetCardLock .targetAvatar {
+  color: #fff7dc;
+  background-image:
+    linear-gradient(180deg, rgba(180, 77, 52, 0.9), rgba(125, 53, 35, 0.9)),
+    var(--skin-primary-btn);
+}
+
+.geneCodeBadge {
+  background:
+    linear-gradient(135deg, var(--seal-red), var(--seal-red-deep));
+  color: #fff7dc;
+  border: 1px solid rgba(255, 214, 130, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 236, 184, 0.35);
+}
+
+.mangaAssetStatus,
+.mangaBeatMeta,
+.mangaTextSlots small {
+  font-family: "Noto Serif SC", "PingFang SC", "Microsoft YaHei", serif;
+  color: rgba(103, 70, 47, 0.86);
+}
+
+.awakeningShade {
+  background:
+    linear-gradient(180deg, rgba(54, 35, 22, 0.04) 0%, rgba(50, 32, 21, 0.32) 100%);
+}
+
+.systemCore strong,
+.awakeningConstraint strong {
+  font-family: "Noto Serif SC", "PingFang SC", "Microsoft YaHei", serif;
+  letter-spacing: 0.02em;
+}
+
+.systemCore {
+  backdrop-filter: blur(8px);
+}
+
+.awakeningConstraint {
+  border-style: solid;
+}
+
+.actionBtn,
+.secondaryActionBtn,
+.optionBtn,
+.dockCard,
+.flankPageBtnLeft,
+.flankPageBtnRight,
+.bottomConfirmSealBtn,
+.soleStageCtaBtn {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journalBinderStage,
+  .soleStageCtaBtn,
+  .bottomConfirmSealBtn,
+  .actionBtn,
+  .secondaryActionBtn,
+  .optionBtn,
+  .dockCard,
+  .flankPageBtnLeft,
+  .flankPageBtnRight {
+    transition: none;
+  }
+
+  .journalBinderStage:hover,
+  .soleStageCtaBtn:hover,
+  .bottomConfirmSealBtn:hover,
+  .actionBtn:hover,
+  .secondaryActionBtn:hover,
+  .optionBtn:hover,
+  .dockCard:hover,
+  .flankPageBtnLeft:hover:not(:disabled),
+  .flankPageBtnRight:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* Reincarnation material visibility v4:
+   Make imported bitmap skins visibly participate instead of being buried under paper gradients. */
+.stageCard {
+  position: relative;
+}
+
+.stageCard::before {
+  content: "";
+  position: fixed;
+  inset: 8.5rem 2.4rem 1.6rem;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.22), rgba(222, 195, 149, 0.2)),
+    url("/assets/ui/paper/warm_journal_stage_bg.webp");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.34;
+  filter: saturate(0.92) contrast(1.04);
+}
+
+.journalBinderStage,
+.mangaStoryFrame {
+  background-image:
+    url("/assets/ui/paper/warm_xianxia_paper.webp"),
+    linear-gradient(115deg, rgba(255, 251, 242, 0.68), rgba(239, 219, 178, 0.58));
+  background-blend-mode: multiply, normal;
+}
+
+.mangaBox,
+.calibrationBox,
+.systemCore,
+.awakeningConstraint,
+.targetCard,
+.encounterBox,
+.radarContainer,
+.mangaTextSlots blockquote,
+.dialogueBubble,
+.dossierQuote,
+.mangaQuote {
+  background-image:
+    var(--skin-panel),
+    linear-gradient(180deg, rgba(255, 251, 242, 0.62), rgba(239, 220, 181, 0.54));
+  background-size: 100% 100%, 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-color: rgba(112, 63, 31, 0.34);
+  box-shadow:
+    0 18px 38px rgba(62, 38, 23, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.48);
+}
+
+.mangaBox,
+.calibrationBox,
+.encounterBox,
+.radarContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.mangaBox::before,
+.calibrationBox::before,
+.encounterBox::before,
+.radarContainer::after {
+  content: "";
+  position: absolute;
+  right: 1.1rem;
+  bottom: 0.7rem;
+  width: 118px;
+  height: 58px;
+  pointer-events: none;
+  background: url("/assets/ui/paper/warm_vermilion_seal.webp") center / contain no-repeat;
+  opacity: 0.16;
+  mix-blend-mode: multiply;
+}
+
+.calibrationBox::before {
+  top: 0.8rem;
+  bottom: auto;
+  opacity: 0.1;
+}
+
+.mangaHeader::after,
+.dossierHeader::after {
+  opacity: 0.72;
+  filter: contrast(1.12) saturate(1.08);
+}
+
+.optionBtn,
+.dockCard {
+  background-image:
+    var(--skin-option-card),
+    linear-gradient(180deg, rgba(255, 251, 242, 0.58), rgba(234, 215, 176, 0.44));
+  background-size: 100% 100%, 100% 100%;
+  background-position: center;
+  border-color: rgba(101, 57, 28, 0.3);
+}
+
+.optionBtn:hover,
+.dockCard:hover {
+  background-image:
+    var(--skin-selected-card),
+    linear-gradient(180deg, rgba(255, 250, 240, 0.56), rgba(239, 218, 177, 0.44));
+}
+
+.dockCardSelected {
+  background-image:
+    var(--skin-selected-card),
+    linear-gradient(180deg, rgba(177, 80, 54, 0.62), rgba(122, 51, 34, 0.68));
+  background-blend-mode: normal, multiply;
+}
+
+.soleProtagonistBadge,
+.bottomDockBar,
+.geneBar {
+  background-image:
+    var(--skin-bottom-bar),
+    linear-gradient(180deg, rgba(255, 250, 240, 0.48), rgba(232, 211, 170, 0.38));
+  background-size: 100% 100%, 100% 100%;
+  border-color: rgba(110, 63, 32, 0.32);
+}
+
+.soleStageCtaBtn,
+.bottomConfirmSealBtn,
+.actionBtn[data-variant="forward"],
+.targetCardLock .targetAvatar {
+  background-image:
+    var(--skin-primary-btn),
+    linear-gradient(180deg, rgba(202, 92, 62, 0.72), rgba(128, 51, 34, 0.78));
+  background-size: 100% 100%, 100% 100%;
+  background-blend-mode: normal, multiply;
+}
+
+.actionBtn,
+.secondaryActionBtn,
+.resetGeneButton,
+.actionBtn[data-variant="back"],
+.backBtn,
+.stepBadge,
+.existingBindingBadge,
+.targetAvatar {
+  background-image:
+    var(--skin-secondary-btn),
+    linear-gradient(180deg, rgba(255, 250, 240, 0.54), rgba(235, 216, 178, 0.42));
+  background-size: 100% 100%, 100% 100%;
+  border-color: rgba(102, 58, 31, 0.28);
+}
+
+.flankPageBtnLeft,
+.flankPageBtnRight {
+  background-image:
+    var(--skin-page-tab),
+    linear-gradient(180deg, rgba(255, 250, 240, 0.44), rgba(235, 214, 175, 0.36));
+  background-size: 100% 100%, 100% 100%;
+  filter: saturate(1.06) contrast(1.03);
+}
+
+.flankPageBtnLeft:hover:not(:disabled),
+.flankPageBtnRight:hover:not(:disabled) {
+  background-image:
+    var(--skin-page-tab),
+    linear-gradient(180deg, rgba(255, 253, 247, 0.38), rgba(244, 226, 190, 0.34));
+}
+
+.speakerName,
+.geneTraitTag,
+.truckBadge,
+.dossierBadge {
+  background-image:
+    url("/assets/ui/paper/warm_torn_paper_tag.webp"),
+    linear-gradient(180deg, rgba(255, 250, 240, 0.55), rgba(234, 212, 171, 0.35));
+  background-size: 100% 100%, 100% 100%;
+  background-position: center;
+  border-color: rgba(123, 70, 36, 0.28);
+}
+
+.geneCodeBadge,
+.lockBadge {
+  background-image:
+    var(--skin-primary-btn),
+    linear-gradient(180deg, rgba(174, 75, 51, 0.76), rgba(118, 48, 32, 0.84));
+  background-size: 100% 100%, 100% 100%;
+}
+
+@media (max-width: 768px) {
+  .stageCard::before {
+    inset: 7rem 0.6rem 1rem;
+    border-radius: 1.2rem;
+    opacity: 0.24;
+  }
+}
+

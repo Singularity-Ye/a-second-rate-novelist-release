@@ -1,0 +1,1266 @@
+{
+  "accounts": [
+    {
+      "account_id": "88ff0877-06a3-483b-9eba-3359d54296ef",
+      "account_token": "probe-staging-ldrun-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T06:59:02.997Z",
+      "updated_at": "2026-03-31T06:59:02.997Z"
+    },
+    {
+      "account_id": "27b2ba60-fede-4c10-95d5-a976a55c73a1",
+      "account_token": "probe-staging-ldrun-raw-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T06:59:28.534Z",
+      "updated_at": "2026-03-31T06:59:28.534Z"
+    },
+    {
+      "account_id": "1d18f576-b03c-4117-abce-0bf3e3f2cdc7",
+      "account_token": "probe-staging-new-url-001",
+      "account_status": "guest",
+      "primary_channel": "wechat",
+      "created_at": "2026-03-31T07:02:15.119Z",
+      "updated_at": "2026-03-31T07:02:15.119Z"
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": "89d92619-9e21-4f15-8f5f-986d125ce053",
+      "account_id": "88ff0877-06a3-483b-9eba-3359d54296ef",
+      "device_id": "f7c874a1-7067-42b7-9928-386ac1b7daf5",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T06:59:02.998Z"
+    },
+    {
+      "session_id": "8eef2b6f-c0ce-447b-ab2a-d6bcefd1a4b0",
+      "account_id": "27b2ba60-fede-4c10-95d5-a976a55c73a1",
+      "device_id": "bbf32d65-293f-429c-abb7-382a346e3ef5",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T06:59:28.535Z"
+    },
+    {
+      "session_id": "0eeacf83-2aa2-428c-ae5f-ef88f952df5b",
+      "account_id": "1d18f576-b03c-4117-abce-0bf3e3f2cdc7",
+      "device_id": "a7000aa0-18cd-483a-986f-4f6ca71e1345",
+      "device_type": "h5",
+      "revoked_at": null,
+      "last_seen_at": "2026-03-31T07:02:15.119Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "80386577-8a00-462a-ad2e-70b38fbb0911",
+      "channel_message_id": "probe-staging-ldrun-001",
+      "channel": "wechat",
+      "text": "check deep link",
+      "account_id": "88ff0877-06a3-483b-9eba-3359d54296ef",
+      "created_at": "2026-03-31T06:59:02.998Z"
+    },
+    {
+      "id": "03de2644-643f-490f-b3ac-414d131abbee",
+      "channel_message_id": "probe-staging-ldrun-raw-001",
+      "channel": "wechat",
+      "text": "check deep link raw",
+      "account_id": "27b2ba60-fede-4c10-95d5-a976a55c73a1",
+      "created_at": "2026-03-31T06:59:28.535Z"
+    },
+    {
+      "id": "4a11953f-bbe8-4c10-868d-e7d4a784b4de",
+      "channel_message_id": "probe-staging-new-url-001",
+      "channel": "wechat",
+      "text": "check deep link new url",
+      "account_id": "1d18f576-b03c-4117-abce-0bf3e3f2cdc7",
+      "created_at": "2026-03-31T07:02:15.120Z"
+    }
+  ],
+  "deepLinks": [],
+  "storyWorkspaces": [],
+  "storyIntakeSessions": [],
+  "storyProposals": [],
+  "chapters": [],
+  "chapterRevisions": [],
+  "runtimeTasks": [],
+  "notifications": [],
+  "onboardingSessions": [],
+  "profiles": [],
+  "chatRouteDecisions": [
+    {
+      "id": "1b3dbe6c-2469-400c-8548-285fb5f3ccee",
+      "message_id": "80386577-8a00-462a-ad2e-70b38fbb0911",
+      "account_id": "88ff0877-06a3-483b-9eba-3359d54296ef",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T06:59:02.999Z",
+      "updated_at": "2026-03-31T06:59:02.999Z"
+    },
+    {
+      "id": "e4f3a570-468a-41b5-a97c-9d7a5d51d6e3",
+      "message_id": "03de2644-643f-490f-b3ac-414d131abbee",
+      "account_id": "27b2ba60-fede-4c10-95d5-a976a55c73a1",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T06:59:28.536Z",
+      "updated_at": "2026-03-31T06:59:28.536Z"
+    },
+    {
+      "id": "ec42d7ff-19c3-47c8-a9a2-e6aa3be70c16",
+      "message_id": "4a11953f-bbe8-4c10-868d-e7d4a784b4de",
+      "account_id": "1d18f576-b03c-4117-abce-0bf3e3f2cdc7",
+      "candidate_story_ids": [],
+      "selected_story_id": null,
+      "confidence_score": 0.12,
+      "route_mode": "parked",
+      "status": "parked_to_recent",
+      "reason_summary": {
+        "matched_story_ids": [],
+        "active_story_id": null,
+        "recent_story_id": null,
+        "fallback_mode": "recent_notes"
+      },
+      "created_at": "2026-03-31T07:02:15.121Z",
+      "updated_at": "2026-03-31T07:02:15.121Z"
+    }
+  ],
+  "messageIntents": [
+    {
+      "id": "0e4b9717-5ba2-415a-afd0-6d929501f376",
+      "message_id": "80386577-8a00-462a-ad2e-70b38fbb0911",
+      "account_id": "88ff0877-06a3-483b-9eba-3359d54296ef",
+      "channel_message_id": "probe-staging-ldrun-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://flat-baths-grow.loca.lt/chat?token=eyJhY2NvdW50X2lkIjoiODhmZjA4NzctMDZhMy00ODNiLTllYmEtMzM1OWQ1NDI5NmVmIiwiYWNjb3VudF90b2tlbiI6InByb2JlLXN0YWdpbmctbGRydW4tMDAxIiwidGFyZ2V0X3JvdXRlIjoiL2NoYXQiLCJleHBpcmVzX2F0IjoiMjAyNi0wMy0zMVQwNzoyOTowMi45OTdaIn0.SBWZrzQr87hezu23ZtM9zIjvsjlH6-1AVEZZX7mQZyc&routeDecisionId=1b3dbe6c-2469-400c-8548-285fb5f3ccee",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T06:59:03.000Z",
+      "updated_at": "2026-03-31T06:59:03.000Z"
+    },
+    {
+      "id": "0d657d7c-f456-4daf-a0cb-20b49e5638ec",
+      "message_id": "03de2644-643f-490f-b3ac-414d131abbee",
+      "account_id": "27b2ba60-fede-4c10-95d5-a976a55c73a1",
+      "channel_message_id": "probe-staging-ldrun-raw-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://flat-baths-grow.loca.lt/chat?token=eyJhY2NvdW50X2lkIjoiMjdiMmJhNjAtZmVkZS00YzEwLTk1ZDUtYTk3NmE1NWM3M2ExIiwiYWNjb3VudF90b2tlbiI6InByb2JlLXN0YWdpbmctbGRydW4tcmF3LTAwMSIsInRhcmdldF9yb3V0ZSI6Ii9jaGF0IiwiZXhwaXJlc19hdCI6IjIwMjYtMDMtMzFUMDc6Mjk6MjguNTM0WiJ9.Das-xCQ4LxnmMo2cvt5XPKQ2TMlg0uAeeKSQ72ytd34&routeDecisionId=e4f3a570-468a-41b5-a97c-9d7a5d51d6e3",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T06:59:28.537Z",
+      "updated_at": "2026-03-31T06:59:28.537Z"
+    },
+    {
+      "id": "7c17ee07-e07a-4bd8-ac87-11306ff5859c",
+      "message_id": "4a11953f-bbe8-4c10-868d-e7d4a784b4de",
+      "account_id": "1d18f576-b03c-4117-abce-0bf3e3f2cdc7",
+      "channel_message_id": "probe-staging-new-url-001",
+      "final_intent": "recent_note",
+      "intent_type": "recent_note",
+      "target_type": "recent_notes",
+      "target_id": null,
+      "target_label": "最近记下",
+      "ack_copy": "我先替你记到最近记下，等你决定是开新坑还是归到旧故事。",
+      "deep_link": "https://bd01d8fea75dc0.lhr.life/chat?token=eyJhY2NvdW50X2lkIjoiMWQxOGY1NzYtYjAzYy00MTE3LWFiY2UtMGJmM2UzZjJjZGM3IiwiYWNjb3VudF90b2tlbiI6InByb2JlLXN0YWdpbmctbmV3LXVybC0wMDEiLCJ0YXJnZXRfcm91dGUiOiIvY2hhdCIsImV4cGlyZXNfYXQiOiIyMDI2LTAzLTMxVDA3OjMyOjE1LjExOVoifQ.Rf2q6WCCxWYY21x4vSoPeEM4pHM9DvaAdRURWbzotFU&routeDecisionId=ec42d7ff-19c3-47c8-a9a2-e6aa3be70c16",
+      "confidence_band": "low",
+      "patch_document": null,
+      "status": "acknowledged",
+      "version_no": 1,
+      "created_at": "2026-03-31T07:02:15.122Z",
+      "updated_at": "2026-03-31T07:02:15.122Z"
+    }
+  ],
+  "relationshipContextMemories": [],
+  "canonItems": [],
+  "canonPatches": [],
+  "continuityIssues": [],
+  "contextBundles": [],
+  "storyBranches": [],
+  "branchMergeProposals": [],
+  "referenceAssets": [],
+  "assetExtractResults": [],
+  "assetAttachments": [],
+  "personaStateSnapshots": [],
+  "accountIdentities": [],
+  "syncConflicts": [],
+  "notificationPreferences": [],
+  "membershipPlans": [],
+  "membershipEntitlements": [],
+  "membershipOrders": [],
+  "privacyDataRequests": [],
+  "riskChecks": [],
+  "exportJobs": [],
+  "exportArtifacts": [],
+  "evidencePacks": [],
+  "labelWaiverRequests": [],
+  "eventLogs": [
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "shared-dev",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "event_name": "release_rollback",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+        "environment_key": "staging",
+        "rollback_reason": "recovery smoke rollback"
+      },
+      "created_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "88ff0877-06a3-483b-9eba-3359d54296ef",
+      "payload": {
+        "message_id": "80386577-8a00-462a-ad2e-70b38fbb0911",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T06:59:02.998Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "88ff0877-06a3-483b-9eba-3359d54296ef",
+      "payload": {
+        "intent_id": "0e4b9717-5ba2-415a-afd0-6d929501f376",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T06:59:03.000Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "88ff0877-06a3-483b-9eba-3359d54296ef",
+      "payload": {
+        "route_decision_id": "1b3dbe6c-2469-400c-8548-285fb5f3ccee",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T06:59:03.000Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T06:59:13.830Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "27b2ba60-fede-4c10-95d5-a976a55c73a1",
+      "payload": {
+        "message_id": "03de2644-643f-490f-b3ac-414d131abbee",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T06:59:28.536Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "27b2ba60-fede-4c10-95d5-a976a55c73a1",
+      "payload": {
+        "intent_id": "0d657d7c-f456-4daf-a0cb-20b49e5638ec",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T06:59:28.537Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "27b2ba60-fede-4c10-95d5-a976a55c73a1",
+      "payload": {
+        "route_decision_id": "e4f3a570-468a-41b5-a97c-9d7a5d51d6e3",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T06:59:28.538Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T06:59:39.758Z"
+    },
+    {
+      "event_name": "chat_message_submitted",
+      "account_id": "1d18f576-b03c-4117-abce-0bf3e3f2cdc7",
+      "payload": {
+        "message_id": "4a11953f-bbe8-4c10-868d-e7d4a784b4de",
+        "channel": "wechat",
+        "has_attachment": false,
+        "active_story_id": null,
+        "surface": "chat"
+      },
+      "created_at": "2026-03-31T07:02:15.120Z"
+    },
+    {
+      "event_name": "chat_ack_rendered",
+      "account_id": "1d18f576-b03c-4117-abce-0bf3e3f2cdc7",
+      "payload": {
+        "intent_id": "7c17ee07-e07a-4bd8-ac87-11306ff5859c",
+        "intent_type": "recent_note",
+        "target_type": "recent_notes",
+        "deep_link_present": true
+      },
+      "created_at": "2026-03-31T07:02:15.122Z"
+    },
+    {
+      "event_name": "chat_story_routed",
+      "account_id": "1d18f576-b03c-4117-abce-0bf3e3f2cdc7",
+      "payload": {
+        "route_decision_id": "ec42d7ff-19c3-47c8-a9a2-e6aa3be70c16",
+        "story_id": null,
+        "confidence_score": 0.12,
+        "route_mode": "parked"
+      },
+      "created_at": "2026-03-31T07:02:15.122Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:02:15.226Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "57b586fa-7d08-46fe-84c9-991edbf0692e",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-31T07:03:07.307Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "57b586fa-7d08-46fe-84c9-991edbf0692e",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-31T07:03:07.860Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:03:08.983Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:07:41.741Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "75f3f9e3-b3d7-40da-8d46-24412a1248c3",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-31T07:08:35.334Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "75f3f9e3-b3d7-40da-8d46-24412a1248c3",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-31T07:08:35.944Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:08:37.037Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:08:40.960Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:08:41.810Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "1b6ac2f9-00a7-401c-b9fa-dc349d038d5b",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-31T07:09:50.535Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "1b6ac2f9-00a7-401c-b9fa-dc349d038d5b",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-31T07:09:51.159Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:09:52.291Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:09:55.975Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:09:56.850Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "e3b5b960-5ae6-4fb9-85cd-62dc891f69df",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-31T07:15:18.601Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "e3b5b960-5ae6-4fb9-85cd-62dc891f69df",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-31T07:15:19.160Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:15:20.503Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:15:24.817Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:15:25.662Z"
+    },
+    {
+      "event_name": "release_start",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "b3658bce-a500-4e4e-ae1e-2b62d264ed08",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "pending"
+      },
+      "created_at": "2026-03-31T07:16:09.176Z"
+    },
+    {
+      "event_name": "release_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "b3658bce-a500-4e4e-ae1e-2b62d264ed08",
+        "environment_key": "staging",
+        "artifact_sha": "staging-abcdef12",
+        "migration_status": "succeeded"
+      },
+      "created_at": "2026-03-31T07:16:09.714Z"
+    },
+    {
+      "event_name": "restore_drill_complete",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:16:10.796Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:16:15.593Z"
+    },
+    {
+      "event_name": "environment_health_change",
+      "account_id": "ops_console",
+      "payload": {
+        "environment": "staging",
+        "health_status": "healthy"
+      },
+      "created_at": "2026-03-31T07:16:16.460Z"
+    }
+  ],
+  "auditLogs": [],
+  "metricSnapshots": [],
+  "opsCases": [],
+  "reviewDecisions": [],
+  "opsAuditLogs": [
+    {
+      "id": "8596f526-adb2-492c-95db-42ab764432ef",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "id": "0a65240f-8130-4ca0-9dd3-b46808ec010a",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "98e34613-8b13-4156-87c2-80fe3bdf4035"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "id": "a3d9e9ef-39b7-464f-9124-1e6313418651",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "26a0de8c-7909-43e2-8efe-4020fb57e7a4"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "id": "754929f2-82de-4682-8bd1-01498e381b66",
+      "actor_role": "admin",
+      "action": "release_rollback",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "c13020ec-e739-4f00-aa56-9940e73bd21e"
+      },
+      "payload": {
+        "rollback_reason": "recovery smoke rollback",
+        "include_migration_restore": true
+      },
+      "created_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "id": "28ec9833-1ab8-4947-8c91-f8813f370cf2",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "57b586fa-7d08-46fe-84c9-991edbf0692e"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:03:07.307Z"
+    },
+    {
+      "id": "f2ce09b5-cdcd-4509-8257-61e1457c020e",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "5df4b3d7-c7d5-4a2f-9506-e3f86eca49dd"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:03:07.860Z"
+    },
+    {
+      "id": "98c72be1-73d4-451e-a04a-c82f2401557d",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "fc4cf33a-fc58-4d4c-a16c-93b6de6fd736"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:03:08.982Z"
+    },
+    {
+      "id": "b89becb8-85c2-4211-950e-9892e2189fc2",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "75f3f9e3-b3d7-40da-8d46-24412a1248c3"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:08:35.334Z"
+    },
+    {
+      "id": "f34fa75b-1ba1-4af9-9c02-10d208da4944",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "dfcccb97-2a70-448f-8ac3-5a0f200ee4f3"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:08:35.944Z"
+    },
+    {
+      "id": "fc20344f-1813-43b5-b102-0f243e400e15",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "781fded6-fea8-4b1a-bc1b-057084f010d2"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:08:37.037Z"
+    },
+    {
+      "id": "425a70c6-83c7-4115-bfb6-50102fc34dbf",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "1b6ac2f9-00a7-401c-b9fa-dc349d038d5b"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:09:50.535Z"
+    },
+    {
+      "id": "82d5ed4e-1df4-413b-9a8e-716bdbb0bd02",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "dbe6c784-12f8-4d4a-b48b-15fd6b8a94fa"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:09:51.159Z"
+    },
+    {
+      "id": "f16f3f90-7288-4124-88e3-c71e0a8cf4ff",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "c72294e4-91b7-445b-a5bb-d7fde9ab1b91"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:09:52.291Z"
+    },
+    {
+      "id": "1b27a08c-bfc4-443f-8bfc-28c72af4eccb",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "e3b5b960-5ae6-4fb9-85cd-62dc891f69df"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:15:18.601Z"
+    },
+    {
+      "id": "19939336-85cb-405f-92bb-699479e1535c",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "a4168401-ae2a-409f-b1ad-4f81c22404d3"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:15:19.160Z"
+    },
+    {
+      "id": "0a70e0a9-06db-46ff-9b3a-f2c15ac0e046",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "554f5f5b-640d-461e-ab60-c61a7336c407"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:15:20.503Z"
+    },
+    {
+      "id": "1987c749-73e0-48f3-9fa2-55aacde35ab9",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "b3658bce-a500-4e4e-ae1e-2b62d264ed08"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:16:09.176Z"
+    },
+    {
+      "id": "5c878c6b-a3a7-418c-b99e-1ce0f7676255",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "9c990e46-91b6-44a1-a1f2-119fd62c5b83"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-03-31T07:16:09.714Z"
+    },
+    {
+      "id": "f3c740c8-16f1-44da-8078-16276395ef6d",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "dc8d1659-03d8-452c-ab49-cb37582f126b"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-03-31T07:16:10.796Z"
+    }
+  ],
+  "environmentRegistry": [
+    {
+      "environment_key": "shared-dev",
+      "domain": "https://62d7cc2c5e55d0.lhr.life",
+      "release_version": "seed-shared-dev",
+      "health_status": "healthy",
+      "blockers": [],
+      "artifact_channel": "shared-dev",
+      "secret_scope": "shared-dev",
+      "last_deploy_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "environment_key": "staging",
+      "domain": "https://bd01d8fea75dc0.lhr.life",
+      "release_version": "staging-abcdef12",
+      "health_status": "healthy",
+      "blockers": [],
+      "artifact_channel": "staging",
+      "secret_scope": "staging",
+      "last_deploy_at": "2026-03-31T07:16:09.714Z"
+    },
+    {
+      "environment_key": "live",
+      "domain": "live.erliu.local",
+      "release_version": "seed-live",
+      "health_status": "healthy",
+      "blockers": [],
+      "artifact_channel": "live",
+      "secret_scope": "live",
+      "last_deploy_at": "2026-03-30T19:37:09.542Z"
+    }
+  ],
+  "releaseCandidates": [
+    {
+      "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-046-001",
+      "change_summary": "M3 release chain smoke",
+      "status": "planned",
+      "verification_plan_id": "c67cf011-53cc-483b-874b-dca362914a24",
+      "created_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "release_id": "57b586fa-7d08-46fe-84c9-991edbf0692e",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-preview-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-hosted-preview-001",
+      "change_summary": "Hosted preview gate rerun for staging.",
+      "status": "planned",
+      "verification_plan_id": "959a0c50-af02-46ba-888f-f1ab00d7f332",
+      "created_at": "2026-03-31T07:03:07.307Z"
+    },
+    {
+      "release_id": "75f3f9e3-b3d7-40da-8d46-24412a1248c3",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-preview-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-hosted-preview-001",
+      "change_summary": "Hosted preview gate rerun for staging.",
+      "status": "planned",
+      "verification_plan_id": "2a614de7-b91e-4764-ba8a-2ea71e9d8694",
+      "created_at": "2026-03-31T07:08:35.334Z"
+    },
+    {
+      "release_id": "1b6ac2f9-00a7-401c-b9fa-dc349d038d5b",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-preview-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-hosted-preview-001",
+      "change_summary": "Hosted preview gate rerun for staging.",
+      "status": "planned",
+      "verification_plan_id": "16fe0a5a-68d7-4463-a918-a3fb7b854d32",
+      "created_at": "2026-03-31T07:09:50.535Z"
+    },
+    {
+      "release_id": "e3b5b960-5ae6-4fb9-85cd-62dc891f69df",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-preview-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-hosted-preview-001",
+      "change_summary": "Hosted preview gate rerun for staging.",
+      "status": "planned",
+      "verification_plan_id": "d67e9eec-88fb-4649-b3cc-7dc41b0fdea9",
+      "created_at": "2026-03-31T07:15:18.601Z"
+    },
+    {
+      "release_id": "b3658bce-a500-4e4e-ae1e-2b62d264ed08",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-preview-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-hosted-preview-001",
+      "change_summary": "Hosted preview gate rerun for staging.",
+      "status": "planned",
+      "verification_plan_id": "a018f690-6c23-4c5c-9953-7467950508ba",
+      "created_at": "2026-03-31T07:16:09.176Z"
+    }
+  ],
+  "deploymentRuns": [
+    {
+      "deployment_id": "98e34613-8b13-4156-87c2-80fe3bdf4035",
+      "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-30T19:37:09.543Z",
+      "completed_at": "2026-03-30T19:37:09.543Z"
+    },
+    {
+      "deployment_id": "c13020ec-e739-4f00-aa56-9940e73bd21e",
+      "release_id": "b3750dd3-a1bb-4a44-8dea-ccf003e581bf",
+      "from_environment": "staging",
+      "to_environment": "staging",
+      "status": "rolled_back",
+      "verification_result": "passed",
+      "migration_status": "restored",
+      "started_at": "2026-03-30T19:37:09.549Z",
+      "completed_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "deployment_id": "5df4b3d7-c7d5-4a2f-9506-e3f86eca49dd",
+      "release_id": "57b586fa-7d08-46fe-84c9-991edbf0692e",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-31T07:03:07.860Z",
+      "completed_at": "2026-03-31T07:03:07.860Z"
+    },
+    {
+      "deployment_id": "dfcccb97-2a70-448f-8ac3-5a0f200ee4f3",
+      "release_id": "75f3f9e3-b3d7-40da-8d46-24412a1248c3",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-31T07:08:35.943Z",
+      "completed_at": "2026-03-31T07:08:35.943Z"
+    },
+    {
+      "deployment_id": "dbe6c784-12f8-4d4a-b48b-15fd6b8a94fa",
+      "release_id": "1b6ac2f9-00a7-401c-b9fa-dc349d038d5b",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-31T07:09:51.159Z",
+      "completed_at": "2026-03-31T07:09:51.159Z"
+    },
+    {
+      "deployment_id": "a4168401-ae2a-409f-b1ad-4f81c22404d3",
+      "release_id": "e3b5b960-5ae6-4fb9-85cd-62dc891f69df",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-31T07:15:19.160Z",
+      "completed_at": "2026-03-31T07:15:19.160Z"
+    },
+    {
+      "deployment_id": "9c990e46-91b6-44a1-a1f2-119fd62c5b83",
+      "release_id": "b3658bce-a500-4e4e-ae1e-2b62d264ed08",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-03-31T07:16:09.714Z",
+      "completed_at": "2026-03-31T07:16:09.714Z"
+    }
+  ],
+  "backupSnapshots": [
+    {
+      "snapshot_id": "8adc2e31-5891-4c83-b9dc-c28b6f5c421e",
+      "environment_key": "shared-dev",
+      "snapshot_type": "database",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "5cda05b3-dcfd-4ed7-bd8b-683ff9ceecff",
+      "environment_key": "shared-dev",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "60008f6f-e73c-4698-8fa0-98b1a3086846",
+      "environment_key": "shared-dev",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "snapshot_type": "database",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "c4863193-768d-4dc1-b425-3e90f56e633c",
+      "environment_key": "staging",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "9ec06987-7591-40ab-bb3b-d028ffd2a2a2",
+      "environment_key": "staging",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "d3773d76-390c-47ef-a625-d2dc1c851ea0",
+      "environment_key": "live",
+      "snapshot_type": "database",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "0ca714c7-0f11-4943-bbc4-a02e6394e5c6",
+      "environment_key": "live",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    },
+    {
+      "snapshot_id": "37ca0cc9-ee1e-4e6c-a464-042fffb98807",
+      "environment_key": "live",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-03-30T19:37:09.542Z",
+      "retained_until": "2026-04-06T19:37:09.542Z",
+      "created_at": "2026-03-30T19:37:09.542Z"
+    }
+  ],
+  "restoreDrills": [
+    {
+      "drill_id": "26a0de8c-7909-43e2-8efe-4020fb57e7a4",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-30T19:37:09.549Z",
+      "completed_at": "2026-03-30T19:37:09.549Z"
+    },
+    {
+      "drill_id": "fc4cf33a-fc58-4d4c-a16c-93b6de6fd736",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-31T07:03:08.982Z",
+      "completed_at": "2026-03-31T07:03:08.982Z"
+    },
+    {
+      "drill_id": "781fded6-fea8-4b1a-bc1b-057084f010d2",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-31T07:08:37.037Z",
+      "completed_at": "2026-03-31T07:08:37.037Z"
+    },
+    {
+      "drill_id": "c72294e4-91b7-445b-a5bb-d7fde9ab1b91",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-31T07:09:52.291Z",
+      "completed_at": "2026-03-31T07:09:52.291Z"
+    },
+    {
+      "drill_id": "554f5f5b-640d-461e-ab60-c61a7336c407",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-31T07:15:20.503Z",
+      "completed_at": "2026-03-31T07:15:20.503Z"
+    },
+    {
+      "drill_id": "dc8d1659-03d8-452c-ab49-cb37582f126b",
+      "snapshot_id": "06996c1f-5624-46d8-9292-5b98d07b3378",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-03-31T07:16:10.796Z",
+      "completed_at": "2026-03-31T07:16:10.796Z"
+    }
+  ],
+  "alertIncidents": []
+}

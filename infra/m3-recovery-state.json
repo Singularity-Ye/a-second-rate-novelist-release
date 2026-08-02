@@ -1,0 +1,407 @@
+{
+  "accounts": [],
+  "sessions": [],
+  "messages": [],
+  "intentEnvelopes": [],
+  "deepLinks": [],
+  "storyWorkspaces": [],
+  "storyIntakeSessions": [],
+  "storyProposals": [],
+  "chapters": [],
+  "chapterRevisions": [],
+  "runtimeTasks": [],
+  "notifications": [],
+  "onboardingSessions": [],
+  "profiles": [],
+  "chatRouteDecisions": [],
+  "messageIntents": [],
+  "channelEvents": [],
+  "channelDeliveries": [],
+  "multimodalArtifacts": [],
+  "relationshipContextMemories": [],
+  "canonItems": [],
+  "canonPatches": [],
+  "continuityIssues": [],
+  "contextBundles": [],
+  "storyBranches": [],
+  "branchMergeProposals": [],
+  "referenceAssets": [],
+  "assetExtractResults": [],
+  "assetAttachments": [],
+  "personaStateSnapshots": [],
+  "accountIdentities": [],
+  "syncConflicts": [],
+  "notificationPreferences": [],
+  "membershipPlans": [],
+  "membershipEntitlements": [],
+  "membershipOrders": [],
+  "privacyDataRequests": [],
+  "riskChecks": [],
+  "riskReports": [],
+  "exportJobs": [],
+  "exportArtifacts": [],
+  "evidencePacks": [],
+  "deliveryManifests": [],
+  "labelWaiverRequests": [],
+  "reportCases": [],
+  "eventLogs": [
+    {
+      "event_name": "release_failed",
+      "account_id": "ops_console",
+      "payload": {
+        "release_id": "a6add946-2881-4807-b6fa-7b2f701ff233",
+        "environment_key": "staging",
+        "failure_reason": "REL-003 artifact verification failed"
+      },
+      "created_at": "2026-04-05T17:08:01.228Z"
+    },
+    {
+      "event_name": "restore_drill_failed",
+      "account_id": "ops_console",
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "failed"
+      },
+      "created_at": "2026-04-05T17:08:01.231Z"
+    }
+  ],
+  "auditLogs": [],
+  "policyEvaluations": [],
+  "metricSnapshots": [],
+  "opsCases": [],
+  "reviewDecisions": [],
+  "opsAuditLogs": [
+    {
+      "id": "5fca681d-e2a1-4216-a118-8bab2abcecd0",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "5722a00a-5a0e-4162-8236-6bb36d9ef3e6"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-04-05T17:08:01.215Z"
+    },
+    {
+      "id": "6ab30bcf-66be-4f5b-a2a2-481dfb056a64",
+      "actor_role": "admin",
+      "action": "release_promote",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "65509855-d5dd-4df5-8106-1fdbecbf82f8"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging"
+      },
+      "created_at": "2026-04-05T17:08:01.217Z"
+    },
+    {
+      "id": "83149998-12bd-4d83-a29e-70e410637e0f",
+      "actor_role": "admin",
+      "action": "restore_drill_complete",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "0d7eeaa3-1487-4e87-a765-fd3d7c034122"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "passed"
+      },
+      "created_at": "2026-04-05T17:08:01.224Z"
+    },
+    {
+      "id": "08098598-cb17-485c-8f07-8ca3f9be9966",
+      "actor_role": "admin",
+      "action": "release_rollback",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "34ec1ae6-c4b2-4a62-bb93-f192699c493e"
+      },
+      "payload": {
+        "rollback_reason": "recovery smoke rollback",
+        "include_migration_restore": true
+      },
+      "created_at": "2026-04-05T17:08:01.226Z"
+    },
+    {
+      "id": "609ae15f-6bee-478c-b561-33d6564553f0",
+      "actor_role": "admin",
+      "action": "release_candidate_create",
+      "entity_ref": {
+        "entity_type": "release_candidate",
+        "entity_id": "a6add946-2881-4807-b6fa-7b2f701ff233"
+      },
+      "payload": {
+        "target_environment": "staging"
+      },
+      "created_at": "2026-04-05T17:08:01.227Z"
+    },
+    {
+      "id": "97a56416-f320-4c89-8899-0dd7db097854",
+      "actor_role": "admin",
+      "action": "release_promote_failed",
+      "entity_ref": {
+        "entity_type": "deployment_run",
+        "entity_id": "71248ba9-d978-4996-ba02-03db133145d1"
+      },
+      "payload": {
+        "from_environment": "shared-dev",
+        "to_environment": "staging",
+        "failure_reason": "REL-003 artifact verification failed"
+      },
+      "created_at": "2026-04-05T17:08:01.227Z"
+    },
+    {
+      "id": "dae1dcb7-7aab-42bb-967e-d68d696db639",
+      "actor_role": "admin",
+      "action": "restore_drill_failed",
+      "entity_ref": {
+        "entity_type": "restore_drill",
+        "entity_id": "7f5954ab-b09b-4038-bbbc-c4b482be3bf4"
+      },
+      "payload": {
+        "environment_key": "staging",
+        "snapshot_type": "database",
+        "drill_result": "failed"
+      },
+      "created_at": "2026-04-05T17:08:01.229Z"
+    }
+  ],
+  "environmentRegistry": [
+    {
+      "environment_key": "shared-dev",
+      "domain": "https://shared-dev.lumialove.xn--6qq986b3xl",
+      "release_version": "seed-shared-dev",
+      "health_status": "healthy",
+      "blockers": [],
+      "artifact_channel": "shared-dev",
+      "secret_scope": "shared-dev",
+      "last_deploy_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "environment_key": "staging",
+      "domain": "https://staging.lumialove.xn--6qq986b3xl",
+      "release_version": "rollback:5722a00a",
+      "health_status": "blocked",
+      "blockers": [
+        "REL-003 artifact verification failed",
+        "OPS-006 restore drill failed"
+      ],
+      "artifact_channel": "staging",
+      "secret_scope": "staging",
+      "last_deploy_at": "2026-04-05T17:08:01.227Z"
+    },
+    {
+      "environment_key": "live",
+      "domain": "https://lumialove.xn--6qq986b3xl",
+      "release_version": "seed-live",
+      "health_status": "healthy",
+      "blockers": [],
+      "artifact_channel": "live",
+      "secret_scope": "live",
+      "last_deploy_at": "2026-04-05T17:08:01.214Z"
+    }
+  ],
+  "releaseCandidates": [
+    {
+      "release_id": "5722a00a-5a0e-4162-8236-6bb36d9ef3e6",
+      "artifact_sha": "staging-abcdef12",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-abcdef12",
+      "source_commit_sha": "abcdef1234567890",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-046-001",
+      "change_summary": "M3 release chain smoke",
+      "status": "planned",
+      "verification_plan_id": "c06edba9-8332-4f55-b288-468ecade541e",
+      "created_at": "2026-04-05T17:08:01.215Z"
+    },
+    {
+      "release_id": "a6add946-2881-4807-b6fa-7b2f701ff233",
+      "artifact_sha": "staging-fedcba09",
+      "artifact_uri": "ghcr.io/erliu/backend:staging-fail-verify",
+      "source_commit_sha": "fedcba0987654321",
+      "target_environment": "staging",
+      "migration_bundle_id": "mig-046-fail",
+      "change_summary": "M3 failed promote evidence",
+      "status": "planned",
+      "verification_plan_id": "22ce14ac-bc24-435d-bb4b-7d8792340b25",
+      "created_at": "2026-04-05T17:08:01.227Z"
+    }
+  ],
+  "deploymentRuns": [
+    {
+      "deployment_id": "65509855-d5dd-4df5-8106-1fdbecbf82f8",
+      "release_id": "5722a00a-5a0e-4162-8236-6bb36d9ef3e6",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "succeeded",
+      "verification_result": "passed",
+      "migration_status": "succeeded",
+      "started_at": "2026-04-05T17:08:01.217Z",
+      "completed_at": "2026-04-05T17:08:01.217Z"
+    },
+    {
+      "deployment_id": "34ec1ae6-c4b2-4a62-bb93-f192699c493e",
+      "release_id": "5722a00a-5a0e-4162-8236-6bb36d9ef3e6",
+      "from_environment": "staging",
+      "to_environment": "staging",
+      "status": "rolled_back",
+      "verification_result": "passed",
+      "migration_status": "restored",
+      "started_at": "2026-04-05T17:08:01.226Z",
+      "completed_at": "2026-04-05T17:08:01.226Z"
+    },
+    {
+      "deployment_id": "71248ba9-d978-4996-ba02-03db133145d1",
+      "release_id": "a6add946-2881-4807-b6fa-7b2f701ff233",
+      "from_environment": "shared-dev",
+      "to_environment": "staging",
+      "status": "failed",
+      "verification_result": "failed",
+      "migration_status": "failed",
+      "started_at": "2026-04-05T17:08:01.227Z",
+      "completed_at": "2026-04-05T17:08:01.227Z"
+    }
+  ],
+  "backupSnapshots": [
+    {
+      "snapshot_id": "24277515-368a-4e04-a2fd-4e113a411b0f",
+      "environment_key": "shared-dev",
+      "snapshot_type": "database",
+      "status": "completed",
+      "verified_at": "2026-04-05T17:08:01.214Z",
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "snapshot_id": "1b86472c-9a96-4143-bbc3-b8f78fa46bbb",
+      "environment_key": "shared-dev",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-04-05T17:08:01.214Z",
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "snapshot_id": "a6c1f8ac-6ce5-4122-a639-40c3c9a8d77c",
+      "environment_key": "shared-dev",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-04-05T17:08:01.214Z",
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "snapshot_id": "ce780555-0a15-42e7-b23e-bdb130c3e6ad",
+      "environment_key": "staging",
+      "snapshot_type": "database",
+      "status": "expired",
+      "verified_at": null,
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "snapshot_id": "fb45463b-5448-4a7d-8910-a1457e6d6c4c",
+      "environment_key": "staging",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-04-05T17:08:01.214Z",
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "snapshot_id": "c5c8b9ce-542f-4058-9bda-4ce64814ab27",
+      "environment_key": "staging",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-04-05T17:08:01.214Z",
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "snapshot_id": "cd57efda-eaa4-4990-aeef-ee417ad0899e",
+      "environment_key": "live",
+      "snapshot_type": "database",
+      "status": "completed",
+      "verified_at": "2026-04-05T17:08:01.214Z",
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "snapshot_id": "218e09fa-9dce-4ad9-aa22-41fd18a3a049",
+      "environment_key": "live",
+      "snapshot_type": "object_storage",
+      "status": "completed",
+      "verified_at": "2026-04-05T17:08:01.214Z",
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    },
+    {
+      "snapshot_id": "597a4502-bf2c-4e82-bd32-e2b22aba1c8f",
+      "environment_key": "live",
+      "snapshot_type": "secrets",
+      "status": "completed",
+      "verified_at": "2026-04-05T17:08:01.214Z",
+      "retained_until": "2026-04-12T17:08:01.214Z",
+      "created_at": "2026-04-05T17:08:01.214Z"
+    }
+  ],
+  "restoreDrills": [
+    {
+      "drill_id": "0d7eeaa3-1487-4e87-a765-fd3d7c034122",
+      "snapshot_id": "ce780555-0a15-42e7-b23e-bdb130c3e6ad",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "completed",
+      "result": "passed",
+      "rto_minutes": 12,
+      "notes": "Smoke checks passed: login, story read, notifications, export artifact.",
+      "created_at": "2026-04-05T17:08:01.224Z",
+      "completed_at": "2026-04-05T17:08:01.224Z"
+    },
+    {
+      "drill_id": "7f5954ab-b09b-4038-bbbc-c4b482be3bf4",
+      "snapshot_id": "ce780555-0a15-42e7-b23e-bdb130c3e6ad",
+      "environment_key": "staging",
+      "drill_type": "full_stack",
+      "status": "failed",
+      "result": "failed",
+      "rto_minutes": null,
+      "notes": "OPS-006 restore drill failed: snapshot expired",
+      "created_at": "2026-04-05T17:08:01.229Z",
+      "completed_at": "2026-04-05T17:08:01.229Z"
+    }
+  ],
+  "alertIncidents": [
+    {
+      "incident_id": "9f830d3a-fd57-4720-8c72-f0a80f425589",
+      "environment_key": "staging",
+      "release_id": "a6add946-2881-4807-b6fa-7b2f701ff233",
+      "severity": "warn",
+      "service": "release-promote",
+      "status": "open",
+      "summary": "staging promote failed: REL-003 artifact verification failed",
+      "created_at": "2026-04-05T17:08:01.227Z"
+    },
+    {
+      "incident_id": "20289261-4663-41be-afdb-5f42301a5fb0",
+      "environment_key": "staging",
+      "release_id": null,
+      "severity": "warn",
+      "service": "restore-drill",
+      "status": "open",
+      "summary": "staging restore drill failed: OPS-006 restore drill failed: snapshot expired",
+      "created_at": "2026-04-05T17:08:01.229Z"
+    }
+  ],
+  "betaPrograms": [],
+  "betaInvites": [],
+  "betaAccessGrants": [],
+  "betaSupportCases": [],
+  "betaIncidentBroadcasts": []
+}

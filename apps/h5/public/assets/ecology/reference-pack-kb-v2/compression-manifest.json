@@ -1,0 +1,222 @@
+{
+  "tool": "tools/vnext/compress-image-assets.py",
+  "defaults": {
+    "maxEdge": 1774,
+    "minEdge": 256,
+    "quality": 72,
+    "maxKb": 100
+  },
+  "sourceRoot": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1",
+  "outputRoot": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2",
+  "assets": [
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\characters\\novelist-back-three-quarter-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\characters\\novelist-back-three-quarter-v1.webp",
+      "format": "WEBP",
+      "width": 941,
+      "height": 1672,
+      "alpha": false,
+      "bytes": 49936,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\characters\\novelist-back-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\characters\\novelist-back-v1.webp",
+      "format": "WEBP",
+      "width": 941,
+      "height": 1672,
+      "alpha": false,
+      "bytes": 58958,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\characters\\novelist-cartoon-design-sheet-v2.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\characters\\novelist-cartoon-design-sheet-v2.webp",
+      "format": "WEBP",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 80630,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\characters\\novelist-paper-doll-concept-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\characters\\novelist-paper-doll-concept-v1.webp",
+      "format": "WEBP",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 90442,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\characters\\study\\study-stand-by-desk-left-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\characters\\study\\study-stand-by-desk-left-v1.webp",
+      "format": "WEBP",
+      "width": 1024,
+      "height": 1536,
+      "alpha": true,
+      "bytes": 52834,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\characters\\study\\study-walk-right-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\characters\\study\\study-walk-right-v1.webp",
+      "format": "WEBP",
+      "width": 1024,
+      "height": 1536,
+      "alpha": true,
+      "bytes": 57160,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\characters\\study\\study-writing-seat-back-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\characters\\study\\study-writing-seat-back-v1.webp",
+      "format": "WEBP",
+      "width": 1024,
+      "height": 1536,
+      "alpha": true,
+      "bytes": 64660,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\maps\\home-map-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\maps\\home-map-v1.webp",
+      "format": "WEBP",
+      "width": 1536,
+      "height": 1024,
+      "alpha": false,
+      "bytes": 95816,
+      "encoderQuality": 56,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\scenes\\attic\\attic-clean-master-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\scenes\\attic\\attic-clean-master-v1.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 56466,
+      "encoderQuality": 28,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\scenes\\bedroom\\bedroom-scene-master-legacy-1536x1024.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\scenes\\bedroom\\bedroom-scene-master-legacy-1536x1024.webp",
+      "format": "WEBP",
+      "width": 1536,
+      "height": 1024,
+      "alpha": false,
+      "bytes": 85206,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\scenes\\dining-kitchen\\dining-kitchen-scene-master-2x1-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\scenes\\dining-kitchen\\dining-kitchen-scene-master-2x1-v1.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 82592,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\scenes\\dining-kitchen-master-door-repair-source.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\scenes\\dining-kitchen-master-door-repair-source.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 82592,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\scenes\\study\\study-scene-master-2x1-formal-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\scenes\\study\\study-scene-master-2x1-formal-v1.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 46722,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\scenes\\terrace-greenery\\terrace-greenery-scene-master-legacy-1536x1024.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\scenes\\terrace-greenery\\terrace-greenery-scene-master-legacy-1536x1024.webp",
+      "format": "WEBP",
+      "width": 1536,
+      "height": 1024,
+      "alpha": false,
+      "bytes": 101650,
+      "encoderQuality": 64,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\states\\attic\\archive-shelf-1774x887-v2.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\states\\attic\\archive-shelf-1774x887-v2.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 100936,
+      "encoderQuality": 64,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\states\\attic\\stair-entry-1774x887-v2.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\states\\attic\\stair-entry-1774x887-v2.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 98482,
+      "encoderQuality": 64,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\states\\study\\study-exit-route-formal-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\states\\study\\study-exit-route-formal-v1.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 63134,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\states\\study\\study-stand-by-desk-formal-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\states\\study\\study-stand-by-desk-formal-v1.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 48746,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    },
+    {
+      "source": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v1\\states\\study\\study-writing-seat-formal-v1.webp",
+      "output": "D:\\Yhx06\\Documents\\仙术工坊——项目集\\a-second-rate-novelist\\apps\\h5\\public\\assets\\ecology\\reference-pack-kb-v2\\states\\study\\study-writing-seat-formal-v1.webp",
+      "format": "WEBP",
+      "width": 1774,
+      "height": 887,
+      "alpha": false,
+      "bytes": 52928,
+      "encoderQuality": 72,
+      "losslessGeometry": false
+    }
+  ]
+}

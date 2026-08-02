@@ -1,0 +1,25 @@
+{
+  "name": "@erliu/shared-contracts",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./runtime-hosts": {
+      "types": "./dist/runtime-hosts.d.ts",
+      "default": "./dist/runtime-hosts.js"
+    },
+    "./vnext-experience": {
+      "types": "./dist/vnext-experience.d.ts",
+      "default": "./dist/vnext-experience.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node ./scripts/fix-dist-exports.mjs",
+    "test": "node -e \"console.log('shared-contracts: no tests')\""
+  }
+}

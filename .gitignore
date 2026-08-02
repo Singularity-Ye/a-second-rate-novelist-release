@@ -1,0 +1,19 @@
+# Recovered r9 workspace: generated/runtime material stays out of source history.
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+.next-*/
+**/.next-*/
+dist/
+**/dist/
+.tmp/
+**/.tmp/
+*.log
+*.stdout.log
+*.stderr.log
+.env
+.env.*
+!.env.example
+apps/h5/.tmp-*.png
+apps/h5/.tmp-*.webp

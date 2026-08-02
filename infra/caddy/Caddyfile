@@ -1,0 +1,15 @@
+shared-dev.lumialove.xn--6qq986b3xl {
+  tls /etc/caddy/certs/hosted-san.fullchain.pem /etc/caddy/certs/hosted-san.key.pem
+  encode gzip zstd
+  reverse_proxy shared-dev-gateway:3300 {
+    header_up X-Forwarded-For {remote_host}
+  }
+}
+
+staging.lumialove.xn--6qq986b3xl {
+  tls /etc/caddy/certs/hosted-san.fullchain.pem /etc/caddy/certs/hosted-san.key.pem
+  encode gzip zstd
+  reverse_proxy staging-gateway:3300 {
+    header_up X-Forwarded-For {remote_host}
+  }
+}

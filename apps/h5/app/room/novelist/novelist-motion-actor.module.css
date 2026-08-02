@@ -1,0 +1,412 @@
+.actorAnchor {
+  position: absolute;
+  z-index: 4;
+  width: 12%;
+  min-width: 90px;
+  max-width: 190px;
+  aspect-ratio: 1024 / 1536;
+  transform: translate(-50%, -89.4%) scale(
+    calc(var(--perspective-scale-x, var(--perspective-scale, 1)) * var(--actor-asset-scale, 1)),
+    calc(var(--perspective-scale-y, var(--perspective-scale, 1)) * var(--actor-asset-scale, 1))
+  );
+  transform-origin: 50% 89.4%;
+  isolation: isolate;
+  pointer-events: none;
+  opacity: 1;
+  /* Position and scale are sampled by requestAnimationFrame from the
+     manifest route. A second full-duration CSS transition would lag behind
+     those samples and make the actor appear to float. */
+  will-change: left, top, transform;
+  transition: opacity 0.28s ease;
+}
+
+.actorAnchor[data-visible="false"] {
+  opacity: 0;
+}
+
+.actorAnchor[data-interactive="true"] {
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.actorAnchor[data-interactive="true"]:focus-visible {
+  outline: 2px solid rgba(247, 213, 142, .92);
+  outline-offset: 6px;
+  border-radius: 50%;
+}
+
+.actorAnchor[data-interactive="true"]:active {
+  filter: drop-shadow(0 0 14px rgba(247, 213, 142, .34));
+}
+
+.foregroundOcclusionRoot {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  pointer-events: none;
+  isolation: isolate;
+  /* The component supplies a white base mask and subtracts each transparent
+     furniture source from it, leaving only the actor visible outside alpha. */
+  mask-repeat: no-repeat;
+  mask-position: 0 0;
+  mask-size: 100% 100%;
+  mask-mode: alpha;
+  mask-composite: subtract;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: 0 0;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-mode: alpha;
+}
+
+.actorShadow {
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  z-index: -1;
+  width: 76%;
+  height: 10%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(16, 9, 6, 0.72) 0%, rgba(16, 9, 6, 0.32) 55%, transparent 80%);
+  filter: blur(2.5px);
+  transform: translateX(-50%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.actorShadow[data-moving="true"] {
+  opacity: 0.78;
+}
+
+.actorFlipWrapper {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.actorFlipWrapper[data-facing="left"] { transform: scaleX(1); }
+.actorFlipWrapper[data-facing="right"] { transform: scaleX(-1); }
+
+/* Study walking assets are generated as true left/right views. Do not mirror
+   them again; otherwise a right-facing walk becomes left-facing at runtime. */
+.actorFlipWrapper[data-directional-asset="true"] {
+  transform: none;
+  transition: none;
+}
+
+.actorFlipWrapper[data-directional-asset="true"][data-flipping="true"] {
+  animation: none;
+}
+
+/* Formal-room handoffs use the same two-card protocol as the route editor:
+   the outgoing actor keeps moving/turning while the incoming card expands from
+   the same paper-thin center. The scene-level smoke is rendered by the room,
+   while these cards stay inside the invisible furniture mask. */
+.actorTransitionActive {
+  perspective: 760px;
+}
+
+.actorTransitionSmoke .actorTurnLayer[data-transition-layer="outgoing"] {
+  animation: formalSmokeActorOutgoing var(--actor-transition-total, 1100ms) linear both;
+}
+
+.actorTransitionSmoke .actorTurnLayer[data-transition-layer="incoming"] {
+  animation: formalSmokeActorIncoming var(--actor-transition-total, 1100ms) linear both;
+}
+
+/* A directional swap is two real PNGs: the old view compresses to a thin
+   vertical slice, then the new mirror expands from that same slice. This
+   keeps the artwork crisp while making the turn feel like one elastic sheet. */
+.actorTurnLayer {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.actorTurnLayer .paperActorImage {
+  position: absolute;
+  inset: 0;
+}
+
+.actorTurnLayer[data-turn-layer="outgoing"] {
+  z-index: 1;
+  animation: directionalTurnOutgoing 360ms cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
+
+.actorTurnLayer[data-turn-layer="incoming"] {
+  z-index: 2;
+  animation: directionalTurnIncoming 360ms cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
+
+@keyframes directionalTurnOutgoing {
+  0% { transform: scaleX(1) scaleY(1); opacity: 1; }
+  34% { transform: scaleX(0.72) scaleY(1.015); opacity: 1; }
+  52% { transform: scaleX(0.035) scaleY(0.98); opacity: 0.92; }
+  100% { transform: scaleX(0.035) scaleY(0.98); opacity: 0; }
+}
+
+@keyframes directionalTurnIncoming {
+  0% { transform: scaleX(0.035) scaleY(0.98); opacity: 0; }
+  44% { transform: scaleX(0.035) scaleY(0.98); opacity: 0; }
+  56% { transform: scaleX(0.94) scaleY(1.02); opacity: 1; }
+  74% { transform: scaleX(1.055) scaleY(0.985); opacity: 1; }
+  88% { transform: scaleX(0.985) scaleY(1.006); opacity: 1; }
+  100% { transform: scaleX(1) scaleY(1); opacity: 1; }
+}
+
+@keyframes formalSmokeActorOutgoing {
+  0% { opacity: 1; transform: translateY(0) rotateY(0deg) scaleX(1); }
+  24% { opacity: .98; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 110deg)) scaleX(.92); }
+  52% { opacity: .78; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 230deg)) scaleX(.68); }
+  76% { opacity: .18; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 315deg)) scaleX(.34); }
+  100% { opacity: 0; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 360deg)) scaleX(.08); }
+}
+
+@keyframes formalSmokeActorIncoming {
+  0% { opacity: 0; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 360deg - 180deg)) scaleX(.08); }
+  26% { opacity: .12; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 360deg - 70deg)) scaleX(.4); }
+  54% { opacity: .52; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 360deg - 10deg)) scaleX(.8); }
+  80% { opacity: .9; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 360deg + 4deg)) scaleX(1.03); }
+  100% { opacity: 1; transform: translateY(0) rotateY(calc(var(--actor-transition-turns, 1) * 360deg)) scaleX(1); }
+}
+
+@keyframes paperFlipToLeft {
+  0% { transform: scaleX(-1) rotateY(0deg) scale(0.96); }
+  50% { transform: scaleX(0.08) rotateY(90deg) scale(1.08); filter: brightness(1.25); }
+  100% { transform: scaleX(1) rotateY(0deg) scale(1); }
+}
+
+@keyframes paperFlipToRight {
+  0% { transform: scaleX(1) rotateY(0deg) scale(0.96); }
+  50% { transform: scaleX(-0.08) rotateY(90deg) scale(1.08); filter: brightness(1.25); }
+  100% { transform: scaleX(-1) rotateY(0deg) scale(1); }
+}
+
+.actorWobbleWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 10px 16px rgba(33, 18, 10, 0.35));
+  transition: filter 0.5s ease, transform 0.3s ease;
+}
+
+.actorWobbleWrapper[data-scene-id="study"] {
+  filter: none;
+}
+
+.actorWobbleWrapper[data-scene-id="terrace-greenery"] {
+  filter: drop-shadow(0 0 18px rgba(120, 168, 147, 0.42)) drop-shadow(0 10px 16px rgba(20, 30, 25, 0.45));
+}
+
+.actorWobbleWrapper[data-moving="true"] {
+  animation: wobbleRockingNormal 0.35s ease-in-out infinite alternate;
+}
+
+.actorWobbleWrapper[data-scene-id="study"][data-moving="true"] {
+  animation: studyGroundedWalk 0.78s ease-in-out infinite alternate;
+}
+
+.actorWobbleWrapper[data-settling="true"] {
+  animation: settleBounce 0.45s ease-out;
+}
+
+@keyframes wobbleRockingNormal {
+  0% { transform: rotate(-1.5deg) translateY(-0.5px); }
+  50% { transform: rotate(0deg) translateY(0); }
+  100% { transform: rotate(1.5deg) translateY(-0.5px); }
+}
+
+@keyframes studyGroundedWalk {
+  0% { transform: rotate(-1.1deg) translateY(-0.35px); }
+  50% { transform: rotate(0.8deg) translateY(0); }
+  100% { transform: rotate(-0.6deg) translateY(-0.25px); }
+}
+
+@keyframes settleBounce {
+  0% { transform: rotate(1.5deg); }
+  45% { transform: rotate(-0.8deg); }
+  75% { transform: rotate(0.35deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.paperActorImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  /* Source PNGs have transparent bottom margins. Move only the pixels down
+     to the anchor; the anchor itself remains the normalized floor contact. */
+  transform: translateY(calc((1 - var(--asset-alpha-bottom, 1)) * 100%)) scale(var(--actor-transition-asset-scale, 1)) scaleX(var(--actor-transition-flip, 1));
+  transform-origin: center bottom;
+}
+
+.idleMoodBubble {
+  --bubble-shift-x: -50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 14;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  width: min(17rem, calc(100vw - 2rem));
+  max-width: min(15rem, calc(100vw - 2rem));
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(87, 56, 43, 0.2);
+  border-radius: 0.8rem;
+  color: #261d1c;
+  background: rgba(255, 253, 245, 0.94);
+  box-shadow: 0 6px 18px rgba(38, 29, 28, 0.15);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  pointer-events: none;
+  transform: translate(var(--bubble-shift-x), calc(-100% - 0.5rem));
+  animation: bubblePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.idleMoodBubble[data-bubble-align="start"] { left: 0; --bubble-shift-x: 0%; }
+.idleMoodBubble[data-bubble-align="center"] { left: 50%; --bubble-shift-x: -50%; }
+.idleMoodBubble[data-bubble-align="end"] { left: 100%; --bubble-shift-x: -100%; }
+
+.idleMoodBubble[data-mood-kind="intent"] {
+  border-color: rgba(182, 93, 61, 0.35);
+  background: rgba(255, 242, 218, 0.96);
+}
+
+.idleMoodBubble[data-mood-kind="moving"] {
+  border-color: rgba(72, 126, 119, 0.34);
+  color: #173e3a;
+  background: rgba(232, 250, 242, 0.95);
+}
+
+.idleMoodBubble[data-mood-kind="arrival"],
+.idleMoodBubble[data-mood-kind="activity"] {
+  border-color: rgba(184, 137, 62, 0.42);
+  background: rgba(255, 248, 220, 0.96);
+}
+
+.idleMoodBubble[data-mood-kind="transition"] {
+  border-color: rgba(126, 104, 160, 0.36);
+  color: #32264e;
+  background: rgba(245, 239, 255, 0.95);
+}
+
+.moodIcon {
+  display: grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  flex: 0 0 auto;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.78;
+  font-size: 0.82rem;
+  line-height: 1;
+}
+
+.moodCopy {
+  display: grid;
+  min-width: 0;
+  gap: 0.12rem;
+  text-align: left;
+}
+
+.moodCopy strong {
+  overflow: hidden;
+  color: currentColor;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.moodCopy > span {
+  color: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.moodAside {
+  display: block;
+  margin-top: .16rem;
+  color: rgba(121, 78, 53, .72);
+  font-size: .58rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.handheldPropBadge {
+  position: absolute;
+  right: 7%;
+  bottom: 24%;
+  z-index: 5;
+  font-size: 1.25rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  animation: propFloat 1.2s ease-in-out infinite alternate;
+}
+
+.steamEffect {
+  position: absolute;
+  top: -0.85rem;
+  left: 0.1rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  animation: steamRise 1s ease-out infinite;
+}
+
+.manuscriptContainer {
+  position: absolute;
+  left: 50%;
+  top: 4%;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.paperParticle {
+  position: absolute;
+  font-size: 1.2rem;
+  animation: floatManuscript 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.paperParticle:nth-child(1) { left: -20px; animation-delay: 0s; }
+.paperParticle:nth-child(2) { left: 10px; animation-delay: 0.25s; }
+.paperParticle:nth-child(3) { left: -5px; animation-delay: 0.5s; }
+.paperParticle:nth-child(4) { left: 28px; animation-delay: 0.72s; font-size: .86rem; }
+.paperParticle:nth-child(5) { left: -34px; animation-delay: .9s; font-size: .76rem; }
+.paperParticle:nth-child(6) { left: 42px; animation-delay: 1.05s; font-size: .9rem; }
+
+@keyframes propFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+
+@keyframes steamRise {
+  0% { opacity: 0.8; transform: translateY(0) scale(0.9); }
+  100% { opacity: 0; transform: translateY(-12px) scale(1.3); }
+}
+
+@keyframes floatManuscript {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(0.8); }
+  50% { opacity: 0.85; transform: translateY(-40px) rotate(18deg) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-85px) rotate(-15deg) scale(0.9); }
+}
+
+@keyframes bubblePop {
+  from { opacity: 0; transform: translate(var(--bubble-shift-x), calc(-100% - 0.5rem)) scale(0.6); }
+  to { opacity: 1; transform: translate(var(--bubble-shift-x), calc(-100% - 0.5rem)) scale(1); }
+}
+
+@media (max-width: 900px) {
+  .actorAnchor { width: 14%; min-width: 84px; }
+  .idleMoodBubble { max-width: 11rem; white-space: normal; }
+}

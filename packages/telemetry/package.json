@@ -1,0 +1,14 @@
+{
+  "name": "@erliu/telemetry",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node -e \"console.log('telemetry: no tests')\""
+  },
+  "dependencies": {
+    "@erliu/shared-contracts": "workspace:*"
+  }
+}

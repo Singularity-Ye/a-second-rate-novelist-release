@@ -1,0 +1,31 @@
+# Keep hosted image builds independent from local caches, runtime evidence and
+# credentials. Dockerfiles copy only the workspace manifests plus apps,
+# packages, tools and infra.
+**
+
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!tsconfig.base.json
+!apps/
+!apps/**
+!packages/
+!packages/**
+!tools/
+!tools/**
+!infra/
+!infra/**
+
+**/node_modules
+**/.next
+**/.next-*
+**/.tmp
+**/tmp
+**/test-results
+**/output
+**/*.log
+**/*.pid
+**/*.tsbuildinfo
+**/.env
+**/.env.*
+!**/*.env.example

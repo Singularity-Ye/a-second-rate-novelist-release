@@ -1,0 +1,646 @@
+{
+  "schemaVersion": "formal-route-snapshot.v1",
+  "publishedAt": "2026-07-28T00:00:00.000Z",
+  "source": {
+    "schemaVersion": "route-editor.v2",
+    "draftVersion": 2,
+    "sceneId": "attic",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "coordinateSpace": "pixel-top-left-origin"
+  },
+  "scene": {
+    "sceneId": "attic",
+    "label": "阁楼",
+    "masterSrc": "/assets/ecology/formal-scenes/attic/masters/attic-scene-master-v2.webp",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "foregroundLayers": [],
+    "floorStatus": "pending",
+    "anchorSemantics": {
+      "stairEntry": "attic-stair-entry 是下方中央梯口的共享入口锚点",
+      "archiveShelf": "archive-shelf 是中部书架前的旧稿翻找点",
+      "draftDesk": "attic-draft-desk 是左侧旧稿桌前的整理点",
+      "routeOwnedWaypoints": "普通 waypoint 只属于当前方向路线，不会隐式复用",
+      "foreground": "阁楼暂未注册透明遮挡层，不用摆放蒙版冒充正式遮挡物"
+    }
+  },
+  "scale": {
+    "mode": "depth",
+    "farY": 330,
+    "nearY": 760,
+    "farScale": 0.88,
+    "nearScale": 1.18
+  },
+  "points": [
+    {
+      "id": "attic-stair-entry",
+      "label": "阁楼梯口",
+      "role": "scene-entry",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1095,
+        556
+      ],
+      "normalized": {
+        "x": 0.617249,
+        "y": 0.626832
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0376744186046511
+    },
+    {
+      "id": "stair-to-archive-node-1",
+      "label": "梯口 → 旧书架中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        909,
+        605
+      ],
+      "normalized": {
+        "x": 0.512401,
+        "y": 0.682074
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.071860465116279
+    },
+    {
+      "id": "stair-to-archive-node-2",
+      "label": "梯口 → 旧书架中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        677,
+        655
+      ],
+      "normalized": {
+        "x": 0.381623,
+        "y": 0.738444
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.1067441860465115
+    },
+    {
+      "id": "archive-shelf",
+      "label": "旧书架翻找点",
+      "role": "lounge",
+      "anchorKind": "interaction",
+      "anchorKey": "attic.archive-shelf",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        379,
+        677
+      ],
+      "normalized": {
+        "x": 0.213641,
+        "y": 0.763247
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.122093023255814
+    },
+    {
+      "id": "archive-to-stair-node-1",
+      "label": "旧书架 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        647,
+        659
+      ],
+      "normalized": {
+        "x": 0.364713,
+        "y": 0.742954
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.1095348837209302
+    },
+    {
+      "id": "archive-to-stair-node-2",
+      "label": "旧书架 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        850,
+        630
+      ],
+      "normalized": {
+        "x": 0.479143,
+        "y": 0.710259
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0893023255813954
+    },
+    {
+      "id": "archive-to-stair-node-3",
+      "label": "旧书架 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1010,
+        602
+      ],
+      "normalized": {
+        "x": 0.569335,
+        "y": 0.678692
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.069767441860465
+    },
+    {
+      "id": "stair-to-draft-desk-node-1",
+      "label": "梯口 → 旧稿桌中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        982,
+        556
+      ],
+      "normalized": {
+        "x": 0.553551,
+        "y": 0.626832
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0376744186046511
+    },
+    {
+      "id": "stair-to-draft-desk-node-2",
+      "label": "梯口 → 旧稿桌中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        922,
+        515
+      ],
+      "normalized": {
+        "x": 0.519729,
+        "y": 0.580609
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0090697674418605
+    },
+    {
+      "id": "attic-draft-desk",
+      "label": "旧稿桌整理点",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "attic.draft-desk",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        898,
+        461
+      ],
+      "normalized": {
+        "x": 0.506201,
+        "y": 0.519729
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 0.9713953488372092
+    },
+    {
+      "id": "draft-desk-to-stair-node-1",
+      "label": "旧稿桌 → 梯口 · 旧稿桌整理点",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "attic.draft-desk",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        879,
+        460
+      ],
+      "normalized": {
+        "x": 0.49549,
+        "y": 0.518602
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 0.9706976744186047
+    },
+    {
+      "id": "draft-desk-to-stair-node-2",
+      "label": "旧稿桌 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        916,
+        509
+      ],
+      "normalized": {
+        "x": 0.516347,
+        "y": 0.573844
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0048837209302326
+    },
+    {
+      "id": "draft-desk-to-stair-node-3",
+      "label": "旧稿桌 → 梯口中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        990,
+        561
+      ],
+      "normalized": {
+        "x": 0.558061,
+        "y": 0.632469
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0411627906976744
+    }
+  ],
+  "routes": {
+    "stair-to-archive": {
+      "id": "stair-to-archive",
+      "label": "梯口 → 旧书架",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "attic-stair-entry",
+      "endPointId": "archive-shelf",
+      "waypointIds": [
+        "attic-stair-entry",
+        "stair-to-archive-node-1",
+        "stair-to-archive-node-2",
+        "archive-shelf"
+      ],
+      "durationMs": 3195,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 728
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "attic-retrieve-archive": {
+            "left": "/assets/ecology/formal-scenes/attic/candidates/attic-character-retrieve-archive-transparent-v1.webp",
+            "right": "/assets/ecology/formal-scenes/attic/candidates/attic-character-retrieve-archive-transparent-v1.webp",
+            "canonicalFacing": "right"
+          }
+        }
+      },
+      "phases": [
+        {
+          "id": "stair-to-archive-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-lounge",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "attic-stair-entry",
+          "pathEndPointId": "archive-shelf",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "attic-stair-entry",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "archive-shelf",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "attic-retrieve-archive",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetSource": "/assets/ecology/formal-scenes/attic/candidates/attic-character-retrieve-archive-transparent-v1.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "archive-shelf",
+        "stateId": "attic-retrieve-archive",
+        "assetMode": "actor",
+        "hideAfter": false
+      }
+    },
+    "archive-to-stair": {
+      "id": "archive-to-stair",
+      "label": "旧书架 → 梯口",
+      "kind": "walk",
+      "accent": "magenta",
+      "startPointId": "archive-shelf",
+      "endPointId": "attic-stair-entry",
+      "waypointIds": [
+        "archive-shelf",
+        "archive-to-stair-node-1",
+        "archive-to-stair-node-2",
+        "archive-to-stair-node-3",
+        "attic-stair-entry"
+      ],
+      "durationMs": 3214,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 733
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "attic-retrieve-archive": {
+            "left": "/assets/ecology/formal-scenes/attic/candidates/attic-character-retrieve-archive-transparent-v1.webp",
+            "right": "/assets/ecology/formal-scenes/attic/candidates/attic-character-retrieve-archive-transparent-v1.webp",
+            "canonicalFacing": "right"
+          }
+        }
+      },
+      "phases": [
+        {
+          "id": "archive-to-stair-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "archive-shelf",
+          "pathEndPointId": "attic-stair-entry",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "archive-shelf",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/attic/candidates/attic-character-retrieve-archive-transparent-v1.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "attic-stair-entry",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 480,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "attic-stair-entry",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "stair-to-draft-desk": {
+      "id": "stair-to-draft-desk",
+      "label": "梯口 → 旧稿桌",
+      "kind": "walk",
+      "accent": "amber",
+      "startPointId": "attic-stair-entry",
+      "endPointId": "attic-draft-desk",
+      "waypointIds": [
+        "attic-stair-entry",
+        "stair-to-draft-desk-node-1",
+        "stair-to-draft-desk-node-2",
+        "attic-draft-desk"
+      ],
+      "durationMs": 1074,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 245
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "attic-reading": {
+            "left": "/assets/ecology/formal-scenes/attic/candidates/attic-character-reading-transparent-v1.webp",
+            "right": "/assets/ecology/formal-scenes/attic/candidates/attic-character-reading-transparent-v1.webp",
+            "canonicalFacing": "right"
+          }
+        }
+      },
+      "phases": [
+        {
+          "id": "stair-to-draft-desk-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-desk",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "attic-stair-entry",
+          "pathEndPointId": "attic-draft-desk",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "attic-stair-entry",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "attic-draft-desk",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "attic-reading",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetSource": "/assets/ecology/formal-scenes/attic/candidates/attic-character-reading-transparent-v1.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 720,
+            "settleMs": 140,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "attic-draft-desk",
+        "stateId": "attic-reading",
+        "assetMode": "actor",
+        "hideAfter": false
+      }
+    },
+    "draft-desk-to-stair": {
+      "id": "draft-desk-to-stair",
+      "label": "旧稿桌 → 梯口",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "draft-desk-to-stair-node-1",
+      "endPointId": "attic-stair-entry",
+      "waypointIds": [
+        "draft-desk-to-stair-node-1",
+        "draft-desk-to-stair-node-2",
+        "draft-desk-to-stair-node-3",
+        "attic-stair-entry"
+      ],
+      "durationMs": 1127,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 257
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "attic-reading": {
+            "left": "/assets/ecology/formal-scenes/attic/candidates/attic-character-reading-transparent-v1.webp",
+            "right": "/assets/ecology/formal-scenes/attic/candidates/attic-character-reading-transparent-v1.webp",
+            "canonicalFacing": "right"
+          }
+        }
+      },
+      "phases": [
+        {
+          "id": "draft-desk-to-stair-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "draft-desk-to-stair-node-1",
+          "pathEndPointId": "attic-stair-entry",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "draft-desk-to-stair-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetSource": "/assets/ecology/formal-scenes/attic/candidates/attic-character-reading-transparent-v1.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "attic-stair-entry",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 1.5,
+            "durationMs": 480,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "attic-stair-entry",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    }
+  }
+}

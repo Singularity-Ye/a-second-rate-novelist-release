@@ -1,0 +1,6207 @@
+{
+  "schemaVersion": "formal-route-snapshot.v1",
+  "publishedAt": "2026-07-28T00:00:00.000Z",
+  "source": {
+    "schemaVersion": "route-editor.v2",
+    "draftVersion": 2,
+    "sceneId": "study",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "coordinateSpace": "pixel-top-left-origin"
+  },
+  "scene": {
+    "sceneId": "study",
+    "label": "书房",
+    "masterSrc": "/assets/ecology/formal-scenes/study/study-scene-master-2x1-formal-v2.webp",
+    "canvas": {
+      "width": 1774,
+      "height": 887
+    },
+    "foregroundLayers": [
+      {
+        "id": "desk-table",
+        "src": "/assets/ecology/formal-scenes/study/geometry/foreground/study-desk-table-cutout-2x1-imagegen-v2.webp",
+        "label": "桌子／桌面遮挡层",
+        "policy": "before-turn",
+        "zIndex": 5
+      },
+      {
+        "id": "chair",
+        "src": "/assets/ecology/formal-scenes/study/geometry/foreground/study-chair-cutout-2x1-user-v1.webp",
+        "label": "用户确认椅子 Alpha（编辑辅助）",
+        "policy": "always",
+        "zIndex": 6
+      }
+    ],
+    "floorStatus": "frozen",
+    "anchorSemantics": {
+      "door": "one shared door node used by both directions",
+      "seatLeft": "seat-left is the door-to-seat approach / sit-down point",
+      "seatRight": "seat-right is the seat-to-door release / departure point",
+      "fixedRightSideSeat": "study and dining chair actions may reuse one fixed right-side point"
+    }
+  },
+  "scale": {
+    "mode": "depth",
+    "farY": 410,
+    "nearY": 790,
+    "farScale": 0.87,
+    "nearScale": 1.42
+  },
+  "points": [
+    {
+      "id": "seat-right",
+      "label": "座位右侧下椅点",
+      "role": "seat-right",
+      "anchorKind": "interaction",
+      "anchorKey": "study.desk.right",
+      "anchorGroupKey": "study.desk",
+      "anchorPort": "right",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        941,
+        658
+      ],
+      "normalized": {
+        "x": 0.53044,
+        "y": 0.741826
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.2289473684210526
+    },
+    {
+      "id": "out-1",
+      "label": "去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1073,
+        746
+      ],
+      "normalized": {
+        "x": 0.604848,
+        "y": 0.841037
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3563157894736841
+    },
+    {
+      "id": "out-2",
+      "label": "去程节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1231,
+        726
+      ],
+      "normalized": {
+        "x": 0.693912,
+        "y": 0.818489
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3273684210526315
+    },
+    {
+      "id": "out-3",
+      "label": "去程节点 3",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1293,
+        653
+      ],
+      "normalized": {
+        "x": 0.728861,
+        "y": 0.736189
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.2217105263157895
+    },
+    {
+      "id": "out-4",
+      "label": "去程节点 4",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1343,
+        558
+      ],
+      "normalized": {
+        "x": 0.757046,
+        "y": 0.629087
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0842105263157895
+    },
+    {
+      "id": "out-5",
+      "label": "去程节点 5",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1357,
+        513
+      ],
+      "normalized": {
+        "x": 0.764938,
+        "y": 0.578354
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 1.019078947368421
+    },
+    {
+      "id": "door",
+      "label": "门固定点",
+      "role": "door",
+      "anchorKind": "portal",
+      "anchorKey": "portal.terrace-greenery",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1392,
+        419
+      ],
+      "normalized": {
+        "x": 0.784667,
+        "y": 0.472379
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.8830263157894737
+    },
+    {
+      "id": "in-1",
+      "label": "回程节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1220,
+        396
+      ],
+      "normalized": {
+        "x": 0.687711,
+        "y": 0.446449
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "in-2",
+      "label": "回程节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1092,
+        408
+      ],
+      "normalized": {
+        "x": 0.615558,
+        "y": 0.459977
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "in-3",
+      "label": "回程节点 3",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1005,
+        402
+      ],
+      "normalized": {
+        "x": 0.566516,
+        "y": 0.453213
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "in-4",
+      "label": "回程节点 4",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        890,
+        413
+      ],
+      "normalized": {
+        "x": 0.501691,
+        "y": 0.465614
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.8743421052631579
+    },
+    {
+      "id": "in-5",
+      "label": "回程节点 5",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        780,
+        424
+      ],
+      "normalized": {
+        "x": 0.439684,
+        "y": 0.478016
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.8902631578947369
+    },
+    {
+      "id": "in-6",
+      "label": "回程节点 6",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        747,
+        468
+      ],
+      "normalized": {
+        "x": 0.421082,
+        "y": 0.527621
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9539473684210527
+    },
+    {
+      "id": "in-7",
+      "label": "回程节点 7",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        749,
+        523
+      ],
+      "normalized": {
+        "x": 0.42221,
+        "y": 0.589628
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0335526315789474
+    },
+    {
+      "id": "seat-left",
+      "label": "座位左侧上椅点",
+      "role": "seat-left",
+      "anchorKind": "interaction",
+      "anchorKey": "study.desk.left",
+      "anchorGroupKey": "study.desk",
+      "anchorPort": "left",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        804,
+        557
+      ],
+      "normalized": {
+        "x": 0.453213,
+        "y": 0.627959
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0827631578947368
+    },
+    {
+      "id": "kitchen-start",
+      "label": "厨房箭头起点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1334,
+        457
+      ],
+      "normalized": {
+        "x": 0.751973,
+        "y": 0.51522
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9380263157894737
+    },
+    {
+      "id": "kitchen-node-2",
+      "label": "厨房方向箭头中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1322,
+        538
+      ],
+      "normalized": {
+        "x": 0.745209,
+        "y": 0.606539
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.055263157894737
+    },
+    {
+      "id": "kitchen-node-3",
+      "label": "厨房方向箭头中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1384,
+        650
+      ],
+      "normalized": {
+        "x": 0.780158,
+        "y": 0.732807
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.2173684210526314
+    },
+    {
+      "id": "kitchen-node-1",
+      "label": "厨房方向箭头中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1535,
+        749
+      ],
+      "normalized": {
+        "x": 0.865276,
+        "y": 0.844419
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3606578947368422
+    },
+    {
+      "id": "kitchen-end",
+      "label": "厨房箭头终点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1700,
+        863
+      ],
+      "normalized": {
+        "x": 0.958286,
+        "y": 0.972943
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "kitchen-to-door-node-1",
+      "label": "厨房 → 门（回到书房） · 厨房箭头终点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1700,
+        863
+      ],
+      "normalized": {
+        "x": 0.958286,
+        "y": 0.972943
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "kitchen-to-door-node-2",
+      "label": "厨房 → 门（回到书房） · 厨房方向箭头中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1535,
+        749
+      ],
+      "normalized": {
+        "x": 0.865276,
+        "y": 0.844419
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3606578947368422
+    },
+    {
+      "id": "kitchen-to-door-node-3",
+      "label": "厨房 → 门（回到书房） · 厨房方向箭头中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1384,
+        650
+      ],
+      "normalized": {
+        "x": 0.780158,
+        "y": 0.732807
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.2173684210526314
+    },
+    {
+      "id": "kitchen-to-door-node-4",
+      "label": "厨房 → 门（回到书房） · 厨房方向箭头中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1322,
+        538
+      ],
+      "normalized": {
+        "x": 0.745209,
+        "y": 0.606539
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.055263157894737
+    },
+    {
+      "id": "kitchen-to-door-node-5",
+      "label": "厨房 → 门（回到书房） · 厨房箭头起点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1334,
+        457
+      ],
+      "normalized": {
+        "x": 0.751973,
+        "y": 0.51522
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9380263157894737
+    },
+    {
+      "id": "seat-to-kitchen-node-1",
+      "label": "座位→厨房节点 1",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        975,
+        731
+      ],
+      "normalized": {
+        "x": 0.549605,
+        "y": 0.824126
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3346052631578946
+    },
+    {
+      "id": "seat-to-kitchen-node-2",
+      "label": "座位→厨房节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1171,
+        822
+      ],
+      "normalized": {
+        "x": 0.66009,
+        "y": 0.926719
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "seat-to-kitchen-node-3",
+      "label": "座位→厨房节点 3",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1449,
+        835
+      ],
+      "normalized": {
+        "x": 0.816798,
+        "y": 0.941375
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "seat-to-kitchen-node-4",
+      "label": "座位→厨房节点 4",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1603,
+        840
+      ],
+      "normalized": {
+        "x": 0.903608,
+        "y": 0.947012
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "seat-to-kitchen-node-5",
+      "label": "座位→厨房节点 5",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1700,
+        863
+      ],
+      "normalized": {
+        "x": 0.958286,
+        "y": 0.972943
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "kitchen-to-seat-node-1",
+      "label": "厨房→座位节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1700,
+        863
+      ],
+      "normalized": {
+        "x": 0.958286,
+        "y": 0.972943
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "kitchen-to-seat-node-2",
+      "label": "厨房→座位节点 2",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1449,
+        821
+      ],
+      "normalized": {
+        "x": 0.816798,
+        "y": 0.925592
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "kitchen-to-seat-node-3",
+      "label": "厨房→座位节点 3",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1252,
+        811
+      ],
+      "normalized": {
+        "x": 0.70575,
+        "y": 0.914318
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "kitchen-to-seat-node-4",
+      "label": "厨房→座位节点 4",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1056,
+        750
+      ],
+      "normalized": {
+        "x": 0.595265,
+        "y": 0.845547
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3621052631578947
+    },
+    {
+      "id": "kitchen-to-seat-node-5",
+      "label": "厨房→座位节点 5",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        981,
+        714
+      ],
+      "normalized": {
+        "x": 0.552988,
+        "y": 0.804961
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.31
+    },
+    {
+      "id": "custom-1-node-9",
+      "label": "桌子→梯子 · 座位右侧下椅点",
+      "role": "waypoint",
+      "semanticRole": "seat-right",
+      "anchorKind": "interaction",
+      "anchorKey": "study.desk.right",
+      "anchorGroupKey": "study.desk",
+      "anchorPort": "right",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        941,
+        658
+      ],
+      "normalized": {
+        "x": 0.53044,
+        "y": 0.741826
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.2289473684210526
+    },
+    {
+      "id": "custom-1-node-2",
+      "label": "新路线 4中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1042,
+        749
+      ],
+      "normalized": {
+        "x": 0.587373,
+        "y": 0.844419
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3606578947368422
+    },
+    {
+      "id": "custom-1-node-5",
+      "label": "新路线 4中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1171,
+        784
+      ],
+      "normalized": {
+        "x": 0.66009,
+        "y": 0.883878
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.411315789473684
+    },
+    {
+      "id": "custom-1-node-6",
+      "label": "新路线 4中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1276,
+        765
+      ],
+      "normalized": {
+        "x": 0.719278,
+        "y": 0.862458
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.383815789473684
+    },
+    {
+      "id": "custom-1-node-3",
+      "label": "新路线 4中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1345,
+        719
+      ],
+      "normalized": {
+        "x": 0.758174,
+        "y": 0.810598
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3172368421052632
+    },
+    {
+      "id": "custom-1-node-4",
+      "label": "新路线 4中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1366,
+        658
+      ],
+      "normalized": {
+        "x": 0.770011,
+        "y": 0.741826
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.2289473684210526
+    },
+    {
+      "id": "custom-1-node-7",
+      "label": "新路线 4中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1311,
+        566
+      ],
+      "normalized": {
+        "x": 0.739008,
+        "y": 0.638106
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0957894736842104
+    },
+    {
+      "id": "custom-1-node-8",
+      "label": "新路线 4中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1242,
+        475
+      ],
+      "normalized": {
+        "x": 0.700113,
+        "y": 0.535513
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.964078947368421
+    },
+    {
+      "id": "custom-1-node-1",
+      "label": "custom-1 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1106,
+        380
+      ],
+      "normalized": {
+        "x": 0.62345,
+        "y": 0.42841
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-2-node-1",
+      "label": "custom-2 · custom-1 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1106,
+        380
+      ],
+      "normalized": {
+        "x": 0.62345,
+        "y": 0.42841
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-2-node-3",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1169,
+        426
+      ],
+      "normalized": {
+        "x": 0.658963,
+        "y": 0.480271
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.8931578947368422
+    },
+    {
+      "id": "custom-2-node-4",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1238,
+        490
+      ],
+      "normalized": {
+        "x": 0.697858,
+        "y": 0.552424
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9857894736842105
+    },
+    {
+      "id": "custom-2-node-5",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1297,
+        599
+      ],
+      "normalized": {
+        "x": 0.731116,
+        "y": 0.67531
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.1435526315789473
+    },
+    {
+      "id": "custom-2-node-6",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1276,
+        683
+      ],
+      "normalized": {
+        "x": 0.719278,
+        "y": 0.770011
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.2651315789473685
+    },
+    {
+      "id": "custom-2-node-7",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1226,
+        765
+      ],
+      "normalized": {
+        "x": 0.691094,
+        "y": 0.862458
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.383815789473684
+    },
+    {
+      "id": "custom-2-node-8",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1114,
+        768
+      ],
+      "normalized": {
+        "x": 0.627959,
+        "y": 0.86584
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.388157894736842
+    },
+    {
+      "id": "custom-2-node-9",
+      "label": "新路线 5中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        990,
+        723
+      ],
+      "normalized": {
+        "x": 0.558061,
+        "y": 0.815107
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3230263157894737
+    },
+    {
+      "id": "custom-2-node-2",
+      "label": "custom-2 · 座位右侧下椅点",
+      "role": "waypoint",
+      "semanticRole": "seat-right",
+      "anchorKind": "interaction",
+      "anchorKey": "study.desk.right",
+      "anchorGroupKey": "study.desk",
+      "anchorPort": "right",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        941,
+        658
+      ],
+      "normalized": {
+        "x": 0.53044,
+        "y": 0.741826
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.2289473684210526
+    },
+    {
+      "id": "custom-3-node-1",
+      "label": "custom-3 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1623,
+        887
+      ],
+      "normalized": {
+        "x": 0.914882,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-3-node-3",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1472,
+        778
+      ],
+      "normalized": {
+        "x": 0.829763,
+        "y": 0.877114
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.4026315789473682
+    },
+    {
+      "id": "custom-3-node-4",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1357,
+        649
+      ],
+      "normalized": {
+        "x": 0.764938,
+        "y": 0.73168
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.215921052631579
+    },
+    {
+      "id": "custom-3-node-7",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1277,
+        548
+      ],
+      "normalized": {
+        "x": 0.719842,
+        "y": 0.617813
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.069736842105263
+    },
+    {
+      "id": "custom-3-node-8",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1234,
+        472
+      ],
+      "normalized": {
+        "x": 0.695603,
+        "y": 0.532131
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9597368421052631
+    },
+    {
+      "id": "custom-3-node-9",
+      "label": "新路线 6中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1166,
+        416
+      ],
+      "normalized": {
+        "x": 0.657272,
+        "y": 0.468997
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.8786842105263157
+    },
+    {
+      "id": "custom-3-node-2",
+      "label": "custom-3 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1104,
+        368
+      ],
+      "normalized": {
+        "x": 0.622322,
+        "y": 0.414882
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-4-node-1",
+      "label": "custom-4 · 新路线 6中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1111,
+        389
+      ],
+      "normalized": {
+        "x": 0.626268,
+        "y": 0.438557
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-4-node-3",
+      "label": "新路线 7中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1184,
+        438
+      ],
+      "normalized": {
+        "x": 0.667418,
+        "y": 0.493799
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9105263157894736
+    },
+    {
+      "id": "custom-4-node-4",
+      "label": "新路线 7中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1253,
+        484
+      ],
+      "normalized": {
+        "x": 0.706313,
+        "y": 0.54566
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9771052631578947
+    },
+    {
+      "id": "custom-4-node-5",
+      "label": "新路线 7中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1413,
+        636
+      ],
+      "normalized": {
+        "x": 0.796505,
+        "y": 0.717024
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.1971052631578947
+    },
+    {
+      "id": "custom-4-node-6",
+      "label": "新路线 7中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1531,
+        779
+      ],
+      "normalized": {
+        "x": 0.863021,
+        "y": 0.878241
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.404078947368421
+    },
+    {
+      "id": "custom-4-node-2",
+      "label": "custom-4 · custom-3 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1623,
+        887
+      ],
+      "normalized": {
+        "x": 0.914882,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-5-node-1",
+      "label": "custom-5 · custom-4 · 新路线 6中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1111,
+        389
+      ],
+      "normalized": {
+        "x": 0.626268,
+        "y": 0.438557
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-5-node-3",
+      "label": "新路线 8中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1179,
+        430
+      ],
+      "normalized": {
+        "x": 0.6646,
+        "y": 0.48478
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.8989473684210526
+    },
+    {
+      "id": "custom-5-node-4",
+      "label": "新路线 8中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1343,
+        470
+      ],
+      "normalized": {
+        "x": 0.757046,
+        "y": 0.529876
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9568421052631578
+    },
+    {
+      "id": "custom-5-node-2",
+      "label": "custom-5 · 新路线 7中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.terrace-greenery",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1436,
+        481
+      ],
+      "normalized": {
+        "x": 0.80947,
+        "y": 0.542277
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9727631578947369
+    },
+    {
+      "id": "custom-7-node-1",
+      "label": "custom-7 · custom-6 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        647,
+        887
+      ],
+      "normalized": {
+        "x": 0.364713,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-7-node-3",
+      "label": "新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        894,
+        838
+      ],
+      "normalized": {
+        "x": 0.503946,
+        "y": 0.944758
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-7-node-4",
+      "label": "新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1116,
+        824
+      ],
+      "normalized": {
+        "x": 0.629087,
+        "y": 0.928974
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-7-node-7",
+      "label": "新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1276,
+        768
+      ],
+      "normalized": {
+        "x": 0.719278,
+        "y": 0.86584
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.388157894736842
+    },
+    {
+      "id": "custom-7-node-5",
+      "label": "新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1354,
+        680
+      ],
+      "normalized": {
+        "x": 0.763247,
+        "y": 0.766629
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.2607894736842105
+    },
+    {
+      "id": "custom-7-node-8",
+      "label": "新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1366,
+        598
+      ],
+      "normalized": {
+        "x": 0.770011,
+        "y": 0.674183
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.1421052631578947
+    },
+    {
+      "id": "custom-7-node-6",
+      "label": "新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1376,
+        517
+      ],
+      "normalized": {
+        "x": 0.775648,
+        "y": 0.582864
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0248684210526315
+    },
+    {
+      "id": "custom-7-node-2",
+      "label": "custom-7 · custom-6 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.terrace-greenery",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1414,
+        438
+      ],
+      "normalized": {
+        "x": 0.797069,
+        "y": 0.493799
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9105263157894736
+    },
+    {
+      "id": "custom-8-node-10",
+      "label": "custom-8 · custom-7 · custom-6 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.terrace-greenery",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1414,
+        438
+      ],
+      "normalized": {
+        "x": 0.797069,
+        "y": 0.493799
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9105263157894736
+    },
+    {
+      "id": "custom-8-node-9",
+      "label": "custom-8 · 新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1376,
+        517
+      ],
+      "normalized": {
+        "x": 0.775648,
+        "y": 0.582864
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0248684210526315
+    },
+    {
+      "id": "custom-8-node-8",
+      "label": "custom-8 · 新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1366,
+        598
+      ],
+      "normalized": {
+        "x": 0.770011,
+        "y": 0.674183
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.1421052631578947
+    },
+    {
+      "id": "custom-8-node-7",
+      "label": "custom-8 · 新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1354,
+        680
+      ],
+      "normalized": {
+        "x": 0.763247,
+        "y": 0.766629
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.2607894736842105
+    },
+    {
+      "id": "custom-8-node-6",
+      "label": "custom-8 · 新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1276,
+        768
+      ],
+      "normalized": {
+        "x": 0.719278,
+        "y": 0.86584
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.388157894736842
+    },
+    {
+      "id": "custom-8-node-5",
+      "label": "custom-8 · 新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1116,
+        824
+      ],
+      "normalized": {
+        "x": 0.629087,
+        "y": 0.928974
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-8-node-4",
+      "label": "custom-8 · 新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        894,
+        838
+      ],
+      "normalized": {
+        "x": 0.503946,
+        "y": 0.944758
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-8-node-3",
+      "label": "custom-8 · custom-7 · custom-6 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        647,
+        887
+      ],
+      "normalized": {
+        "x": 0.364713,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-9-node-3",
+      "label": "custom-9 · custom-7 · custom-6 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        647,
+        887
+      ],
+      "normalized": {
+        "x": 0.364713,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-9-node-5",
+      "label": "新路线 12中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        771,
+        863
+      ],
+      "normalized": {
+        "x": 0.434611,
+        "y": 0.972943
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-9-node-6",
+      "label": "新路线 12中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        925,
+        804
+      ],
+      "normalized": {
+        "x": 0.521421,
+        "y": 0.906426
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-9-node-7",
+      "label": "新路线 12中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1121,
+        764
+      ],
+      "normalized": {
+        "x": 0.631905,
+        "y": 0.86133
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3823684210526315
+    },
+    {
+      "id": "custom-9-node-8",
+      "label": "新路线 12中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1391,
+        766
+      ],
+      "normalized": {
+        "x": 0.784104,
+        "y": 0.863585
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3852631578947368
+    },
+    {
+      "id": "custom-9-node-4",
+      "label": "custom-9 · 新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1706,
+        876
+      ],
+      "normalized": {
+        "x": 0.961669,
+        "y": 0.987599
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-10-node-14",
+      "label": "custom-10 · custom-9 · 新路线 10中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1706,
+        876
+      ],
+      "normalized": {
+        "x": 0.961669,
+        "y": 0.987599
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-10-node-13",
+      "label": "custom-10 · 新路线 12中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1391,
+        766
+      ],
+      "normalized": {
+        "x": 0.784104,
+        "y": 0.863585
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3852631578947368
+    },
+    {
+      "id": "custom-10-node-12",
+      "label": "custom-10 · 新路线 12中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1121,
+        764
+      ],
+      "normalized": {
+        "x": 0.631905,
+        "y": 0.86133
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3823684210526315
+    },
+    {
+      "id": "custom-10-node-11",
+      "label": "custom-10 · 新路线 12中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        925,
+        804
+      ],
+      "normalized": {
+        "x": 0.521421,
+        "y": 0.906426
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-10-node-10",
+      "label": "custom-10 · 新路线 12中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        771,
+        863
+      ],
+      "normalized": {
+        "x": 0.434611,
+        "y": 0.972943
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-10-node-9",
+      "label": "custom-10 · custom-9 · custom-7 · custom-6 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        647,
+        887
+      ],
+      "normalized": {
+        "x": 0.364713,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-11-node-1",
+      "label": "custom-11 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        664,
+        887
+      ],
+      "normalized": {
+        "x": 0.374295,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-11-node-3",
+      "label": "新路线 14中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        853,
+        816
+      ],
+      "normalized": {
+        "x": 0.480834,
+        "y": 0.919955
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-11-node-4",
+      "label": "新路线 14中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        939,
+        766
+      ],
+      "normalized": {
+        "x": 0.529312,
+        "y": 0.863585
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3852631578947368
+    },
+    {
+      "id": "custom-11-node-5",
+      "label": "新路线 14中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        962,
+        714
+      ],
+      "normalized": {
+        "x": 0.542277,
+        "y": 0.804961
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.31
+    },
+    {
+      "id": "custom-11-node-2",
+      "label": "custom-11 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "study.desk.right",
+      "anchorGroupKey": "study.desk",
+      "anchorPort": "right",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        951,
+        660
+      ],
+      "normalized": {
+        "x": 0.536077,
+        "y": 0.744081
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.2318421052631578
+    },
+    {
+      "id": "custom-12-node-5",
+      "label": "custom-12 · custom-11 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "interaction",
+      "anchorKey": "study.desk.right",
+      "anchorGroupKey": "study.desk",
+      "anchorPort": "right",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        951,
+        660
+      ],
+      "normalized": {
+        "x": 0.536077,
+        "y": 0.744081
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.2318421052631578
+    },
+    {
+      "id": "custom-12-node-4",
+      "label": "custom-12 · 新路线 14中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        962,
+        714
+      ],
+      "normalized": {
+        "x": 0.542277,
+        "y": 0.804961
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.31
+    },
+    {
+      "id": "custom-12-node-3",
+      "label": "custom-12 · 新路线 14中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        939,
+        766
+      ],
+      "normalized": {
+        "x": 0.529312,
+        "y": 0.863585
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3852631578947368
+    },
+    {
+      "id": "custom-12-node-2",
+      "label": "custom-12 · 新路线 14中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        853,
+        816
+      ],
+      "normalized": {
+        "x": 0.480834,
+        "y": 0.919955
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-12-node-1",
+      "label": "custom-12 · custom-11 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        664,
+        887
+      ],
+      "normalized": {
+        "x": 0.374295,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-6-node-3",
+      "label": "custom-6 · custom-12 · custom-11 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        671,
+        887
+      ],
+      "normalized": {
+        "x": 0.378241,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-6-node-5",
+      "label": "新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        896,
+        837
+      ],
+      "normalized": {
+        "x": 0.505073,
+        "y": 0.94363
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-6-node-6",
+      "label": "新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1088,
+        824
+      ],
+      "normalized": {
+        "x": 0.613303,
+        "y": 0.928974
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-6-node-7",
+      "label": "新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1260,
+        773
+      ],
+      "normalized": {
+        "x": 0.710259,
+        "y": 0.871477
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3953947368421051
+    },
+    {
+      "id": "custom-6-node-8",
+      "label": "新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1362,
+        690
+      ],
+      "normalized": {
+        "x": 0.767756,
+        "y": 0.777903
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.2752631578947367
+    },
+    {
+      "id": "custom-6-node-9",
+      "label": "新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1367,
+        595
+      ],
+      "normalized": {
+        "x": 0.770575,
+        "y": 0.6708
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.137763157894737
+    },
+    {
+      "id": "custom-6-node-10",
+      "label": "新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1281,
+        483
+      ],
+      "normalized": {
+        "x": 0.722097,
+        "y": 0.544532
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9756578947368421
+    },
+    {
+      "id": "custom-6-node-11",
+      "label": "新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1182,
+        416
+      ],
+      "normalized": {
+        "x": 0.666291,
+        "y": 0.468997
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.8786842105263157
+    },
+    {
+      "id": "custom-6-node-4",
+      "label": "custom-6 · custom-12 · 新路线 14中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1096,
+        364
+      ],
+      "normalized": {
+        "x": 0.617813,
+        "y": 0.410372
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-13-node-1",
+      "label": "custom-13 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        0,
+        706
+      ],
+      "normalized": {
+        "x": 0,
+        "y": 0.795941
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.298421052631579
+    },
+    {
+      "id": "custom-13-node-3",
+      "label": "新路线 16中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        273,
+        709
+      ],
+      "normalized": {
+        "x": 0.15389,
+        "y": 0.799324
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3027631578947367
+    },
+    {
+      "id": "custom-13-node-4",
+      "label": "新路线 16中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        466,
+        729
+      ],
+      "normalized": {
+        "x": 0.262683,
+        "y": 0.821871
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.3317105263157893
+    },
+    {
+      "id": "custom-13-node-5",
+      "label": "新路线 16中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        625,
+        805
+      ],
+      "normalized": {
+        "x": 0.352311,
+        "y": 0.907554
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-13-node-2",
+      "label": "custom-13 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        663,
+        887
+      ],
+      "normalized": {
+        "x": 0.373732,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-14-node-5",
+      "label": "custom-14 · custom-13 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        663,
+        887
+      ],
+      "normalized": {
+        "x": 0.373732,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-14-node-4",
+      "label": "custom-14 · 新路线 16中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        625,
+        805
+      ],
+      "normalized": {
+        "x": 0.352311,
+        "y": 0.907554
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-14-node-3",
+      "label": "custom-14 · 新路线 16中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        466,
+        729
+      ],
+      "normalized": {
+        "x": 0.262683,
+        "y": 0.821871
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3317105263157893
+    },
+    {
+      "id": "custom-14-node-2",
+      "label": "custom-14 · 新路线 16中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        273,
+        709
+      ],
+      "normalized": {
+        "x": 0.15389,
+        "y": 0.799324
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3027631578947367
+    },
+    {
+      "id": "custom-14-node-1",
+      "label": "custom-14 · custom-13 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        0,
+        706
+      ],
+      "normalized": {
+        "x": 0,
+        "y": 0.795941
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.298421052631579
+    },
+    {
+      "id": "custom-15-node-1",
+      "label": "custom-15 · custom-13 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        0,
+        706
+      ],
+      "normalized": {
+        "x": 0,
+        "y": 0.795941
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.298421052631579
+    },
+    {
+      "id": "custom-15-node-3",
+      "label": "新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        322,
+        665
+      ],
+      "normalized": {
+        "x": 0.181511,
+        "y": 0.749718
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.239078947368421
+    },
+    {
+      "id": "custom-15-node-9",
+      "label": "玄关→阁楼中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        562,
+        591
+      ],
+      "normalized": {
+        "x": 0.316798,
+        "y": 0.666291
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.1319736842105264
+    },
+    {
+      "id": "custom-15-node-4",
+      "label": "新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        716,
+        502
+      ],
+      "normalized": {
+        "x": 0.403608,
+        "y": 0.565953
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 1.003157894736842
+    },
+    {
+      "id": "custom-15-node-5",
+      "label": "新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        886,
+        415
+      ],
+      "normalized": {
+        "x": 0.499436,
+        "y": 0.467869
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.8772368421052632
+    },
+    {
+      "id": "custom-15-node-6",
+      "label": "新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        986,
+        400
+      ],
+      "normalized": {
+        "x": 0.555806,
+        "y": 0.450958
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-15-node-7",
+      "label": "新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1065,
+        415
+      ],
+      "normalized": {
+        "x": 0.600338,
+        "y": 0.467869
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.8772368421052632
+    },
+    {
+      "id": "custom-15-node-8",
+      "label": "新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1097,
+        393
+      ],
+      "normalized": {
+        "x": 0.618377,
+        "y": 0.443067
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-15-node-2",
+      "label": "custom-15 · 新路线 16中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1087,
+        364
+      ],
+      "normalized": {
+        "x": 0.61274,
+        "y": 0.410372
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-16-node-8",
+      "label": "custom-16 · custom-15 · 新路线 16中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1087,
+        364
+      ],
+      "normalized": {
+        "x": 0.61274,
+        "y": 0.410372
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-16-node-7",
+      "label": "custom-16 · 新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1097,
+        393
+      ],
+      "normalized": {
+        "x": 0.618377,
+        "y": 0.443067
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-16-node-6",
+      "label": "custom-16 · 新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1054,
+        409
+      ],
+      "normalized": {
+        "x": 0.594138,
+        "y": 0.461105
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-16-node-5",
+      "label": "custom-16 · 新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        986,
+        400
+      ],
+      "normalized": {
+        "x": 0.555806,
+        "y": 0.450958
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-16-node-4",
+      "label": "custom-16 · 新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        886,
+        415
+      ],
+      "normalized": {
+        "x": 0.499436,
+        "y": 0.467869
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.8772368421052632
+    },
+    {
+      "id": "custom-16-node-3",
+      "label": "custom-16 · 新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        716,
+        502
+      ],
+      "normalized": {
+        "x": 0.403608,
+        "y": 0.565953
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 1.003157894736842
+    },
+    {
+      "id": "custom-16-node-2",
+      "label": "custom-16 · 新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        527,
+        602
+      ],
+      "normalized": {
+        "x": 0.297069,
+        "y": 0.678692
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.1478947368421053
+    },
+    {
+      "id": "custom-16-node-9",
+      "label": "反向·玄关→阁楼中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        234,
+        686
+      ],
+      "normalized": {
+        "x": 0.131905,
+        "y": 0.773393
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.2694736842105263
+    },
+    {
+      "id": "custom-16-node-1",
+      "label": "custom-16 · custom-15 · custom-13 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        0,
+        706
+      ],
+      "normalized": {
+        "x": 0,
+        "y": 0.795941
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.298421052631579
+    },
+    {
+      "id": "custom-17-node-1",
+      "label": "custom-17 · custom-15 · custom-13 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        0,
+        706
+      ],
+      "normalized": {
+        "x": 0,
+        "y": 0.795941
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.298421052631579
+    },
+    {
+      "id": "custom-17-node-3",
+      "label": "新路线 20中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        583,
+        823
+      ],
+      "normalized": {
+        "x": 0.328636,
+        "y": 0.927847
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-17-node-4",
+      "label": "新路线 20中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1136,
+        866
+      ],
+      "normalized": {
+        "x": 0.640361,
+        "y": 0.976325
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-17-node-2",
+      "label": "custom-17 · 新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1621,
+        884
+      ],
+      "normalized": {
+        "x": 0.913754,
+        "y": 0.996618
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-18-node-4",
+      "label": "custom-18 · custom-17 · 新路线 18中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.dining-kitchen",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1621,
+        884
+      ],
+      "normalized": {
+        "x": 0.913754,
+        "y": 0.996618
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-18-node-3",
+      "label": "custom-18 · 新路线 20中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1136,
+        866
+      ],
+      "normalized": {
+        "x": 0.640361,
+        "y": 0.976325
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-18-node-2",
+      "label": "custom-18 · 新路线 20中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        583,
+        823
+      ],
+      "normalized": {
+        "x": 0.328636,
+        "y": 0.927847
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-18-node-1",
+      "label": "custom-18 · custom-17 · custom-15 · custom-13 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        0,
+        706
+      ],
+      "normalized": {
+        "x": 0,
+        "y": 0.795941
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.298421052631579
+    },
+    {
+      "id": "custom-19-node-9",
+      "label": "custom-19 · custom-6 · custom-12 · 新路线 14中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.attic",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1095,
+        374
+      ],
+      "normalized": {
+        "x": 0.617249,
+        "y": 0.421646
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.87
+    },
+    {
+      "id": "custom-19-node-8",
+      "label": "custom-19 · 新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1182,
+        416
+      ],
+      "normalized": {
+        "x": 0.666291,
+        "y": 0.468997
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.8786842105263157
+    },
+    {
+      "id": "custom-19-node-7",
+      "label": "custom-19 · 新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1281,
+        483
+      ],
+      "normalized": {
+        "x": 0.722097,
+        "y": 0.544532
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9756578947368421
+    },
+    {
+      "id": "custom-19-node-6",
+      "label": "custom-19 · 新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1367,
+        595
+      ],
+      "normalized": {
+        "x": 0.770575,
+        "y": 0.6708
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.137763157894737
+    },
+    {
+      "id": "custom-19-node-5",
+      "label": "custom-19 · 新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1362,
+        690
+      ],
+      "normalized": {
+        "x": 0.767756,
+        "y": 0.777903
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.2752631578947367
+    },
+    {
+      "id": "custom-19-node-4",
+      "label": "custom-19 · 新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1260,
+        773
+      ],
+      "normalized": {
+        "x": 0.710259,
+        "y": 0.871477
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.3953947368421051
+    },
+    {
+      "id": "custom-19-node-3",
+      "label": "custom-19 · 新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1088,
+        824
+      ],
+      "normalized": {
+        "x": 0.613303,
+        "y": 0.928974
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-19-node-2",
+      "label": "custom-19 · 新路线 15中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        896,
+        837
+      ],
+      "normalized": {
+        "x": 0.505073,
+        "y": 0.94363
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-19-node-1",
+      "label": "custom-19 · custom-6 · custom-12 · custom-11 · 去程节点 1",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.bedroom",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        671,
+        887
+      ],
+      "normalized": {
+        "x": 0.378241,
+        "y": 1
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-20-node-1",
+      "label": "custom-20 · custom-17 · custom-15 · custom-13 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        5,
+        703
+      ],
+      "normalized": {
+        "x": 0.002818,
+        "y": 0.792559
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.2940789473684209
+    },
+    {
+      "id": "custom-20-node-3",
+      "label": "新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        547,
+        810
+      ],
+      "normalized": {
+        "x": 0.308343,
+        "y": 0.913191
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-20-node-4",
+      "label": "新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        822,
+        835
+      ],
+      "normalized": {
+        "x": 0.46336,
+        "y": 0.941375
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-20-node-5",
+      "label": "新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1129,
+        777
+      ],
+      "normalized": {
+        "x": 0.636415,
+        "y": 0.875986
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.4011842105263157
+    },
+    {
+      "id": "custom-20-node-6",
+      "label": "新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1213,
+        692
+      ],
+      "normalized": {
+        "x": 0.683766,
+        "y": 0.780158
+      },
+      "depth": "foreground",
+      "facing": "right",
+      "stableScale": 1.2781578947368422
+    },
+    {
+      "id": "custom-20-node-7",
+      "label": "新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1268,
+        566
+      ],
+      "normalized": {
+        "x": 0.714769,
+        "y": 0.638106
+      },
+      "depth": "midground",
+      "facing": "right",
+      "stableScale": 1.0957894736842104
+    },
+    {
+      "id": "custom-20-node-8",
+      "label": "新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1346,
+        495
+      ],
+      "normalized": {
+        "x": 0.758737,
+        "y": 0.558061
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9930263157894736
+    },
+    {
+      "id": "custom-20-node-2",
+      "label": "custom-20 · 新路线 20中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.terrace-greenery",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1408,
+        433
+      ],
+      "normalized": {
+        "x": 0.793687,
+        "y": 0.488162
+      },
+      "depth": "background",
+      "facing": "right",
+      "stableScale": 0.9032894736842105
+    },
+    {
+      "id": "custom-21-node-8",
+      "label": "custom-21 · custom-20 · 新路线 20中间节点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.terrace-greenery",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1408,
+        433
+      ],
+      "normalized": {
+        "x": 0.793687,
+        "y": 0.488162
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9032894736842105
+    },
+    {
+      "id": "custom-21-node-7",
+      "label": "custom-21 · 新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1346,
+        495
+      ],
+      "normalized": {
+        "x": 0.758737,
+        "y": 0.558061
+      },
+      "depth": "background",
+      "facing": "left",
+      "stableScale": 0.9930263157894736
+    },
+    {
+      "id": "custom-21-node-6",
+      "label": "custom-21 · 新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1268,
+        566
+      ],
+      "normalized": {
+        "x": 0.714769,
+        "y": 0.638106
+      },
+      "depth": "midground",
+      "facing": "left",
+      "stableScale": 1.0957894736842104
+    },
+    {
+      "id": "custom-21-node-5",
+      "label": "custom-21 · 新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1213,
+        692
+      ],
+      "normalized": {
+        "x": 0.683766,
+        "y": 0.780158
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.2781578947368422
+    },
+    {
+      "id": "custom-21-node-4",
+      "label": "custom-21 · 新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        1129,
+        777
+      ],
+      "normalized": {
+        "x": 0.636415,
+        "y": 0.875986
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.4011842105263157
+    },
+    {
+      "id": "custom-21-node-3",
+      "label": "custom-21 · 新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        822,
+        835
+      ],
+      "normalized": {
+        "x": 0.46336,
+        "y": 0.941375
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-21-node-2",
+      "label": "custom-21 · 新路线 23中间节点",
+      "role": "waypoint",
+      "anchorKind": "waypoint",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        547,
+        810
+      ],
+      "normalized": {
+        "x": 0.308343,
+        "y": 0.913191
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.42
+    },
+    {
+      "id": "custom-21-node-1",
+      "label": "custom-21 · custom-20 · custom-17 · custom-15 · custom-13 · 座位右侧下椅点",
+      "role": "waypoint",
+      "anchorKind": "portal",
+      "anchorKey": "portal.entrance",
+      "anchorSource": "legacy-derived",
+      "pixel": [
+        5,
+        703
+      ],
+      "normalized": {
+        "x": 0.002818,
+        "y": 0.792559
+      },
+      "depth": "foreground",
+      "facing": "left",
+      "stableScale": 1.2940789473684209
+    }
+  ],
+  "routes": {
+    "seat-to-door": {
+      "id": "seat-to-door",
+      "label": "书房 → 露台（椅子右侧下椅）",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "seat-right",
+      "endPointId": "door",
+      "waypointIds": [
+        "seat-right",
+        "out-1",
+        "out-2",
+        "out-3",
+        "out-4",
+        "out-5",
+        "door"
+      ],
+      "durationMs": 2932,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 668
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "seat-to-door-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-door",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "seat-right",
+          "pathEndPointId": "door"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "door",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "door",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "door-to-seat": {
+      "id": "door-to-seat",
+      "label": "露台 → 书房（椅子左侧上椅）",
+      "kind": "walk",
+      "accent": "magenta",
+      "startPointId": "door",
+      "endPointId": "seat-left",
+      "waypointIds": [
+        "door",
+        "in-1",
+        "in-2",
+        "in-3",
+        "in-4",
+        "in-5",
+        "in-6",
+        "in-7",
+        "seat-left"
+      ],
+      "durationMs": 3465,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 790
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "before-turn",
+      "phases": [
+        {
+          "id": "door-to-seat-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.7788839825716832,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-chair",
+          "actorMode": "walking",
+          "foregroundPolicy": "before-turn",
+          "layerModes": {},
+          "pathStartPointId": "door",
+          "pathEndPointId": "in-5",
+          "stateId": "walking"
+        },
+        {
+          "id": "door-to-seat-phase-2",
+          "startProgress": 0.7788839825716832,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-chair",
+          "actorMode": "walking",
+          "foregroundPolicy": "before-turn",
+          "layerModes": {},
+          "pathStartPointId": "in-5",
+          "pathEndPointId": "seat-left",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "door",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "in-5",
+          "progress": 0.7788839825716832,
+          "kind": "facing",
+          "facing": "right",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "seat-left",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "writing-seat",
+          "toAssetSource": "/assets/ecology/formal-scenes/study/states/study-writing-seat-scene-v9-paper-base-mother-locked.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "seat-left",
+        "stateId": "writing-seat",
+        "assetMode": "scene",
+        "hideAfter": false
+      }
+    },
+    "door-to-kitchen": {
+      "id": "door-to-kitchen",
+      "label": "露台 → 厨房（右侧通道）",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "door",
+      "endPointId": "kitchen-end",
+      "waypointIds": [
+        "door",
+        "kitchen-start",
+        "kitchen-node-2",
+        "kitchen-node-3",
+        "kitchen-node-1",
+        "kitchen-end"
+      ],
+      "durationMs": 2896,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 660
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "door-to-kitchen-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.2290050500400262,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-counter",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "door",
+          "pathEndPointId": "kitchen-node-2",
+          "stateId": "walking"
+        },
+        {
+          "id": "door-to-kitchen-phase-2",
+          "startProgress": 0.2290050500400262,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-counter",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "kitchen-node-2",
+          "pathEndPointId": "kitchen-end",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "door",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "kitchen-node-2",
+          "progress": 0.2290050500400262,
+          "kind": "facing",
+          "facing": "right",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "kitchen-end",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "kitchen-end",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "kitchen-to-door": {
+      "id": "kitchen-to-door",
+      "label": "厨房 → 露台（回到书房）",
+      "kind": "walk",
+      "accent": "cyan",
+      "startPointId": "kitchen-to-door-node-1",
+      "endPointId": "door",
+      "waypointIds": [
+        "kitchen-to-door-node-1",
+        "kitchen-to-door-node-2",
+        "kitchen-to-door-node-3",
+        "kitchen-to-door-node-4",
+        "kitchen-to-door-node-5",
+        "door"
+      ],
+      "durationMs": 2896,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 660
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "kitchen-to-door-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.7709949499599738,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-door",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "kitchen-to-door-node-1",
+          "pathEndPointId": "kitchen-to-door-node-4",
+          "stateId": "walking"
+        },
+        {
+          "id": "kitchen-to-door-phase-2",
+          "startProgress": 0.7709949499599738,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-door",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "kitchen-to-door-node-4",
+          "pathEndPointId": "door",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "kitchen-to-door-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "kitchen-to-door-node-4",
+          "progress": 0.7709949499599738,
+          "kind": "facing",
+          "facing": "right",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "door",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "door",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "seat-to-kitchen": {
+      "id": "seat-to-kitchen",
+      "label": "书房 → 厨房（右侧通道）",
+      "kind": "walk",
+      "accent": "amber",
+      "startPointId": "seat-right",
+      "endPointId": "seat-to-kitchen-node-5",
+      "waypointIds": [
+        "seat-right",
+        "seat-to-kitchen-node-1",
+        "seat-to-kitchen-node-2",
+        "seat-to-kitchen-node-3",
+        "seat-to-kitchen-node-4",
+        "seat-to-kitchen-node-5"
+      ],
+      "durationMs": 3635,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 829
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "seat-to-kitchen-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-counter",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "seat-right",
+          "pathEndPointId": "seat-to-kitchen-node-5"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "seat-to-kitchen-node-5",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "seat-to-kitchen-node-5",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "kitchen-to-seat": {
+      "id": "kitchen-to-seat",
+      "label": "厨房 → 书房（回到座位）",
+      "kind": "walk",
+      "accent": "amber",
+      "startPointId": "kitchen-to-seat-node-1",
+      "endPointId": "seat-right",
+      "waypointIds": [
+        "kitchen-to-seat-node-1",
+        "kitchen-to-seat-node-2",
+        "kitchen-to-seat-node-3",
+        "kitchen-to-seat-node-4",
+        "kitchen-to-seat-node-5",
+        "seat-right"
+      ],
+      "durationMs": 3548,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 809
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "kitchen-to-seat-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-chair",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "kitchen-to-seat-node-1",
+          "pathEndPointId": "seat-right",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "kitchen-to-seat-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "seat-right",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "writing-seat",
+          "toAssetSource": "/assets/ecology/formal-scenes/study/states/study-writing-seat-scene-v9-paper-base-mother-locked.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "seat-right",
+        "stateId": "writing-seat",
+        "assetMode": "scene",
+        "hideAfter": false
+      }
+    },
+    "custom-1": {
+      "id": "custom-1",
+      "label": "书房→阁楼",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-1-node-9",
+      "endPointId": "custom-1-node-1",
+      "waypointIds": [
+        "custom-1-node-9",
+        "custom-1-node-2",
+        "custom-1-node-5",
+        "custom-1-node-6",
+        "custom-1-node-3",
+        "custom-1-node-4",
+        "custom-1-node-7",
+        "custom-1-node-8",
+        "custom-1-node-1"
+      ],
+      "durationMs": 3996,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 911
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-1-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.5040880236891602,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-1-node-9",
+          "pathEndPointId": "custom-1-node-3"
+        },
+        {
+          "id": "custom-1-phase-2",
+          "startProgress": 0.5040880236891602,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-1-node-3",
+          "pathEndPointId": "custom-1-node-1"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-1-node-3",
+          "progress": 0.5040880236891602,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-1-node-1",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 6,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-1-node-1",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-2": {
+      "id": "custom-2",
+      "label": "阁楼→书房",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-2-node-1",
+      "endPointId": "custom-2-node-2",
+      "waypointIds": [
+        "custom-2-node-1",
+        "custom-2-node-3",
+        "custom-2-node-4",
+        "custom-2-node-5",
+        "custom-2-node-6",
+        "custom-2-node-7",
+        "custom-2-node-8",
+        "custom-2-node-9",
+        "custom-2-node-2"
+      ],
+      "durationMs": 3526,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 804
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-2-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.3682166888183679,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-chair",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-2-node-1",
+          "pathEndPointId": "custom-2-node-5",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-2-phase-2",
+          "startProgress": 0.3682166888183679,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-chair",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-2-node-5",
+          "pathEndPointId": "custom-2-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-2-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-2-node-5",
+          "progress": 0.3682166888183679,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-2-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "writing-seat",
+          "toAssetSource": "/assets/ecology/formal-scenes/study/states/study-writing-seat-scene-v9-paper-base-mother-locked.webp",
+          "toAssetMode": "scene",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-2-node-2",
+        "stateId": "writing-seat",
+        "assetMode": "scene",
+        "hideAfter": false
+      }
+    },
+    "custom-3": {
+      "id": "custom-3",
+      "label": "厨房→阁楼",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-3-node-1",
+      "endPointId": "custom-3-node-2",
+      "waypointIds": [
+        "custom-3-node-1",
+        "custom-3-node-3",
+        "custom-3-node-4",
+        "custom-3-node-7",
+        "custom-3-node-8",
+        "custom-3-node-9",
+        "custom-3-node-2"
+      ],
+      "durationMs": 3253,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 742
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-3-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-3-node-1",
+          "pathEndPointId": "custom-3-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-3-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-3-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-3-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-4": {
+      "id": "custom-4",
+      "label": "阁楼→厨房",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-4-node-1",
+      "endPointId": "custom-4-node-2",
+      "waypointIds": [
+        "custom-4-node-1",
+        "custom-4-node-3",
+        "custom-4-node-4",
+        "custom-4-node-5",
+        "custom-4-node-6",
+        "custom-4-node-2"
+      ],
+      "durationMs": 3153,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 719
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-4-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-4-node-1",
+          "pathEndPointId": "custom-4-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-4-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-4-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-4-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-5": {
+      "id": "custom-5",
+      "label": "阁楼→露台",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-5-node-1",
+      "endPointId": "custom-5-node-2",
+      "waypointIds": [
+        "custom-5-node-1",
+        "custom-5-node-3",
+        "custom-5-node-4",
+        "custom-5-node-2"
+      ],
+      "durationMs": 1499,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 342
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-5-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-5-node-1",
+          "pathEndPointId": "custom-5-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-5-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-5-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-5-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-7": {
+      "id": "custom-7",
+      "label": "卧室→露台",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-7-node-1",
+      "endPointId": "custom-7-node-2",
+      "waypointIds": [
+        "custom-7-node-1",
+        "custom-7-node-3",
+        "custom-7-node-4",
+        "custom-7-node-7",
+        "custom-7-node-5",
+        "custom-7-node-8",
+        "custom-7-node-6",
+        "custom-7-node-2"
+      ],
+      "durationMs": 4445,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1013
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-7-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-7-node-1",
+          "pathEndPointId": "custom-7-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-7-node-1",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-7-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-7-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-7-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-8": {
+      "id": "custom-8",
+      "label": "反向·卧室→露台",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-8-node-10",
+      "endPointId": "custom-8-node-3",
+      "waypointIds": [
+        "custom-8-node-10",
+        "custom-8-node-9",
+        "custom-8-node-8",
+        "custom-8-node-7",
+        "custom-8-node-6",
+        "custom-8-node-5",
+        "custom-8-node-4",
+        "custom-8-node-3"
+      ],
+      "durationMs": 4445,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1013
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-8-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-8-node-10",
+          "pathEndPointId": "custom-8-node-3",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-8-node-10",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-8-node-10",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-8-node-3",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-8-node-3",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-9": {
+      "id": "custom-9",
+      "label": "卧室→厨房",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-9-node-3",
+      "endPointId": "custom-9-node-4",
+      "waypointIds": [
+        "custom-9-node-3",
+        "custom-9-node-5",
+        "custom-9-node-6",
+        "custom-9-node-7",
+        "custom-9-node-8",
+        "custom-9-node-4"
+      ],
+      "durationMs": 4802,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1095
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-9-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-9-node-3",
+          "pathEndPointId": "custom-9-node-4",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-9-node-3",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-9-node-3",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-9-node-4",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-9-node-4",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-10": {
+      "id": "custom-10",
+      "label": "反向·卧室→厨房",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-10-node-14",
+      "endPointId": "custom-10-node-9",
+      "waypointIds": [
+        "custom-10-node-14",
+        "custom-10-node-13",
+        "custom-10-node-12",
+        "custom-10-node-11",
+        "custom-10-node-10",
+        "custom-10-node-9"
+      ],
+      "durationMs": 4802,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1095
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-10-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-10-node-14",
+          "pathEndPointId": "custom-10-node-9",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-10-node-14",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-10-node-14",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-10-node-9",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-10-node-9",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-11": {
+      "id": "custom-11",
+      "label": "卧室→书房",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-11-node-1",
+      "endPointId": "custom-11-node-2",
+      "waypointIds": [
+        "custom-11-node-1",
+        "custom-11-node-3",
+        "custom-11-node-4",
+        "custom-11-node-5",
+        "custom-11-node-2"
+      ],
+      "durationMs": 1813,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 413
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-11-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.8666749698880719,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-11-node-1",
+          "pathEndPointId": "custom-11-node-5",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-11-phase-2",
+          "startProgress": 0.8666749698880719,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "obstacle-front",
+            "*": "obstacle-front"
+          },
+          "pathStartPointId": "custom-11-node-5",
+          "pathEndPointId": "custom-11-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-11-node-1",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-11-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-11-node-5",
+          "progress": 0.8666749698880719,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-11-node-5",
+          "progress": 0.8666749698880719,
+          "kind": "layer",
+          "layerModes": {
+            "*": "obstacle-front",
+            "chair": "obstacle-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-11-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-11-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-12": {
+      "id": "custom-12",
+      "label": "反向·卧室→书房",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-12-node-5",
+      "endPointId": "custom-12-node-1",
+      "waypointIds": [
+        "custom-12-node-5",
+        "custom-12-node-4",
+        "custom-12-node-3",
+        "custom-12-node-2",
+        "custom-12-node-1"
+      ],
+      "durationMs": 1813,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 413
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-12-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.1333250301119282,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "*": "obstacle-front",
+            "chair": "obstacle-front",
+            "desk-table": "actor-front"
+          },
+          "pathStartPointId": "custom-12-node-5",
+          "pathEndPointId": "custom-12-node-4",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-12-phase-2",
+          "startProgress": 0.1333250301119282,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "*": "obstacle-front",
+            "chair": "actor-front",
+            "desk-table": "actor-front"
+          },
+          "pathStartPointId": "custom-12-node-4",
+          "pathEndPointId": "custom-12-node-1",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-12-node-5",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "*": "obstacle-front",
+            "chair": "obstacle-front",
+            "desk-table": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-12-node-5",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-12-node-4",
+          "progress": 0.1333250301119282,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-12-node-4",
+          "progress": 0.1333250301119282,
+          "kind": "layer",
+          "layerModes": {
+            "*": "obstacle-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-12-node-1",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-12-node-1",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-6": {
+      "id": "custom-6",
+      "label": "卧室→阁楼",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-6-node-3",
+      "endPointId": "custom-6-node-4",
+      "waypointIds": [
+        "custom-6-node-3",
+        "custom-6-node-5",
+        "custom-6-node-6",
+        "custom-6-node-7",
+        "custom-6-node-8",
+        "custom-6-node-9",
+        "custom-6-node-10",
+        "custom-6-node-11",
+        "custom-6-node-4"
+      ],
+      "durationMs": 5220,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1190
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-6-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.6165559288822705,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-6-node-3",
+          "pathEndPointId": "custom-6-node-8",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-6-phase-2",
+          "startProgress": 0.6165559288822705,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-6-node-8",
+          "pathEndPointId": "custom-6-node-4",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-6-node-3",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-6-node-3",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-6-node-8",
+          "progress": 0.6165559288822705,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-6-node-4",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-6-node-4",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-13": {
+      "id": "custom-13",
+      "label": "玄关→卧室",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-13-node-1",
+      "endPointId": "custom-13-node-2",
+      "waypointIds": [
+        "custom-13-node-1",
+        "custom-13-node-3",
+        "custom-13-node-4",
+        "custom-13-node-5",
+        "custom-13-node-2"
+      ],
+      "durationMs": 3218,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 734
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-13-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-13-node-1",
+          "pathEndPointId": "custom-13-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-13-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-13-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-13-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-14": {
+      "id": "custom-14",
+      "label": "反向·玄关→卧室",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-14-node-5",
+      "endPointId": "custom-14-node-1",
+      "waypointIds": [
+        "custom-14-node-5",
+        "custom-14-node-4",
+        "custom-14-node-3",
+        "custom-14-node-2",
+        "custom-14-node-1"
+      ],
+      "durationMs": 3218,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 734
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-14-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-14-node-5",
+          "pathEndPointId": "custom-14-node-1",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-14-node-5",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-14-node-1",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-14-node-1",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-15": {
+      "id": "custom-15",
+      "label": "玄关→阁楼",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-15-node-1",
+      "endPointId": "custom-15-node-2",
+      "waypointIds": [
+        "custom-15-node-1",
+        "custom-15-node-3",
+        "custom-15-node-9",
+        "custom-15-node-4",
+        "custom-15-node-5",
+        "custom-15-node-6",
+        "custom-15-node-7",
+        "custom-15-node-8",
+        "custom-15-node-2"
+      ],
+      "durationMs": 5244,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1196
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-15-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.6303124732738882,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-15-node-1",
+          "pathEndPointId": "custom-15-node-4",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-15-phase-2",
+          "startProgress": 0.6303124732738882,
+          "endProgress": 0.9418641065155766,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "obstacle-front",
+            "chair": "obstacle-front"
+          },
+          "pathStartPointId": "custom-15-node-4",
+          "pathEndPointId": "custom-15-node-7",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-15-phase-3",
+          "startProgress": 0.9418641065155766,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "obstacle-front",
+            "chair": "obstacle-front"
+          },
+          "pathStartPointId": "custom-15-node-7",
+          "pathEndPointId": "custom-15-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-15-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-15-node-4",
+          "progress": 0.6303124732738882,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "obstacle-front",
+            "chair": "obstacle-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-15-node-7",
+          "progress": 0.9418641065155766,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-15-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-15-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-16": {
+      "id": "custom-16",
+      "label": "反向·玄关→阁楼",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-16-node-8",
+      "endPointId": "custom-16-node-1",
+      "waypointIds": [
+        "custom-16-node-8",
+        "custom-16-node-7",
+        "custom-16-node-6",
+        "custom-16-node-5",
+        "custom-16-node-4",
+        "custom-16-node-3",
+        "custom-16-node-2",
+        "custom-16-node-9",
+        "custom-16-node-1"
+      ],
+      "durationMs": 5222,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1191
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-16-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.025762388001253668,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {},
+          "pathStartPointId": "custom-16-node-8",
+          "pathEndPointId": "custom-16-node-7",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-16-phase-2",
+          "startProgress": 0.025762388001253668,
+          "endProgress": 0.3672041206738969,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "obstacle-front",
+            "chair": "obstacle-front"
+          },
+          "pathStartPointId": "custom-16-node-7",
+          "pathEndPointId": "custom-16-node-3",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-16-phase-3",
+          "startProgress": 0.3672041206738969,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "obstacle-front",
+            "chair": "obstacle-front"
+          },
+          "pathStartPointId": "custom-16-node-3",
+          "pathEndPointId": "custom-16-node-1",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-16-node-8",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-16-node-7",
+          "progress": 0.025762388001253668,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "obstacle-front",
+            "chair": "obstacle-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-16-node-7",
+          "progress": 0.025762388001253668,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-16-node-3",
+          "progress": 0.3672041206738969,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "obstacle-front",
+            "chair": "obstacle-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-16-node-1",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-16-node-1",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-17": {
+      "id": "custom-17",
+      "label": "玄关→餐厅",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-17-node-1",
+      "endPointId": "custom-17-node-2",
+      "waypointIds": [
+        "custom-17-node-1",
+        "custom-17-node-3",
+        "custom-17-node-4",
+        "custom-17-node-2"
+      ],
+      "durationMs": 7169,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1635
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-17-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-17-node-1",
+          "pathEndPointId": "custom-17-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-17-node-1",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-17-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-17-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-17-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-18": {
+      "id": "custom-18",
+      "label": "反向·玄关→餐厅",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-18-node-4",
+      "endPointId": "custom-18-node-1",
+      "waypointIds": [
+        "custom-18-node-4",
+        "custom-18-node-3",
+        "custom-18-node-2",
+        "custom-18-node-1"
+      ],
+      "durationMs": 7169,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1635
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-18-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-18-node-4",
+          "pathEndPointId": "custom-18-node-1",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-18-node-4",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-18-node-4",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-18-node-1",
+          "progress": 1,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-18-node-1",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-18-node-1",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-19": {
+      "id": "custom-19",
+      "label": "反向·卧室→阁楼",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-19-node-9",
+      "endPointId": "custom-19-node-1",
+      "waypointIds": [
+        "custom-19-node-9",
+        "custom-19-node-8",
+        "custom-19-node-7",
+        "custom-19-node-6",
+        "custom-19-node-5",
+        "custom-19-node-4",
+        "custom-19-node-3",
+        "custom-19-node-2",
+        "custom-19-node-1"
+      ],
+      "durationMs": 5203,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1186
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-19-phase-1",
+          "startProgress": 0,
+          "endProgress": 0.3814216803070932,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-19-node-9",
+          "pathEndPointId": "custom-19-node-5",
+          "stateId": "walking"
+        },
+        {
+          "id": "custom-19-phase-2",
+          "startProgress": 0.3814216803070932,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-19-node-5",
+          "pathEndPointId": "custom-19-node-1",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-19-node-9",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-19-node-9",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-19-node-5",
+          "progress": 0.3814216803070932,
+          "kind": "facing",
+          "facing": "left",
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-19-node-1",
+          "progress": 1,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-19-node-1",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-19-node-1",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-20": {
+      "id": "custom-20",
+      "label": "玄关→露台",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-20-node-1",
+      "endPointId": "custom-20-node-2",
+      "waypointIds": [
+        "custom-20-node-1",
+        "custom-20-node-3",
+        "custom-20-node-4",
+        "custom-20-node-5",
+        "custom-20-node-6",
+        "custom-20-node-7",
+        "custom-20-node-8",
+        "custom-20-node-2"
+      ],
+      "durationMs": 6979,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1591
+      },
+      "initialFacing": "right",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-20-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "right",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-20-node-1",
+          "pathEndPointId": "custom-20-node-2",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-20-node-1",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-20-node-1",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "right",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-20-node-2",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "right",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-20-node-2",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    },
+    "custom-21": {
+      "id": "custom-21",
+      "label": "反向·玄关→露台",
+      "kind": "walk",
+      "accent": "violet",
+      "startPointId": "custom-21-node-8",
+      "endPointId": "custom-21-node-1",
+      "waypointIds": [
+        "custom-21-node-8",
+        "custom-21-node-7",
+        "custom-21-node-6",
+        "custom-21-node-5",
+        "custom-21-node-4",
+        "custom-21-node-3",
+        "custom-21-node-2",
+        "custom-21-node-1"
+      ],
+      "durationMs": 6979,
+      "playback": {
+        "speedMultiplier": 2,
+        "pixelsPerSecondAtOneX": 114,
+        "lengthPx": 1591
+      },
+      "initialFacing": "left",
+      "foregroundPolicy": "none",
+      "phases": [
+        {
+          "id": "custom-21-phase-1",
+          "startProgress": 0,
+          "endProgress": 1,
+          "actionId": "walking",
+          "cameraFacing": "left",
+          "travelDirection": "toward-entry",
+          "actorMode": "walking",
+          "foregroundPolicy": "none",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "pathStartPointId": "custom-21-node-8",
+          "pathEndPointId": "custom-21-node-1",
+          "stateId": "walking"
+        }
+      ],
+      "events": [
+        {
+          "pointId": "custom-21-node-8",
+          "progress": 0,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-21-node-8",
+          "progress": 0,
+          "kind": "state",
+          "targetStateId": "walking",
+          "fromAssetMode": "none",
+          "toAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "toAssetMode": "actor",
+          "toAssetFacing": "left",
+          "animation": {
+            "style": "smoke",
+            "turns": 1,
+            "durationMs": 100,
+            "settleMs": 100,
+            "easing": "smooth"
+          }
+        },
+        {
+          "pointId": "custom-21-node-1",
+          "progress": 1,
+          "kind": "layer",
+          "layerModes": {
+            "desk-table": "actor-front",
+            "chair": "actor-front"
+          },
+          "animation": {
+            "style": "mirror",
+            "turns": 1,
+            "durationMs": 360,
+            "settleMs": 160,
+            "easing": "elastic"
+          }
+        },
+        {
+          "pointId": "custom-21-node-1",
+          "progress": 1,
+          "kind": "state",
+          "targetStateId": "gone",
+          "fromAssetSource": "/assets/ecology/characters/novelist/study-walk-left-v2-mirrored.webp",
+          "fromAssetMode": "actor",
+          "fromAssetFacing": "left",
+          "toAssetMode": "none",
+          "animation": {
+            "style": "smoke",
+            "turns": 2,
+            "durationMs": 300,
+            "settleMs": 120,
+            "easing": "smooth"
+          }
+        }
+      ],
+      "terminal": {
+        "pointId": "custom-21-node-1",
+        "stateId": "gone",
+        "assetMode": "none",
+        "hideAfter": true
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "experimentalDecorators": true,
+    "noEmit": true,
+    "typeRoots": ["../../apps/backend/node_modules/@types"],
+    "types": ["node"]
+  },
+  "include": [
+    "./vnext-contracts.type-test.ts",
+    "./vnext-boundaries/**/*.ts",
+    "../../apps/backend/src/vnext/**/*.ts",
+    "../../packages/shared-contracts/vnext-*.ts"
+  ]
+}

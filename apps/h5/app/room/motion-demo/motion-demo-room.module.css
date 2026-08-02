@@ -1,0 +1,743 @@
+.demoRoom {
+  --ink: #261d1c;
+  --muted: #806966;
+  --line: rgba(87, 56, 43, 0.18);
+  --cream: #fff7e8;
+  --copper: #b65d3d;
+  --teal: #2f746c;
+  min-height: 100dvh;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 13% 10%, rgba(246, 194, 105, 0.3), transparent 26%),
+    radial-gradient(circle at 88% 24%, rgba(120, 168, 147, 0.24), transparent 25%),
+    linear-gradient(135deg, #ead7c0 0%, #f8ecdc 44%, #dce8dc 100%);
+}
+
+.header {
+  max-width: 84rem;
+  margin: 0 auto 1.2rem;
+  padding: 1.2rem 1.6rem;
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  background: rgba(255, 249, 237, 0.85);
+  box-shadow: 0 16px 40px rgba(89, 58, 39, 0.1);
+  backdrop-filter: blur(14px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.headerTitle h1 {
+  margin: 0;
+  font-family: "Songti SC", "Noto Serif SC", serif;
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  color: var(--ink);
+}
+
+.headerTitle p {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.25rem;
+  color: var(--copper);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  font-weight: 800;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.backLink:hover {
+  background: #ffffff;
+  border-color: var(--teal);
+  transform: translateX(-2px);
+}
+
+.grid {
+  max-width: 84rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(19rem, 0.8fr);
+  gap: 1.2rem;
+}
+
+.stageCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.8rem;
+  border: 1px solid var(--line);
+  background: #3e2d24;
+  box-shadow: 0 20px 50px rgba(89, 58, 39, 0.16);
+  aspect-ratio: 16 / 9;
+  user-select: none;
+  perspective: 900px;
+}
+
+/* 背景图层：支持 mouse 视错觉窗景视差 offset */
+.bgLayer {
+  position: absolute;
+  inset: -12px; /* 边缘留白供 parallax 微平移 */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: translate(var(--parallax-x, 0px), var(--parallax-y, 0px)) scale(1.03);
+  transition: transform 0.15s ease-out, opacity 0.5s ease-in-out;
+}
+
+/* 写作离座前景层 (带椅子的背影) */
+.writingForegroundLayer {
+  position: absolute;
+  inset: -12px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 2;
+  transform: translate(calc(var(--parallax-x, 0px) * 1.4), calc(var(--parallax-y, 0px) * 1.4)) scale(1.03);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s ease-out;
+}
+
+.writingForegroundLayer[data-visible="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.writingForegroundLayer[data-visible="true"] {
+  opacity: 1;
+}
+
+/* 1. 最外层人偶锚点：加入 2.5D 近大远透视缩放 scale(var(--perspective-scale)) */
+.actorAnchor {
+  position: absolute;
+  z-index: 3;
+  width: 14.2%;
+  aspect-ratio: 1024 / 1536;
+  transform: translate(-50%, -100%) scale(var(--perspective-scale, 1));
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  transition:
+    left var(--move-duration, 1.2s) cubic-bezier(0.22, 1, 0.36, 1),
+    top var(--move-duration, 1.2s) cubic-bezier(0.22, 1, 0.36, 1),
+    transform var(--move-duration, 1.2s) cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease;
+}
+
+.actorAnchor[data-visible="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.actorAnchor[data-visible="true"] {
+  opacity: 1;
+}
+
+.actorAnchor[data-picked-up="true"] {
+  z-index: 10;
+  transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 2. 实时地面柔和阴影系统 */
+.actorShadow {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76%;
+  height: 10%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(16, 9, 6, 0.72) 0%, rgba(16, 9, 6, 0.32) 55%, transparent 80%);
+  filter: blur(2.5px);
+  pointer-events: none;
+  z-index: -1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.actorShadow[data-moving="true"] {
+  animation: shadowPulse 0.35s ease-in-out infinite alternate;
+}
+
+.actorShadow[data-picked-up="true"] {
+  transform: translateX(-50%) scale(1.4);
+  opacity: 0.25;
+  filter: blur(6px);
+}
+
+@keyframes shadowPulse {
+  0% {
+    transform: translateX(-50%) scale(0.88);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateX(-50%) scale(1.06);
+    opacity: 0.85;
+  }
+}
+
+/* 3. 中间层：朝向与 3D 纸板翻转包裹层 */
+.actorFlipWrapper {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.actorFlipWrapper[data-facing="left"] {
+  transform: scaleX(1);
+}
+
+.actorFlipWrapper[data-facing="right"] {
+  transform: scaleX(-1);
+}
+
+.actorFlipWrapper[data-flipping="true"][data-facing="left"] {
+  animation: paperFlipToLeft 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.actorFlipWrapper[data-flipping="true"][data-facing="right"] {
+  animation: paperFlipToRight 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes paperFlipToLeft {
+  0% {
+    transform: scaleX(-1) rotateY(0deg) scale(0.96);
+  }
+  50% {
+    transform: scaleX(0.08) rotateY(90deg) scale(1.08);
+    filter: brightness(1.25);
+  }
+  100% {
+    transform: scaleX(1) rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes paperFlipToRight {
+  0% {
+    transform: scaleX(1) rotateY(0deg) scale(0.96);
+  }
+  50% {
+    transform: scaleX(-0.08) rotateY(90deg) scale(1.08);
+    filter: brightness(1.25);
+  }
+  100% {
+    transform: scaleX(-1) rotateY(0deg) scale(1);
+  }
+}
+
+/* 4. 最内层：物理摇摆、色温漫射与挂持道具 */
+.actorWobbleWrapper {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 10px 16px rgba(33, 18, 10, 0.35));
+  transition: filter 0.5s ease, transform 0.3s ease;
+}
+
+/* 提案 2: 区域环境色温漫射 (Lamp Glow & Tint) */
+.actorWobbleWrapper[data-zone="writing"] {
+  filter: drop-shadow(0 0 20px rgba(246, 194, 105, 0.48)) drop-shadow(0 10px 16px rgba(33, 18, 10, 0.35));
+}
+
+.actorWobbleWrapper[data-zone="eating"] {
+  filter: drop-shadow(0 0 18px rgba(248, 236, 220, 0.5)) drop-shadow(0 10px 16px rgba(33, 18, 10, 0.35));
+}
+
+.actorWobbleWrapper[data-zone="away"] {
+  filter: drop-shadow(0 0 16px rgba(120, 168, 147, 0.38)) drop-shadow(0 10px 16px rgba(20, 30, 25, 0.45));
+}
+
+.actorWobbleWrapper[data-picked-up="true"] {
+  animation: godHandHover 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes godHandHover {
+  0% {
+    transform: translateY(-24px) rotate(-4deg) scale(1.06);
+    filter: drop-shadow(0 20px 25px rgba(246, 194, 105, 0.5));
+  }
+  100% {
+    transform: translateY(-32px) rotate(4deg) scale(1.1);
+    filter: drop-shadow(0 26px 30px rgba(246, 194, 105, 0.65));
+  }
+}
+
+.actorWobbleWrapper[data-moving="true"][data-wobble-intensity="light"] {
+  animation: wobbleRockingLight 0.45s ease-in-out infinite alternate;
+}
+
+.actorWobbleWrapper[data-moving="true"][data-wobble-intensity="normal"] {
+  animation: wobbleRockingNormal 0.35s ease-in-out infinite alternate;
+}
+
+.actorWobbleWrapper[data-moving="true"][data-wobble-intensity="heavy"] {
+  animation: wobbleRockingHeavy 0.26s ease-in-out infinite alternate;
+}
+
+.actorWobbleWrapper[data-settling="true"] {
+  animation: settleBounce 0.45s ease-out;
+}
+
+@keyframes wobbleRockingLight {
+  0% {
+    transform: rotate(-6deg) translateY(-2px);
+  }
+  50% {
+    transform: rotate(0deg) translateY(-6px);
+  }
+  100% {
+    transform: rotate(6deg) translateY(-2px);
+  }
+}
+
+@keyframes wobbleRockingNormal {
+  0% {
+    transform: rotate(-10deg) translateY(-3px);
+  }
+  50% {
+    transform: rotate(0deg) translateY(-10px);
+  }
+  100% {
+    transform: rotate(10deg) translateY(-3px);
+  }
+}
+
+@keyframes wobbleRockingHeavy {
+  0% {
+    transform: rotate(-15deg) translateY(-4px);
+  }
+  50% {
+    transform: rotate(0deg) translateY(-14px);
+  }
+  100% {
+    transform: rotate(15deg) translateY(-4px);
+  }
+}
+
+@keyframes settleBounce {
+  0% {
+    transform: rotate(7deg) scaleY(0.95);
+  }
+  40% {
+    transform: rotate(-3deg) scaleY(1.03);
+  }
+  70% {
+    transform: rotate(1deg) scaleY(0.99);
+  }
+  100% {
+    transform: rotate(0deg) scaleY(1);
+  }
+}
+
+.paperActorImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+/* 提案 6: 手持生活道具图层 (Handheld Props Overlay) */
+.handheldPropBadge {
+  position: absolute;
+  right: 12%;
+  bottom: 24%;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  pointer-events: none;
+  animation: propFloat 1.2s ease-in-out infinite alternate;
+}
+
+.steamEffect {
+  position: absolute;
+  top: -0.8rem;
+  left: 0.2rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  animation: steamRise 1s ease-out infinite;
+}
+
+@keyframes propFloat {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes steamRise {
+  0% {
+    opacity: 0.8;
+    transform: translateY(0) scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px) scale(1.3);
+  }
+}
+
+/* 5. 系统大手 Cue 标志 */
+.systemGodHandCue {
+  position: absolute;
+  top: -3.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.8rem;
+  filter: drop-shadow(0 6px 15px rgba(246, 194, 105, 0.8));
+  animation: handPinchPulse 0.4s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 12;
+}
+
+@keyframes handPinchPulse {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-6px) scale(1.12);
+  }
+}
+
+/* 6. 系统强制警告与小说家吐槽撕纸气泡 */
+.systemForcedBubble {
+  position: absolute;
+  top: -6.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.8rem;
+  border: 1.5px dashed #b65d3d;
+  background: #fffdf5;
+  color: #261d1c;
+  box-shadow: 0 10px 25px rgba(182, 93, 61, 0.25);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  z-index: 15;
+  animation: bubblePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.systemForcedBubble small {
+  color: #b65d3d;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+/* 提案 3: 挂机自主内心独白撕纸气泡 */
+.idleMoodBubble {
+  position: absolute;
+  top: -3.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(87, 56, 43, 0.2);
+  background: rgba(255, 253, 245, 0.92);
+  color: #261d1c;
+  box-shadow: 0 6px 18px rgba(38, 29, 28, 0.15);
+  backdrop-filter: blur(6px);
+  font-size: 0.78rem;
+  font-weight: 600;
+  pointer-events: none;
+  z-index: 14;
+  animation: bubblePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bubblePop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* 提案 4: 写作稿纸飞花粒子 (Floating Manuscript Particles) */
+.manuscriptContainer {
+  position: absolute;
+  left: 42.5%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 8;
+}
+
+.paperParticle {
+  position: absolute;
+  font-size: 1.2rem;
+  animation: floatManuscript 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.paperParticle:nth-child(1) {
+  animation-delay: 0s;
+  left: -20px;
+}
+
+.paperParticle:nth-child(2) {
+  animation-delay: 0.25s;
+  left: 10px;
+}
+
+.paperParticle:nth-child(3) {
+  animation-delay: 0.5s;
+  left: -5px;
+}
+
+@keyframes floatManuscript {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(0.8);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateY(-40px) rotate(18deg) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-85px) rotate(-15deg) scale(0.9);
+  }
+}
+
+/* 仅在打开开关时显示的可选高亮标注 */
+.subtleHotspotPin {
+  position: absolute;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  color: #fff8ed;
+  background: rgba(38, 29, 28, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  font-size: 0.72rem;
+  transition: all 0.22s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.subtleHotspotPin[data-show-overlay="true"] {
+  opacity: 0.85;
+  pointer-events: auto;
+}
+
+.subtleHotspotPin:hover {
+  opacity: 1;
+  transform: translate(-50%, -55%) scale(1.08);
+  background: rgba(47, 116, 108, 0.88);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* 场景状态指示器 */
+.stageStatusBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 5;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(26, 18, 14, 0.65);
+  color: #fff8ed;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+
+.stageStatusBadge strong {
+  font-family: "Songti SC", "Noto Serif SC", serif;
+  font-size: 0.92rem;
+  color: #f7d58e;
+}
+
+.stageStatusBadge p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 248, 237, 0.75);
+}
+
+/* 侧边控制面板 */
+.controlSide {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panelCard {
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  padding: 1.15rem;
+  background: rgba(255, 249, 237, 0.85);
+  box-shadow: 0 12px 30px rgba(89, 58, 39, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.panelCard h2 {
+  margin: 0 0 0.8rem;
+  font-family: "Songti SC", "Noto Serif SC", serif;
+  font-size: 1.25rem;
+}
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.actionBtn {
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.actionBtn:hover {
+  background: #ffffff;
+  border-color: var(--teal);
+  transform: translateY(-1px);
+}
+
+.actionBtn[data-active="true"] {
+  background: rgba(47, 116, 108, 0.12);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.actionBtn small {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: normal;
+}
+
+.systemSpecialBtn {
+  grid-column: span 2;
+  background: linear-gradient(135deg, rgba(182, 93, 61, 0.16) 0%, rgba(246, 194, 105, 0.25) 100%);
+  border-color: var(--copper);
+  color: var(--copper);
+}
+
+.systemSpecialBtn:hover {
+  background: linear-gradient(135deg, var(--copper) 0%, #d98f69 100%);
+  color: #fff8ed;
+}
+
+.rhythmBtn {
+  grid-column: span 2;
+  background: linear-gradient(135deg, rgba(47, 116, 108, 0.12) 0%, rgba(120, 168, 147, 0.22) 100%);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.rhythmBtn[data-active="true"] {
+  background: var(--teal);
+  color: #fff8ed;
+}
+
+.rhythmBtn[data-active="true"] small {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.settingGroup {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.settingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+}
+
+.optionSelect {
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.toggleSwitch {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.logList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 12rem;
+  overflow-y: auto;
+}
+
+.logItem {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-left: 3px solid var(--copper);
+}
+
+.logItem time {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-right: 0.4rem;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .actorAnchor {
+    width: 18%;
+  }
+}

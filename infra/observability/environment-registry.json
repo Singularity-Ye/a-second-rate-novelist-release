@@ -1,0 +1,31 @@
+{
+  "environments": [
+    {
+      "environment_key": "shared-dev",
+      "domain": "https://shared-dev.lumialove.xn--6qq986b3xl",
+      "artifact_channel": "shared-dev",
+      "health_endpoint": "https://shared-dev.lumialove.xn--6qq986b3xl/healthz",
+      "provider": "self_hosted",
+      "access_mode": "basic_auth",
+      "access_username_env": "SHARED_DEV_BASIC_AUTH_USERNAME"
+    },
+    {
+      "environment_key": "staging",
+      "domain": "https://staging.lumialove.xn--6qq986b3xl",
+      "artifact_channel": "staging",
+      "health_endpoint": "https://staging.lumialove.xn--6qq986b3xl/healthz",
+      "provider": "self_hosted",
+      "access_mode": "basic_auth",
+      "access_username_env": "STAGING_BASIC_AUTH_USERNAME"
+    },
+    {
+      "environment_key": "live",
+      "domain": "https://lumialove.xn--6qq986b3xl",
+      "artifact_channel": "live",
+      "health_endpoint": "https://lumialove.xn--6qq986b3xl/healthz",
+      "provider": "self_hosted",
+      "access_mode": "restricted",
+      "access_username_env": "LIVE_ACCESS_USERNAME"
+    }
+  ]
+}

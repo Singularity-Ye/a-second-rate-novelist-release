@@ -1,0 +1,67 @@
+# Internal migration overlay for the company server.
+#
+# It intentionally keeps Caddy behind an explicit profile and publishes only
+# loopback preview ports. Access the gateways through an SSH/Tailscale tunnel;
+# this overlay is not production or G6 live-environment evidence.
+services:
+  caddy:
+    profiles: ["public-cutover"]
+
+  model-gateway:
+    build:
+      args:
+        DEBIAN_MIRROR_URL: ${DEBIAN_MIRROR_URL:-http://mirrors.cloud.tencent.com}
+
+  shared-dev-backend:
+    build:
+      args:
+        DEBIAN_MIRROR_URL: ${DEBIAN_MIRROR_URL:-http://mirrors.cloud.tencent.com}
+    environment:
+      H5_BASE_URL: ${SHARED_DEV_PREVIEW_ORIGIN:-http://127.0.0.1:3330}
+      VNEXT_ALLOWED_ORIGINS: ${SHARED_DEV_PREVIEW_ORIGIN:-http://127.0.0.1:3330}
+      VNEXT_SESSION_COOKIE_SECURE: "false"
+      VNEXT_PRIVATE_PREVIEW_ALLOW_INSECURE_COOKIE: "true"
+      VNEXT_PRIVATE_PREVIEW_ALLOW_INSECURE_MODEL_GATEWAY: "true"
+      VNEXT_MODEL_RUNTIME_ADMISSION_BACKEND: redis
+      VNEXT_MODEL_ADMISSION_NAMESPACE: shared-dev
+
+  shared-dev-h5:
+    build:
+      args:
+        NEXT_PUBLIC_API_BASE_URL: /api
+
+  shared-dev-ops:
+    build:
+      args:
+        NEXT_PUBLIC_API_BASE_URL: /api
+
+  shared-dev-gateway:
+    ports:
+      - "${VNEXT_PREVIEW_BIND_ADDRESS:-127.0.0.1}:${SHARED_DEV_PREVIEW_PORT:-3330}:3300"
+
+  staging-backend:
+    build:
+      args:
+        DEBIAN_MIRROR_URL: ${DEBIAN_MIRROR_URL:-http://mirrors.cloud.tencent.com}
+    environment:
+      H5_BASE_URL: ${STAGING_PREVIEW_ORIGIN:-http://127.0.0.1:3331}
+      VNEXT_ALLOWED_ORIGINS: ${STAGING_PREVIEW_ORIGIN:-http://127.0.0.1:3331}
+      VNEXT_SESSION_COOKIE_SECURE: "false"
+      VNEXT_PRIVATE_PREVIEW_ALLOW_INSECURE_COOKIE: "true"
+      VNEXT_PRIVATE_PREVIEW_ALLOW_INSECURE_MODEL_GATEWAY: "true"
+      VNEXT_MODEL_RUNTIME_ADMISSION_BACKEND: redis
+      VNEXT_MODEL_ADMISSION_NAMESPACE: staging
+
+  staging-h5:
+    build:
+      args:
+        NEXT_PUBLIC_API_BASE_URL: /api
+
+  staging-ops:
+    build:
+      args:
+        NEXT_PUBLIC_API_BASE_URL: /api
+
+  staging-gateway:
+    ports:
+      - "${VNEXT_PREVIEW_BIND_ADDRESS:-127.0.0.1}:${STAGING_PREVIEW_PORT:-3331}:3300"
