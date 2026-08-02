@@ -56,6 +56,18 @@ afterEach(() => {
 });
 
 describe("streamNovelistChat", () => {
+  it("preserves a structured recovery action from a public HTTP error", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(
+      JSON.stringify({ code: "compliance_blocked", recovery: "none" }),
+      { status: 403, headers: { "content-type": "application/json" } },
+    )));
+
+    await expect(streamNovelistChat(request, vi.fn())).rejects.toMatchObject({
+      code: "compliance_blocked",
+      recovery: "none",
+    });
+  });
+
   it("delivers text chunks before the complete frame closes the request", async () => {
     const encoder = new TextEncoder();
     let streamController!: ReadableStreamDefaultController<Uint8Array>;

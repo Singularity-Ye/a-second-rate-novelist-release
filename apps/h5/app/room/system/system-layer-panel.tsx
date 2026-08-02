@@ -72,7 +72,7 @@ const relationshipLabels = {
   trusted: "很信任你",
 } as const;
 
-type ChatStatus = "local" | "connecting" | "online" | "queued" | "error" | "idle";
+type ChatStatus = "local" | "connecting" | "online" | "queued" | "error" | "restricted" | "idle";
 
 const chatStatusLabels: Readonly<Record<ChatStatus, string>> = {
   local: "开发预览",
@@ -80,6 +80,7 @@ const chatStatusLabels: Readonly<Record<ChatStatus, string>> = {
   online: "在线流式",
   queued: "已交给他",
   error: "连接中断",
+  restricted: "合规限制",
   idle: "等待你说话",
 };
 
@@ -737,6 +738,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
         : projectionFeedback(result.route.projection));
     } catch (error) {
       const code = error instanceof NovelistChatRequestError ? error.code : "provider_unavailable";
+      const requestError = error instanceof NovelistChatRequestError ? error : null;
       if (controller.signal.aborted) {
         setChatStatus("idle");
         setFeedback(received ? "已停止，当前已经收到的内容保留在这里。" : "已停止这次回复。 ");
@@ -774,13 +776,22 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
             );
           });
         } else {
-          setChatStatus("error");
-          setFeedback(code === "provider_unconfigured"
-            ? "写作引擎尚未完成统一配置。这句话已留在对话里，但没有冒充在线回复；按 R 重试。"
-            : "写作引擎暂时不可用。这句话已留在对话里，但没有冒充在线回复；按 R 重试。 ");
-          setBinding((previous) => updateChannelMessages(previous, channel, channelMessages(previous, channel).map((message) => message.id === assistantMessageId
-            ? { ...message, text: "（这次没有接通写作引擎，未生成回复）" }
-            : message)));
+          if (code === "compliance_blocked" && (requestError?.recovery === undefined || requestError.recovery === "none")) {
+            setChatStatus("restricted");
+            setLastFailedRequest(null);
+            setFeedback("正式创作链路当前仅开放内部夹具验证；普通聊天可用");
+            setBinding((previous) => updateChannelMessages(previous, channel, channelMessages(previous, channel).map((message) => message.id === assistantMessageId
+              ? { ...message, text: "（原话已保留；当前没有生成正式创作结果）" }
+              : message)));
+          } else {
+            setChatStatus("error");
+            setFeedback(code === "provider_unconfigured"
+              ? "写作引擎尚未完成统一配置。这句话已留在对话里，但没有冒充在线回复；按 R 重试。"
+              : "写作引擎暂时不可用。这句话已留在对话里，但没有冒充在线回复；按 R 重试。 ");
+            setBinding((previous) => updateChannelMessages(previous, channel, channelMessages(previous, channel).map((message) => message.id === assistantMessageId
+              ? { ...message, text: "（这次没有接通写作引擎，未生成回复）" }
+              : message)));
+          }
         }
       } else {
         setChatStatus("error");

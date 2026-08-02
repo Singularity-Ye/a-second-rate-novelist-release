@@ -1,9 +1,11 @@
 import { resolveH5ApiBaseUrl } from "../../lib/runtime-api-base";
 import {
+  EXPERIENCE_RECOVERY_ACTIONS,
   EXPERIENCE_STATES,
   ROOM_MESSAGE_HANDLINGS,
   ROOM_MESSAGE_INTENTS,
   type ExperienceProjection,
+  type ExperienceRecoveryAction,
   type RoomMessageHandling,
   type RoomMessageIntent,
 } from "@erliu/shared-contracts/vnext-experience";
@@ -76,13 +78,25 @@ export interface RoomMessageStreamResult {
 export class NovelistChatRequestError extends Error {
   readonly code: string;
   readonly requestId: string | undefined;
+  readonly recovery: ExperienceRecoveryAction | undefined;
 
-  constructor(code: string, requestId?: string) {
+  constructor(code: string, requestId?: string, recovery?: ExperienceRecoveryAction) {
     super(code);
     this.name = "NovelistChatRequestError";
     this.code = code;
     this.requestId = requestId;
+    this.recovery = recovery;
   }
+}
+
+const RECOVERY_ACTION_SET = new Set<string>(EXPERIENCE_RECOVERY_ACTIONS);
+
+function responseRecovery(payload: unknown): ExperienceRecoveryAction | undefined {
+  if (typeof payload !== "object" || payload === null || Array.isArray(payload)) return undefined;
+  const recovery = (payload as Record<string, unknown>).recovery;
+  return typeof recovery === "string" && RECOVERY_ACTION_SET.has(recovery)
+    ? recovery as ExperienceRecoveryAction
+    : undefined;
 }
 
 function responseCode(response: Response, payload: unknown) {
@@ -100,7 +114,7 @@ function responseCode(response: Response, payload: unknown) {
 
 function requestError(response: Response, payload: unknown) {
   const requestId = response.headers.get("x-request-id") ?? undefined;
-  return new NovelistChatRequestError(responseCode(response, payload), requestId);
+  return new NovelistChatRequestError(responseCode(response, payload), requestId, responseRecovery(payload));
 }
 
 function parseFrame(frame: string) {
@@ -270,7 +284,14 @@ export async function streamNovelistChat(
       return;
     }
     if (event.type === "error") {
-      throw new NovelistChatRequestError(typeof event.code === "string" ? event.code : "provider_unavailable", requestId);
+      const recovery = typeof event.recovery === "string" && RECOVERY_ACTION_SET.has(event.recovery)
+        ? event.recovery as ExperienceRecoveryAction
+        : undefined;
+      throw new NovelistChatRequestError(
+        typeof event.code === "string" ? event.code : "provider_unavailable",
+        requestId,
+        recovery,
+      );
     }
     throw new NovelistChatRequestError("invalid_runtime_output", requestId);
   };

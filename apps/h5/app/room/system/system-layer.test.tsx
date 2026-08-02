@@ -647,4 +647,30 @@ describe("SystemLayerPanel", () => {
       expect(screen.getByTestId("system-layer-panel").textContent).toContain("连接中断");
     });
   });
+
+  it("explains synthetic-only creative access without pretending the model is offline", async () => {
+    vi.stubEnv("NEXT_PUBLIC_NOVELIST_CHAT_LOCAL_PREVIEW", "false");
+    stubActiveGateway(async () => new Response(JSON.stringify({ code: "compliance_blocked", recovery: "none" }), {
+      status: 403,
+      headers: { "content-type": "application/json" },
+    }));
+    render(
+      <SystemLayerPanel
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    await waitForActiveGateway();
+
+    fireEvent.change(screen.getByLabelText("对小说家说点什么"), { target: { value: "帮我写一个关于雨夜书房的短篇故事" } });
+    fireEvent.click(screen.getByTestId("system-message-send"));
+
+    await waitFor(() => {
+      expect(screen.getByTestId("system-layer-panel").textContent).toContain("正式创作链路当前仅开放内部夹具验证；普通聊天可用");
+      expect(screen.getByTestId("system-layer-panel").getAttribute("data-chat-mode")).toBe("novelist");
+      expect(screen.getByTestId("system-dialogue").textContent).toContain("原话已保留；当前没有生成正式创作结果");
+      expect(screen.getByTestId("system-layer-panel").textContent).not.toContain("写作引擎暂时不可用");
+      expect(screen.queryByTestId("system-message-retry")).toBeNull();
+    });
+  });
 });
