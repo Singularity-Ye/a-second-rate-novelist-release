@@ -1460,7 +1460,11 @@
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   width: min(1120px, calc(100vw - 2rem), calc((100dvh - 2rem) * 1.574));
-  height: min(calc(100dvh - 2rem), calc((100vw - 2rem) / 1.574));
+  /* Width is viewport-constrained; height must come from the source frame's
+   * aspect ratio. Independent viewport-based height was stretching the room
+   * vertically and pushed the rail/composer outside their materials. */
+  height: auto;
+  aspect-ratio: 1486 / 944;
   max-height: calc(100dvh - 2rem);
   overflow: hidden;
 }
@@ -1611,7 +1615,7 @@
   /* The rail is deliberately wider than the old 34% column.  Its source
    * material is 1011×1556, so the 13:20 ratio gives the four 5:2 cards
    * enough vertical room without clipping the last card. */
-  grid-template-columns: minmax(0, 1fr) minmax(19rem, 40%);
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 34%);
   gap: 1rem;
 }
 
@@ -1628,6 +1632,26 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   filter: drop-shadow(0 .55rem .9rem rgba(59, 33, 15, .15));
+  position: relative;
+  z-index: 1;
+}
+
+/* The outer title sits on the light paper lip of the frame. Use the DOM
+ * text layer for contrast; the mark itself remains light on its dark seal. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle {
+  color: #5a3925;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelTitle strong {
+  color: #5a3925;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelTitle small {
+  color: rgba(94, 65, 43, .72);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelCaret {
+  color: #704827;
 }
 
 .panel[data-expanded="true"] .systemTaskSuggestion > header {
@@ -1651,7 +1675,8 @@
   gap: .42rem;
   align-content: start;
   min-height: 0;
-  padding: .12rem 1.8rem .12rem 2.2rem;
+  overflow: hidden;
+  padding: .12rem 1.2rem .12rem 2.2rem;
 }
 
 .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button {
@@ -1673,6 +1698,7 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   box-shadow: none;
+  filter: saturate(1.04) drop-shadow(0 .14rem .16rem rgba(75, 37, 14, .14));
   font-size: .7rem;
   font-weight: 800;
   line-height: 1.25;
@@ -1739,6 +1765,15 @@
   white-space: nowrap;
 }
 .panel[data-expanded="true"] .gatewayNotice button { padding: .24rem .46rem; font-size: .52rem; white-space: nowrap; }
+
+/* Connection/admission copy belongs to the chat lane. It must not wash out
+ * the suggestion rail or make its heading look like a disabled control. */
+@media (min-width: 761px) {
+  .panel[data-expanded="true"] .admissionCard,
+  .panel[data-expanded="true"] .gatewayNotice {
+    right: calc(34% + 1rem);
+  }
+}
 
 @media (max-width: 760px) {
   .panel[data-expanded="true"] .novelistWorkspace { grid-template-columns: 1fr; }
