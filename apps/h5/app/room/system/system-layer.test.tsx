@@ -306,6 +306,46 @@ describe("system layer binding", () => {
 });
 
 describe("SystemLayerPanel", () => {
+  it("keeps the writing portrait as the default avatar state", () => {
+    render(<SystemLayerPanel observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }} />);
+
+    const avatar = screen.getByLabelText("小说家：写作中");
+    expect(avatar.getAttribute("data-avatar-state")).toBe("writing");
+    expect(avatar.querySelector("img")?.getAttribute("src")).toBe(
+      "/assets/ecology/characters/novelist/avatars/novelist-avatar-writing-v1-normalized.webp",
+    );
+  });
+
+  it("uses the blocked portrait when the novelist is emotionally overloaded", () => {
+    render(<SystemLayerPanel observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 40, fatigue: 82, inspiration: 38, emotionalLoad: 82 }} />);
+
+    const avatar = screen.getByLabelText("小说家：卡住了");
+    expect(avatar.getAttribute("data-avatar-state")).toBe("blocked");
+    expect(avatar.querySelector("img")?.getAttribute("src")).toBe(
+      "/assets/ecology/characters/novelist/avatars/novelist-avatar-blocked-v1-normalized.png",
+    );
+  });
+
+  it("uses the tired portrait for fatigue without emotional overload", () => {
+    render(<SystemLayerPanel observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 58, fatigue: 82, inspiration: 38, emotionalLoad: 20 }} />);
+
+    const avatar = screen.getByLabelText("小说家：有点疲惫");
+    expect(avatar.getAttribute("data-avatar-state")).toBe("tired");
+    expect(avatar.querySelector("img")?.getAttribute("src")).toBe(
+      "/assets/ecology/characters/novelist/avatars/novelist-avatar-tired-v1-normalized.png",
+    );
+  });
+
+  it("uses the relieved portrait when inspiration is high and fatigue is low", () => {
+    render(<SystemLayerPanel observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 88, fatigue: 18, inspiration: 82, emotionalLoad: 12 }} />);
+
+    const avatar = screen.getByLabelText("小说家：松了一口气");
+    expect(avatar.getAttribute("data-avatar-state")).toBe("relieved");
+    expect(avatar.querySelector("img")?.getAttribute("src")).toBe(
+      "/assets/ecology/characters/novelist/avatars/novelist-avatar-relieved-v1-normalized.png",
+    );
+  });
+
   beforeEach(() => {
     localStorage.clear();
     vi.stubEnv("NEXT_PUBLIC_NOVELIST_CHAT_LOCAL_PREVIEW", "true");

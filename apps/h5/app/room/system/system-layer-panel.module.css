@@ -1482,6 +1482,13 @@
   padding: 0 3.25rem 2.25rem;
 }
 
+/* In novelist mode the gateway notice is absolute and the diagnostic rows
+ * are hidden. Keeping those empty tracks in the grid leaves a large blank
+ * band below the room and starves the suggestion rail of height. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .console {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
 .panel[data-expanded="true"] .novelistWorkspace {
   grid-template-columns: minmax(0, 1fr) minmax(13rem, 28%);
   min-height: 0;
@@ -1615,7 +1622,7 @@
   /* The rail is deliberately wider than the old 34% column.  Its source
    * material is 1011×1556, so the 13:20 ratio gives the four 5:2 cards
    * enough vertical room without clipping the last card. */
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 34%);
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 34%);
   gap: 1rem;
 }
 
@@ -1623,9 +1630,12 @@
   grid-template-rows: auto minmax(0, 1fr);
   align-content: stretch;
   width: 100%;
-  height: auto;
-  aspect-ratio: 13 / 20;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: auto;
   align-self: start;
+  box-sizing: border-box;
+  overflow: hidden;
   padding: 2rem .8rem .9rem 1rem;
   background-image: url("/assets/ui/system-layer-materials-v5/suggestion-rail-v5-alpha.png");
   background-position: center;
@@ -1659,6 +1669,10 @@
   padding: .08rem .1rem .38rem;
 }
 
+.panel[data-expanded="true"] .systemTaskSuggestion > header {
+  min-height: 0;
+}
+
 .panel[data-expanded="true"] .systemTaskSuggestion > header small {
   max-width: 13rem;
   overflow: hidden;
@@ -1672,10 +1686,14 @@
 
 .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies {
   grid-template-columns: 1fr;
-  gap: .42rem;
-  align-content: start;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  height: 100%;
+  gap: .28rem;
+  align-content: stretch;
+  align-items: stretch;
   min-height: 0;
   overflow: hidden;
+  box-sizing: border-box;
   padding: .12rem 1.2rem .12rem 2.2rem;
 }
 
@@ -1684,14 +1702,20 @@
   align-items: center;
   justify-content: flex-start;
   min-width: 0;
-  width: 100%;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   min-height: 0;
+  justify-self: center;
+  align-self: center;
+  box-sizing: border-box;
   aspect-ratio: 5 / 2;
   border: 0;
   border-radius: 0;
   /* The generated badges occupy roughly the left 28% of each 5:2 card;
    * keep live DOM labels in the clean paper area instead of over the art. */
-  padding: .42rem 3% .42rem 31%;
+  padding: .25rem 4% .25rem 35%;
   color: #5b3b26;
   background-color: transparent;
   background-position: center;
@@ -1707,10 +1731,26 @@
   transition: filter .15s ease, transform .15s ease;
 }
 
-.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="care"] { background-image: url("/assets/ui/system-layer-materials-v5/intent-card-care-v5-alpha.png"); }
-.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="nudge"] { background-image: url("/assets/ui/system-layer-materials-v5/intent-card-nudge-v5-alpha.png"); }
-.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="rest"] { background-image: url("/assets/ui/system-layer-materials-v5/intent-card-rest-v5-alpha.png"); }
-.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="stuck"] { background-image: url("/assets/ui/system-layer-materials-v5/intent-card-stuck-v5-alpha.png"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button > span {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  align-items: center;
+  padding: .12rem .3rem;
+  border-radius: .26rem;
+  color: inherit;
+  background: rgba(255, 248, 226, .76);
+  box-shadow: 0 1px 2px rgba(75, 37, 14, .12), inset 0 1px rgba(255, 255, 255, .48);
+  text-overflow: ellipsis;
+  text-shadow: none;
+  white-space: nowrap;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="care"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-care-v5-alpha-normalized.png"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="nudge"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-nudge-v5-alpha-normalized.png"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="rest"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-rest-v5-alpha-normalized.png"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="stuck"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-stuck-v5-alpha-normalized.png"); }
 
 .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button:hover,
 .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button:focus-visible {
@@ -1752,6 +1792,8 @@
   min-height: 0;
   border-radius: 999px;
   padding: .34rem .5rem .34rem .62rem;
+  box-sizing: border-box;
+  max-width: calc(66% - 1.5rem);
 }
 
 .panel[data-expanded="true"] .gatewayNotice strong { font-size: .59rem; white-space: nowrap; }
@@ -1779,7 +1821,8 @@
   .panel[data-expanded="true"] .novelistWorkspace { grid-template-columns: 1fr; }
   .panel[data-expanded="true"] .systemTaskSuggestion {
     width: 100%;
-    height: auto;
+    height: 10.5rem;
+    max-height: 10.5rem;
     aspect-ratio: auto;
     padding: .72rem .7rem .66rem;
     border: 1px solid rgba(126, 82, 39, .2);
@@ -1792,11 +1835,21 @@
   .panel[data-expanded="true"] .systemTaskSuggestion > header { margin-left: 0; }
   .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    height: 100%;
+    align-content: stretch;
+    align-items: stretch;
+    gap: .28rem;
     padding-left: .4rem;
     padding-right: .4rem;
   }
   .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button {
-    min-height: 3.1rem;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    justify-self: stretch;
+    align-self: stretch;
     aspect-ratio: auto;
     border: 1px solid rgba(126, 82, 39, .18);
     border-radius: .55rem;
@@ -1806,5 +1859,32 @@
     box-shadow: inset 0 1px rgba(255, 255, 255, .34);
     white-space: normal;
   }
-  .panel[data-expanded="true"] .gatewayNotice { grid-template-columns: auto minmax(0, 1fr) auto; right: 2rem; left: 2rem; }
+  .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button > span { max-width: 100%; }
+  .panel[data-expanded="true"] .gatewayNotice { grid-template-columns: auto minmax(0, 1fr) auto; right: 2rem; left: 2rem; max-width: none; }
+}
+
+/* Final containment guard: the paper frame owns the composer boundary, while
+ * only .conversation is allowed to scroll. */
+.panel[data-expanded="true"] .novelistMain,
+.panel[data-expanded="true"] .composer,
+.panel[data-expanded="true"] .composerField {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.panel[data-expanded="true"] .novelistMain {
+  grid-template-rows: minmax(0, 1fr) auto auto auto;
+}
+
+.panel[data-expanded="true"] .composerField {
+  width: 100%;
+}
+
+.panel[data-expanded="true"] .composer textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: auto;
 }

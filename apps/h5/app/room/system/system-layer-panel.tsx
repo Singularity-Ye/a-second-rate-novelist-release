@@ -149,7 +149,10 @@ const projectionPollStatuses = new Set<ExperienceProjection["status"]>([
 
 const publicRoomDemo = process.env.NEXT_PUBLIC_PUBLIC_ROOM_DEMO === "true";
 
-const novelistWritingAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-writing-v1.webp";
+const novelistWritingAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-writing-v1-normalized.webp";
+const novelistBlockedAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-blocked-v1-normalized.png";
+const novelistTiredAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-tired-v1-normalized.png";
+const novelistRelievedAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-relieved-v1-normalized.png";
 
 const publicRoomDemoProjection = {
   versionId: "public-room-demo-v1",
@@ -481,6 +484,13 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     isWriting: isActuallyWriting,
     fatigue: clamp(observation.fatigue),
   });
+  const novelistAvatar = observation.emotionalLoad >= 70
+    ? { src: novelistBlockedAvatarSrc, state: "blocked", label: "小说家：卡住了" }
+    : observation.fatigue >= 75
+      ? { src: novelistTiredAvatarSrc, state: "tired", label: "小说家：有点疲惫" }
+      : observation.inspiration >= 72 && observation.fatigue < 40
+        ? { src: novelistRelievedAvatarSrc, state: "relieved", label: "小说家：松了一口气" }
+      : { src: novelistWritingAvatarSrc, state: "writing", label: "小说家：写作中" };
 
   const openingMessage = chatMode === "novelist"
     ? novelistOpening
@@ -881,8 +891,8 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       {displayedMessages.length === 0 ? (
         <div className={styles.novelistBubble}>
           {chatMode === "novelist" && (
-            <span className={styles.chatAvatar} data-avatar-state="writing" aria-label="小说家：写作中">
-              <img className={styles.chatAvatarPortrait} src={novelistWritingAvatarSrc} alt="" />
+            <span className={styles.chatAvatar} data-avatar-state={novelistAvatar.state} aria-label={novelistAvatar.label}>
+              <img className={styles.chatAvatarPortrait} src={novelistAvatar.src} alt="" />
               <img className={styles.chatAvatarFrame} src="/assets/ui/system-layer-materials-v4/avatar-frame-v4-alpha.png" alt="" />
             </span>
           )}
@@ -899,8 +909,8 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           key={message.id}
         >
           {message.role !== "system" && chatMode === "novelist" && (
-            <span className={styles.chatAvatar} data-avatar-state="writing" aria-label="小说家：写作中">
-              <img className={styles.chatAvatarPortrait} src={novelistWritingAvatarSrc} alt="" />
+            <span className={styles.chatAvatar} data-avatar-state={novelistAvatar.state} aria-label={novelistAvatar.label}>
+              <img className={styles.chatAvatarPortrait} src={novelistAvatar.src} alt="" />
               <img className={styles.chatAvatarFrame} src="/assets/ui/system-layer-materials-v4/avatar-frame-v4-alpha.png" alt="" />
             </span>
           )}
@@ -1249,10 +1259,10 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
                   <span>4 种</span>
                 </div>
                 <div className={styles.quickReplies} aria-label="装填主系统意图">
-                  <button type="button" data-testid="system-task-accept" data-intent-key="nudge" onClick={() => fillHostIntent("nudge")}>催稿一下 <kbd>1</kbd></button>
-                  <button type="button" data-testid="system-task-scope" data-intent-key="care" onClick={() => fillHostIntent("care")}>关心一下 <kbd>2</kbd></button>
-                  <button type="button" data-testid="system-task-defer" data-intent-key="rest" onClick={() => fillHostIntent("rest")}>允许休息 <kbd>3</kbd></button>
-                  <button type="button" data-testid="system-task-reject" data-intent-key="stuck" onClick={() => fillHostIntent("stuck")}>询问卡点 <kbd>4</kbd></button>
+                  <button type="button" data-testid="system-task-accept" data-intent-key="nudge" onClick={() => fillHostIntent("nudge")}><span>催稿一下</span> <kbd>1</kbd></button>
+                  <button type="button" data-testid="system-task-scope" data-intent-key="care" onClick={() => fillHostIntent("care")}><span>关心一下</span> <kbd>2</kbd></button>
+                  <button type="button" data-testid="system-task-defer" data-intent-key="rest" onClick={() => fillHostIntent("rest")}><span>允许休息</span> <kbd>3</kbd></button>
+                  <button type="button" data-testid="system-task-reject" data-intent-key="stuck" onClick={() => fillHostIntent("stuck")}><span>询问卡点</span> <kbd>4</kbd></button>
                 </div>
               </section>
             </div>
