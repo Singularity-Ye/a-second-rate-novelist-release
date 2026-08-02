@@ -666,11 +666,13 @@ describe("SystemLayerPanel", () => {
     fireEvent.click(screen.getByTestId("system-message-send"));
 
     await waitFor(() => {
-      expect(screen.getByTestId("system-layer-panel").textContent).toContain("正式创作链路当前仅开放内部夹具验证；普通聊天可用");
+      expect(screen.getByTestId("system-layer-panel").textContent).toContain("创作链路尚未启用：当前运行时缺少合规 worker；普通聊天可用");
       expect(screen.getByTestId("system-layer-panel").getAttribute("data-chat-mode")).toBe("novelist");
       expect(screen.getByTestId("system-dialogue").textContent).toContain("原话已保留；当前没有生成正式创作结果");
       expect(screen.getByTestId("system-layer-panel").textContent).not.toContain("写作引擎暂时不可用");
       expect(screen.queryByTestId("system-message-retry")).toBeNull();
+      expect(screen.getByTestId("system-request-issue").textContent).toContain("compliance_blocked");
+      expect(screen.getByTestId("system-request-issue").textContent).toContain("recovery=none");
     });
   });
 });

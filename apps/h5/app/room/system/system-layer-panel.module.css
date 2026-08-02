@@ -1016,6 +1016,7 @@
 .subsystemBlock, .evidenceBlock { background: rgba(202, 225, 199, .28); }
 .subsystemBlock strong, .evidenceBlock strong { color: #4d805b; }
 .feedback { color: #5b3a24; background: rgba(255, 247, 221, .84); border: 1px solid rgba(137, 88, 42, .2); }
+.requestIssue { display: block; color: rgba(91, 58, 36, .68); font-size: .48rem; line-height: 1.35; }
 
 .composerModes {
   display: grid;

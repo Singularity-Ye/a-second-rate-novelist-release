@@ -312,6 +312,11 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     clientRequestId: string;
     intentDraft?: HostMessageDraft;
   } | null>(null);
+  const [lastRequestIssue, setLastRequestIssue] = useState<{
+    code: string;
+    requestId?: string;
+    recovery?: string;
+  } | null>(null);
   const panelRef = useRef<HTMLElement | null>(null);
   const messageInputRef = useRef<HTMLTextAreaElement | null>(null);
   const previousActiveChannelRef = useRef(activeChannel);
@@ -654,6 +659,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     setMessageDraft("");
     setPendingHostMessage(null);
     setFeedback("正在把你的话交给他……");
+    setLastRequestIssue(null);
     setChatStatus("connecting");
     setStreaming(true);
     setLastFailedRequest({
@@ -779,12 +785,26 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           if (code === "compliance_blocked" && (requestError?.recovery === undefined || requestError.recovery === "none")) {
             setChatStatus("restricted");
             setLastFailedRequest(null);
-            setFeedback("正式创作链路当前仅开放内部夹具验证；普通聊天可用");
+            setLastRequestIssue(requestError
+              ? {
+                  code,
+                  ...(requestError.requestId ? { requestId: requestError.requestId } : {}),
+                  ...(requestError.recovery ? { recovery: requestError.recovery } : {}),
+                }
+              : { code });
+            setFeedback("创作链路尚未启用：当前运行时缺少合规 worker；普通聊天可用");
             setBinding((previous) => updateChannelMessages(previous, channel, channelMessages(previous, channel).map((message) => message.id === assistantMessageId
               ? { ...message, text: "（原话已保留；当前没有生成正式创作结果）" }
               : message)));
           } else {
             setChatStatus("error");
+            setLastRequestIssue(requestError
+              ? {
+                  code,
+                  ...(requestError.requestId ? { requestId: requestError.requestId } : {}),
+                  ...(requestError.recovery ? { recovery: requestError.recovery } : {}),
+                }
+              : null);
             setFeedback(code === "provider_unconfigured"
               ? "写作引擎尚未完成统一配置。这句话已留在对话里，但没有冒充在线回复；按 R 重试。"
               : "写作引擎暂时不可用。这句话已留在对话里，但没有冒充在线回复；按 R 重试。 ");
@@ -795,6 +815,13 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
         }
       } else {
         setChatStatus("error");
+        setLastRequestIssue(requestError
+          ? {
+              code,
+              ...(requestError.requestId ? { requestId: requestError.requestId } : {}),
+              ...(requestError.recovery ? { recovery: requestError.recovery } : {}),
+            }
+          : null);
         setFeedback("流式连接中断，已经收到的内容保留；按 R 重试。 ");
       }
     } finally {
@@ -1397,6 +1424,13 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           </details>
 
           {feedback && <p className={styles.feedback} role="status">{feedback}</p>}
+          {lastRequestIssue && (
+            <small className={styles.requestIssue} data-testid="system-request-issue">
+              诊断：{lastRequestIssue.code}
+              {lastRequestIssue.recovery ? ` · recovery=${lastRequestIssue.recovery}` : ""}
+              {lastRequestIssue.requestId ? ` · requestId=${lastRequestIssue.requestId}` : ""}
+            </small>
+          )}
         </div>
       )}
     </aside>
