@@ -153,6 +153,16 @@
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* The identity catalog sits below the two-page dossier, so it never steals
+   space from the artwork or stretches the journal columns. */
+.characterSelectStage > .bottomDockBar {
+  width: min(1260px, 100%);
+  height: 94px;
+  min-height: 94px;
+  margin: 0.9rem auto 0;
+  flex: 0 0 94px;
+}
+
 /* Open Journal / RPG Character Binder 2-Page Stage - 3D Perspective Tilt */
 .journalBinderStage {
   position: relative;
@@ -1738,6 +1748,14 @@
 @media (max-width: 768px) {
   .characterSelectStage {
     max-width: 100%;
+  }
+
+  .characterSelectStage > .bottomDockBar {
+    width: 100%;
+    height: 108px;
+    min-height: 108px;
+    flex-basis: 108px;
+    margin-top: 0.7rem;
   }
 
   .image2StageContainer {

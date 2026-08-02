@@ -83,6 +83,114 @@ export const IDENTITIES: IdentityOption[] = [
     accidentQuote: "本座一剑斩开了天，天缝里为何会冲出一辆铁壳重卡？！",
     heroReaction: "系统大哥……你问天就问天，别拿我的键盘试剑啊！",
   },
+  {
+    id: "palace",
+    name: "后宫贵人",
+    icon: "凤",
+    tag: "宫斗风",
+    monologue: "本宫卧薪尝胆五年，趁着疯狂星期四在皇上的红豆汤里下了真言散，明日我就是皇太后！",
+    accidentQuote: "本宫斗过了贵妃斗过了皇后……居然没斗过一辆大运送外卖的三轮车！",
+    heroReaction: "系统姐姐……你说话这个‘本宫’和‘受着呗’混搭风，真的不会出戏吗……",
+  },
+  {
+    id: "worker",
+    name: "深夜社畜",
+    icon: "卷",
+    tag: "职场风",
+    monologue: "修改完第 18 版 PPT，明早我就能升职加薪当上总经理！",
+    accidentQuote: "老板，这算工伤吗……我不补考了，我下辈子要当老板使唤人！",
+    heroReaction: "喂！怎么感觉你这个金手指系统比我这个卡文作者还想摆烂啊？！",
+  },
+  {
+    id: "coder",
+    name: "极客程序员",
+    icon: "卦",
+    tag: "硬核风",
+    monologue: "代码跑通了！全网零 Bug！上线即封神！千万别动这行代码！",
+    accidentQuote: "这 Bug……连大运重卡都无法溢出啊！",
+    heroReaction: "两位系统大哥……你们说的‘堆栈溢出’，能帮我把今天 2000 字直接生成出来吗？",
+  },
+  {
+    id: "mage",
+    name: "异界魔导士",
+    icon: "符",
+    tag: "西幻风",
+    monologue: "吟唱终极禁咒！大魔王，接受本贤者的天罚吧！",
+    accidentQuote: "禁咒……居然被大运耕地拖拉机给打断了？！",
+    heroReaction: "系统大哥……您别吟唱了，门外催更的编辑不是大魔王啊！",
+  },
+  {
+    id: "detective",
+    name: "密室名侦探",
+    icon: "镜",
+    tag: "悬疑风",
+    monologue: "真相只有一个！凶手就是隐藏在密室里的……",
+    accidentQuote: "密室天花板被大运重卡给砸穿了……这根本不讲物理逻辑啊！",
+    heroReaction: "系统大哥，我只是废稿写砸了，别用看凶手的眼神看我啊！",
+  },
+  {
+    id: "idol",
+    name: "地下偶像",
+    icon: "星",
+    tag: "偶像风",
+    monologue: "只要大家挥舞荧光棒，舞台就由我来守护！",
+    accidentQuote: "应援车居然失控创上了舞台？！",
+    heroReaction: "系统妹妹，我不会打 Call 啊！我只会按键盘打字啊！",
+  },
+  {
+    id: "chef",
+    name: "小巷厨神",
+    icon: "鼎",
+    tag: "美食风",
+    monologue: "一道扬州炒饭，吃得远古大能当场痛哭流涕认我为主！",
+    accidentQuote: "送食材的大运货车直接把老夫的百年来面馆给平推了……",
+    heroReaction: "系统大厨，能给我做盘宵夜吗？写完这章我饿坏了……",
+  },
+  {
+    id: "gamer",
+    name: "电竞老将",
+    icon: "竞",
+    tag: "竞技风",
+    monologue: "最后一波决胜团战！看本座闪现开团五杀翻盘！",
+    accidentQuote: "对方居然搬出了大运重卡作弊器，把服务器给物理碾平了……",
+    heroReaction: "系统老哥，写小说不能靠手速 R Flash 啊！得讲逻辑啊！",
+  },
+  {
+    id: "athlete",
+    name: "马拉松冠军",
+    icon: "疾",
+    tag: "热血风",
+    monologue: "冲过这最后一百米，我就是史上第一位全满贯金牌得主！",
+    accidentQuote: "后面冲上来的不是第二名……居然是一辆冒着蓝光的大运重卡？！",
+    heroReaction: "系统教官……今天能少跑五公里，多写一千字吗？",
+  },
+  {
+    id: "artist",
+    name: "落魄画师",
+    icon: "画",
+    tag: "艺术风",
+    monologue: "完成这幅画作，我的灵魂将与艺术同在！",
+    accidentQuote: "画面还没干，大运重卡就把我的画室给碾成渣了……",
+    heroReaction: "系统大师，要不您帮我画插图，我自己来敲字？",
+  },
+  {
+    id: "archaeologist",
+    name: "遗迹考古学家",
+    icon: "典",
+    tag: "探索风",
+    monologue: "解开古墓壁画上的象形文字，终极文明密码即刻揭晓！",
+    accidentQuote: "壁画里封印的不是古代法老……居然是一整排异界大运重卡！",
+    heroReaction: "系统大哥……我那不是象形文字，我只是写快了连笔画混在一起了！别考据了！",
+  },
+  {
+    id: "demon",
+    name: "魔门人材",
+    icon: "魔",
+    tag: "魔道喜剧",
+    monologue: "别人闭关悟道，我闭关研究怎么把赔本买卖说成战略转进。今日魔门大典，先把账本藏好。",
+    accidentQuote: "本尊没输给正道，本尊只是被异界大运重卡提前结算了——此事记账，利息另算！",
+    heroReaction: "你这股魔气……为什么每句话都像在和客服理论？",
+  },
 ];
 
 export interface GeneOption {
@@ -131,6 +239,7 @@ export function SystemReincarnationFlow() {
   const [accidentBeatIndex, setAccidentBeatIndex] = useState(0);
   const [poseAssetErrorIdentityId, setPoseAssetErrorIdentityId] = useState<string | null>(null);
   const identityCardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const identityDockRef = useRef<HTMLDivElement | null>(null);
 
   // 3-Round Gene selections
   const [r1Choice, setR1Choice] = useState<GeneOption | null>(null);
@@ -177,6 +286,12 @@ export function SystemReincarnationFlow() {
     setSelectedIdentity(identity);
     setMangaBeatIndex(0);
     setAccidentBeatIndex(0);
+  };
+
+  const scrollIdentityDock = (delta: number) => {
+    const dock = identityDockRef.current;
+    if (!dock) return;
+    dock.scrollTo({ left: dock.scrollLeft + delta, behavior: "smooth" });
   };
 
   const nextStep = () => {
@@ -306,7 +421,8 @@ export function SystemReincarnationFlow() {
       <main className={currentStep === 1 ? styles.characterSelectStage : styles.stageCard}>
         {/* Step 1: Open Journal / RPG Character Binder Stage */}
         {currentStep === 1 && (
-          <div className={styles.journalBinderStage}>
+          <>
+            <div className={styles.journalBinderStage}>
             {/* Stitched Central Spine / Binder Rings */}
             <div className={styles.journalSpine} />
 
@@ -399,38 +515,41 @@ export function SystemReincarnationFlow() {
                   />
                 ) : (
                   <div className={styles.selectionPosePlaceholder} data-testid="identity-pose-placeholder">
-                    <span>POSE SLOT / NOT REGISTERED</span>
-                    <strong>姿态图待补</strong>
+                    <span>{poseAssetUnavailable ? "POSE SLOT / UNAVAILABLE" : "POSE SLOT / NOT REGISTERED"}</span>
+                    <strong>{poseAssetUnavailable ? "姿态图暂不可用" : "姿态图待补"}</strong>
                   </div>
                 )}
 
-                {/* Interactive Secret Lore Pins on Artwork */}
-                <div className={styles.interactiveLorePin} style={{ top: "25%", left: "28%" }}>
-                  <span className={styles.pinPulse} />
-                  <span className={styles.pinTag}>✦ 斩天剑意</span>
-                  <div className={styles.pinTooltip}>曾一剑划开诸天九重天穹线</div>
-                </div>
+                {selectedIdentity.id === "xianxia" && (
+                  <>
+                    <div className={styles.interactiveLorePin} style={{ top: "25%", left: "28%" }}>
+                      <span className={styles.pinPulse} />
+                      <span className={styles.pinTag}>✦ 斩天剑意</span>
+                      <div className={styles.pinTooltip}>曾一剑划开诸天九重天穹线</div>
+                    </div>
 
-                <div className={styles.interactiveLorePin} style={{ top: "58%", left: "20%" }}>
-                  <span className={styles.pinPulse} />
-                  <span className={styles.pinTag}>❖ 本命紫霄</span>
-                  <div className={styles.pinTooltip}>随身温养万载之无上神剑</div>
-                </div>
+                    <div className={styles.interactiveLorePin} style={{ top: "58%", left: "20%" }}>
+                      <span className={styles.pinPulse} />
+                      <span className={styles.pinTag}>❖ 本命紫霄</span>
+                      <div className={styles.pinTooltip}>随身温养万载之无上神剑</div>
+                    </div>
 
-                <div className={styles.interactiveLorePin} style={{ top: "72%", left: "68%" }}>
-                  <span className={styles.pinPulse} />
-                  <span className={styles.pinTag}>☯ 渡劫残卷</span>
-                  <div className={styles.pinTooltip}>九重天劫下留存的飞升秘典</div>
-                </div>
+                    <div className={styles.interactiveLorePin} style={{ top: "72%", left: "68%" }}>
+                      <span className={styles.pinPulse} />
+                      <span className={styles.pinTag}>☯ 渡劫残卷</span>
+                      <div className={styles.pinTooltip}>九重天劫下留存的飞升秘典</div>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Bottom Right CTA Action Bar */}
               <div className={styles.rightPageBottomBar}>
                 <div className={styles.soleProtagonistBadge}>
-                  <span className={styles.soleIcon}>仙</span>
+                  <span className={styles.soleIcon}>{selectedIdentity.icon}</span>
                   <div className={styles.soleMeta}>
-                    <strong>前身主角 · 玄烛剑尊</strong>
-                    <small>无敌剑尊 · 斩开天穹</small>
+                    <strong>前身主角 · {selectedIdentity.name}</strong>
+                    <small>{selectedIdentity.tag}</small>
                   </div>
                 </div>
 
@@ -443,7 +562,56 @@ export function SystemReincarnationFlow() {
                 </button>
               </div>
             </div>
+            </div>
+
+          <div className={styles.bottomDockBar} aria-label="前身身份档案库">
+            <button
+              type="button"
+              className={styles.dockArrowBtn}
+              aria-label="向左浏览前身身份"
+              onClick={() => scrollIdentityDock(-260)}
+            >
+              ‹
+            </button>
+
+            <div className={styles.dockCardGrid} ref={identityDockRef}>
+              {IDENTITIES.map((item) => {
+                const isSelected = selectedIdentity.id === item.id;
+                return (
+                  <button
+                    type="button"
+                    key={item.id}
+                    ref={(element) => {
+                      identityCardRefs.current[item.id] = element;
+                    }}
+                    className={`${styles.dockCard} ${isSelected ? styles.dockCardSelected : ""}`}
+                    onClick={() => selectIdentity(item)}
+                    aria-pressed={isSelected}
+                    aria-controls="identity-pose-stage"
+                    aria-label={`${item.name}，${item.tag}${isSelected ? "，当前选中" : ""}`}
+                    data-testid={`identity-option-${item.id}`}
+                  >
+                    {isSelected && <div className={styles.selectedRedCrest} />}
+                    <div className={styles.sealStampBadge}>
+                      <span>{item.icon}</span>
+                    </div>
+                    <span className={styles.dockName}>{item.name}</span>
+                    {isSelected && <div className={styles.selectedRedTassel} />}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              className={styles.dockArrowBtn}
+              aria-label="向右浏览前身身份"
+              onClick={() => scrollIdentityDock(260)}
+            >
+              ›
+            </button>
           </div>
+          </>
         )}
 
         {/* Step 2: Origin manga memory book */}
@@ -470,7 +638,7 @@ export function SystemReincarnationFlow() {
                 >
                   <div className={styles.mangaBeatMeta}>
                     <span>MEMORY BOOK · {page.pageId} · {page.contractBeatId}</span>
-                    <small>{mangaBeatIndex + 1} / {memoryPages.length} 页</small>
+                    <small><span data-testid="manga-beat-counter">{mangaBeatIndex + 1} / {memoryPages.length}</span> 页</small>
                   </div>
 
                   {/* Center Manga Stage with Left & Right Flank Page Flip Controls */}

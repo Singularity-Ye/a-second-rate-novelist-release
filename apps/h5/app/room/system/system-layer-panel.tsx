@@ -994,7 +994,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
             <section className={styles.admissionCard} role="dialog" aria-label="开始前确认">
               <strong>开始前确认一下</strong>
               <p>这里的对话会交给写作服务处理；当前仍是内部体验环境，只能使用你有权处理的测试内容。</p>
-              <button type="button" onClick={() => void acceptAdmission()}>我知道了，继续</button>
+              <button type="button" data-testid="system-admission-accept" onClick={() => void acceptAdmission()}>我知道了，继续</button>
             </section>
           )}
 

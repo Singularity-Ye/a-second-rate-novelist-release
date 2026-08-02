@@ -54,6 +54,12 @@ function stubActiveGateway(
 ) {
   vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
     if (String(input).endsWith("/vnext/experience")) return projectionResponse();
+    if (String(input).endsWith("/vnext/model-profiles")) {
+      return new Response(JSON.stringify({ code: "provider_unavailable" }), {
+        status: 503,
+        headers: { "content-type": "application/json" },
+      });
+    }
     return roomRequest();
   }));
 }
@@ -447,6 +453,7 @@ describe("SystemLayerPanel", () => {
   });
 
   it("renders a real SSE response as online streaming instead of a local rule reply", async () => {
+    vi.stubEnv("NEXT_PUBLIC_NOVELIST_CHAT_LOCAL_PREVIEW", "false");
     stubActiveGateway(async () => new Response(
       `event: route\ndata: ${JSON.stringify({ type: "route", requestId: "room-request-1", intent: "conversation", handling: "conversation", projection: availableProjection })}\n\n`
       + "event: ready\ndata: {\"type\":\"ready\",\"requestId\":\"room-request-1\",\"provider\":\"deepseek\",\"model\":\"deepseek-v4-flash\",\"requestedTier\":\"light\",\"routeFallbackApplied\":false,\"fallbackApplied\":false}\n\n"
@@ -472,6 +479,7 @@ describe("SystemLayerPanel", () => {
   });
 
   it("renders the first SSE chunk while the response is still open", async () => {
+    vi.stubEnv("NEXT_PUBLIC_NOVELIST_CHAT_LOCAL_PREVIEW", "false");
     const encoder = new TextEncoder();
     let streamController!: ReadableStreamDefaultController<Uint8Array>;
     const stream = new ReadableStream<Uint8Array>({
