@@ -85,6 +85,46 @@ const chatStatusLabels: Readonly<Record<ChatStatus, string>> = {
 
 type GatewayState = "checking" | "admission" | "active" | "error";
 
+type ComposerMode = "persona" | "raw";
+type HostIntentKey = "care" | "nudge" | "rest" | "stuck";
+
+interface HostMessageDraft {
+  readonly key: HostIntentKey;
+  readonly rawIntent: string;
+  readonly renderedHostMessage: string;
+}
+
+const hostIntentSuggestions: ReadonlyArray<HostMessageDraft & { readonly label: string }> = [
+  {
+    key: "care",
+    label: "关心一下",
+    rawIntent: "关心：先问问小说家现在卡在哪里，不先催稿。",
+    renderedHostMessage: "先不催，问问你现在卡在哪一句；今天如果只想说说，也可以。",
+  },
+  {
+    key: "nudge",
+    label: "催稿一下",
+    rawIntent: "催稿：邀请小说家先完成一个具体动作，不把任务扩大。",
+    renderedHostMessage: "继续写吧，先只完成一个具体动作，写完给我看；不用一口气铺开。",
+  },
+  {
+    key: "rest",
+    label: "允许休息",
+    rawIntent: "休息：允许小说家今天停笔，不把暂停解释成失败。",
+    renderedHostMessage: "今天先休息，别把暂停理解成失败；明天再决定要不要缩小任务。",
+  },
+  {
+    key: "stuck",
+    label: "询问卡点",
+    rawIntent: "卡点：请小说家说出现在最难下笔的那一处，暂不要求交稿。",
+    renderedHostMessage: "你现在最难下笔的是哪一处？先把卡点说清，不急着交稿。",
+  },
+];
+
+function hostIntentSuggestion(key: HostIntentKey) {
+  return hostIntentSuggestions.find((suggestion) => suggestion.key === key) ?? hostIntentSuggestions[0]!;
+}
+
 function taskVisualFor(
   status: CreativeSupportTaskStatus,
   evidenceStatus: keyof typeof evidenceStatusLabels,
@@ -108,6 +148,8 @@ const projectionPollStatuses = new Set<ExperienceProjection["status"]>([
 ]);
 
 const publicRoomDemo = process.env.NEXT_PUBLIC_PUBLIC_ROOM_DEMO === "true";
+
+const novelistWritingAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-writing-v1.webp";
 
 const publicRoomDemoProjection = {
   versionId: "public-room-demo-v1",
@@ -240,8 +282,11 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
   const [subsystemChatOpen, setSubsystemChatOpen] = useState(false);
   const [chatStatus, setChatStatus] = useState<ChatStatus>("idle");
   const [showShortcuts, setShowShortcuts] = useState(false);
+  const [taskPanelOpen, setTaskPanelOpen] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const [messageDraft, setMessageDraft] = useState("");
+  const [composerMode, setComposerMode] = useState<ComposerMode>("persona");
+  const [pendingHostMessage, setPendingHostMessage] = useState<HostMessageDraft | null>(null);
   const [artifactRef, setArtifactRef] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [gatewayState, setGatewayState] = useState<GatewayState>("checking");
@@ -261,6 +306,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     text: string;
     assistantMessageId: string;
     clientRequestId: string;
+    intentDraft?: HostMessageDraft;
   } | null>(null);
   const panelRef = useRef<HTMLElement | null>(null);
   const messageInputRef = useRef<HTMLTextAreaElement | null>(null);
@@ -449,8 +495,10 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
 
   const loadTaskSuggestionToNovelist = () => {
     const criteria = binding.task.acceptanceCriteria.slice(0, 2).join("；");
+    setPendingHostMessage(null);
     setMessageDraft(`子系统给了一条建议：${binding.task.title}。最小交付是“${binding.task.deliverable}”，验收先看“${criteria}”。这只是建议，你觉得今天怎么推进？`);
     setSubsystemChatOpen(false);
+    setTaskPanelOpen(false);
     requestChannel("novelist");
     setFeedback("任务建议只装填进了对话草稿；尚未发布、接受，也没有生成作品证据。 ");
     window.setTimeout(() => messageInputRef.current?.focus(), 0);
@@ -458,6 +506,40 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
 
   const stopStreaming = () => {
     abortRef.current?.abort();
+  };
+
+  const updateComposerDraft = (value: string) => {
+    setMessageDraft(value);
+    setPendingHostMessage((previous) => previous
+      ? composerMode === "raw"
+        ? { ...previous, rawIntent: value }
+        : { ...previous, renderedHostMessage: value }
+      : previous);
+  };
+
+  const fillHostIntent = (key: HostIntentKey) => {
+    const suggestion = hostIntentSuggestion(key);
+    const draft = composerMode === "raw" ? suggestion.rawIntent : suggestion.renderedHostMessage;
+    setPendingHostMessage(suggestion);
+    setMessageDraft(draft);
+    setFeedback(`已装填“${suggestion.label}”意图草稿；你可以编辑后再发送。`);
+    window.setTimeout(() => messageInputRef.current?.focus(), 0);
+  };
+
+  const fillComposerText = (text: string) => {
+    setPendingHostMessage(null);
+    setMessageDraft(text);
+    setFeedback("已装填到输入框；你可以编辑后再发送。 ");
+    window.setTimeout(() => messageInputRef.current?.focus(), 0);
+  };
+
+  const switchComposerMode = (mode: ComposerMode) => {
+    setComposerMode(mode);
+    if (pendingHostMessage) {
+      setMessageDraft(mode === "raw"
+        ? pendingHostMessage.rawIntent
+        : pendingHostMessage.renderedHostMessage);
+    }
   };
 
   const acceptAdmission = async () => {
@@ -498,6 +580,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       : currentMessages;
     const retryUser = options.retry ? retryMessages[retryMessages.length - 1] : undefined;
     const text = (options.retry && retryUser?.role === "system" ? retryUser.text : rawText).trim().slice(0, 600);
+    const intentDraft = options.retry ? lastFailedRequest?.intentDraft : pendingHostMessage;
     if (!text) {
       setFeedback("随便说一句就好，不用写成任务书。 ");
       return;
@@ -522,8 +605,15 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           ];
       setBinding((previous) => updateChannelMessages(previous, channel, disconnectedMessages));
       setMessageDraft("");
+      setPendingHostMessage(null);
       setChatStatus(gatewayState === "checking" ? "connecting" : "error");
-      setLastFailedRequest({ channel, text, assistantMessageId, clientRequestId: requestId });
+      setLastFailedRequest({
+        channel,
+        text,
+        assistantMessageId,
+        clientRequestId: requestId,
+        ...(intentDraft ? { intentDraft } : {}),
+      });
       setFeedback(gatewayState === "admission"
         ? "原话已留在对话里；完成使用确认后可以重试，当前没有伪造回复。"
         : gatewayState === "checking"
@@ -551,10 +641,17 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     const optimistic = updateChannelMessages(baseBinding, channel, messagesForView);
     setBinding(optimistic);
     setMessageDraft("");
+    setPendingHostMessage(null);
     setFeedback("正在把你的话交给他……");
     setChatStatus("connecting");
     setStreaming(true);
-    setLastFailedRequest({ channel, text, assistantMessageId, clientRequestId: requestId });
+    setLastFailedRequest({
+      channel,
+      text,
+      assistantMessageId,
+      clientRequestId: requestId,
+      ...(intentDraft ? { intentDraft } : {}),
+    });
 
     const controller = new AbortController();
     abortRef.current = controller;
@@ -733,12 +830,12 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
         return;
       }
       if (chatMode === "novelist" && !streaming) {
-        const quickReplies = ["继续写吧", "今天少写一点", "今天先休息", "这版不行，打回重写"];
+        const quickReplies: readonly HostIntentKey[] = ["nudge", "care", "rest", "stuck"];
         const index = Number(event.key) - 1;
         const quickReply = quickReplies[index];
         if (quickReply) {
           event.preventDefault();
-          void sendMessage(quickReply);
+          fillHostIntent(quickReply);
         }
       }
     };
@@ -746,7 +843,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     if (activeChannel !== undefined) return undefined;
     window.addEventListener("keydown", handleGlobalKeyDown);
     return () => window.removeEventListener("keydown", handleGlobalKeyDown);
-  }, [activeChannel, chatMode, chatStatus, displayMode, focusComposer, lastFailedRequest, sendMessage, streaming]);
+  }, [activeChannel, chatMode, chatStatus, displayMode, fillHostIntent, focusComposer, lastFailedRequest, sendMessage, streaming]);
 
   const submitEvidence = () => {
     const trimmed = artifactRef.trim();
@@ -783,6 +880,12 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     >
       {displayedMessages.length === 0 ? (
         <div className={styles.novelistBubble}>
+          {chatMode === "novelist" && (
+            <span className={styles.chatAvatar} data-avatar-state="writing" aria-label="小说家：写作中">
+              <img className={styles.chatAvatarPortrait} src={novelistWritingAvatarSrc} alt="" />
+              <img className={styles.chatAvatarFrame} src="/assets/ui/system-layer-materials-v4/avatar-frame-v4-alpha.png" alt="" />
+            </span>
+          )}
           <div className={styles.speakerHeader}>
             <span className={chatMode === "novelist" ? styles.speakerDotGold : styles.speakerDotCyan} />
             <span className={styles.speakerName}>{chatMode === "novelist" ? "小说家" : "子系统"}</span>
@@ -795,9 +898,15 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           data-message-role={message.role}
           key={message.id}
         >
+          {message.role !== "system" && chatMode === "novelist" && (
+            <span className={styles.chatAvatar} data-avatar-state="writing" aria-label="小说家：写作中">
+              <img className={styles.chatAvatarPortrait} src={novelistWritingAvatarSrc} alt="" />
+              <img className={styles.chatAvatarFrame} src="/assets/ui/system-layer-materials-v4/avatar-frame-v4-alpha.png" alt="" />
+            </span>
+          )}
           <div className={styles.speakerHeader}>
             <span className={message.role === "system" ? styles.speakerDotCoral : chatMode === "novelist" ? styles.speakerDotGold : styles.speakerDotCyan} />
-            <span className={styles.speakerName}>{message.role === "system" ? "你" : chatMode === "novelist" ? "小说家" : "子系统"}</span>
+            <span className={styles.speakerName}>{message.role === "system" ? "主系统" : chatMode === "novelist" ? "小说家" : "子系统"}</span>
           </div>
           <p>{message.text || <span className={styles.typingDots} aria-label="正在回复">···</span>}</p>
         </div>
@@ -824,7 +933,27 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           void sendMessage(messageDraft);
         }}
       >
-        <div>
+        <div className={styles.composerModes} data-testid="system-composer-modes">
+          <span>发送方式</span>
+          <div className={styles.composerModeButtons}>
+            <button
+              type="button"
+              data-active={composerMode === "persona"}
+              aria-pressed={composerMode === "persona"}
+              onClick={() => switchComposerMode("persona")}
+            >人格润色</button>
+            <button
+              type="button"
+              data-active={composerMode === "raw"}
+              aria-pressed={composerMode === "raw"}
+              onClick={() => switchComposerMode("raw")}
+            >原文直发</button>
+          </div>
+          {pendingHostMessage && (
+            <small data-testid="system-intent-draft">意图草稿：{hostIntentSuggestion(pendingHostMessage.key).label}（可编辑）</small>
+          )}
+        </div>
+        <div className={styles.composerField}>
           <textarea
             ref={messageInputRef}
             aria-label={chatMode === "novelist" ? "对小说家说点什么" : "对子系统说点什么"}
@@ -832,7 +961,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
             value={messageDraft}
             maxLength={600}
             rows={1}
-            onChange={(event) => setMessageDraft(event.target.value)}
+            onChange={(event) => updateComposerDraft(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {
                 if (event.nativeEvent.isComposing) return;
@@ -890,27 +1019,49 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       {expanded && (
         <div className={styles.console} id="novelist-conversation">
           <div className={styles.chatHeaderBar}>
-            <button
-              type="button"
-              className={styles.contextToggleBtn}
-              onClick={() => setDisplayMode(displayMode === "chat_history" ? "chat_focus" : "chat_history")}
-            >
-              上下文 · {visibleMessages.length} {displayMode === "chat_history" ? "▲" : "▼"}
-            </button>
-            <nav className={styles.chatModes} aria-label="聊天对象">
+            <div className={styles.chatIdentity} data-testid="system-chat-identity">
+              <span className={styles.chatIdentitySeal}>主</span>
+              <span>
+                <strong>主系统</strong>
+                <small>{chatMode === "novelist" ? "正在和小说家说话" : "正在和子系统协商"}</small>
+              </span>
+            </div>
+            <div className={styles.chatHeaderControls}>
+              {chatMode === "novelist" && (
+                <button
+                  type="button"
+                  className={styles.taskPanelToggle}
+                  data-testid="system-task"
+                  data-task-status={binding.task.status}
+                  aria-expanded={taskPanelOpen}
+                  aria-controls="novelist-task-panel"
+                  onClick={() => setTaskPanelOpen((open) => !open)}
+                >
+                  任务附件
+                </button>
+              )}
               <button
                 type="button"
-                className={chatMode === "novelist" ? styles.chatModeActive : styles.chatMode}
-                aria-pressed={chatMode === "novelist"}
-                onClick={() => focusComposer("novelist")}
-              >小说家 <kbd>Enter</kbd></button>
-              <button
-                type="button"
-                className={chatMode === "subsystem" ? styles.chatModeActive : styles.chatMode}
-                aria-pressed={chatMode === "subsystem"}
-                onClick={() => focusComposer("subsystem")}
-              >任务台 <kbd>B</kbd></button>
-            </nav>
+                className={styles.contextToggleBtn}
+                onClick={() => setDisplayMode(displayMode === "chat_history" ? "chat_focus" : "chat_history")}
+              >
+                上下文 · {visibleMessages.length} {displayMode === "chat_history" ? "▲" : "▼"}
+              </button>
+              <nav className={styles.chatModes} aria-label="聊天对象">
+                <button
+                  type="button"
+                  className={chatMode === "novelist" ? styles.chatModeActive : styles.chatMode}
+                  aria-pressed={chatMode === "novelist"}
+                  onClick={() => focusComposer("novelist")}
+                >小说家 <kbd>Enter</kbd></button>
+                <button
+                  type="button"
+                  className={chatMode === "subsystem" ? styles.chatModeActive : styles.chatMode}
+                  aria-pressed={chatMode === "subsystem"}
+                  onClick={() => focusComposer("subsystem")}
+                >任务台 <kbd>B</kbd></button>
+              </nav>
+            </div>
           </div>
 
           <div className={styles.modelRuntimeBar}>
@@ -1015,6 +1166,71 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
 
           {chatMode === "novelist" ? (
             <div className={styles.novelistWorkspace} data-testid="novelist-conversation-workspace">
+              {taskPanelOpen && (
+                <section
+                  className={styles.taskPanel}
+                  id="novelist-task-panel"
+                  data-testid="system-task-panel"
+                  aria-label="系统任务附件"
+                >
+                  <header className={styles.taskPanelHeader}>
+                    <div>
+                      <span>当前任务附件</span>
+                      <strong>{projection?.headline ?? binding.task.title}</strong>
+                    </div>
+                    <button
+                      type="button"
+                      className={styles.taskPanelClose}
+                      aria-label="收起任务附件"
+                      onClick={() => setTaskPanelOpen(false)}
+                    >
+                      ×
+                    </button>
+                  </header>
+
+                  <div className={styles.taskPanelLead}>
+                    <img
+                      className={styles.taskPanelIcon}
+                      src={`/assets/ui/system-layer-materials-v2/${taskVisual.icon}`}
+                      alt=""
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <small>为什么现在</small>
+                      <p>{binding.task.whyNow}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.taskPanelPrimary}>
+                    <div>
+                      <small>完成条件</small>
+                      <p>{binding.task.deliverable}</p>
+                    </div>
+                    <button type="button" onClick={loadTaskSuggestionToNovelist}>
+                      装填至小说家对话
+                    </button>
+                  </div>
+
+                  <details className={styles.taskPanelDetails}>
+                    <summary>展开验收与边界</summary>
+                    <dl>
+                      <div>
+                        <dt>验收标准</dt>
+                        <dd>
+                          <ul>
+                            {binding.task.acceptanceCriteria.map((criterion) => <li key={criterion}>{criterion}</li>)}
+                          </ul>
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>当前状态</dt>
+                        <dd>{evidenceStatusLabels[binding.task.evidence.status]} · {taskStatusLabels[binding.task.status]}</dd>
+                      </div>
+                    </dl>
+                  </details>
+                </section>
+              )}
+
               <div className={styles.novelistMain}>
                 {dialogueView}
                 {composerView}
@@ -1022,29 +1238,21 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
 
               <section className={styles.systemTaskSuggestion} data-testid="system-task-suggestion" data-task-visual={taskVisual.kind}>
                 <header>
-                  <div><span>子系统建议</span><small>辅助材料，不替你发号施令</small></div>
-                  <b>未发布</b>
+                  <div><span>建议怎么说</span><small>点一下装填，可编辑</small></div>
+                  <b>{hostIntentSuggestions.length} 种</b>
                 </header>
-                <div className={styles.todayCard} data-testid="system-task" data-task-status={binding.task.status}>
-                  <img
-                    className={styles.taskCardIcon}
-                    src={`/assets/ui/system-layer-materials-v2/${taskVisual.icon}`}
-                    alt=""
-                    aria-hidden="true"
-                  />
+                <div className={styles.suggestionHeading} data-testid="system-intent-suggestion">
                   <div>
-                    <strong>{projection?.headline ?? binding.task.title}</strong>
-                    <small>{projection?.body ?? binding.task.whyNow}</small>
+                    <strong>意图建议</strong>
+                    <small>点选只装填草稿，可编辑后发送</small>
                   </div>
-                  {projection?.status === "draft_ready" ? (
-                    <button type="button" onClick={() => void openDraft()}>读稿</button>
-                  ) : <b>{taskVisual.stamp}</b>}
+                  <span>4 种</span>
                 </div>
-                <div className={styles.quickReplies} aria-label="把建议说给小说家">
-                  <button type="button" data-testid="system-task-accept" onClick={() => void sendMessage("继续写吧")}>继续推进 <kbd>1</kbd></button>
-                  <button type="button" data-testid="system-task-scope" onClick={() => void sendMessage("今天少写一点")}>缩小任务 <kbd>2</kbd></button>
-                  <button type="button" data-testid="system-task-defer" onClick={() => void sendMessage("今天先休息")}>今天休息 <kbd>3</kbd></button>
-                  <button type="button" data-testid="system-task-reject" onClick={() => void sendMessage("这版不行，打回重写")}>说明返修 <kbd>4</kbd></button>
+                <div className={styles.quickReplies} aria-label="装填主系统意图">
+                  <button type="button" data-testid="system-task-accept" data-intent-key="nudge" onClick={() => fillHostIntent("nudge")}>催稿一下 <kbd>1</kbd></button>
+                  <button type="button" data-testid="system-task-scope" data-intent-key="care" onClick={() => fillHostIntent("care")}>关心一下 <kbd>2</kbd></button>
+                  <button type="button" data-testid="system-task-defer" data-intent-key="rest" onClick={() => fillHostIntent("rest")}>允许休息 <kbd>3</kbd></button>
+                  <button type="button" data-testid="system-task-reject" data-intent-key="stuck" onClick={() => fillHostIntent("stuck")}>询问卡点 <kbd>4</kbd></button>
                 </div>
               </section>
             </div>
@@ -1097,9 +1305,9 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
                 <section className={styles.subsystemChat} data-testid="subsystem-chat-entry">
                   {dialogueView}
                   <div className={styles.quickReplies} aria-label="子系统查询">
-                    <button type="button" onClick={() => void sendMessage("这项任务现在登记完整吗？")}>查任务</button>
-                    <button type="button" onClick={() => void sendMessage("我需要提供什么证据？")}>查证据</button>
-                    <button type="button" onClick={() => void sendMessage("路线和正史的边界是什么？")}>问边界</button>
+                    <button type="button" onClick={() => fillComposerText("这项任务现在登记完整吗？")}>查任务</button>
+                    <button type="button" onClick={() => fillComposerText("我需要提供什么证据？")}>查证据</button>
+                    <button type="button" onClick={() => fillComposerText("路线和正史的边界是什么？")}>问边界</button>
                   </div>
                   {composerView}
                 </section>

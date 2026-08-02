@@ -16,6 +16,15 @@ function requestedDevPort(): string | undefined {
 
 const developmentDistDir = requestedDevPort() ? `.next-dev-${requestedDevPort()}` : ".next-dev";
 
+// Codex/PowerShell edits can arrive as external filesystem writes on Windows.
+// Watchpack's native events occasionally miss those writes, leaving the browser
+// on an old module graph until the dev server is restarted. Polling keeps the
+// local H5 loop reliable without changing production builds.
+if (process.env.NODE_ENV === "development" && process.platform === "win32") {
+  process.env.WATCHPACK_POLLING ??= "true";
+  process.env.WATCHPACK_POLLING_INTERVAL ??= "1000";
+}
+
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_DIST_DIR?.trim() || (process.env.NODE_ENV === "development" ? developmentDistDir : ".next"),
   async rewrites() {

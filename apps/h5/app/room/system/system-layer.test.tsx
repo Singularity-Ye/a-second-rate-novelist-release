@@ -333,7 +333,7 @@ describe("SystemLayerPanel", () => {
     expect(screen.getByTestId("system-task").getAttribute("data-task-status")).toBe("offered");
   });
 
-  it("keeps novelist dialogue primary and exposes the subsystem task as a suggestion", async () => {
+  it("keeps novelist dialogue primary and exposes intent suggestions beside it", async () => {
     render(
       <SystemLayerPanel
         observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
@@ -344,6 +344,9 @@ describe("SystemLayerPanel", () => {
 
     expect(screen.getByTestId("system-layer-panel")).toBeTruthy();
     expect(screen.getByTestId("system-task-suggestion")).toBeTruthy();
+    expect(screen.getByTestId("system-task-suggestion").textContent).toContain("建议怎么说");
+    expect(screen.getByTestId("system-chat-identity").textContent).toContain("主系统");
+    expect(screen.getByTestId("system-intent-suggestion").textContent).toContain("可编辑后发送");
     expect(screen.getByTestId("system-dialogue")).toBeTruthy();
     expect(screen.getByLabelText("对小说家说点什么")).toBeTruthy();
     expect(screen.getByTestId("system-message-send")).toBeTruthy();
@@ -352,6 +355,55 @@ describe("SystemLayerPanel", () => {
     expect(screen.getByTestId("subsystem-notice").getAttribute("data-event-type")).toBe("subsystem_notice");
     expect(screen.getByTestId("system-task")).toBeTruthy();
     expect(screen.getByTestId("system-evidence")).toBeTruthy();
+  });
+
+  it("opens the enlarged task attachment without turning it into a second chat stream", async () => {
+    render(
+      <SystemLayerPanel
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    await waitForActiveGateway();
+
+    expect(screen.queryByTestId("system-task-panel")).toBeNull();
+    fireEvent.click(screen.getByTestId("system-task"));
+
+    const taskPanel = screen.getByTestId("system-task-panel");
+    expect(taskPanel.textContent).toContain("为什么现在");
+    expect(taskPanel.textContent).toContain("完成条件");
+    expect(taskPanel.textContent).toContain("展开验收与边界");
+    expect(screen.getByRole("button", { name: "装填至小说家对话" })).toBeTruthy();
+    expect(screen.getByTestId("system-task").getAttribute("aria-expanded")).toBe("true");
+
+    fireEvent.click(screen.getByRole("button", { name: "装填至小说家对话" }));
+    expect(screen.queryByTestId("system-task-panel")).toBeNull();
+    expect((screen.getByLabelText("对小说家说点什么") as HTMLTextAreaElement).value).toContain("子系统给了一条建议");
+  });
+
+  it("loads an editable intent draft and keeps raw intent separate from the polished host message", async () => {
+    render(
+      <SystemLayerPanel
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    await waitForActiveGateway();
+    const input = screen.getByLabelText("对小说家说点什么") as HTMLTextAreaElement;
+
+    fireEvent.click(screen.getByTestId("system-task-accept"));
+    expect(input.value).toContain("继续写吧");
+    expect(screen.getByTestId("system-intent-draft").textContent).toContain("催稿一下");
+    expect(screen.getByTestId("system-task").getAttribute("data-task-status")).toBe("offered");
+
+    fireEvent.click(screen.getByRole("button", { name: "原文直发" }));
+    expect(input.value).toContain("催稿：");
+    fireEvent.click(screen.getByRole("button", { name: "人格润色" }));
+    expect(input.value).toContain("继续写吧");
+
+    fireEvent.change(input, { target: { value: "继续写吧，先只写一个动作，写完给我看。" } });
+    fireEvent.click(screen.getByTestId("system-message-send"));
+    await waitFor(() => expect(screen.getByTestId("system-task").getAttribute("data-task-status")).toBe("accepted"));
   });
 
   it("accepts or shrinks a task and refuses fabricated evidence", async () => {
@@ -363,7 +415,11 @@ describe("SystemLayerPanel", () => {
 
     await waitForActiveGateway();
 
+    const input = screen.getByLabelText("对小说家说点什么") as HTMLTextAreaElement;
     fireEvent.click(screen.getByTestId("system-task-scope"));
+    expect(input.value).toContain("先不催");
+    fireEvent.change(input, { target: { value: "今天少写一点，先只完成一小段。" } });
+    fireEvent.click(screen.getByTestId("system-message-send"));
     await waitFor(() => expect(screen.getByTestId("system-task").getAttribute("data-task-status")).toBe("scoped"));
     await waitFor(() => expect(screen.getByTestId("system-dialogue").textContent).not.toContain("···"));
     fireEvent.click(screen.getByTestId("system-evidence-submit"));
@@ -383,7 +439,8 @@ describe("SystemLayerPanel", () => {
 
     await waitForActiveGateway();
 
-    fireEvent.change(screen.getByLabelText("对小说家说点什么"), { target: { value: "继续写吧，写完给我看" } });
+    const input = screen.getByLabelText("对小说家说点什么") as HTMLTextAreaElement;
+    fireEvent.change(input, { target: { value: "继续写吧，写完给我看" } });
     fireEvent.click(screen.getByTestId("system-message-send"));
 
     await waitFor(() => expect(screen.getByTestId("system-task").getAttribute("data-task-status")).toBe("accepted"));
@@ -393,6 +450,9 @@ describe("SystemLayerPanel", () => {
     });
 
     fireEvent.click(screen.getByTestId("system-task-reject"));
+    expect(input.value).toContain("卡点");
+    fireEvent.change(input, { target: { value: "这版不行，打回重写。" } });
+    fireEvent.click(screen.getByTestId("system-message-send"));
     await waitFor(() => expect(screen.getByTestId("system-evidence").getAttribute("data-evidence-status")).toBe("needs-revision"));
     await waitFor(() => expect(screen.getByTestId("system-dialogue").textContent).toContain("先重理，不硬抬杠"));
   });

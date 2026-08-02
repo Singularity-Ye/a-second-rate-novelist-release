@@ -154,6 +154,26 @@ describe("NovelistRoom", () => {
     expect(screen.getByText("回应这个念头，让他真的出发")).toBeTruthy();
   });
 
+  it("opens the desk entry from the writing novelist and bridges to the existing room destinations", async () => {
+    render(<NovelistRoom />);
+
+    const actor = screen.getByTestId("novelist-motion-actor");
+    fireEvent.pointerDown(actor, { pointerId: 1 });
+    fireEvent.pointerUp(actor, { pointerId: 1 });
+
+    const entry = await waitFor(() => screen.getByTestId("desk-entry-overlay"));
+    expect(entry).toBeTruthy();
+    expect(within(entry).getByTestId("desk-entry-backdrop")).toBeTruthy();
+    expect(entry.querySelector('img[src$="desk-entry-paper-frame-v1.png"]')).toBeTruthy();
+    expect(within(entry).getByRole("button", { name: /和小说家说话/ })).toBeTruthy();
+    expect(within(entry).getByRole("link", { name: /打开正文工作台/ }).getAttribute("href")).toBe("/vnext/world-lab");
+    expect(within(entry).getByRole("button", { name: /看看今日生活/ })).toBeTruthy();
+
+    fireEvent.click(within(entry).getByRole("button", { name: /和小说家说话/ }));
+    await waitFor(() => expect(screen.getByTestId("system-layer-panel").getAttribute("data-chat-mode")).toBe("novelist"));
+    expect(screen.queryByTestId("desk-entry-overlay")).toBeNull();
+  });
+
   it("keeps the life cue available in the plan when a full-scene action hides the actor", () => {
     render(<NovelistRoom />);
 

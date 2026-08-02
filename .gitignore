@@ -17,3 +17,4 @@ dist/
 !.env.example
 apps/h5/.tmp-*.png
 apps/h5/.tmp-*.webp
+tmp/

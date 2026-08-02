@@ -712,6 +712,126 @@
 .interventionActions small { color: rgba(255, 248, 237, .52); font-size: .55rem; }
 .interventionResume { width: 100%; margin-top: .55rem; border: 1px dashed rgba(247, 213, 142, .46); border-radius: .55rem; padding: .42rem; color: #f7d58e; background: transparent; cursor: pointer; font-size: .62rem; }
 .interventionResume:hover, .interventionResume:focus-visible { color: #2a211d; background: #f7d58e; outline: none; }
+
+.deskEntryOverlay {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(.8rem, 3vw, 2rem);
+  overflow: hidden;
+  isolation: isolate;
+  background: #1c1713;
+}
+.deskEntryBackdrop {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(25, 18, 13, .48), rgba(25, 18, 13, .42)),
+    url("/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-background-v1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: saturate(.9) contrast(.96);
+  transform: scale(1.025);
+}
+.deskEntryPanel {
+  position: relative;
+  z-index: 1;
+  width: min(58rem, calc(100vw - 2rem), calc((100dvh - 2rem) * 1.777));
+  aspect-ratio: 1672 / 941;
+  max-height: none;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  color: #33261e;
+  background: transparent;
+  box-shadow: 0 2rem 5rem rgba(19, 12, 8, .48);
+  animation: deskEntryIn .24s ease both;
+}
+.deskEntryPanel::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(rgba(249, 238, 211, .04), rgba(237, 216, 176, .08));
+}
+.deskEntryPaperFrame {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+.deskEntryPaperContent {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(4.3rem, 10%, 6rem) clamp(4rem, 8%, 5.5rem) clamp(2rem, 6%, 3.5rem);
+}
+.deskEntryHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.deskEntryHeader h2 { margin: 0; color: #3f2b21; font-size: clamp(1.15rem, 2.4vw, 1.8rem); }
+.deskEntryHeader p:not(.eyebrow) { margin: .32rem 0 0; color: #715b4a; font-size: .72rem; }
+.deskEntryClose,
+.deskEntryCard {
+  border: 1px solid rgba(109, 73, 45, .34);
+  color: #3d2c21;
+  background: rgba(255, 250, 232, .64);
+  cursor: pointer;
+}
+.deskEntryClose {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  font-size: 1.1rem;
+}
+.deskEntryClose:hover,
+.deskEntryClose:focus-visible { border-color: #5e856f; color: #fff9eb; background: #426d5f; outline: none; }
+.deskEntryCards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.deskEntryCard {
+  display: grid;
+  gap: .65rem;
+  min-width: 0;
+  border-radius: .75rem;
+  padding: .75rem;
+  text-align: left;
+  text-decoration: none;
+  border-color: rgba(126, 87, 49, .26);
+  background: rgba(255, 248, 225, .36);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 239, .18);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.deskEntryCard img { display: block; width: min(9rem, 72%); height: 6.8rem; margin: .1rem auto 0; object-fit: contain; }
+.deskEntryCard span { display: grid; gap: .22rem; }
+.deskEntryCard strong { color: #3f2b21; font-size: .82rem; }
+.deskEntryCard small { color: #715b4a; font-size: .62rem; line-height: 1.45; }
+.deskEntryCard:hover,
+.deskEntryCard:focus-visible { border-color: rgba(151, 99, 40, .68); box-shadow: 0 .7rem 1.4rem rgba(76, 48, 27, .15), inset 0 0 0 1px rgba(255, 255, 239, .34); outline: none; transform: translateY(-2px); }
+.deskEntryCard:hover { background: rgba(255, 244, 205, .56); }
+.deskEntryCardChat,
+.deskEntryCardWorldLab,
+.deskEntryCardLife { background: rgba(255, 248, 225, .36); }
+@keyframes deskEntryIn { from { opacity: 0; transform: translateY(.7rem) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
 @keyframes needPulse { 0%, 100% { box-shadow: 0 0 0 rgba(255, 170, 114, 0); } 50% { box-shadow: 0 0 0 4px rgba(255, 170, 114, .06); } }
 @keyframes runtimePulse { 0%, 100% { opacity: .7; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.18); } }
 @keyframes journeyRibbonIn { from { opacity: 0; transform: translate(-50%, -.55rem) scale(.96); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
@@ -756,6 +876,17 @@
   .lifePlanToggle { width: 100%; }
   .lifePlanPanel { width: min(19rem, calc(100vw - 1rem)); max-height: 62dvh; }
   .interventionActions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .deskEntryPanel { width: min(calc(100vw - 1rem), calc((100dvh - 1rem) * 1.777)); aspect-ratio: 1672 / 941; }
+  .deskEntryPaperContent { padding: 2.8rem 1.8rem 1.15rem; }
+  .deskEntryHeader { gap: .45rem; margin-bottom: .42rem; }
+  .deskEntryHeader h2 { font-size: .82rem; }
+  .deskEntryHeader p:not(.eyebrow) { margin-top: .1rem; font-size: .48rem; }
+  .deskEntryClose { width: 1.35rem; height: 1.35rem; font-size: .78rem; }
+  .deskEntryCards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .22rem; }
+  .deskEntryCard { gap: .18rem; border-radius: .35rem; padding: .25rem; }
+  .deskEntryCard img { width: min(3.2rem, 82%); height: 3.15rem; margin: 0 auto; }
+  .deskEntryCard strong { font-size: .54rem; }
+  .deskEntryCard small { font-size: .42rem; line-height: 1.2; }
 }
 
 /* Warm-paper v1: generated fibers provide material; CSS keeps every live label readable. */

@@ -438,6 +438,7 @@ export function NovelistRoom() {
   const [lifePlanOpen, setLifePlanOpen] = useState(false);
   const [lifeDetailsOpen, setLifeDetailsOpen] = useState(false);
   const [activeChatChannel, setActiveChatChannel] = useState<NovelistChatChannel | null>(null);
+  const [deskEntryOpen, setDeskEntryOpen] = useState(false);
   const [interventionOpen, setInterventionOpen] = useState(false);
   const [systemHandActive, setSystemHandActive] = useState(false);
   const [postcardOpen, setPostcardOpen] = useState(false);
@@ -762,6 +763,13 @@ export function NovelistRoom() {
 
   const handleActorTap = useCallback(() => {
     setTapPulse((value) => value + 1);
+    if (sceneId === "study" && currentAction?.id === "writing-seat") {
+      setMapOpen(false);
+      setLifePlanOpen(false);
+      setActiveChatChannel(null);
+      setDeskEntryOpen(true);
+      return;
+    }
     const interactionCue = getSceneInteractionCue(sceneId, currentAction?.id);
     emitLifeCue({
       ...interactionCue,
@@ -1682,7 +1690,10 @@ export function NovelistRoom() {
 
       if (event.key === "Escape") {
         if (isTyping) (target as HTMLElement).blur();
-        if (interventionOpen) {
+        if (deskEntryOpen) {
+          event.preventDefault();
+          setDeskEntryOpen(false);
+        } else if (interventionOpen) {
           event.preventDefault();
           setInterventionOpen(false);
         } else if (postcardOpen) {
@@ -1738,7 +1749,7 @@ export function NovelistRoom() {
 
     window.addEventListener("keydown", handleRoomShortcut);
     return () => window.removeEventListener("keydown", handleRoomShortcut);
-  }, [activeChatChannel, interventionOpen, lifePlanOpen, mapOpen, postcardOpen, toggleLifeAutoplay]);
+  }, [activeChatChannel, deskEntryOpen, interventionOpen, lifePlanOpen, mapOpen, postcardOpen, toggleLifeAutoplay]);
 
   const sceneButtons = useMemo(() => formalLifeSceneIds, []);
 
@@ -1772,6 +1783,73 @@ export function NovelistRoom() {
           emotionalLoad: lifeRuntime.host.emotionalLoad,
         }}
       />
+      {deskEntryOpen && (
+        <div
+          className={styles.deskEntryOverlay}
+          data-testid="desk-entry-overlay"
+          role="presentation"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setDeskEntryOpen(false);
+          }}
+        >
+          <div className={styles.deskEntryBackdrop} data-testid="desk-entry-backdrop" aria-hidden="true" />
+          <section className={styles.deskEntryPanel} role="dialog" aria-modal="true" aria-labelledby="desk-entry-title">
+            <img
+              className={styles.deskEntryPaperFrame}
+              src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-paper-frame-v1.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <div className={styles.deskEntryPaperContent}>
+            <header className={styles.deskEntryHeader}>
+              <div>
+                <p className={styles.eyebrow}>书桌 · writing-seat</p>
+                <h2 id="desk-entry-title">他正在写作</h2>
+                <p>从这里选择要进入的工作，不会替他做决定。</p>
+              </div>
+              <button type="button" className={styles.deskEntryClose} onClick={() => setDeskEntryOpen(false)} aria-label="关闭书桌入口">×</button>
+            </header>
+            <div className={styles.deskEntryCards}>
+              <button
+                type="button"
+                className={`${styles.deskEntryCard} ${styles.deskEntryCardChat}`}
+                onClick={() => {
+                  setDeskEntryOpen(false);
+                  setActiveChatChannel("novelist");
+                }}
+              >
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-chat-v1.png" alt="" />
+                <span>
+                  <strong>和小说家说话</strong>
+                  <small>进入主系统对话</small>
+                </span>
+              </button>
+              <a className={`${styles.deskEntryCard} ${styles.deskEntryCardWorldLab}`} href="/vnext/world-lab">
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-world-lab-v1.png" alt="" />
+                <span>
+                  <strong>打开正文工作台</strong>
+                  <small>进入 World Lab 看作品</small>
+                </span>
+              </a>
+              <button
+                type="button"
+                className={`${styles.deskEntryCard} ${styles.deskEntryCardLife}`}
+                onClick={() => {
+                  setDeskEntryOpen(false);
+                  setLifePlanOpen(true);
+                }}
+              >
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-life-v1.png" alt="" />
+                <span>
+                  <strong>看看今日生活</strong>
+                  <small>查看他接下来要做什么</small>
+                </span>
+              </button>
+            </div>
+            </div>
+          </section>
+        </div>
+      )}
       <section className={styles.mapDock} data-testid="room-map" data-open={mapOpen} aria-label="整屋地图">
         <button
           type="button"
