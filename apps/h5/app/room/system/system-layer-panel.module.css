@@ -1888,3 +1888,247 @@
   box-sizing: border-box;
   overflow: auto;
 }
+
+/* 2026-08-03 visual correction: the collapsed entry is a room invitation,
+ * not a miniature dashboard. Keep it friendly and tactile while the expanded
+ * state continues to own the fixed paper-frame geometry. */
+.panel[data-expanded="false"] {
+  width: min(30rem, calc(100vw - 2rem));
+  min-height: 0;
+  border: 1px solid rgba(225, 178, 94, .72);
+  border-radius: 999px;
+  background:
+    linear-gradient(112deg, rgba(101, 65, 29, .98), rgba(48, 29, 18, .97) 72%),
+    #321e13;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 1rem 2.8rem rgba(0, 0, 0, .48),
+    0 0 0 1px rgba(255, 222, 149, .16),
+    inset 0 1px rgba(255, 240, 192, .2),
+    inset 0 -1px rgba(17, 9, 5, .42);
+}
+
+.panel[data-expanded="false"] .panelToggle {
+  min-height: 3.6rem;
+  padding: .55rem .8rem .55rem .64rem;
+  border-radius: 999px;
+  color: #fff1cc;
+  background: linear-gradient(90deg, rgba(255, 222, 149, .16), rgba(255, 222, 149, .02) 72%);
+  text-shadow: 0 1px 1px rgba(31, 16, 8, .45);
+}
+
+.panel[data-expanded="false"] .panelToggle:hover,
+.panel[data-expanded="false"] .panelToggle:focus-visible {
+  background: linear-gradient(90deg, rgba(255, 222, 149, .26), rgba(255, 222, 149, .05) 72%);
+  outline: none;
+}
+
+.panel[data-expanded="false"] .novelistMark {
+  width: 2.48rem;
+  height: 2.48rem;
+  border-color: rgba(255, 218, 135, .82);
+  color: #fff0c4;
+  background: radial-gradient(circle at 35% 28%, #9d6d32, #563518 68%, #392313);
+  box-shadow:
+    0 0 0 3px rgba(229, 170, 67, .18),
+    inset 0 0 0 1px rgba(255, 247, 195, .2),
+    0 .25rem .55rem rgba(22, 11, 5, .35);
+}
+
+.panel[data-expanded="false"] .panelTitle {
+  gap: .16rem;
+}
+
+.panel[data-expanded="false"] .panelTitle strong {
+  color: #fff0c9;
+  font-size: .94rem;
+  font-weight: 850;
+  letter-spacing: .03em;
+}
+
+.panel[data-expanded="false"] .panelTitle small {
+  color: rgba(255, 235, 198, .84);
+  font-size: .6rem;
+  font-weight: 650;
+}
+
+.panel[data-expanded="false"] .panelCaret {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid rgba(255, 218, 135, .52);
+  border-radius: 50%;
+  color: #ffe3a2;
+  background: rgba(255, 218, 135, .1);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* The generated paper lip is intentionally quiet; give live identity text a
+ * soft DOM backing so it stays legible without baking copy into the artwork. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle {
+  color: #432719;
+  background: linear-gradient(90deg, rgba(255, 249, 227, .72), rgba(255, 249, 227, .3) 70%, transparent);
+  text-shadow: 0 1px 0 rgba(255, 250, 230, .9), 0 0 .65rem rgba(255, 243, 207, .5);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelTitle strong {
+  color: #432719;
+  font-size: 1.04rem;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(255, 250, 230, .95);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelTitle small {
+  color: #6b462c;
+  font-size: .65rem;
+  font-weight: 700;
+  text-shadow: 0 1px 0 rgba(255, 250, 230, .8);
+}
+
+.panel[data-expanded="true"] .chatIdentity {
+  padding: .18rem .48rem .2rem .24rem;
+  border: 1px solid rgba(126, 80, 32, .2);
+  border-radius: .56rem;
+  background: rgba(255, 248, 226, .76);
+  box-shadow: 0 1px 2px rgba(75, 37, 14, .1), inset 0 1px rgba(255, 255, 255, .5);
+}
+
+.panel[data-expanded="true"] .chatIdentity strong {
+  color: #3b2115;
+  font-size: .76rem;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(255, 250, 230, .9);
+}
+
+.panel[data-expanded="true"] .chatIdentity small {
+  color: #6a452a;
+  font-size: .57rem;
+  font-weight: 700;
+}
+
+/* Header actions are tactile paper tabs, not washed-out text on top of the
+ * scene. The active tab remains obvious without becoming a rectangular menu. */
+.panel[data-expanded="true"] .taskPanelToggle,
+.panel[data-expanded="true"] .chatMode,
+.panel[data-expanded="true"] .chatModeActive {
+  border-color: rgba(126, 80, 32, .52);
+  color: #4b2a1a;
+  background: rgba(255, 249, 229, .94);
+  box-shadow: 0 1px 2px rgba(75, 37, 14, .12), inset 0 1px rgba(255, 255, 255, .62);
+  font-weight: 850;
+  text-shadow: 0 1px 0 rgba(255, 252, 237, .72);
+}
+
+.panel[data-expanded="true"] .taskPanelToggle:hover,
+.panel[data-expanded="true"] .taskPanelToggle:focus-visible,
+.panel[data-expanded="true"] .chatMode:hover,
+.panel[data-expanded="true"] .chatMode:focus-visible,
+.panel[data-expanded="true"] .chatModeActive:focus-visible {
+  border-color: rgba(151, 91, 28, .82);
+  color: #351d12;
+  background: #fff8df;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(75, 37, 14, .16), inset 0 1px rgba(255, 255, 255, .72);
+}
+
+.panel[data-expanded="true"] .chatModeActive {
+  border-color: rgba(151, 91, 28, .86);
+  color: #3d2114;
+  background: linear-gradient(180deg, #f8d991, #eabe69);
+  box-shadow: 0 2px 4px rgba(96, 53, 16, .16), inset 0 1px rgba(255, 251, 220, .72);
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="false"] {
+    bottom: .5rem;
+    width: min(22rem, calc(100vw - 1rem));
+  }
+
+  .panel[data-expanded="false"] .panelToggle {
+    min-height: 3.25rem;
+    padding: .46rem .64rem .46rem .52rem;
+  }
+
+  .panel[data-expanded="false"] .novelistMark {
+    width: 2.18rem;
+    height: 2.18rem;
+  }
+
+  .panel[data-expanded="false"] .panelCaret {
+    width: 1.55rem;
+    height: 1.55rem;
+  }
+}
+
+/* Composer correction: composer-sheet-v4-alpha contains transparent top and
+ * bottom margins around its visible paper strip. A 100% x 100% cover leaves a
+ * second beige capsule behind it; scale the material vertically so its live
+ * paper edge owns the field instead. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField {
+  min-height: 2.95rem;
+  border: 0;
+  border-radius: .72rem;
+  padding: .2rem .52rem .2rem .84rem;
+  background-color: transparent;
+  background-size: 100% 200%;
+  box-shadow: none;
+  filter: drop-shadow(0 .16rem .28rem rgba(68, 40, 19, .12));
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField:focus-within {
+  border: 0;
+  box-shadow: 0 0 0 .16rem rgba(204, 143, 58, .12);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composer textarea {
+  min-height: 2.15rem;
+  max-height: 4.8rem;
+  padding: .3rem .2rem;
+  color: #3d2c21;
+  font-size: .76rem;
+  line-height: 1.55;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composer textarea::placeholder {
+  color: rgba(99, 72, 51, .66);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button {
+  flex: 0 0 auto;
+  min-width: 4.15rem;
+  height: 2.25rem;
+  border-color: rgba(126, 80, 32, .32);
+  border-radius: .62rem;
+  color: #fff4d7;
+  background: #996431;
+  box-shadow: 0 .14rem .25rem rgba(75, 37, 14, .16), inset 0 1px rgba(255, 230, 167, .18);
+  font-size: .68rem;
+  font-weight: 900;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button:hover,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button:focus-visible {
+  color: #fff9e8;
+  background: #a96f37;
+  box-shadow: 0 .2rem .32rem rgba(75, 37, 14, .2), inset 0 1px rgba(255, 241, 194, .28);
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField {
+    min-height: 2.78rem;
+    padding-right: .42rem;
+    padding-left: .68rem;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button {
+    min-width: 3.7rem;
+    height: 2.12rem;
+    padding: 0 .55rem;
+  }
+}
