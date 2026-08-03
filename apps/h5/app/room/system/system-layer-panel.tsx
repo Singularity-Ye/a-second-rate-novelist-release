@@ -1023,6 +1023,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
                 void sendMessage(messageDraft);
               }
             }}
+            wrap="soft"
             placeholder={chatMode === "novelist" ? "直接和他说；任务建议只是参考……" : "只协商边界、证据与任务结构……"}
           />
           <button type={streaming ? "button" : "submit"} onClick={streaming ? stopStreaming : undefined} data-testid="system-message-send" aria-label={streaming ? "停止回复" : "发送消息"}>
