@@ -2208,15 +2208,12 @@
   display: grid;
   gap: .42rem;
   min-width: 0;
-  padding: .42rem .46rem .38rem;
-  border: 1px solid rgba(143, 92, 42, .24);
-  border-radius: .9rem;
-  background:
-    linear-gradient(180deg, rgba(255, 247, 222, .82), rgba(239, 211, 163, .58)),
-    repeating-linear-gradient(0deg, rgba(118, 76, 36, .025) 0 1px, transparent 1px 4px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .58),
-    0 .18rem .55rem rgba(68, 40, 19, .08);
+  padding: .34rem .16rem .22rem;
+  border: 0;
+  border-top: 1px solid rgba(126, 82, 39, .18);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   overflow: hidden;
 }
 
