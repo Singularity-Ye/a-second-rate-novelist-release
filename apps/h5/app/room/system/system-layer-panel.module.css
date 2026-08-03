@@ -2223,6 +2223,8 @@
 }
 
 .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: stretch;
@@ -2233,13 +2235,7 @@
   padding: .58rem .58rem .58rem .8rem;
   border: 1px solid rgba(139, 92, 48, .42);
   border-radius: .82rem;
-  background-color: #f5e1b9;
-  background-image:
-    linear-gradient(90deg, rgba(255, 252, 232, .78), rgba(245, 224, 181, .34)),
-    url("/assets/ui/system-layer-materials-v4/composer-sheet-v4-alpha.png");
-  background-position: center, center;
-  background-repeat: no-repeat;
-  background-size: auto, 100% 200%;
+  background: linear-gradient(180deg, rgba(255, 252, 232, .84), rgba(239, 214, 170, .86));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .64),
     inset 0 -1px 3px rgba(78, 45, 23, .1),
@@ -2247,7 +2243,30 @@
   overflow: hidden;
 }
 
+/* The source paper has a transparent canvas and a green side tab. It is a
+ * border skin, not the live field: clip the tab before it can sit under the
+ * user's first character, while keeping the paper texture and corner pin. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  border-radius: .82rem;
+  background: url("/assets/ui/system-layer-materials-v4/composer-sheet-v4-alpha.png") center / 100% 200% no-repeat;
+  clip-path: inset(0 0 0 2.5rem round .82rem);
+  opacity: .76;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField:focus-within {
+  border: 1px solid rgba(139, 92, 48, .62);
+  border-color: rgba(139, 92, 48, .62);
+  box-shadow: 0 0 0 .14rem rgba(204, 143, 58, .12), inset 0 1px 3px rgba(78, 45, 23, .1);
+}
+
 .panel[data-expanded="true"][data-chat-mode="novelist"] .composer textarea {
+  position: relative;
+  z-index: 1;
   align-self: stretch;
   width: 100%;
   min-width: 0;
@@ -2273,6 +2292,8 @@
 }
 
 .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button {
+  position: relative;
+  z-index: 1;
   align-self: end;
   min-width: 4.55rem;
   height: 2.45rem;
