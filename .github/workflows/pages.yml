@@ -28,7 +28,7 @@ jobs:
     env:
       PAGES_BASE_PATH: /${{ github.event.repository.name }}
       PAGES_REQUIRE_REMOTE_API: "true"
-      NEXT_PUBLIC_API_BASE_URL: ${{ vars.ROOM_GATEWAY_BASE_URL || 'https://hamaxiang-fns.tail5f51f2.ts.net:8443' }}
+      NEXT_PUBLIC_API_BASE_URL: https://gongsi.tail5f51f2.ts.net:8443
       NEXT_PUBLIC_PUBLIC_ROOM_DEMO: "true"
       NEXT_PUBLIC_STRICT_RUNTIME_API_BASE: "true"
       NEXT_PUBLIC_NOVELIST_CHAT_LOCAL_PREVIEW: "false"
