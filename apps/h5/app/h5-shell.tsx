@@ -59,6 +59,15 @@ function LegacyH5Shell({
   }, [searchParams]);
 
   const shellSearchParams = useMemo(() => buildShellSearchParams(liveSearch), [liveSearch]);
+  const isImmersiveRoom = pathname === "/room" || pathname === "/room/novelist";
+
+  if (pathname === "/room/reincarnation") {
+    return (
+      <div className="app-shell app-shell--immersive app-shell--prologue">
+        <div className="app-shell__body">{children}</div>
+      </div>
+    );
+  }
 
   if (isNonProductSurface) {
     return (
@@ -69,7 +78,7 @@ function LegacyH5Shell({
   }
 
   return (
-    <div className="app-shell">
+    <div className={isImmersiveRoom ? "app-shell app-shell--immersive" : "app-shell"}>
       <div className="app-shell__body">{children}</div>
       <nav aria-label="主导航" className="tab-shell">
         {tabs.map((tab) => (

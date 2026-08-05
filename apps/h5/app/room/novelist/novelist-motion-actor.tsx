@@ -600,6 +600,13 @@ export function NovelistMotionActor({
   const activePhase = route?.phases?.find((phase) => phase.id === activePhaseId);
   const activeAction = getFormalSceneAction(sceneId, activity, activeActionId ?? route?.arriveActionId);
   const actorMode = activePhase?.actorMode ?? (isMoving ? "walking" : mode);
+  // Manuscript particles belong to the study writing state. Keep this final
+  // guard at the actor boundary because the room caller derives the flag from
+  // short-lived visual beats; a stale beat must not leak writing glyphs into a
+  // dining route or its carry-bowl handoff.
+  const renderManuscriptParticles = showManuscriptParticles
+    && sceneId === "study"
+    && activity === "writing";
   // Dining uses scene-local action assets when a route phase has one (for
   // example the full-bowl carry asset). Ordinary entry/exit travel is still a
   // normal walking actor; it must not inherit a full-scene composite or the
@@ -815,7 +822,7 @@ export function NovelistMotionActor({
           </span>
         </div>
       )}
-      {showManuscriptParticles && (
+      {renderManuscriptParticles && (
         <div className={motionStyles.manuscriptContainer} data-testid="manuscript-particles" aria-hidden="true">
           <span className={motionStyles.paperParticle}>✧</span>
           <span className={motionStyles.paperParticle}>▱</span>

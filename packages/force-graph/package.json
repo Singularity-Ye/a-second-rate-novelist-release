@@ -1,0 +1,32 @@
+{
+  "name": "@erliu/force-graph",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@sigma/node-image": "3.0.0",
+    "d3-force": "^3.0.0",
+    "graphology": "0.26.0",
+    "sigma": "3.0.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/d3-force": "^3.0.10",
+    "@types/react": "^19.1.10",
+    "react": "^19.1.0",
+    "vitest": "^3.2.4"
+  }
+}

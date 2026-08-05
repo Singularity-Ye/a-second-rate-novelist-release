@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import React, { type CSSProperties } from "react";
 import type {
   NovelistRoutePoint,
   NovelistSceneInteraction,
@@ -10,7 +10,6 @@ type SceneInteractionsProps = {
   routePoints: readonly NovelistRoutePoint[];
   stateByInteractionId: Readonly<Record<string, string>>;
   actorPosition: { x: number; y: number };
-  hidden?: boolean;
 };
 
 function pointForInteraction(
@@ -30,7 +29,6 @@ export function SceneInteractions({
   routePoints,
   stateByInteractionId,
   actorPosition,
-  hidden = false,
 }: SceneInteractionsProps) {
   if (interactions.length === 0) return null;
   const pointsById = new Map(routePoints.map((point) => [point.id, point]));
@@ -39,7 +37,6 @@ export function SceneInteractions({
     <div
       className={styles.sceneInteractionsLayer}
       data-testid="scene-interactions-layer"
-      data-hidden={hidden}
       aria-hidden="true"
     >
       {interactions.flatMap((interaction) => {
@@ -52,8 +49,8 @@ export function SceneInteractions({
           const asset = interaction.assets.find((candidate) => candidate.id === assetId);
           if (!asset) return [];
           const attachedToActor = asset.mode === "actor" || state.actorAssetId === asset.id;
-          const x = attachedToActor ? actorPosition.x : anchor?.x ?? 0;
-          const y = attachedToActor ? actorPosition.y : anchor?.y ?? 0;
+          const x = attachedToActor ? actorPosition.x : asset.position?.x ?? anchor?.x ?? 0;
+          const y = attachedToActor ? actorPosition.y : asset.position?.y ?? anchor?.y ?? 0;
           const offsetX = `${asset.offset.x * 100}%`;
           const offsetY = `${asset.offset.y * 100}%`;
           return [

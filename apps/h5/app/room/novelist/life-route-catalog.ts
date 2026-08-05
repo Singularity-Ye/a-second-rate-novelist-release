@@ -37,12 +37,10 @@ export const lifeRouteAliases: Readonly<Record<PublishedLifeSceneId, Readonly<Re
     "dining-table-to-entry": "table-to-entry",
   },
   entrance: {
-    "entrance-to-mailbox": "entrance-to-mailbox",
-    "mailbox-to-entrance": "mailbox-to-entrance",
-    "entrance-to-postcard-rack": "entrance-to-postcard-rack",
-    "postcard-rack-to-entrance": "postcard-rack-to-entrance",
-    "entrance-to-coat-rack": "entrance-to-coat-rack",
-    "coat-rack-to-entrance": "coat-rack-to-entrance",
+    // The old formal-room return hotspot still emits `entrance-return`.
+    // Resolve it to the published route that restores scene-owned gear;
+    // this keeps the hotspot stable without reviving the retired route.
+    "entrance-return": "outside-to-entrance-return-gear",
     "entrance-to-outside": "entrance-to-outside",
     "outside-to-entrance": "outside-to-entrance",
   },

@@ -66,6 +66,8 @@ export type FormalSceneInteractionAsset = {
   mode: EditorSceneInteractionAssetMode;
   zIndex: number;
   scale: number;
+  /** Optional normalized scene position for fixed scene props. */
+  position?: { x: number; y: number };
   /** Normalized offset in the published scene canvas. */
   offset: { x: number; y: number };
 };

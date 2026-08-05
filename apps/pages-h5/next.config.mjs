@@ -10,7 +10,18 @@ const nextConfig = {
   basePath,
   assetPrefix: basePath || undefined,
   images: { unoptimized: true },
-  transpilePackages: ["@erliu/shared-contracts"],
+  transpilePackages: [
+    "@erliu/force-graph",
+    "@erliu/shared-contracts",
+    "@erliu/telemetry",
+  ],
+  webpack(config) {
+    config.resolve.extensionAlias = {
+      ...(config.resolve.extensionAlias ?? {}),
+      ".js": [".ts", ".tsx", ".js"],
+    };
+    return config;
+  },
 };
 
 export default nextConfig;

@@ -9,9 +9,10 @@
     "dev:test": "next dev --hostname 127.0.0.1 --port 3000"
   },
   "dependencies": {
+    "@erliu/force-graph": "workspace:*",
     "@erliu/shared-contracts": "workspace:*",
     "@erliu/telemetry": "workspace:*",
-    "next": "15.4.6",
+    "next": "15.5.21",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

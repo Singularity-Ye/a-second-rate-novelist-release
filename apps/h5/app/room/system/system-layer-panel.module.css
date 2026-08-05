@@ -26,6 +26,12 @@
   transform: translateX(-50%);
 }
 
+.panel[data-expanded="true"][data-chat-mode="subsystem"] {
+  width: min(47rem, calc(100vw - 2rem));
+  border-color: rgba(118, 203, 196, .2);
+  background: rgba(13, 22, 22, .84);
+}
+
 .panelToggle {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -124,6 +130,143 @@
 .quickReplies button kbd,
 .shortcutsHelp kbd { border: 1px solid rgba(255, 255, 255, .2); border-radius: .25rem; padding: .06rem .2rem; color: #f8eccf; background: rgba(0, 0, 0, .3); font: inherit; font-size: .48rem; }
 
+.runtimeLine {
+  display: flex;
+  gap: .42rem;
+  align-items: center;
+  min-height: 1.1rem;
+  color: rgba(242, 233, 220, .52);
+  font-size: .51rem;
+  letter-spacing: .02em;
+}
+
+.runtimeSignal {
+  width: .38rem;
+  height: .38rem;
+  border-radius: 50%;
+  background: #c68f66;
+  box-shadow: 0 0 0 .18rem rgba(198, 143, 102, .09);
+}
+
+.runtimeLine[data-gateway-state="active"] .runtimeSignal {
+  background: #82c7a8;
+  box-shadow: 0 0 0 .18rem rgba(130, 199, 168, .09), 0 0 .55rem rgba(130, 199, 168, .42);
+}
+
+.runtimeLine[data-model="unverified"] { color: rgba(242, 233, 220, .42); }
+
+.modelRuntimeBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .65rem;
+}
+
+.modelPickerToggle {
+  flex: 0 0 auto;
+  border: 1px solid rgba(239, 210, 154, .16);
+  border-radius: 999px;
+  padding: .2rem .55rem;
+  color: rgba(239, 222, 193, .68);
+  background: rgba(255, 255, 255, .045);
+  font-size: .5rem;
+  letter-spacing: .06em;
+  cursor: pointer;
+}
+
+.modelPickerToggle:hover:not(:disabled),
+.modelPickerToggle[aria-expanded="true"] {
+  border-color: rgba(239, 210, 154, .35);
+  color: #f3dba9;
+  background: rgba(239, 210, 154, .09);
+}
+
+.modelPickerToggle:disabled { opacity: .36; cursor: default; }
+
+.modelPicker {
+  display: grid;
+  gap: .65rem;
+  border: 1px solid rgba(239, 210, 154, .14);
+  border-radius: .78rem;
+  padding: .66rem;
+  background:
+    linear-gradient(145deg, rgba(239, 210, 154, .055), transparent 58%),
+    rgba(6, 7, 8, .44);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .025);
+}
+
+.modelPurpose { display: grid; gap: .38rem; }
+.modelPurpose > header { display: flex; align-items: flex-end; justify-content: space-between; gap: .55rem; }
+.modelPurpose > header strong { color: rgba(248, 235, 211, .82); font-size: .56rem; letter-spacing: .03em; }
+.modelPurpose > header small { color: rgba(242, 233, 220, .38); font-size: .46rem; }
+
+.modelOptions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .3rem;
+}
+
+.modelOptions button {
+  display: grid;
+  min-width: 0;
+  gap: .09rem;
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: .52rem;
+  padding: .38rem .32rem;
+  color: rgba(244, 237, 226, .7);
+  background: rgba(255, 255, 255, .035);
+  text-align: left;
+  cursor: pointer;
+}
+
+.modelOptions button:hover:not(:disabled) { border-color: rgba(167, 215, 194, .32); background: rgba(167, 215, 194, .07); }
+.modelOptions button[data-selected="true"] { border-color: rgba(167, 215, 194, .42); color: #d9eee3; background: rgba(167, 215, 194, .105); box-shadow: inset 0 0 0 1px rgba(167, 215, 194, .045); }
+.modelOptions button:disabled { opacity: .34; cursor: default; }
+.modelOptions span { overflow: hidden; font-size: .52rem; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+.modelOptions small { overflow: hidden; color: rgba(242, 233, 220, .38); font-size: .42rem; text-overflow: ellipsis; white-space: nowrap; }
+.modelPicker > p { margin: 0; color: rgba(242, 233, 220, .38); font-size: .46rem; line-height: 1.45; }
+
+@media (max-width: 560px) {
+  .modelOptions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .modelPurpose > header { align-items: start; flex-direction: column; gap: .12rem; }
+}
+
+.novelistWorkspace,
+.subsystemWorkspace {
+  display: grid;
+  gap: .72rem;
+}
+
+.systemTaskSuggestion {
+  display: grid;
+  gap: .55rem;
+  border: 1px solid rgba(238, 201, 137, .14);
+  border-radius: .82rem;
+  padding: .68rem;
+  background:
+    linear-gradient(135deg, rgba(247, 213, 142, .07), transparent 58%),
+    rgba(0, 0, 0, .17);
+}
+
+.systemTaskSuggestion > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .7rem;
+}
+
+.systemTaskSuggestion > header > div { display: grid; gap: .08rem; }
+.systemTaskSuggestion > header span { color: #efd29a; font-size: .61rem; font-weight: 850; letter-spacing: .08em; }
+.systemTaskSuggestion > header small { color: rgba(242, 233, 220, .42); font-size: .5rem; }
+.systemTaskSuggestion > header b {
+  border: 1px solid rgba(239, 210, 154, .2);
+  border-radius: 999px;
+  padding: .16rem .42rem;
+  color: rgba(239, 210, 154, .64);
+  background: rgba(0, 0, 0, .18);
+  font-size: .49rem;
+}
+
 .todayCard {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -206,6 +349,31 @@
   white-space: nowrap;
 }
 
+.pinnedPill b {
+  color: rgba(247, 213, 142, .58);
+  font-size: .46rem;
+  letter-spacing: .08em;
+}
+
+.pinnedPillLink {
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  border-radius: 999px;
+  padding: .22rem .65rem;
+  color: #fbbf24;
+  background: rgba(180, 83, 9, 0.25);
+  font-size: .54rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.pinnedPillLink:hover {
+  background: rgba(180, 83, 9, 0.5);
+  color: #ffffff;
+  border-color: #fef08a;
+}
+
 .quickReplies { display: flex; gap: .38rem; overflow-x: auto; padding-bottom: .08rem; }
 .quickReplies button {
   flex: 0 0 auto;
@@ -222,6 +390,7 @@
 .quickReplies button kbd { margin-left: .15rem; }
 
 .chatStatus { display: flex; align-items: center; justify-content: space-between; min-height: 1rem; color: rgba(242, 233, 220, .6); font-size: .51rem; }
+.chatStatus > div { display: flex; gap: .32rem; align-items: center; }
 .chatStatus[data-chat-status="online"],
 .chatStatus[data-chat-status="queued"] { color: #9fd8ba; }
 .chatStatus[data-chat-status="connecting"] { color: #f7d58e; }
@@ -232,7 +401,7 @@
 .shortcutsHelp strong { color: #f7d58e; font-size: .55rem; }
 
 .composer { display: grid; gap: .35rem; }
-.composer > div {
+.composerField {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: .42rem;
@@ -244,7 +413,7 @@
   box-shadow: 0 .1rem .4rem rgba(0, 0, 0, .3) inset;
   transition: border-color .2s ease;
 }
-.composer > div:focus-within {
+.composerField:focus-within {
   border-color: rgba(247, 213, 142, .45);
 }
 .composer textarea {
@@ -292,7 +461,117 @@
 .draftReader { border: 1px solid rgba(255, 255, 255, .15); border-radius: .6rem; padding: .7rem; background: rgba(22, 18, 15, .88); color: #f8eccf; }
 .admissionCard p,
 .gatewayNotice p { margin: .28rem 0 .55rem; font-size: .58rem; line-height: 1.55; }
-.admissionCard button { border: 1px solid rgba(247, 213, 142, .4); border-radius: .35rem; padding: .36rem .58rem; color: #1c1612; background: #f7d58e; font-size: .56rem; cursor: pointer; }
+.admissionCard button,
+.gatewayNotice button { border: 1px solid rgba(247, 213, 142, .4); border-radius: .35rem; padding: .36rem .58rem; color: #1c1612; background: #f7d58e; font-size: .56rem; font-weight: 800; cursor: pointer; }
+
+.directiveWorkspace {
+  display: grid;
+  gap: .78rem;
+  border: 1px solid rgba(108, 201, 193, .2);
+  border-radius: .9rem;
+  padding: .82rem;
+  background:
+    linear-gradient(145deg, rgba(42, 157, 143, .11), transparent 46%),
+    radial-gradient(circle at 92% 8%, rgba(126, 214, 204, .09), transparent 28%),
+    rgba(4, 12, 12, .34);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .16) inset;
+}
+
+.directiveWorkspace > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(116, 197, 190, .13);
+  padding-bottom: .62rem;
+}
+
+.directiveWorkspace > header > div { display: grid; gap: .2rem; }
+.directiveWorkspace > header span { color: rgba(128, 215, 207, .58); font: 700 .48rem/1.2 ui-monospace, "Cascadia Mono", monospace; letter-spacing: .14em; }
+.directiveWorkspace > header strong { color: #e8f2ed; font-family: "Noto Serif SC", "Songti SC", serif; font-size: .82rem; }
+.directiveWorkspace > header b {
+  border: 1px solid rgba(126, 207, 199, .2);
+  border-radius: .38rem;
+  padding: .22rem .46rem;
+  color: #9ed5cd;
+  background: rgba(35, 113, 106, .16);
+  font-size: .5rem;
+  white-space: nowrap;
+}
+
+.directiveStatusRow { display: flex; flex-wrap: wrap; gap: .35rem; }
+.directiveStatusRow span {
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 999px;
+  padding: .2rem .46rem;
+  color: rgba(228, 242, 237, .52);
+  background: rgba(0, 0, 0, .2);
+  font-size: .49rem;
+}
+.directiveStatusRow span[data-ready="true"] { border-color: rgba(130, 199, 168, .22); color: #9bd2b7; }
+.directiveStatusRow span[data-ready="false"] { border-color: rgba(220, 124, 104, .25); color: #e49c8d; }
+
+.directiveFacts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .72rem;
+  margin: 0;
+}
+.directiveFacts > div { display: grid; align-content: start; gap: .28rem; }
+.directiveFacts > div:last-child { grid-column: 1 / -1; }
+.directiveFacts dt { color: rgba(132, 211, 202, .68); font-size: .51rem; font-weight: 800; letter-spacing: .04em; }
+.directiveFacts dd { margin: 0; color: rgba(231, 242, 238, .68); font-size: .6rem; line-height: 1.6; }
+.directiveFacts ul { display: grid; gap: .18rem; margin: 0; padding-left: 1rem; }
+
+.directiveActions {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .65rem;
+  align-items: center;
+  border-top: 1px solid rgba(116, 197, 190, .13);
+  padding-top: .68rem;
+}
+.directiveActions button {
+  border: 1px solid rgba(137, 222, 211, .28);
+  border-radius: .52rem;
+  padding: .46rem .68rem;
+  color: #071312;
+  background: #91d1c8;
+  font-size: .57rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+.directiveActions button:hover,
+.directiveActions button:focus-visible { background: #afe3dc; outline: none; }
+.directiveActions small { color: rgba(226, 240, 236, .42); font-size: .5rem; line-height: 1.5; }
+
+.subsystemChatToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  border: 1px solid rgba(123, 202, 194, .13);
+  border-radius: .68rem;
+  padding: .54rem .68rem;
+  color: rgba(222, 240, 235, .78);
+  background: rgba(0, 0, 0, .2);
+  text-align: left;
+  cursor: pointer;
+}
+.subsystemChatToggle span { font-size: .59rem; font-weight: 800; }
+.subsystemChatToggle small { color: rgba(222, 240, 235, .38); font-size: .49rem; }
+.subsystemChatToggle:hover,
+.subsystemChatToggle:focus-visible { border-color: rgba(145, 209, 200, .38); outline: none; }
+
+.subsystemChat {
+  display: grid;
+  gap: .58rem;
+  border: 1px solid rgba(123, 202, 194, .12);
+  border-radius: .75rem;
+  padding: .68rem;
+  background: rgba(0, 0, 0, .18);
+}
 .draftReader { position: absolute; inset: .9rem; z-index: 4; display: grid; grid-template-rows: auto minmax(0, 1fr); box-shadow: 0 1rem 2.6rem rgba(0, 0, 0, .6); }
 .draftReader header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed rgba(255, 255, 255, .15); padding-bottom: .5rem; }
 .draftReader header button { border: 0; color: #f8eccf; background: transparent; font-size: 1rem; cursor: pointer; }
@@ -339,9 +618,15 @@
 
 @media (max-width: 760px) {
   .panel { bottom: calc(4.75rem + env(safe-area-inset-bottom)); width: min(24rem, calc(100vw - 1rem)); }
+  .panel[data-expanded="true"][data-chat-mode="subsystem"] { width: min(24rem, calc(100vw - 1rem)); }
   .panel[data-expanded="false"] { bottom: .5rem; left: 50%; transform: translateX(-50%); width: min(20rem, calc(100vw - 1rem)); }
   .console { max-height: 58dvh; }
   .conversation { max-height: 12rem; }
+  .directiveFacts { grid-template-columns: 1fr; }
+  .directiveFacts > div:last-child { grid-column: auto; }
+  .directiveActions { grid-template-columns: 1fr; }
+  .subsystemChatToggle { align-items: start; flex-direction: column; gap: .18rem; }
+  .composerFooter { gap: .45rem; align-items: start; flex-direction: column; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -351,3 +636,2250 @@
   .composer button { transition: none; }
   .typingDots { animation: none; }
 }
+
+/*
+ * Frontstage rebuild v1
+ *
+ * The generated frames are used only at their native aspect ratios. The
+ * desktop shell is 1486:944 and the mobile shell is 433:740; live text is
+ * layered inside those frames instead of being baked into or stretched with
+ * the artwork.
+ */
+.panel {
+  --paper-ink: #38271d;
+  --paper-muted: #725846;
+  --paper-gold: #c98b36;
+  --paper-deep: #20150f;
+  position: fixed;
+  z-index: 70;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(1120px, calc(100vw - 2rem), calc((100dvh - 2rem) * 1.574));
+  height: auto;
+  aspect-ratio: 1486 / 944;
+  max-height: none;
+  overflow: hidden;
+  isolation: isolate;
+  border: 0;
+  border-radius: 0;
+  color: #f9ecd2;
+  background-color: rgba(29, 19, 12, .96);
+  background-image: url("/assets/ui/system-layer-materials-v2/chat-frame-wide-v3.1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0 2.4rem 6rem rgba(0, 0, 0, .58), 0 0 0 1px rgba(255, 214, 123, .15);
+  transform: translate(-50%, -50%);
+  transition: width .25s ease, opacity .25s ease, transform .25s ease;
+}
+
+.panel[data-expanded="false"] {
+  top: auto;
+  bottom: 1.2rem;
+  left: 50%;
+  display: block;
+  width: min(32rem, calc(100vw - 2rem));
+  aspect-ratio: auto;
+  background-color: rgba(25, 17, 12, .9);
+  background-image: none;
+  box-shadow: 0 1.2rem 3.5rem rgba(0, 0, 0, .48), 0 0 0 1px rgba(247, 213, 142, .12);
+  transform: translateX(-50%);
+}
+
+.panel[data-expanded="true"][data-chat-mode="subsystem"] {
+  width: min(1120px, calc(100vw - 2rem), calc((100dvh - 2rem) * 1.574));
+  border-color: transparent;
+  background-color: rgba(24, 25, 18, .96);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] {
+  background-color: #d8c09a;
+  background-image: url("/assets/ui/system-layer-materials-v4/chat-frame-wide-v4-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.panelToggle {
+  position: relative;
+  z-index: 2;
+  min-height: 4rem;
+  padding: 2.05rem 3.25rem .45rem;
+  border-radius: 0;
+  color: #fff2cf;
+}
+
+.panelToggle:hover,
+.panelToggle:focus-visible {
+  background: linear-gradient(180deg, rgba(255, 221, 140, .12), transparent);
+  outline: none;
+}
+
+.novelistMark {
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid rgba(255, 211, 115, .68);
+  color: #ffe4a0;
+  background: rgba(84, 49, 20, .72);
+  box-shadow: 0 0 0 3px rgba(217, 148, 45, .12), inset 0 0 0 1px rgba(255, 241, 184, .18);
+}
+
+.panelTitle strong { color: #fff0c9; font-size: .98rem; letter-spacing: .03em; }
+.panelTitle small { color: rgba(255, 235, 199, .66); font-size: .62rem; }
+.panelTitle i { background: #9bd1a9; box-shadow: 0 0 9px rgba(155, 209, 169, .8); }
+.panelCaret { color: #e9b958; }
+
+.console {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  gap: .72rem;
+  min-height: 0;
+  max-height: none;
+  overflow: hidden;
+  padding: 0 3.25rem 2.25rem;
+  scrollbar-width: none;
+}
+
+.console::-webkit-scrollbar { display: none; }
+
+/* Gateway notices are overlays, not grid rows. Keeping them out of the
+ * content grid prevents the chat workspace from compressing their height
+ * and covering the consent/retry controls with later siblings. */
+.admissionCard,
+.gatewayNotice {
+  position: absolute;
+  z-index: 6;
+  top: 4.15rem;
+  right: 3.25rem;
+  left: 3.25rem;
+  width: auto;
+  min-height: 0;
+  margin: 0;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.chatHeaderBar {
+  min-height: 2rem;
+  border-bottom: 1px solid rgba(202, 143, 60, .22);
+  padding: .1rem 0 .48rem;
+}
+
+.contextToggleBtn,
+.chatMode,
+.chatModeActive {
+  border-color: rgba(114, 73, 35, .3);
+  color: var(--paper-muted);
+  background: rgba(255, 244, 214, .58);
+}
+
+.contextToggleBtn:hover,
+.chatMode:hover,
+.chatMode:focus-visible,
+.chatModeActive:focus-visible { border-color: rgba(167, 104, 35, .74); background: rgba(255, 247, 225, .82); outline: none; }
+.chatModeActive { border-color: rgba(167, 104, 35, .72); color: #4e2f1d; background: rgba(236, 194, 116, .7); box-shadow: inset 0 0 0 1px rgba(255, 247, 216, .45); }
+.chatMode kbd, .chatModeActive kbd, .quickReplies button kbd, .shortcutsHelp kbd { border-color: rgba(112, 73, 38, .3); color: #654124; background: rgba(255, 250, 232, .58); }
+
+.runtimeLine { color: rgba(98, 68, 46, .72); font-size: .57rem; }
+.runtimeLine[data-model="unverified"] { color: rgba(98, 68, 46, .6); }
+.runtimeSignal { background: #c68143; box-shadow: 0 0 0 .18rem rgba(198, 129, 67, .12); }
+.runtimeLine[data-gateway-state="active"] .runtimeSignal { background: #5d9273; box-shadow: 0 0 0 .18rem rgba(93, 146, 115, .14), 0 0 .6rem rgba(93, 146, 115, .45); }
+.modelPickerToggle { border-color: rgba(137, 91, 43, .32); color: #6c482d; background: rgba(255, 248, 226, .65); }
+.modelPickerToggle:hover:not(:disabled), .modelPickerToggle[aria-expanded="true"] { border-color: rgba(160, 103, 36, .68); color: #56331d; background: rgba(237, 195, 117, .48); }
+
+.modelPicker {
+  border-color: rgba(150, 99, 39, .28);
+  background: rgba(255, 246, 216, .74);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .48);
+}
+.modelPurpose > header strong { color: #604024; }
+.modelPurpose > header small, .modelPicker > p { color: rgba(96, 70, 48, .6); }
+.modelOptions button { border-color: rgba(126, 88, 53, .2); color: #66462e; background: rgba(255, 251, 235, .58); }
+.modelOptions button:hover:not(:disabled) { border-color: rgba(73, 119, 96, .55); background: rgba(198, 222, 202, .48); }
+.modelOptions button[data-selected="true"] { border-color: rgba(73, 119, 96, .7); color: #315b49; background: rgba(198, 222, 202, .64); }
+.modelOptions small { color: rgba(99, 70, 47, .6); }
+
+.novelistWorkspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(232px, 28%);
+  gap: 1rem;
+  min-height: 0;
+  align-items: start;
+}
+
+.novelistMain {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  border: 1px solid rgba(136, 88, 41, .28);
+  border-radius: .58rem;
+  padding: .9rem 1rem .72rem;
+  color: var(--paper-ink);
+  background: linear-gradient(180deg, rgba(255, 248, 227, .9), rgba(241, 220, 181, .78));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .38), 0 .9rem 2rem rgba(44, 23, 9, .16);
+}
+
+.conversation {
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding: .15rem .2rem .45rem;
+  mask-image: none;
+  -webkit-mask-image: none;
+  scrollbar-color: rgba(136, 90, 49, .42) transparent;
+}
+
+.conversation::-webkit-scrollbar { width: .35rem; }
+.conversation::-webkit-scrollbar-thumb { border-radius: 99px; background: rgba(136, 90, 49, .38); }
+.novelistBubble, .systemBubble { max-width: min(86%, 42rem); }
+.systemBubble { align-self: flex-end; }
+.speakerName { color: #6f4b31; font-size: .67rem; }
+.speakerHeader { padding: 0 .15rem; }
+.speakerDotGold { background: #bf7f2f; box-shadow: 0 0 7px rgba(191, 127, 47, .56); }
+.speakerDotCoral { background: #a85d45; box-shadow: 0 0 7px rgba(168, 93, 69, .42); }
+.speakerDotCyan { background: #477c70; box-shadow: 0 0 7px rgba(71, 124, 112, .45); }
+.novelistBubble p, .systemBubble p { border-radius: .72rem .72rem .72rem .22rem; padding: .62rem .78rem; color: #3e2c22; background: rgba(255, 252, 240, .8); border-color: rgba(135, 94, 55, .2); font-size: .76rem; line-height: 1.72; box-shadow: 0 3px 8px rgba(68, 40, 19, .08); }
+.systemBubble p { border-radius: .72rem .72rem .22rem .72rem; color: #543225; background: rgba(234, 202, 158, .72); border-color: rgba(164, 100, 58, .28); }
+
+.novelistBubble {
+  position: relative;
+  padding-left: 2.7rem;
+}
+
+.chatAvatar {
+  position: absolute;
+  top: .05rem;
+  left: 0;
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.chatAvatarPortrait,
+.chatAvatarFrame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.chatAvatarPortrait {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 32%;
+}
+
+.chatAvatarFrame { pointer-events: none; object-fit: contain; }
+
+.chatAvatarLifeBadge {
+  position: absolute;
+  z-index: 2;
+  right: -.16rem;
+  bottom: -.1rem;
+  display: grid;
+  place-items: center;
+  width: .82rem;
+  height: .82rem;
+  border: 1px solid rgba(255, 246, 213, .9);
+  border-radius: 50%;
+  color: #fff7df;
+  background: #8e5d2f;
+  box-shadow: 0 1px 3px rgba(58, 30, 12, .38), inset 0 1px rgba(255, 255, 255, .28);
+  font-size: .48rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.chatAvatar[data-avatar-state="eating"] .chatAvatarLifeBadge,
+.novelistMark[data-avatar-state="eating"] { color: #fff5d1; background: #ad7040; }
+.chatAvatar[data-avatar-state="sleeping"] .chatAvatarLifeBadge,
+.novelistMark[data-avatar-state="sleeping"] { color: #eef1ff; background: #67729b; }
+.chatAvatar[data-avatar-state="daydreaming"] .chatAvatarLifeBadge,
+.novelistMark[data-avatar-state="daydreaming"] { color: #f0e7ff; background: #796495; }
+.chatAvatar[data-avatar-state="away"] .chatAvatarLifeBadge,
+.novelistMark[data-avatar-state="away"] { color: #e8fff3; background: #5d8976; }
+.chatAvatar[data-avatar-state="blocked"] .chatAvatarLifeBadge,
+.novelistMark[data-avatar-state="blocked"] { color: #fff0e8; background: #a7533f; }
+.chatAvatar[data-avatar-state="tired"] .chatAvatarLifeBadge,
+.novelistMark[data-avatar-state="tired"] { color: #eef1ff; background: #67729b; }
+.chatAvatar[data-avatar-state="relieved"] .chatAvatarLifeBadge,
+.novelistMark[data-avatar-state="relieved"] { color: #fff7d8; background: #a27435; }
+
+.chatStatus { color: rgba(95, 68, 48, .66); font-size: .57rem; }
+.chatStatus[data-chat-status="online"], .chatStatus[data-chat-status="queued"] { color: #45765e; }
+.chatStatus[data-chat-status="connecting"] { color: #a66e28; }
+.chatStatus[data-chat-status="error"] { color: #a7533f; }
+.chatStatus button { color: #fff4d7; background: #8e5d2f; }
+.typingDots { color: #5e927d; }
+
+.composer { gap: .28rem; }
+.composerField {
+  border: 1px solid rgba(139, 92, 48, .34);
+  border-radius: .72rem;
+  padding: .42rem .48rem .42rem .7rem;
+  background-color: #ead7b6;
+  background-image: url("/assets/ui/system-layer-materials-v4/composer-sheet-v4-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: inset 0 1px 4px rgba(78, 45, 23, .08);
+}
+.composerField:focus-within { border-color: rgba(150, 92, 37, .72); box-shadow: 0 0 0 3px rgba(204, 143, 58, .12), inset 0 1px 4px rgba(78, 45, 23, .08); }
+.composer textarea { min-height: 2.25rem; max-height: 6rem; color: #3d2c21; font-size: .76rem; }
+.composer textarea::placeholder { color: rgba(99, 72, 51, .48); }
+.composer button { min-width: 3.35rem; height: 2.2rem; border-color: rgba(126, 80, 32, .42); color: #fff4da; background: #986333; box-shadow: 0 3px 7px rgba(75, 37, 14, .16); }
+.composer button:hover, .composer button:focus-visible { color: #4b2d1a; background: #e7b96c; outline: none; }
+.composerFooter { padding: 0 .2rem; color: rgba(102, 74, 52, .55); font-size: .55rem; }
+
+.systemTaskSuggestion {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: start;
+  gap: .7rem;
+  width: auto;
+  height: 100%;
+  min-width: 0;
+  max-width: 100%;
+  justify-self: end;
+  aspect-ratio: 368 / 720;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  padding: 1.18rem .85rem .85rem;
+  color: var(--paper-ink);
+  background-color: transparent;
+  background-image: url("/assets/ui/system-layer-materials-v4/suggestion-rail-v4-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0 .7rem 1rem rgba(59, 33, 15, .17));
+}
+
+.systemTaskSuggestion > header { align-items: flex-start; padding: .12rem .18rem 0; }
+.systemTaskSuggestion > header span { color: #684124; font-size: .72rem; letter-spacing: .08em; }
+.systemTaskSuggestion > header small { color: rgba(102, 73, 48, .68); font-size: .52rem; line-height: 1.4; }
+.systemTaskSuggestion > header b { border-color: rgba(119, 78, 40, .28); color: #7b532e; background: rgba(255, 247, 222, .64); font-size: .51rem; }
+
+.todayCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: .4rem;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 557 / 170;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  padding: .35rem .58rem;
+  background-color: rgba(105, 65, 22, .17);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: none;
+}
+
+.systemTaskSuggestion[data-task-visual="care"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-care-v2.png"); }
+.systemTaskSuggestion[data-task-visual="progress"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-progress-v2.png"); }
+.systemTaskSuggestion[data-task-visual="rest"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-rest-v2.png"); }
+.systemTaskSuggestion[data-task-visual="revision"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-revision-v2.png"); }
+.taskCardIcon { display: block; width: 1.9rem; height: 1.9rem; object-fit: contain; object-position: center; filter: drop-shadow(0 2px 2px rgba(74, 38, 13, .18)); }
+.todayCard > div { min-width: 0; }
+.todayCard strong { display: block; overflow: hidden; color: #4c2d1c; font-size: .65rem; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
+.todayCard small { color: rgba(91, 62, 39, .74); font-size: .51rem; line-height: 1.35; }
+.todayCard > b { padding: .16rem .32rem; color: #6b4626; background: rgba(255, 245, 211, .62); font-size: .48rem; }
+.todayCard > button { border-color: rgba(118, 72, 29, .36); color: #fff5db; background: #8b5a2c; font-size: .5rem; }
+
+.quickReplies { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-self: start; gap: .38rem; overflow: visible; padding: .08rem .08rem 0; }
+.quickReplies button { min-width: 0; border-color: rgba(111, 76, 47, .25); border-radius: .42rem; padding: .38rem .34rem; color: #66442d; background: rgba(255, 248, 226, .6); font-size: .55rem; line-height: 1.3; white-space: normal; }
+.quickReplies button:hover, .quickReplies button:focus-visible { border-color: rgba(134, 85, 36, .7); color: #4d2d1c; background: rgba(247, 215, 155, .8); outline: none; }
+
+.pinnedStrip { border-top: 1px solid rgba(143, 92, 42, .2); padding-top: .42rem; }
+.pinnedPill { border-color: rgba(122, 82, 46, .22); color: rgba(100, 69, 46, .76); background: rgba(255, 247, 224, .62); font-size: .55rem; }
+.pinnedPill b { color: rgba(137, 84, 32, .72); }
+.pinnedPillLink { border-color: rgba(145, 88, 31, .48); color: #8a5727; background: rgba(232, 187, 103, .28); }
+
+.admissionCard, .gatewayNotice, .draftReader { border-color: rgba(151, 98, 38, .3); color: #4d3321; background: rgba(255, 245, 217, .92); box-shadow: 0 .6rem 1.5rem rgba(60, 32, 13, .14); }
+.admissionCard p, .gatewayNotice p { color: rgba(93, 64, 43, .76); }
+.admissionCard button, .gatewayNotice button { border-color: rgba(126, 79, 28, .4); color: #fff4d9; background: #956231; }
+.draftReader header button { color: #54331f; }
+
+.directiveWorkspace {
+  min-height: 0;
+  overflow: auto;
+  border-color: rgba(105, 132, 105, .4);
+  border-radius: .65rem;
+  padding: 1rem 1.1rem;
+  color: #344437;
+  background: linear-gradient(145deg, rgba(233, 238, 208, .92), rgba(210, 222, 190, .78));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .42), 0 .8rem 1.6rem rgba(34, 54, 33, .12);
+}
+.directiveWorkspace > header { border-color: rgba(94, 125, 93, .25); }
+.directiveWorkspace > header span { color: rgba(55, 91, 75, .72); }
+.directiveWorkspace > header strong { color: #314d3d; font-size: .94rem; }
+.directiveWorkspace > header b { border-color: rgba(71, 113, 85, .3); color: #3c6a4e; background: rgba(255, 255, 241, .46); }
+.directiveStatusRow span { border-color: rgba(73, 110, 83, .22); color: rgba(52, 82, 61, .7); background: rgba(255, 255, 242, .38); }
+.directiveStatusRow span[data-ready="true"] { border-color: rgba(61, 126, 82, .42); color: #3d754d; }
+.directiveStatusRow span[data-ready="false"] { border-color: rgba(163, 91, 65, .4); color: #98523f; }
+.directiveFacts dt { color: #5b7a55; }
+.directiveFacts dd { color: rgba(47, 70, 53, .78); }
+.directiveActions { border-color: rgba(90, 123, 87, .24); }
+.directiveActions button { border-color: rgba(61, 113, 75, .42); color: #f2fae7; background: #5c8964; }
+.directiveActions button:hover, .directiveActions button:focus-visible { background: #477453; outline: none; }
+.directiveActions small { color: rgba(50, 76, 57, .64); }
+.subsystemChatToggle, .subsystemChat { border-color: rgba(93, 126, 91, .28); color: #426448; background: rgba(232, 239, 211, .62); }
+.subsystemChatToggle small { color: rgba(64, 96, 69, .64); }
+.subsystemChat { background: rgba(235, 240, 218, .46); }
+
+.internalDetails { max-height: 9rem; overflow: auto; }
+.internalDetails summary { color: rgba(113, 74, 38, .7); }
+.personaStrip strong, .observationLine { color: rgba(92, 62, 39, .76); }
+.personaStrip small, .taskFacts dd, .evidenceBlock p { color: rgba(102, 73, 48, .68); }
+.subsystemBlock, .evidenceBlock { background: rgba(202, 225, 199, .28); }
+.subsystemBlock strong, .evidenceBlock strong { color: #4d805b; }
+.feedback { color: #5b3a24; background: rgba(255, 247, 221, .84); border: 1px solid rgba(137, 88, 42, .2); }
+.requestIssue { display: block; color: rgba(91, 58, 36, .68); font-size: .48rem; line-height: 1.35; }
+
+.composerModes {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: .38rem;
+  align-items: center;
+  min-width: 0;
+  border: 0;
+  padding: 0 .18rem;
+  color: rgba(102, 74, 52, .68);
+  background: transparent;
+  box-shadow: none;
+  font-size: .52rem;
+}
+
+.composerModeButtons { display: inline-flex; gap: .25rem; min-width: 0; }
+.composerModeButtons button {
+  min-width: auto;
+  height: auto;
+  border: 1px solid rgba(126, 80, 32, .22);
+  border-radius: 999px;
+  padding: .2rem .42rem;
+  color: rgba(102, 74, 52, .68);
+  background: rgba(255, 248, 226, .52);
+  box-shadow: none;
+  font-size: .51rem;
+  font-weight: 700;
+  transform: none;
+}
+.composerModeButtons button[data-active="true"] {
+  border-color: rgba(126, 80, 32, .52);
+  color: #5a351f;
+  background: rgba(231, 185, 108, .46);
+}
+.composerModeButtons button:hover,
+.composerModeButtons button:focus-visible { border-color: rgba(126, 80, 32, .68); background: rgba(247, 215, 155, .72); outline: none; transform: none; }
+.composerModes > small {
+  min-width: 0;
+  overflow: hidden;
+  color: rgba(102, 74, 52, .58);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .panel,
+  .panel[data-expanded="true"][data-chat-mode="subsystem"] {
+    top: 50%;
+    bottom: auto;
+    width: min(calc(100vw - 1rem), calc((100dvh - 1rem) * .585));
+    aspect-ratio: 433 / 740;
+    background-image: url("/assets/ui/system-layer-materials-v4/chat-frame-tall-v4-alpha.png");
+    transform: translate(-50%, -50%);
+  }
+  .panel[data-expanded="false"] { top: auto; bottom: .55rem; width: min(20rem, calc(100vw - 1rem)); aspect-ratio: auto; background-image: none; transform: translateX(-50%); }
+  .panelToggle { min-height: 3.3rem; padding: 1.7rem 2.05rem .35rem; }
+  .console { grid-template-rows: auto auto minmax(0, 1fr) auto auto; overflow: auto; padding: 0 2rem 1.7rem; }
+  .admissionCard,
+  .gatewayNotice { top: 3.65rem; right: 2rem; left: 2rem; }
+  .novelistWorkspace { display: flex; flex-direction: column; gap: .62rem; }
+  .novelistMain { height: auto; min-height: 0; padding: .72rem .76rem .6rem; }
+  .conversation { max-height: 10rem; }
+  .systemTaskSuggestion { width: 100%; height: auto; aspect-ratio: 1 / 1.9; padding: 1rem 1rem 1rem 4rem; border: 0; border-radius: 0; background-image: url("/assets/ui/system-layer-materials-v4/suggestion-rail-v4-alpha.png"); background-color: transparent; background-size: 100% 100%; filter: none; }
+  .todayCard { min-height: 4.5rem; aspect-ratio: auto; }
+  .directiveWorkspace { max-height: none; }
+  .subsystemWorkspace { overflow: auto; }
+  .pinnedStrip { flex-wrap: nowrap; }
+  .composerModes { grid-template-columns: auto minmax(0, 1fr); }
+  .composerModes > small { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel { transition: none; }
+}
+
+/* Chat focus v2: the paper is the stage, identity and intent are the guide. */
+.chatHeaderBar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .75rem;
+  align-items: center;
+  min-height: 2.55rem;
+  border-bottom-color: rgba(151, 98, 38, .25);
+  padding: .15rem .15rem .55rem;
+}
+
+.chatIdentity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: .45rem;
+}
+
+.chatIdentitySeal {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  border: 1px solid rgba(151, 98, 38, .36);
+  border-radius: .36rem;
+  color: #fff4da;
+  background: #8e5d2f;
+  box-shadow: inset 0 0 0 1px rgba(255, 242, 203, .2), 0 .18rem .35rem rgba(74, 38, 13, .14);
+  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-size: .7rem;
+  font-weight: 900;
+}
+
+.chatIdentity > span:last-child {
+  display: grid;
+  min-width: 0;
+  gap: .08rem;
+}
+
+.chatIdentity strong {
+  overflow: hidden;
+  color: #553521;
+  font-size: .66rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chatIdentity small {
+  overflow: hidden;
+  color: rgba(102, 74, 52, .62);
+  font-size: .5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chatHeaderControls {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .4rem;
+}
+
+.contextToggleBtn,
+.chatMode,
+.chatModeActive {
+  min-height: 1.65rem;
+  padding: .26rem .56rem;
+}
+
+.modelRuntimeBar {
+  min-height: 1.05rem;
+  padding: 0 .18rem;
+  opacity: .72;
+}
+
+.novelistMain {
+  border-color: rgba(136, 88, 41, .32);
+  background:
+    linear-gradient(180deg, rgba(255, 249, 231, .93), rgba(241, 220, 181, .8)),
+    #ead7b6;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .42), 0 .9rem 2rem rgba(44, 23, 9, .13);
+}
+
+.conversation {
+  border: 1px solid rgba(136, 88, 41, .16);
+  border-radius: .48rem;
+  padding: .55rem .48rem .7rem;
+  background: rgba(255, 252, 239, .28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3);
+}
+
+.speakerHeader { gap: .34rem; }
+.speakerName { letter-spacing: .02em; }
+.systemBubble .speakerHeader { justify-content: flex-end; }
+.systemBubble .speakerName { color: #88563c; }
+.novelistBubble .speakerName { color: #58725e; }
+
+.novelistBubble p,
+.systemBubble p {
+  position: relative;
+  border-radius: .62rem .62rem .62rem .18rem;
+  padding: .68rem .82rem;
+  font-size: .78rem;
+  line-height: 1.75;
+}
+
+.novelistBubble p {
+  background: rgba(255, 254, 244, .82);
+  border-color: rgba(93, 123, 93, .18);
+  box-shadow: 0 3px 8px rgba(68, 40, 19, .06);
+}
+
+.systemBubble p {
+  border-radius: .62rem .62rem .18rem .62rem;
+  background: rgba(235, 204, 165, .72);
+  border-color: rgba(164, 100, 58, .3);
+  box-shadow: 0 3px 8px rgba(96, 46, 22, .07);
+}
+
+.composerModes {
+  border-top: 1px solid rgba(143, 92, 42, .12);
+  padding-top: .38rem;
+}
+
+.composerModes > span {
+  color: rgba(102, 74, 52, .72);
+  font-weight: 800;
+}
+
+.composerField {
+  border-radius: .62rem;
+  background-color: #ead7b6;
+  background-image: url("/assets/ui/system-layer-materials-v4/composer-sheet-v4-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: inset 0 1px 4px rgba(78, 45, 23, .07), 0 2px 8px rgba(68, 40, 19, .05);
+}
+
+.composerField:focus-within {
+  box-shadow: 0 0 0 3px rgba(204, 143, 58, .1), inset 0 1px 4px rgba(78, 45, 23, .08);
+}
+
+.composer button { border-radius: .52rem; }
+
+.systemTaskSuggestion {
+  gap: .62rem;
+  background-color: transparent;
+  filter: drop-shadow(0 .55rem .9rem rgba(59, 33, 15, .14));
+}
+
+.systemTaskSuggestion > header {
+  border-bottom: 1px solid rgba(126, 82, 39, .16);
+  padding-bottom: .45rem;
+}
+
+.suggestionHeading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: .5rem;
+  border-top: 1px solid rgba(126, 82, 39, .15);
+  padding: .45rem .08rem 0;
+}
+
+.suggestionHeading > div {
+  display: grid;
+  gap: .08rem;
+}
+
+.suggestionHeading strong {
+  color: #684124;
+  font-size: .64rem;
+  letter-spacing: .04em;
+}
+
+.suggestionHeading small {
+  color: rgba(102, 73, 48, .68);
+  font-size: .48rem;
+  line-height: 1.35;
+}
+
+.suggestionHeading > span {
+  flex: 0 0 auto;
+  color: rgba(123, 83, 46, .68);
+  font-size: .48rem;
+}
+
+.quickReplies button {
+  border-radius: .38rem;
+  background: rgba(255, 248, 226, .66);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .3);
+}
+
+@media (max-width: 760px) {
+  .chatHeaderBar {
+    grid-template-columns: 1fr;
+    gap: .38rem;
+  }
+
+  .chatHeaderControls {
+    justify-content: space-between;
+  }
+
+  .chatIdentitySeal { width: 1.25rem; height: 1.25rem; }
+  .conversation { padding: .45rem .32rem .58rem; }
+  .suggestionHeading small { font-size: .46rem; }
+}
+
+/* Task attachment v2: details live in an enlarged paper panel; the rail is
+ * reserved for lightweight host-intent suggestions. */
+.novelistWorkspace { position: relative; }
+
+.taskPanelToggle {
+  min-height: 1.65rem;
+  border: 1px solid rgba(126, 80, 32, .32);
+  border-radius: 999px;
+  padding: .26rem .56rem;
+  color: #6c482d;
+  background: rgba(255, 248, 226, .65);
+  font-size: .54rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.taskPanelToggle:hover,
+.taskPanelToggle:focus-visible,
+.taskPanelToggle[aria-expanded="true"] {
+  border-color: rgba(160, 103, 36, .72);
+  color: #56331d;
+  background: rgba(237, 195, 117, .52);
+  outline: none;
+}
+
+.taskPanel {
+  position: absolute;
+  z-index: 5;
+  top: .45rem;
+  right: .45rem;
+  display: grid;
+  gap: .72rem;
+  width: min(27rem, calc(100% - .9rem));
+  max-height: calc(100% - .9rem);
+  overflow: auto;
+  border: 1px solid rgba(137, 91, 43, .4);
+  border-radius: .72rem;
+  padding: .82rem;
+  color: #4b3121;
+  background-color: #ead7b6;
+  background-image: url("/assets/ui/system-layer-materials-v4/task-card-v4-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0 .9rem 2.2rem rgba(57, 28, 10, .25), inset 0 0 0 1px rgba(255, 255, 255, .5);
+  scrollbar-color: rgba(136, 90, 49, .42) transparent;
+}
+
+.taskPanelHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .7rem;
+  border-bottom: 1px solid rgba(126, 82, 39, .18);
+  padding-bottom: .55rem;
+}
+
+.taskPanelHeader > div { display: grid; min-width: 0; gap: .14rem; }
+.taskPanelHeader span { color: #8a5a28; font-size: .52rem; font-weight: 850; letter-spacing: .12em; }
+.taskPanelHeader strong { overflow: hidden; color: #4e2f1d; font-family: "Noto Serif SC", "Songti SC", serif; font-size: .86rem; text-overflow: ellipsis; white-space: nowrap; }
+
+.taskPanelMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .34rem;
+  min-height: 1.35rem;
+}
+
+.taskPanelMeta > small {
+  margin-left: auto;
+  color: rgba(82, 55, 37, .56);
+  font-size: .48rem;
+  white-space: nowrap;
+}
+
+.taskPanelStatus,
+.taskPanelEvidence {
+  display: inline-flex;
+  align-items: center;
+  gap: .26rem;
+  border: 1px solid rgba(126, 82, 39, .2);
+  border-radius: 999px;
+  padding: .2rem .42rem;
+  color: #704827;
+  background: rgba(255, 248, 226, .64);
+  font-size: .49rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.taskPanelStatus i {
+  display: block;
+  width: .38rem;
+  height: .38rem;
+  border-radius: 50%;
+  background: #b77732;
+  box-shadow: 0 0 0 .15rem rgba(183, 119, 50, .12);
+}
+
+.taskPanelStatus[data-task-status="accepted"] i,
+.taskPanelStatus[data-task-status="scoped"] i { background: #4f8969; box-shadow: 0 0 0 .15rem rgba(79, 137, 105, .13); }
+.taskPanelStatus[data-task-status="deferred"] i { background: #75849b; box-shadow: 0 0 0 .15rem rgba(117, 132, 155, .13); }
+.taskPanelEvidence[data-evidence-status="submitted"] { color: #4f725a; background: rgba(221, 241, 218, .58); }
+.taskPanelEvidence[data-evidence-status="accepted"] { color: #32664c; background: rgba(201, 232, 203, .72); }
+.taskPanelEvidence[data-evidence-status="needs-revision"] { color: #8a4b32; background: rgba(250, 222, 194, .7); }
+
+.taskPanelAction {
+  display: grid;
+  justify-items: stretch;
+  gap: .22rem;
+  min-width: 7.6rem;
+}
+
+.taskPanelAction > small {
+  color: rgba(82, 55, 37, .62);
+  font-size: .45rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.taskPanelClose {
+  flex: 0 0 auto;
+  width: 1.45rem;
+  height: 1.45rem;
+  border: 1px solid rgba(126, 80, 32, .25);
+  border-radius: 50%;
+  color: #6e462b;
+  background: rgba(255, 248, 226, .64);
+  font-size: .9rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.taskPanelClose:hover,
+.taskPanelClose:focus-visible { border-color: rgba(160, 103, 36, .68); background: rgba(247, 215, 155, .76); outline: none; }
+
+.taskPanelLead {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: .62rem;
+  align-items: start;
+}
+
+.taskPanelIcon {
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 2px rgba(74, 38, 13, .16));
+}
+
+.taskPanelLead small,
+.taskPanelPrimary small { color: #8a5a28; font-size: .52rem; font-weight: 850; letter-spacing: .04em; }
+.taskPanelLead p,
+.taskPanelPrimary p { margin: .2rem 0 0; color: rgba(82, 55, 37, .8); font-size: .62rem; line-height: 1.55; }
+
+.taskPanelPrimary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .72rem;
+  align-items: center;
+  border: 1px solid rgba(126, 82, 39, .2);
+  border-radius: .56rem;
+  padding: .62rem;
+  background: rgba(255, 247, 221, .58);
+}
+
+.taskPanelPrimary > div { min-width: 0; }
+.taskPanelPrimary button {
+  border: 1px solid rgba(126, 80, 32, .42);
+  border-radius: .46rem;
+  padding: .46rem .6rem;
+  color: #fff4d9;
+  background: #956231;
+  font-size: .56rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.taskPanelPrimary button:hover,
+.taskPanelPrimary button:focus-visible { color: #4b2d1a; background: #e7b96c; outline: none; }
+
+.taskPanelDetails {
+  border-top: 1px dashed rgba(126, 82, 39, .2);
+  padding-top: .58rem;
+}
+
+.taskPanelDetails summary { color: #8a5a28; font-size: .56rem; font-weight: 800; cursor: pointer; }
+.taskPanelDetails dl { display: grid; gap: .55rem; margin: .58rem 0 0; }
+.taskPanelDetails dl > div { display: grid; gap: .14rem; }
+.taskPanelDetails dt { color: #8a5a28; font-size: .51rem; font-weight: 850; }
+.taskPanelDetails dd { margin: 0; color: rgba(82, 55, 37, .78); font-size: .57rem; line-height: 1.5; }
+.taskPanelDetails ul { display: grid; gap: .16rem; margin: 0; padding-left: .95rem; }
+
+.systemTaskSuggestion > header { min-height: 2.5rem; }
+.systemTaskSuggestion > header span { letter-spacing: .05em; }
+
+@media (max-width: 760px) {
+  .chatHeaderControls { flex-wrap: wrap; }
+  .taskPanelToggle { order: -1; }
+  .taskPanel {
+    position: static;
+    width: auto;
+    max-height: min(15rem, 42dvh);
+    margin: .05rem;
+  }
+  .taskPanelPrimary { grid-template-columns: 1fr; }
+  .taskPanelAction { min-width: 0; }
+  .taskPanelPrimary button { width: 100%; }
+  .taskPanelMeta > small { width: 100%; margin-left: 0; }
+}
+
+/* Reconstructed frontstage polish: keep the generated frame as a fixed room
+ * shell and give live DOM content its own bounded lanes. The artwork is a
+ * frame, never the scroll container; only the conversation may scroll. */
+.panel[data-expanded="true"] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(1120px, calc(100vw - 2rem), calc((100dvh - 2rem) * 1.574));
+  /* Width is viewport-constrained; height must come from the source frame's
+   * aspect ratio. Independent viewport-based height was stretching the room
+   * vertically and pushed the rail/composer outside their materials. */
+  height: auto;
+  aspect-ratio: 1486 / 944;
+  max-height: calc(100dvh - 2rem);
+  overflow: hidden;
+}
+
+.panel[data-expanded="true"] .panelToggle {
+  min-height: 3.35rem;
+  padding: 2.05rem 3.25rem .45rem;
+}
+
+.panel[data-expanded="true"] .console {
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 3.25rem 2.25rem;
+}
+
+/* In novelist mode the gateway notice is absolute and the diagnostic rows
+ * are hidden. Keeping those empty tracks in the grid leaves a large blank
+ * band below the room and starves the suggestion rail of height. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .console {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.panel[data-expanded="true"] .novelistWorkspace {
+  grid-template-columns: minmax(0, 1fr) minmax(13rem, 28%);
+  min-height: 0;
+  height: 100%;
+  align-items: stretch;
+}
+
+.panel[data-expanded="true"] .novelistMain {
+  min-height: 0;
+  height: 100%;
+}
+
+.panel[data-expanded="true"] .conversation {
+  min-height: 0;
+  height: 100%;
+  max-height: none;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion {
+  min-height: 0;
+  height: 100%;
+}
+
+.panel[data-expanded="true"] .taskPanel {
+  max-height: calc(100% - .9rem);
+}
+
+.panel[data-expanded="true"] .admissionCard,
+.panel[data-expanded="true"] .gatewayNotice {
+  top: 4.15rem;
+  right: 3.25rem;
+  left: 3.25rem;
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="true"] {
+    width: min(calc(100vw - 1rem), calc((100dvh - 1rem) * .585));
+    height: min(calc(100dvh - 1rem), calc((100vw - 1rem) / .585));
+    max-height: calc(100dvh - 1rem);
+  }
+
+  .panel[data-expanded="true"] .panelToggle {
+    min-height: 3.3rem;
+    padding: 1.7rem 2.05rem .35rem;
+  }
+
+  .panel[data-expanded="true"] .console {
+    height: 100%;
+    overflow: hidden;
+    padding: 0 2rem 1.7rem;
+  }
+
+  .panel[data-expanded="true"] .novelistWorkspace {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: auto;
+    gap: .62rem;
+  }
+
+  .panel[data-expanded="true"] .novelistMain {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    min-height: 0;
+    height: auto;
+  }
+
+  .panel[data-expanded="true"] .conversation {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 8.5rem;
+    max-height: none;
+  }
+
+  .panel[data-expanded="true"] .composer {
+    flex: 0 0 auto;
+  }
+
+  .panel[data-expanded="true"] .systemTaskSuggestion {
+    flex: 0 0 auto;
+    height: auto;
+    max-height: 10.5rem;
+    aspect-ratio: 1 / 1.52;
+    border: 1px solid rgba(126, 82, 39, .2);
+    border-radius: .72rem;
+    padding: .72rem .7rem .66rem;
+    background-color: rgba(247, 231, 194, .82);
+    background-image:
+      linear-gradient(135deg, rgba(255, 255, 255, .34), transparent 48%),
+      repeating-linear-gradient(0deg, rgba(135, 91, 45, .035) 0 1px, transparent 1px 4px);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .38), 0 .35rem .8rem rgba(59, 33, 15, .1);
+    filter: none;
+  }
+
+  .panel[data-expanded="true"] .systemTaskSuggestion > header,
+  .panel[data-expanded="true"] .systemTaskSuggestion .suggestionHeading {
+    padding-left: .4rem;
+    padding-right: .4rem;
+  }
+
+  /* The rail header already carries the instruction. Keep the semantic
+   * suggestion heading in the DOM for tests/accessibility, but avoid making
+   * the narrow paper repeat the same label and push its buttons below the
+   * fixed room window. */
+  .panel[data-expanded="true"] .systemTaskSuggestion .suggestionHeading {
+    display: none;
+  }
+
+  .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies {
+    padding-left: .4rem;
+    padding-right: .4rem;
+  }
+
+  .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button {
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+  }
+
+  .panel[data-expanded="true"] .admissionCard,
+  .panel[data-expanded="true"] .gatewayNotice {
+    top: 3.65rem;
+    right: 2rem;
+    left: 2rem;
+  }
+}
+
+/* Intent rail v5: the rail and every card share explicit geometry. The
+ * generated images are materials only; all labels remain live DOM. */
+.panel[data-expanded="true"] .novelistWorkspace {
+  /* The rail is deliberately wider than the old 34% column.  Its source
+   * material is 1011×1556, so the 13:20 ratio gives the four 5:2 cards
+   * enough vertical room without clipping the last card. */
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 34%);
+  gap: 1rem;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion {
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: stretch;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: auto;
+  align-self: start;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 2rem .8rem .9rem 1rem;
+  background-image: url("/assets/ui/system-layer-materials-v5/suggestion-rail-v5-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0 .55rem .9rem rgba(59, 33, 15, .15));
+  position: relative;
+  z-index: 1;
+}
+
+/* The outer title sits on the light paper lip of the frame. Use the DOM
+ * text layer for contrast; the mark itself remains light on its dark seal. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle {
+  color: #5a3925;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelTitle strong {
+  color: #5a3925;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelTitle small {
+  color: rgba(94, 65, 43, .72);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelCaret {
+  color: #704827;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion > header {
+  margin-left: 2.4rem;
+  padding: .08rem .1rem .38rem;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion > header {
+  min-height: 0;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion > header small {
+  max-width: 13rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .suggestionHeading {
+  display: none;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies {
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  height: 100%;
+  gap: .28rem;
+  align-content: stretch;
+  align-items: stretch;
+  min-height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: .12rem 1.2rem .12rem 2.2rem;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  justify-self: center;
+  align-self: center;
+  box-sizing: border-box;
+  aspect-ratio: 5 / 2;
+  border: 0;
+  border-radius: 0;
+  /* The generated badges occupy roughly the left 28% of each 5:2 card;
+   * keep live DOM labels in the clean paper area instead of over the art. */
+  padding: .25rem 4% .25rem 35%;
+  color: #5b3b26;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: none;
+  filter: saturate(1.04) drop-shadow(0 .14rem .16rem rgba(75, 37, 14, .14));
+  font-size: .7rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: left;
+  white-space: nowrap;
+  transition: filter .15s ease, transform .15s ease;
+  clip-path: polygon(2.2% 2%, 97.8% 2%, 99% 8%, 99% 92%, 97.8% 98%, 2.2% 98%, 1% 92%, 1% 8%);
+  touch-action: manipulation;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button > span {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  align-items: center;
+  padding: .12rem .3rem;
+  border-radius: .26rem;
+  color: inherit;
+  background: rgba(255, 248, 226, .76);
+  box-shadow: 0 1px 2px rgba(75, 37, 14, .12), inset 0 1px rgba(255, 255, 255, .48);
+  text-overflow: ellipsis;
+  text-shadow: none;
+  white-space: nowrap;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button > .intentCardCopy {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: .14rem;
+  width: min(100%, 18rem);
+  max-width: 100%;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  background: transparent;
+  box-shadow: none;
+  white-space: normal;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies .intentCardCopy strong {
+  display: block;
+  color: #56351f;
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  line-height: 1.1;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies .intentCardCopy small {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: rgba(91, 61, 40, .78);
+  font-size: .58rem;
+  font-weight: 650;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-hit-area="intent-card"]:focus-visible {
+  clip-path: none;
+  outline: 2px solid rgba(133, 84, 32, .78);
+  outline-offset: 2px;
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="care"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-care-v5-alpha-normalized.png"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="nudge"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-nudge-v5-alpha-normalized.png"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="rest"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-rest-v5-alpha-normalized.png"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="stuck"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-stuck-v5-alpha-normalized.png"); }
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button:hover,
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button:focus-visible {
+  color: #3f281b;
+  background-color: transparent;
+  filter: brightness(1.06) drop-shadow(0 .18rem .22rem rgba(75, 37, 14, .18));
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button kbd { display: none; }
+
+/* The paper rail is the suggestion surface. Keep internal evidence mounted
+ * for the task contract, but out of the novelist's first-screen hierarchy. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .internalDetails {
+  display: none;
+}
+
+/* Keyboard hints are useful in the help dialog, not in the primary action
+ * row. The buttons remain semantic and keyboard accessible. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .chatModes kbd {
+  display: none;
+}
+
+/* The first screen answers who / what / next. Runtime diagnostics remain
+ * mounted for tests and accessibility, but stay out of the visual hierarchy. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .modelRuntimeBar,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .contextToggleBtn,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .pinnedStrip,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerFooter {
+  display: none;
+}
+
+.panel[data-expanded="true"] .gatewayNotice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: .55rem;
+  align-items: center;
+  min-height: 0;
+  border-radius: 999px;
+  padding: .34rem .5rem .34rem .62rem;
+  box-sizing: border-box;
+  max-width: calc(66% - 1.5rem);
+}
+
+.panel[data-expanded="true"] .gatewayNotice strong { font-size: .59rem; white-space: nowrap; }
+.panel[data-expanded="true"] .gatewayNotice p {
+  min-width: 0;
+  overflow: hidden;
+  margin: 0;
+  font-size: .53rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.panel[data-expanded="true"] .gatewayNotice button { padding: .24rem .46rem; font-size: .52rem; white-space: nowrap; }
+
+/* Connection/admission copy belongs to the chat lane. It must not wash out
+ * the suggestion rail or make its heading look like a disabled control. */
+@media (min-width: 761px) {
+  .panel[data-expanded="true"] .admissionCard,
+  .panel[data-expanded="true"] .gatewayNotice {
+    right: calc(34% + 1rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="true"] .novelistWorkspace { grid-template-columns: 1fr; }
+  .panel[data-expanded="true"] .systemTaskSuggestion {
+    width: 100%;
+    height: 10.5rem;
+    max-height: 10.5rem;
+    aspect-ratio: auto;
+    padding: .72rem .7rem .66rem;
+    border: 1px solid rgba(126, 82, 39, .2);
+    border-radius: .72rem;
+    background-color: rgba(247, 231, 194, .82);
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .34), transparent 48%), repeating-linear-gradient(0deg, rgba(135, 91, 45, .035) 0 1px, transparent 1px 4px);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .38), 0 .35rem .8rem rgba(59, 33, 15, .1);
+    filter: none;
+  }
+  .panel[data-expanded="true"] .systemTaskSuggestion > header { margin-left: 0; }
+  .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    height: 100%;
+    align-content: stretch;
+    align-items: stretch;
+    gap: .28rem;
+    padding-left: .4rem;
+    padding-right: .4rem;
+  }
+  .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    justify-self: stretch;
+    align-self: stretch;
+    aspect-ratio: auto;
+    border: 1px solid rgba(126, 82, 39, .18);
+    border-radius: .55rem;
+    padding: .42rem .5rem;
+    background-image: none;
+    background-color: rgba(255, 248, 226, .68);
+    box-shadow: inset 0 1px rgba(255, 255, 255, .34);
+    white-space: normal;
+    clip-path: inset(1px round .55rem);
+  }
+  .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button > span { max-width: 100%; }
+  .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies .intentCardCopy strong { font-size: .66rem; }
+  .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies .intentCardCopy small { font-size: .48rem; }
+  .panel[data-expanded="true"] .gatewayNotice { grid-template-columns: auto minmax(0, 1fr) auto; right: 2rem; left: 2rem; max-width: none; }
+}
+
+/* Final containment guard: the paper frame owns the composer boundary, while
+ * only .conversation is allowed to scroll. */
+.panel[data-expanded="true"] .novelistMain,
+.panel[data-expanded="true"] .composer,
+.panel[data-expanded="true"] .composerField {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.panel[data-expanded="true"] .novelistMain {
+  grid-template-rows: minmax(0, 1fr) auto auto auto;
+}
+
+.panel[data-expanded="true"] .composerField {
+  width: 100%;
+}
+
+.panel[data-expanded="true"] .composer textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+/* 2026-08-03 visual correction: the collapsed entry is a room invitation,
+ * not a miniature dashboard. Keep it friendly and tactile while the expanded
+ * state continues to own the fixed paper-frame geometry. */
+.panel[data-expanded="false"] {
+  width: min(30rem, calc(100vw - 2rem));
+  min-height: 0;
+  border: 1px solid rgba(225, 178, 94, .72);
+  border-radius: 999px;
+  background:
+    linear-gradient(112deg, rgba(101, 65, 29, .98), rgba(48, 29, 18, .97) 72%),
+    #321e13;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 1rem 2.8rem rgba(0, 0, 0, .48),
+    0 0 0 1px rgba(255, 222, 149, .16),
+    inset 0 1px rgba(255, 240, 192, .2),
+    inset 0 -1px rgba(17, 9, 5, .42);
+}
+
+.panel[data-expanded="false"] .panelToggle {
+  min-height: 3.6rem;
+  padding: .55rem .8rem .55rem .64rem;
+  border-radius: 999px;
+  color: #fff1cc;
+  background: linear-gradient(90deg, rgba(255, 222, 149, .16), rgba(255, 222, 149, .02) 72%);
+  text-shadow: 0 1px 1px rgba(31, 16, 8, .45);
+}
+
+.panel[data-expanded="false"] .panelToggle:hover,
+.panel[data-expanded="false"] .panelToggle:focus-visible {
+  background: linear-gradient(90deg, rgba(255, 222, 149, .26), rgba(255, 222, 149, .05) 72%);
+  outline: none;
+}
+
+.panel[data-expanded="false"] .novelistMark {
+  width: 2.48rem;
+  height: 2.48rem;
+  border-color: rgba(255, 218, 135, .82);
+  color: #fff0c4;
+  background: radial-gradient(circle at 35% 28%, #9d6d32, #563518 68%, #392313);
+  box-shadow:
+    0 0 0 3px rgba(229, 170, 67, .18),
+    inset 0 0 0 1px rgba(255, 247, 195, .2),
+    0 .25rem .55rem rgba(22, 11, 5, .35);
+}
+
+.panel[data-expanded="false"] .panelTitle {
+  gap: .16rem;
+}
+
+.panel[data-expanded="false"] .panelTitle strong {
+  color: #fff0c9;
+  font-size: .94rem;
+  font-weight: 850;
+  letter-spacing: .03em;
+}
+
+.panel[data-expanded="false"] .panelTitle small {
+  color: rgba(255, 235, 198, .84);
+  font-size: .6rem;
+  font-weight: 650;
+}
+
+.panel[data-expanded="false"] .panelCaret {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid rgba(255, 218, 135, .52);
+  border-radius: 50%;
+  color: #ffe3a2;
+  background: rgba(255, 218, 135, .1);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* The generated paper lip is intentionally quiet; give live identity text a
+ * soft DOM backing so it stays legible without baking copy into the artwork. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle {
+  color: #432719;
+  background: linear-gradient(90deg, rgba(255, 249, 227, .72), rgba(255, 249, 227, .3) 70%, transparent);
+  text-shadow: 0 1px 0 rgba(255, 250, 230, .9), 0 0 .65rem rgba(255, 243, 207, .5);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelTitle strong {
+  color: #432719;
+  font-size: 1.04rem;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(255, 250, 230, .95);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelTitle small {
+  color: #6b462c;
+  font-size: .65rem;
+  font-weight: 700;
+  text-shadow: 0 1px 0 rgba(255, 250, 230, .8);
+}
+
+.panel[data-expanded="true"] .chatIdentity {
+  padding: .18rem .48rem .2rem .24rem;
+  border: 1px solid rgba(126, 80, 32, .2);
+  border-radius: .56rem;
+  background: rgba(255, 248, 226, .76);
+  box-shadow: 0 1px 2px rgba(75, 37, 14, .1), inset 0 1px rgba(255, 255, 255, .5);
+}
+
+.panel[data-expanded="true"] .chatIdentity strong {
+  color: #3b2115;
+  font-size: .76rem;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(255, 250, 230, .9);
+}
+
+.panel[data-expanded="true"] .chatIdentity small {
+  color: #6a452a;
+  font-size: .57rem;
+  font-weight: 700;
+}
+
+/* Header actions are tactile paper tabs, not washed-out text on top of the
+ * scene. The active tab remains obvious without becoming a rectangular menu. */
+.panel[data-expanded="true"] .taskPanelToggle,
+.panel[data-expanded="true"] .chatMode,
+.panel[data-expanded="true"] .chatModeActive {
+  border-color: rgba(126, 80, 32, .52);
+  color: #4b2a1a;
+  background: rgba(255, 249, 229, .94);
+  box-shadow: 0 1px 2px rgba(75, 37, 14, .12), inset 0 1px rgba(255, 255, 255, .62);
+  font-weight: 850;
+  text-shadow: 0 1px 0 rgba(255, 252, 237, .72);
+}
+
+.panel[data-expanded="true"] .taskPanelToggle:hover,
+.panel[data-expanded="true"] .taskPanelToggle:focus-visible,
+.panel[data-expanded="true"] .chatMode:hover,
+.panel[data-expanded="true"] .chatMode:focus-visible,
+.panel[data-expanded="true"] .chatModeActive:focus-visible {
+  border-color: rgba(151, 91, 28, .82);
+  color: #351d12;
+  background: #fff8df;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(75, 37, 14, .16), inset 0 1px rgba(255, 255, 255, .72);
+}
+
+.panel[data-expanded="true"] .chatModeActive {
+  border-color: rgba(151, 91, 28, .86);
+  color: #3d2114;
+  background: linear-gradient(180deg, #f8d991, #eabe69);
+  box-shadow: 0 2px 4px rgba(96, 53, 16, .16), inset 0 1px rgba(255, 251, 220, .72);
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="false"] {
+    bottom: .5rem;
+    width: min(22rem, calc(100vw - 1rem));
+  }
+
+  .panel[data-expanded="false"] .panelToggle {
+    min-height: 3.25rem;
+    padding: .46rem .64rem .46rem .52rem;
+  }
+
+  .panel[data-expanded="false"] .novelistMark {
+    width: 2.18rem;
+    height: 2.18rem;
+  }
+
+  .panel[data-expanded="false"] .panelCaret {
+    width: 1.55rem;
+    height: 1.55rem;
+  }
+}
+
+/* Composer correction: composer-sheet-v4-alpha contains transparent top and
+ * bottom margins around its visible paper strip. A 100% x 100% cover leaves a
+ * second beige capsule behind it; scale the material vertically so its live
+ * paper edge owns the field instead. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField {
+  min-height: 2.95rem;
+  border: 0;
+  border-radius: .72rem;
+  padding: .2rem .52rem .2rem .84rem;
+  background-color: transparent;
+  background-size: 100% 200%;
+  box-shadow: none;
+  filter: drop-shadow(0 .16rem .28rem rgba(68, 40, 19, .12));
+}
+
+/* The composer is the user's hand on the page. Give its live controls a
+ * quiet backing strip so the mode label, paper field and send action read as
+ * one deliberate interaction instead of three unrelated layers. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composer {
+  position: relative;
+  gap: .34rem;
+  padding: .28rem .38rem .16rem;
+  border: 1px solid rgba(143, 92, 42, .16);
+  border-radius: .72rem;
+  background: linear-gradient(180deg, rgba(255, 247, 222, .44), rgba(221, 187, 132, .22));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .38), 0 .16rem .45rem rgba(68, 40, 19, .05);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerModes {
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: .32rem;
+  padding: 0 .14rem;
+  border: 0;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerModes > span {
+  color: #765034;
+  font-size: .54rem;
+  letter-spacing: .03em;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerModeButtons button {
+  min-height: 1.35rem;
+  padding: .18rem .46rem;
+  border-color: rgba(126, 80, 32, .3);
+  color: #70492d;
+  background: rgba(255, 249, 229, .68);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerModeButtons button[data-active="true"] {
+  border-color: rgba(126, 80, 32, .62);
+  color: #4e2d1a;
+  background: linear-gradient(180deg, rgba(248, 217, 145, .88), rgba(230, 186, 105, .72));
+  box-shadow: inset 0 1px rgba(255, 252, 220, .72), 0 1px 2px rgba(75, 37, 14, .1);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerModes > small {
+  color: #8a603d;
+  font-size: .5rem;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerFooter {
+  display: none;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField:focus-within {
+  border: 0;
+  box-shadow: 0 0 0 .16rem rgba(204, 143, 58, .12);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composer textarea {
+  min-height: 2.15rem;
+  max-height: 4.8rem;
+  padding: .3rem .2rem;
+  color: #3d2c21;
+  font-size: .76rem;
+  line-height: 1.55;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composer textarea::placeholder {
+  color: rgba(99, 72, 51, .66);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button {
+  flex: 0 0 auto;
+  min-width: 4.15rem;
+  height: 2.25rem;
+  border-color: rgba(126, 80, 32, .32);
+  border-radius: .62rem;
+  color: #fff4d7;
+  background: #996431;
+  box-shadow: 0 .14rem .25rem rgba(75, 37, 14, .16), inset 0 1px rgba(255, 230, 167, .18);
+  font-size: .68rem;
+  font-weight: 900;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button:hover,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button:focus-visible {
+  color: #fff9e8;
+  background: #a96f37;
+  box-shadow: 0 .2rem .32rem rgba(75, 37, 14, .2), inset 0 1px rgba(255, 241, 194, .28);
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField {
+    min-height: 2.78rem;
+    padding-right: .42rem;
+    padding-left: .68rem;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composer {
+    padding: .26rem .3rem .14rem;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerModes {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: .2rem;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerModes > small {
+    grid-column: 1 / -1;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerFooter {
+    display: none;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button {
+    min-width: 3.7rem;
+    height: 2.12rem;
+    padding: 0 .55rem;
+  }
+}
+
+/* Composer v2: the input is a live paper control, not text laid over the
+ * decorative strip. Keep the paper frame and the editable lane separate so
+ * long unbroken text cannot paint underneath the send action. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composer {
+  display: grid;
+  gap: .42rem;
+  min-width: 0;
+  padding: .34rem .16rem .22rem;
+  border: 0;
+  border-top: 1px solid rgba(126, 82, 39, .18);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerModes {
+  min-width: 0;
+  padding: 0 .12rem;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: .58rem;
+  min-width: 0;
+  min-height: 3.55rem;
+  max-height: 8.35rem;
+  padding: .58rem .58rem .58rem .8rem;
+  border: 1px solid rgba(139, 92, 48, .42);
+  border-radius: .82rem;
+  background: linear-gradient(180deg, rgba(255, 252, 232, .84), rgba(239, 214, 170, .86));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .64),
+    inset 0 -1px 3px rgba(78, 45, 23, .1),
+    0 .1rem .3rem rgba(68, 40, 19, .08);
+  overflow: hidden;
+}
+
+/* v5 uses ratio-specific, pre-composed skins. Keep the editable lane above
+ * the paper and let the generated end caps own the field edges; the center
+ * was tiled before export, so neither the tab nor the brass fastener is
+ * distorted when the viewport changes. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  border-radius: .82rem;
+  background: url("/assets/ui/system-layer-materials-v5/composer-sheet-v5-desktop-10p3-alpha.png") center / 100% 100% no-repeat;
+  clip-path: none;
+  opacity: 1;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField:focus-within {
+  border: 1px solid rgba(139, 92, 48, .62);
+  border-color: rgba(139, 92, 48, .62);
+  box-shadow: 0 0 0 .14rem rgba(204, 143, 58, .12), inset 0 1px 3px rgba(78, 45, 23, .1);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composer textarea {
+  position: relative;
+  z-index: 1;
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.35rem;
+  max-height: 6.6rem;
+  margin: 0;
+  padding: .16rem .08rem;
+  border: 0;
+  resize: none;
+  color: #3d2c21;
+  background: transparent;
+  font-size: .78rem;
+  line-height: 1.58;
+  white-space: pre-wrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composer textarea:focus {
+  outline: none;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  min-width: 4.55rem;
+  height: 2.45rem;
+  margin: 0;
+  border: 1px solid rgba(126, 80, 32, .5);
+  border-radius: .68rem;
+  color: #fff4d7;
+  background: linear-gradient(180deg, #a96e35, #8b5728);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 167, .26),
+    0 .16rem .3rem rgba(75, 37, 14, .2);
+  font-size: .7rem;
+  font-weight: 900;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button:hover,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button:focus-visible {
+  background: linear-gradient(180deg, #b9793c, #99612f);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 241, 194, .36),
+    0 .2rem .38rem rgba(75, 37, 14, .25);
+  outline: none;
+}
+
+@media (max-width: 430px) {
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField::before {
+    background-image: url("/assets/ui/system-layer-materials-v5/composer-sheet-v5-mobile-4p8-alpha.png");
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composer {
+    padding: .34rem .32rem .3rem;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField {
+    gap: .38rem;
+    padding: .48rem .44rem .48rem .58rem;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField > button {
+    min-width: 3.85rem;
+    height: 2.25rem;
+    padding: 0 .5rem;
+  }
+}
+
+/* Creative handoff: a compact status bridge between the live conversation and
+ * the formal /vnext workspace. It is DOM content, not a second chat stream;
+ * only the conversation remains the reading scroll lane. */
+.panel[data-expanded="true"] .novelistMain {
+  grid-template-rows: minmax(0, 1fr) auto auto auto;
+}
+
+.modelRoleContract {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+  gap: .38rem .5rem;
+  align-items: center;
+  border: 1px solid rgba(126, 82, 39, .18);
+  border-radius: .48rem;
+  padding: .46rem .52rem;
+  color: #67452d;
+  background: rgba(255, 250, 234, .54);
+}
+
+.modelRoleContract > span {
+  grid-row: span 2;
+  color: #8a5a28;
+  font-size: .5rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+  writing-mode: vertical-rl;
+}
+
+.modelRoleContract > div {
+  display: grid;
+  min-width: 0;
+  gap: .08rem;
+}
+
+.modelRoleContract strong {
+  color: #56351f;
+  font-size: .54rem;
+}
+
+.modelRoleContract small {
+  overflow: hidden;
+  color: rgba(102, 73, 48, .7);
+  font-size: .46rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modelRoleContract p {
+  grid-column: 2 / -1;
+  margin: 0;
+  color: rgba(102, 73, 48, .62);
+  font-size: .45rem;
+  line-height: 1.35;
+}
+
+.experienceHandoff {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .7rem;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid rgba(126, 82, 39, .24);
+  border-radius: .52rem;
+  padding: .42rem .56rem;
+  color: #5a3925;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .35), transparent 55%),
+    rgba(255, 248, 226, .72);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .42);
+}
+
+.experienceHandoff[data-experience-status="writing"],
+.experienceHandoff[data-experience-status="revising"] {
+  border-color: rgba(75, 126, 91, .34);
+  background: linear-gradient(135deg, rgba(211, 231, 199, .6), rgba(255, 248, 226, .72));
+}
+
+.experienceHandoff[data-experience-status="draft_ready"] {
+  border-color: rgba(169, 111, 42, .48);
+  background: linear-gradient(135deg, rgba(247, 213, 142, .52), rgba(255, 248, 226, .78));
+}
+
+.experienceHandoff[data-experience-status="unavailable"] {
+  border-color: rgba(165, 91, 64, .34);
+  background: linear-gradient(135deg, rgba(247, 218, 199, .54), rgba(255, 248, 226, .72));
+}
+
+.experienceHandoffCopy {
+  display: grid;
+  min-width: 0;
+  gap: .12rem;
+}
+
+.experienceHandoffTitle {
+  display: flex;
+  align-items: baseline;
+  gap: .45rem;
+  min-width: 0;
+}
+
+.experienceHandoffTitle span {
+  color: #8a5a28;
+  font-size: .48rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+.experienceHandoffTitle strong {
+  color: #4e2f1d;
+  font-size: .62rem;
+  font-weight: 900;
+}
+
+.experienceHandoffCopy p {
+  overflow: hidden;
+  margin: 0;
+  color: rgba(82, 55, 37, .8);
+  font-size: .56rem;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.experienceHandoffCopy > small {
+  overflow: hidden;
+  color: rgba(102, 73, 48, .6);
+  font-size: .46rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.experienceHandoffActions {
+  display: grid;
+  gap: .32rem;
+  justify-items: end;
+}
+
+.experienceHandoffSteps {
+  display: flex;
+  gap: .42rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.experienceHandoffSteps li {
+  display: inline-flex;
+  gap: .18rem;
+  align-items: center;
+  color: rgba(102, 73, 48, .42);
+  font-size: .43rem;
+  white-space: nowrap;
+}
+
+.experienceHandoffSteps li > span {
+  width: .34rem;
+  height: .34rem;
+  border: 1px solid rgba(126, 82, 39, .28);
+  border-radius: 50%;
+  background: rgba(255, 248, 226, .7);
+}
+
+.experienceHandoffSteps li[data-active="true"] {
+  color: #6c482d;
+}
+
+.experienceHandoffSteps li[data-active="true"] > span {
+  border-color: #6f9b78;
+  background: #72a37d;
+  box-shadow: 0 0 0 .12rem rgba(114, 163, 125, .12);
+}
+
+.experienceHandoffLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.55rem;
+  border: 1px solid rgba(126, 80, 32, .48);
+  border-radius: .38rem;
+  padding: .24rem .52rem;
+  color: #fff4d9;
+  background: #956231;
+  font-size: .52rem;
+  font-weight: 850;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.experienceHandoffLink:hover,
+.experienceHandoffLink:focus-visible {
+  color: #4b2d1a;
+  background: #e7b96c;
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="true"] .novelistMain {
+    grid-template-rows: none;
+  }
+.draftFeedbackButton {
+  min-height: 1.55rem;
+  border: 1px solid rgba(73, 119, 96, .48);
+  border-radius: .38rem;
+  padding: .24rem .52rem;
+  color: #f4f8e9;
+  background: #5c8964;
+  font-size: .52rem;
+  font-weight: 850;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.draftFeedbackButton:hover:not(:disabled),
+.draftFeedbackButton:focus-visible {
+  background: #477453;
+  outline: none;
+}
+
+.draftFeedbackButton:disabled {
+  cursor: wait;
+  opacity: .68;
+}
+
+.roomStoryContext {
+  display: grid;
+  gap: .34rem;
+  min-width: 0;
+  border: 1px solid rgba(73, 119, 96, .24);
+  border-radius: .5rem;
+  padding: .46rem .56rem;
+  color: #3c5541;
+  background: linear-gradient(135deg, rgba(225, 237, 215, .72), rgba(255, 248, 226, .72));
+}
+
+.roomStoryContext[data-story-access="blocked"],
+.roomStoryContext[data-story-access="error"] {
+  border-color: rgba(165, 91, 64, .3);
+  color: #6d4934;
+  background: rgba(247, 218, 199, .48);
+}
+
+.roomStoryContext > header {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+
+.roomStoryContext > header > div {
+  display: grid;
+  min-width: 0;
+  gap: .08rem;
+}
+
+.roomStoryContext > header span {
+  color: rgba(55, 91, 75, .68);
+  font-size: .46rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.roomStoryContext > header strong {
+  overflow: hidden;
+  color: #314d3d;
+  font-size: .64rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roomStoryContext > header b {
+  flex: 0 0 auto;
+  border: 1px solid rgba(71, 113, 85, .28);
+  border-radius: 999px;
+  padding: .16rem .34rem;
+  color: #3c6a4e;
+  background: rgba(255, 255, 241, .46);
+  font-size: .46rem;
+  white-space: nowrap;
+}
+
+.roomStoryContext > p,
+.roomStoryContext > small {
+  margin: 0;
+  color: rgba(52, 82, 61, .72);
+  font-size: .52rem;
+  line-height: 1.45;
+}
+
+.roomStoryContext > dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .28rem;
+  margin: 0;
+}
+
+.roomStoryContext > dl > div {
+  min-width: 0;
+  border: 1px solid rgba(73, 110, 83, .18);
+  border-radius: .3rem;
+  padding: .22rem .28rem;
+  background: rgba(255, 255, 242, .32);
+}
+
+.roomStoryContext dt {
+  color: #5b7a55;
+  font-size: .43rem;
+}
+
+.roomStoryContext dd {
+  overflow: hidden;
+  margin: .08rem 0 0;
+  color: rgba(47, 70, 53, .82);
+  font-size: .51rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roomStoryContext .roomStoryPreview {
+  overflow: hidden;
+  border-left: 2px solid rgba(92, 137, 100, .42);
+  padding-left: .38rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roomStoryContext .draftFeedbackResult {
+  display: grid;
+  gap: .18rem;
+  border-top: 1px dashed rgba(73, 119, 96, .24);
+  padding-top: .3rem;
+}
+
+.draftFeedbackResult strong {
+  color: #3c6a4e;
+  font-size: .55rem;
+}
+
+.draftFeedbackResult p {
+  overflow: visible;
+  color: rgba(47, 70, 53, .82);
+  white-space: normal;
+}
+
+.draftFeedbackResult p b {
+  color: #4d805b;
+}
+
+.roomStoryContext .roomStoryError {
+  color: #98523f;
+}
+
+
+  .experienceHandoff {
+    flex: 0 0 auto;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .42rem;
+    max-height: 6rem;
+    overflow: auto;
+    padding: .42rem .48rem;
+  }
+
+  .experienceHandoffCopy p,
+  .experienceHandoffCopy > small {
+    white-space: normal;
+  }
+
+  .experienceHandoffActions {
+    align-self: center;
+  }
+
+  .experienceHandoffSteps {
+    display: none;
+  }
+
+  .experienceHandoffLink {
+    min-height: 1.8rem;
+    padding-right: .48rem;
+    padding-left: .48rem;
+  }
+}
+
+  .roomStoryContext > dl {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .draftFeedbackButton {
+    min-height: 1.8rem;
+    padding-right: .48rem;
+    padding-left: .48rem;
+  }

@@ -25,11 +25,12 @@ function ShellFallback({ children }: Readonly<{ children: React.ReactNode }>) {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const runtimeApiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
+  const runtimeApiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+    ?? (process.env.NODE_ENV === "development" ? "/api" : "");
   const strictRuntimeApiBase = process.env.NEXT_PUBLIC_STRICT_RUNTIME_API_BASE === "true";
 
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" suppressHydrationWarning>
       <body>
         <Script id="erliu-runtime-api-base" strategy="beforeInteractive">
           {`window.__ERLIU_RUNTIME_API_BASE_URL__ = ${JSON.stringify(runtimeApiBaseUrl)}; window.__ERLIU_STRICT_RUNTIME_API_BASE__ = ${JSON.stringify(strictRuntimeApiBase)};`}

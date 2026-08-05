@@ -17,8 +17,19 @@ export type LifePostcard = {
 };
 
 const STORAGE_KEY = "novelist-life-postcards-v1";
-const ENTRANCE_MASTER_SRC = "/assets/ecology/formal-scenes/entrance/entrance-scene-master-v1.webp";
+const ENTRANCE_MASTER_SRC = "/assets/ecology/formal-scenes/entrance/entrance-scene-master-transit-hub-v2-interaction-clean.webp";
+const RETIRED_ENTRANCE_MASTER_SRCS = new Set([
+  "/assets/ecology/formal-scenes/entrance/entrance-scene-master-v1.webp",
+  "/assets/ecology/formal-scenes/entrance/entrance-scene-master-2x1-v1.webp",
+  "/assets/ecology/formal-scenes/entrance/entrance-scene-master-transit-hub-v1-lossless.webp",
+]);
 let memoryPostcards: LifePostcard[] = [];
+
+function migratePostcardImage(postcard: LifePostcard): LifePostcard {
+  return RETIRED_ENTRANCE_MASTER_SRCS.has(postcard.imageSrc)
+    ? { ...postcard, imageSrc: ENTRANCE_MASTER_SRC }
+    : postcard;
+}
 
 function readPostcards(): LifePostcard[] {
   if (typeof window === "undefined") return [...memoryPostcards];
@@ -26,7 +37,9 @@ function readPostcards(): LifePostcard[] {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed as LifePostcard[] : [];
+    return Array.isArray(parsed)
+      ? (parsed as LifePostcard[]).map(migratePostcardImage)
+      : [];
   } catch {
     return [];
   }

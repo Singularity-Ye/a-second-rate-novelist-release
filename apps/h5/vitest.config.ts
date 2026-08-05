@@ -7,11 +7,15 @@ export default defineConfig({
       "@erliu/shared-contracts/vnext-experience": path.resolve(__dirname, "../../packages/shared-contracts/vnext-experience.ts"),
       "@erliu/shared-contracts/runtime-hosts": path.resolve(__dirname, "../../packages/shared-contracts/runtime-hosts.ts"),
       "@erliu/shared-contracts": path.resolve(__dirname, "../../packages/shared-contracts/index.ts"),
+      "@erliu/telemetry": path.resolve(__dirname, "../../packages/telemetry/index.ts"),
     },
   },
   test: {
     environment: "jsdom",
     globals: true,
-    include: [path.resolve(__dirname, "./**/*.test.ts?(x)")],
+    // Keep the glob relative to Vitest's project root. Resolving it to a
+    // Windows absolute path makes Vitest treat the drive-qualified pattern
+    // as an unreadable directory in this workspace.
+    include: ["**/*.test.ts?(x)"],
   },
 });

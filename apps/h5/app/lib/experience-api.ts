@@ -35,8 +35,11 @@ import {
   type VnextSessionExitResponse,
   type VnextWithdrawConsentResponse,
 } from "@erliu/shared-contracts/vnext-experience";
+import { resolveH5ApiBaseUrl } from "./runtime-api-base";
 
-const API_ROOT = "/api/vnext";
+function apiRoot() {
+  return `${resolveH5ApiBaseUrl()}/vnext`;
+}
 const UUID_V4_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const EXPERIENCE_STATE_SET = new Set<string>(EXPERIENCE_STATES);
@@ -497,7 +500,7 @@ function parseDraftResponse(value: unknown) {
 
 function readAdmissionManifest() {
   return requestJson({
-    path: `${API_ROOT}/sessions/admission-manifest`,
+    path: `${apiRoot()}/sessions/admission-manifest`,
     method: "GET",
     expectedStatus: 200,
     parse: (value) => vnextSessionAdmissionManifestSchema.parse(value),
@@ -635,7 +638,7 @@ async function runAcceptExperienceAdmission(
 ): Promise<AcceptExperienceAdmissionResponse> {
   try {
     await requestJson({
-      path: `${API_ROOT}/sessions/guest`,
+      path: `${apiRoot()}/sessions/guest`,
       method: "POST",
       expectedStatus: 201,
       body: {
@@ -708,7 +711,7 @@ export function acceptExperienceAdmission(
 
 export function readExperienceProjection(): Promise<ExperienceProjectionResponse> {
   return requestJson({
-    path: `${API_ROOT}/experience`,
+    path: `${apiRoot()}/experience`,
     method: "GET",
     expectedStatus: 200,
     parse: parseProjectionResponse,
@@ -717,7 +720,7 @@ export function readExperienceProjection(): Promise<ExperienceProjectionResponse
 
 export function readExperienceDraft(): Promise<ExperienceDraftResponse> {
   return requestJson({
-    path: `${API_ROOT}/experience/draft`,
+    path: `${apiRoot()}/experience/draft`,
     method: "GET",
     expectedStatus: 200,
     parse: parseDraftResponse,
@@ -740,7 +743,7 @@ function sendSubmitAttempt(
   if (attempt.inFlight !== null) return attempt.inFlight;
   const parsed = vnextExperienceRequestSchema.parse(attempt.request);
   const promise = requestJson({
-    path: `${API_ROOT}/experience/messages`,
+    path: `${apiRoot()}/experience/messages`,
     method: "POST",
     expectedStatus: 202,
     body: parsed,
@@ -826,7 +829,7 @@ function invalidUuid(value: string) {
 export function evaluateContinuousUse(): Promise<EvaluateContinuousUseResponse> {
   const body = vnextEvaluateContinuousUseRequestSchema.parse({});
   return requestJson({
-    path: `${API_ROOT}/safety/continuous-use/evaluate`,
+    path: `${apiRoot()}/safety/continuous-use/evaluate`,
     method: "POST",
     expectedStatus: 200,
     body,
@@ -845,7 +848,7 @@ export function acknowledgeContinuousUse(
   if (!parsed.success) return Promise.reject(invalidClientRequest());
   const body: VnextAcknowledgeContinuousUseReceiptRequest = parsed.data;
   return requestJson({
-    path: `${API_ROOT}/safety/continuous-use/receipts/${receiptId}/acknowledge`,
+    path: `${apiRoot()}/safety/continuous-use/receipts/${receiptId}/acknowledge`,
     method: "POST",
     expectedStatus: 200,
     body,
@@ -856,7 +859,7 @@ export function acknowledgeContinuousUse(
 
 export function listConsents(): Promise<ListConsentsResponse> {
   return requestJson({
-    path: `${API_ROOT}/consents`,
+    path: `${apiRoot()}/consents`,
     method: "GET",
     expectedStatus: 200,
     parse: (value) => vnextConsentListResponseSchema.parse(value),
@@ -871,7 +874,7 @@ export function withdrawConsent(
   const parsed = vnextWithdrawConsentRequestSchema.safeParse({ basedOnVersion });
   if (!parsed.success) return Promise.reject(invalidClientRequest());
   return requestJson({
-    path: `${API_ROOT}/consents/${consentId}/withdraw`,
+    path: `${apiRoot()}/consents/${consentId}/withdraw`,
     method: "POST",
     expectedStatus: 200,
     body: parsed.data,
@@ -881,7 +884,7 @@ export function withdrawConsent(
 
 export function listSafetyCases(): Promise<ListSafetyCasesResponse> {
   return requestJson({
-    path: `${API_ROOT}/safety/cases`,
+    path: `${apiRoot()}/safety/cases`,
     method: "GET",
     expectedStatus: 200,
     parse: (value) => vnextSafetyCaseListResponseSchema.parse(value),
@@ -900,7 +903,7 @@ export function appealSafetyCase(
   });
   if (!parsed.success) return Promise.reject(invalidClientRequest());
   return requestJson({
-    path: `${API_ROOT}/safety/cases/${caseId}/appeal`,
+    path: `${apiRoot()}/safety/cases/${caseId}/appeal`,
     method: "POST",
     expectedStatus: 200,
     body: parsed.data,
@@ -912,7 +915,7 @@ export async function exitExperience(): Promise<void> {
   const body = vnextExitExperienceRequestSchema.parse({});
   try {
     await requestJson({
-      path: `${API_ROOT}/safety/session/exit`,
+    path: `${apiRoot()}/safety/session/exit`,
       method: "POST",
       expectedStatus: 200,
       body,

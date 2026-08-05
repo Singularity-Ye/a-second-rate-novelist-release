@@ -16,7 +16,7 @@ async function readAllowlist() {
 test("Pages public assets are an explicit runtime-only allowlist", async () => {
   const allowlist = await readAllowlist();
   assert.equal(Array.isArray(allowlist), true);
-  assert.equal(allowlist.length, 58);
+  assert.equal(allowlist.length, 57);
   assert.equal(new Set(allowlist).size, allowlist.length);
 
   const forbiddenFragments = [

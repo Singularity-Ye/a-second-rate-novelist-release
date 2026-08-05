@@ -55,7 +55,9 @@ export type EditorSceneInteractionAsset = {
   /** Scene-space stacking. Actor attachments are still rendered at the live actor anchor. */
   zIndex: number;
   scale?: number;
-  /** Pixel offset from the interaction anchor or the live actor anchor. */
+  /** Absolute scene-space placement for fixed scene props. Prefer this over route-bound anchors. */
+  position?: readonly [number, number];
+  /** Pixel offset from the interaction anchor or the live actor anchor. Kept for actor attachments and legacy drafts. */
   offset?: readonly [number, number];
 };
 
@@ -93,6 +95,10 @@ export function normalizeEditorAssetSource(value: string): string {
   if ((normalized.startsWith("\"") && normalized.endsWith("\"")) || (normalized.startsWith("'") && normalized.endsWith("'"))) {
     normalized = normalized.slice(1, -1).trim();
   }
+  // Browser drafts also exist in the wild with one quote pasted onto the
+  // end of an otherwise valid asset URL. Quotes are never part of a public
+  // asset path, so trim unmatched wrappers before comparing or rendering it.
+  normalized = normalized.replace(/^["']+|["']+$/g, "");
   const lower = normalized.toLowerCase();
   const publicAssetsMarker = lower.indexOf("/public/assets/");
   if (publicAssetsMarker >= 0) {
@@ -230,8 +236,8 @@ export type EditorForegroundLayer = {
 export const DEFAULT_EDITOR_TRANSITION_ANIMATION: EditorTransitionAnimation = {
   style: "mirror",
   turns: 1,
-  durationMs: 360,
-  settleMs: 160,
+  durationMs: 100,
+  settleMs: 100,
   easing: "elastic",
 };
 
@@ -1307,14 +1313,6 @@ const entranceInitialPoints: readonly EditorPoint[] = [
     point: [356, 575],
   },
   {
-    id: "entrance-postcard-rack",
-    label: "明信片架",
-    role: "waypoint",
-    anchorKind: "interaction",
-    anchorKey: "entrance.postcard-rack",
-    point: [445, 575],
-  },
-  {
     id: "entrance-coat-rack",
     label: "衣帽架",
     role: "waypoint",
@@ -1348,95 +1346,118 @@ const entranceInitialPoints: readonly EditorPoint[] = [
   },
 ];
 
+// The source bitmap keeps its historical `postcard` filename, but these are
+// the four envelopes already visible on the entrance wall. They are one
+// mailbox-owned stack: picking up mail hides the whole stack at once.
+const ENTRANCE_MAIL_STACK_ASSET_SRC =
+  "/assets/ecology/formal-scenes/entrance/interactions/entrance-postcard-extracted-v4-cropped.png";
+const entranceMailStackAssets: readonly EditorSceneInteractionAsset[] = [
+  { id: "entrance-mail-stack-1", label: "场景已有信件 1", src: ENTRANCE_MAIL_STACK_ASSET_SRC, mode: "scene", zIndex: 12, scale: 0.153, offset: [0, 0], position: [682, 359] },
+  { id: "entrance-mail-stack-2", label: "场景已有信件 2", src: ENTRANCE_MAIL_STACK_ASSET_SRC, mode: "scene", zIndex: 12, scale: 0.147, offset: [0, 0], position: [681, 325] },
+  { id: "entrance-mail-stack-3", label: "场景已有信件 3", src: ENTRANCE_MAIL_STACK_ASSET_SRC, mode: "scene", zIndex: 12, scale: 0.141, offset: [0, 0], position: [680, 291] },
+  { id: "entrance-mail-stack-4", label: "场景已有信件 4", src: ENTRANCE_MAIL_STACK_ASSET_SRC, mode: "scene", zIndex: 12, scale: 0.135, offset: [0, 0], position: [679, 257] },
+];
+
+const entranceRouteEventPointSpecs = {
+  "entrance-to-outside-umbrella-event": "事件节点｜雨天带伞",
+  "entrance-to-outside-coat-event": "事件节点｜天冷穿大衣",
+  "entrance-to-outside-coat-umbrella-event": "事件节点｜雨天+天冷",
+  "outside-to-entrance-return-gear-event": "事件节点｜回家放回装备",
+  "outside-to-entrance-mail-event": "事件节点｜取走信件",
+} as const;
+
+const entranceHomeDoorPointId = "entrance-home-door";
+const entranceOutsideThresholdPointId = "entrance-outside-threshold";
+const entranceRouteEventPointIds = Object.keys(entranceRouteEventPointSpecs);
+
+const entranceOutboundRouteIds = [
+  entranceHomeDoorPointId,
+  entranceOutsideThresholdPointId,
+] as const;
+
+const entranceInboundRouteIds = [
+  entranceOutsideThresholdPointId,
+  entranceHomeDoorPointId,
+] as const;
+
 const entranceInitialRoutes: Readonly<Record<string, readonly string[]>> = {
-  "entrance-to-mailbox": ["entrance-home-door", "entrance-mailbox"],
-  "mailbox-to-entrance": ["entrance-mailbox", "entrance-home-door"],
-  "entrance-to-postcard-rack": ["entrance-home-door", "entrance-postcard-rack"],
-  "postcard-rack-to-entrance": ["entrance-postcard-rack", "entrance-home-door"],
-  "entrance-to-coat-rack": ["entrance-home-door", "entrance-coat-rack"],
-  "coat-rack-to-entrance": ["entrance-coat-rack", "entrance-home-door"],
-  "entrance-to-outside": ["entrance-home-door", "entrance-outside-threshold"],
-  "outside-to-entrance": ["entrance-outside-threshold", "entrance-home-door"],
+  "entrance-to-outside": entranceOutboundRouteIds,
+  "entrance-to-outside-umbrella": [entranceHomeDoorPointId, "entrance-to-outside-umbrella-event", entranceOutsideThresholdPointId],
+  "entrance-to-outside-coat": [entranceHomeDoorPointId, "entrance-to-outside-coat-event", entranceOutsideThresholdPointId],
+  "entrance-to-outside-coat-umbrella": [entranceHomeDoorPointId, "entrance-to-outside-coat-umbrella-event", entranceOutsideThresholdPointId],
+  "outside-to-entrance": entranceInboundRouteIds,
+  "outside-to-entrance-return-gear": [entranceOutsideThresholdPointId, "outside-to-entrance-return-gear-event", entranceHomeDoorPointId],
+  "outside-to-entrance-mail": [entranceOutsideThresholdPointId, "outside-to-entrance-mail-event", entranceHomeDoorPointId],
 };
 
 const entranceInitialRouteMeta: Readonly<Record<string, EditorRouteMeta>> = {
-  "entrance-to-mailbox": { id: "entrance-to-mailbox", label: "家门 → 信箱", kind: "walk", accent: "cyan", initialFacing: "left" },
-  "mailbox-to-entrance": {
-    id: "mailbox-to-entrance",
-    label: "信箱 → 家门",
+  "entrance-to-outside": { id: "entrance-to-outside", label: "家门 → 外出楼梯口｜基础", kind: "walk", accent: "amber", initialFacing: "right" },
+  "entrance-to-outside-umbrella": {
+    id: "entrance-to-outside-umbrella",
+    label: "家门 → 外出楼梯口｜雨天带伞",
+    kind: "walk",
+    accent: "cyan",
+    initialFacing: "right",
+    interactionEvents: [{ pointId: "entrance-to-outside-umbrella-event", interactionId: "entrance-umbrella-rack", stateId: "carried" }],
+  },
+  "entrance-to-outside-coat": {
+    id: "entrance-to-outside-coat",
+    label: "家门 → 外出楼梯口｜天冷穿大衣",
     kind: "walk",
     accent: "magenta",
     initialFacing: "right",
-    interactionEvents: [{ pointId: "entrance-mailbox", interactionId: "entrance-mailbox", stateId: "empty" }],
+    interactionEvents: [{ pointId: "entrance-to-outside-coat-event", interactionId: "entrance-coat-rack", stateId: "empty" }],
   },
-  "entrance-to-postcard-rack": { id: "entrance-to-postcard-rack", label: "家门 → 明信片架", kind: "walk", accent: "amber", initialFacing: "left" },
-  "postcard-rack-to-entrance": {
-    id: "postcard-rack-to-entrance",
-    label: "明信片架 → 家门",
+  "entrance-to-outside-coat-umbrella": {
+    id: "entrance-to-outside-coat-umbrella",
+    label: "家门 → 外出楼梯口｜雨天+天冷",
     kind: "walk",
     accent: "violet",
     initialFacing: "right",
-    interactionEvents: [{ pointId: "entrance-postcard-rack", interactionId: "entrance-postcard-rack", stateId: "empty" }],
+    interactionEvents: [
+      { pointId: "entrance-to-outside-coat-umbrella-event", interactionId: "entrance-coat-rack", stateId: "empty" },
+      { pointId: "entrance-to-outside-coat-umbrella-event", interactionId: "entrance-umbrella-rack", stateId: "carried" },
+    ],
   },
-  "entrance-to-coat-rack": { id: "entrance-to-coat-rack", label: "家门 → 衣帽架", kind: "walk", accent: "cyan", initialFacing: "right" },
-  "coat-rack-to-entrance": {
-    id: "coat-rack-to-entrance",
-    label: "衣帽架 → 家门",
-    kind: "walk",
-    accent: "magenta",
-    initialFacing: "left",
-    interactionEvents: [{ pointId: "entrance-coat-rack", interactionId: "entrance-coat-rack", stateId: "empty" }],
-  },
-  "entrance-to-outside": { id: "entrance-to-outside", label: "家门 → 外出楼梯口", kind: "walk", accent: "amber", initialFacing: "right" },
   "outside-to-entrance": {
     id: "outside-to-entrance",
-    label: "外出楼梯口 → 家门",
+    label: "外出楼梯口 → 家门｜基础",
     kind: "walk",
     accent: "violet",
     initialFacing: "left",
-    interactionEvents: [{ pointId: "entrance-home-door", interactionId: "entrance-coat-rack", stateId: "on-rack" }],
+  },
+  "outside-to-entrance-return-gear": {
+    id: "outside-to-entrance-return-gear",
+    label: "外出楼梯口 → 家门｜回家放回装备",
+    kind: "walk",
+    accent: "cyan",
+    initialFacing: "left",
+    interactionEvents: [
+      { pointId: "outside-to-entrance-return-gear-event", interactionId: "entrance-umbrella-rack", stateId: "on-rack" },
+      { pointId: "outside-to-entrance-return-gear-event", interactionId: "entrance-coat-rack", stateId: "on-rack" },
+    ],
+  },
+  "outside-to-entrance-mail": {
+    id: "outside-to-entrance-mail",
+    label: "外出楼梯口 → 家门｜取走信件",
+    kind: "walk",
+    accent: "magenta",
+    initialFacing: "left",
+    interactionEvents: [{ pointId: "outside-to-entrance-mail-event", interactionId: "entrance-mailbox", stateId: "empty" }],
   },
 };
 
 const entranceInitialSceneInteractions: Readonly<Record<string, EditorSceneInteraction>> = {
   "entrance-mailbox": {
     id: "entrance-mailbox",
-    label: "信箱里的来信",
+    label: "信箱旁的场景信件",
     kind: "pickup-prop",
     anchorPointId: "entrance-mailbox",
     initialStateId: "ready",
-    assets: [{
-      id: "entrance-mail-letter-asset",
-      label: "母图提取·信件",
-      src: "/assets/ecology/formal-scenes/entrance/interactions/entrance-mail-letter-extracted-v4.webp",
-      mode: "scene",
-      zIndex: 12,
-      scale: 0.3,
-      offset: [0, -36],
-    }],
+    assets: entranceMailStackAssets,
     states: [
-      { id: "ready", label: "有信件", visibleAssetIds: ["entrance-mail-letter-asset"] },
-      { id: "empty", label: "已取走", visibleAssetIds: [] },
-    ],
-  },
-  "entrance-postcard-rack": {
-    id: "entrance-postcard-rack",
-    label: "明信片架",
-    kind: "pickup-prop",
-    anchorPointId: "entrance-postcard-rack",
-    initialStateId: "ready",
-    assets: [{
-      id: "entrance-postcard-asset",
-      label: "母图提取·明信片",
-      src: "/assets/ecology/formal-scenes/entrance/interactions/entrance-postcard-extracted-v4.webp",
-      mode: "scene",
-      zIndex: 12,
-      scale: 0.3,
-      offset: [0, -32],
-    }],
-    states: [
-      { id: "ready", label: "有可带走的明信片", visibleAssetIds: ["entrance-postcard-asset"] },
-      { id: "empty", label: "已取走", visibleAssetIds: [] },
+      { id: "ready", label: "有 1–4 封信件", visibleAssetIds: entranceMailStackAssets.map((asset) => asset.id) },
+      { id: "empty", label: "信件已全部取走", visibleAssetIds: [] },
     ],
   },
   "entrance-coat-rack": {
@@ -1630,8 +1651,7 @@ const editorSceneProfiles: Record<EditorSceneId, EditorSceneProfile> = {
     anchorSemantics: {
       homeDoor: "portal.entrance.home-door 是室内与门外中转台的共享入口",
       elevator: "entrance.elevator 是左侧电梯交互点，不是场景出口",
-      mailbox: "entrance.mailbox 是可取信件的持久场景组件锚点",
-      postcardRack: "entrance.postcard-rack 是明信片架组件锚点",
+      mailbox: "entrance.mailbox 是信箱旁已有信件堆的持久场景组件锚点；取信一次性收走当前 1–4 封",
       coatRack: "entrance.coat-rack 是外套在架上/被带走的组件锚点",
       umbrellaRack: "entrance.umbrella-rack 是雨伞在架上/被带走的组件锚点",
       outside: "portal.entrance.outside 是通往门外采风/场景旅程的出口",
@@ -1725,6 +1745,16 @@ export function createInitialEditorDraft(sceneId: EditorSceneId = "study"): Edit
               ...interaction,
               assets: interaction.assets.map((asset) => ({
                 ...asset,
+                ...(asset.position
+                  ? { position: [...asset.position] as [number, number] }
+                  : asset.mode === "scene" && profile.initialPoints.find((point) => point.id === interaction.anchorPointId)
+                    ? {
+                        position: [
+                          profile.initialPoints.find((point) => point.id === interaction.anchorPointId)!.point[0] + (asset.offset?.[0] ?? 0),
+                          profile.initialPoints.find((point) => point.id === interaction.anchorPointId)!.point[1] + (asset.offset?.[1] ?? 0),
+                        ] as [number, number],
+                      }
+                    : {}),
                 ...(asset.offset ? { offset: [...asset.offset] as [number, number] } : {}),
               })),
               states: interaction.states.map((state) => ({ ...state, visibleAssetIds: [...state.visibleAssetIds] })),
@@ -1739,6 +1769,9 @@ export function createInitialEditorDraft(sceneId: EditorSceneId = "study"): Edit
   }
   if (sceneId === "attic") {
     return ensureAtticFormalStateTransitions(initialDraft);
+  }
+  if (sceneId === "entrance") {
+    return ensureEntranceUnifiedRoutesAndTransitions(initialDraft);
   }
   return ensureStudyTerminalStateTransitions(initialDraft);
 }
@@ -1809,8 +1842,24 @@ function routeKeyIndicatesDeskArrival(routeKey: string): boolean {
 const DEFAULT_TERMINAL_SMOKE_ANIMATION: EditorTransitionAnimation = {
   style: "smoke",
   turns: 2,
-  durationMs: 300,
-  settleMs: 120,
+  durationMs: 100,
+  settleMs: 100,
+  easing: "smooth",
+};
+
+const DEFAULT_ENTRANCE_RACK_EVENT_SMOKE_ANIMATION: EditorTransitionAnimation = {
+  style: "smoke",
+  turns: 1,
+  durationMs: 340,
+  settleMs: 100,
+  easing: "smooth",
+};
+
+const DEFAULT_ENTRANCE_EXTERNAL_EXIT_SMOKE_ANIMATION: EditorTransitionAnimation = {
+  style: "smoke",
+  turns: 2,
+  durationMs: 340,
+  settleMs: 340,
   easing: "smooth",
 };
 
@@ -1828,6 +1877,478 @@ function studyWalkAssetForFacing(facing: EditorFacingDirection): string {
   return facing === "left"
     ? STUDY_WALK_LEFT_ACTOR_ASSET_SRC
     : STUDY_WALK_RIGHT_ACTOR_ASSET_SRC;
+}
+
+const entranceUnifiedRouteKeys = Object.keys(entranceInitialRoutes);
+const entranceWardrobeRouteKeys = new Set([
+  "entrance-to-outside-umbrella",
+  "entrance-to-outside-coat",
+  "entrance-to-outside-coat-umbrella",
+]);
+const ENTRANCE_WARDROBE_AFTER_EVENT_FACING: EditorFacingDirection = "left";
+const entranceLegacyFragmentRouteKeys = [
+  "entrance-to-mailbox",
+  "mailbox-to-entrance",
+  "entrance-to-postcard-rack",
+  "postcard-rack-to-entrance",
+  "entrance-to-coat-rack",
+  "coat-rack-to-entrance",
+  "entrance-to-umbrella-rack",
+  "umbrella-rack-to-entrance",
+  "outside-to-entrance-postcard",
+  "outside-to-entrance-mail-postcard",
+] as const;
+
+const entranceLegacyPointIds = [
+  "entrance-postcard-rack",
+  "outside-to-entrance-postcard-event",
+  "outside-to-entrance-mail-postcard-event",
+] as const;
+
+function entranceStateTransition(
+  pointId: string,
+  targetStateId: string,
+  options: Pick<
+    EditorRouteTransition,
+    | "fromAssetSource"
+    | "fromAssetMode"
+    | "fromAssetFacing"
+    | "toAssetSource"
+    | "toAssetMode"
+    | "toAssetFacing"
+  >,
+  animation: EditorTransitionAnimation,
+): EditorRouteTransition {
+  return {
+    pointId,
+    kind: "state",
+    targetStateId,
+    ...options,
+    animation: { ...animation },
+  };
+}
+
+function entranceEventPointPosition(pointsById: Readonly<Record<string, EditorPoint>>): SceneGeometryPoint {
+  const homePoint = pointsById[entranceHomeDoorPointId]?.point
+    ?? entranceInitialPoints.find((point) => point.id === entranceHomeDoorPointId)!.point;
+  const outsidePoint = pointsById[entranceOutsideThresholdPointId]?.point
+    ?? entranceInitialPoints.find((point) => point.id === entranceOutsideThresholdPointId)!.point;
+  return [
+    Math.round((homePoint[0] + outsidePoint[0]) / 2),
+    Math.round((homePoint[1] + outsidePoint[1]) / 2),
+  ] as SceneGeometryPoint;
+}
+
+function entranceEventPoint(pointId: string, pointsById: Readonly<Record<string, EditorPoint>>): EditorPoint {
+  return {
+    id: pointId,
+    label: entranceRouteEventPointSpecs[pointId as keyof typeof entranceRouteEventPointSpecs] ?? "事件节点",
+    role: "waypoint",
+    point: entranceEventPointPosition(pointsById),
+  };
+}
+
+function cloneEditorSceneInteractions(
+  interactions: Readonly<Record<string, EditorSceneInteraction>>,
+): Record<string, EditorSceneInteraction> {
+  return Object.fromEntries(Object.entries(interactions).map(([id, interaction]) => [
+    id,
+    {
+      ...interaction,
+      assets: interaction.assets.map((asset) => ({
+        ...asset,
+        ...(asset.position ? { position: [...asset.position] as [number, number] } : {}),
+        ...(asset.offset ? { offset: [...asset.offset] as [number, number] } : {}),
+      })),
+      states: interaction.states.map((state) => ({
+        ...state,
+        visibleAssetIds: [...state.visibleAssetIds],
+      })),
+    },
+  ]));
+}
+
+const entranceFormalInteractionIds = [
+  "entrance-mailbox",
+  "entrance-coat-rack",
+  "entrance-umbrella-rack",
+] as const;
+type EntranceFormalInteractionId = (typeof entranceFormalInteractionIds)[number];
+
+type EntranceFormalAssetCandidate = {
+  asset: EditorSceneInteractionAsset;
+  sourceInteractionId: string;
+  rawSource: string;
+};
+
+function entranceFormalInteractionForAssetSource(source: string): EntranceFormalInteractionId | undefined {
+  const normalized = normalizeEditorAssetSource(source);
+  // The cropped legacy source is the existing stack of envelopes. The
+  // isolated `mail-letter` and non-cropped `postcard` files are retired
+  // overlays and must not be restored into the scene.
+  if (normalized.includes("/entrance-postcard-extracted-v4-cropped")) {
+    return "entrance-mailbox";
+  }
+  if (normalized.endsWith("/entrance-coat-extracted-v4.webp")) return "entrance-coat-rack";
+  if (normalized.endsWith("/entrance-umbrella-extracted-v4.webp")) return "entrance-umbrella-rack";
+  return undefined;
+}
+
+function isRetiredEntranceAssetSource(source: string): boolean {
+  const normalized = normalizeEditorAssetSource(source);
+  return normalized.includes("/entrance-mail-letter-extracted-v4")
+    || (normalized.includes("/entrance-postcard-extracted-v4")
+      && !normalized.includes("/entrance-postcard-extracted-v4-cropped"));
+}
+
+function entranceFormalAssetId(
+  interactionId: EntranceFormalInteractionId,
+  index: number,
+): string {
+  if (interactionId === "entrance-mailbox") return `entrance-mail-stack-${index + 1}`;
+  if (interactionId === "entrance-coat-rack") return "entrance-coat-asset";
+  if (interactionId === "entrance-umbrella-rack") return "entrance-umbrella-asset";
+  return `${interactionId}-asset-${index + 1}`;
+}
+
+function entranceFormalAssetCandidateScore(
+  candidate: EntranceFormalAssetCandidate,
+  targetInteractionId: EntranceFormalInteractionId,
+): number {
+  const normalizedRawSource = normalizeEditorAssetSource(candidate.rawSource);
+  let score = 0;
+  // A clean, project-relative source is more trustworthy than the old
+  // placeholder record that ended with an unmatched quote.
+  if (candidate.rawSource.trim().replace(/\\/g, "/") === normalizedRawSource) score += 4;
+  if (!/待填路径|组件待接入/.test(candidate.asset.label)) score += 3;
+  if (candidate.sourceInteractionId === targetInteractionId) score += 2;
+  if (candidate.asset.id === entranceFormalAssetId(targetInteractionId, 0)) score += 1;
+  return score;
+}
+
+function stripEntranceFormalAssets(
+  interaction: EditorSceneInteraction,
+): EditorSceneInteraction {
+  const formalAssetIds = new Set(
+    interaction.assets
+      .filter((asset) => entranceFormalInteractionForAssetSource(asset.src) || isRetiredEntranceAssetSource(asset.src))
+      .map((asset) => asset.id),
+  );
+  const assets = interaction.assets.filter((asset) => !formalAssetIds.has(asset.id));
+  const retainedAssetIds = new Set(assets.map((asset) => asset.id));
+  return {
+    ...interaction,
+    assets,
+    states: interaction.states.map((state) => {
+      const { actorAssetId, ...stateWithoutActorAsset } = state;
+      return {
+        ...stateWithoutActorAsset,
+        visibleAssetIds: state.visibleAssetIds.filter((assetId) => retainedAssetIds.has(assetId)),
+        ...(actorAssetId && retainedAssetIds.has(actorAssetId) ? { actorAssetId } : {}),
+      };
+    }),
+  };
+}
+
+function normalizeEntranceFormalInteraction(
+  interactionId: EntranceFormalInteractionId,
+  base: EditorSceneInteraction,
+  initial: EditorSceneInteraction,
+  candidates: readonly EntranceFormalAssetCandidate[],
+): EditorSceneInteraction {
+  const selectedCandidates = [...candidates]
+    .sort((left, right) => (
+      entranceFormalAssetCandidateScore(right, interactionId)
+      - entranceFormalAssetCandidateScore(left, interactionId)
+    ));
+  const selected: EntranceFormalAssetCandidate[] = [];
+  const seenSignatures = new Set<string>();
+  for (const candidate of selectedCandidates) {
+    const signature = JSON.stringify([
+      normalizeEditorAssetSource(candidate.asset.src),
+      candidate.asset.position ?? null,
+      candidate.asset.offset ?? null,
+      candidate.asset.scale ?? null,
+      candidate.asset.label,
+    ]);
+    if (seenSignatures.has(signature)) continue;
+    seenSignatures.add(signature);
+    selected.push(candidate);
+    // The mailbox owns the whole existing letter stack; coat and umbrella
+    // each keep one formal scene prop.
+    if (interactionId !== "entrance-mailbox") break;
+  }
+  if (selected.length === 0) {
+    for (const asset of initial.assets) {
+      if (entranceFormalInteractionForAssetSource(asset.src) !== interactionId) continue;
+      selected.push({ asset, sourceInteractionId: interactionId, rawSource: asset.src });
+    }
+  }
+
+  const assets = selected.map(({ asset }, index) => ({
+    ...asset,
+    id: entranceFormalAssetId(interactionId, index),
+    src: normalizeEditorAssetSource(asset.src),
+  }));
+  const formalAssetIds = new Set(assets.map((asset) => asset.id));
+  const retainedAssetIds = new Set(base.assets.map((asset) => asset.id));
+  const fullStateId = interactionId === "entrance-coat-rack" || interactionId === "entrance-umbrella-rack"
+    ? "on-rack"
+    : "ready";
+  const emptyStateId = interactionId === "entrance-umbrella-rack" ? "carried" : "empty";
+  const stateById = new Map(base.states.map((state) => [state.id, state]));
+  for (const state of initial.states) {
+    if (!stateById.has(state.id)) stateById.set(state.id, state);
+  }
+  const states = [...stateById.values()].map((state) => {
+    const retainedVisibleAssetIds = state.visibleAssetIds.filter((assetId) => retainedAssetIds.has(assetId));
+    const visibleAssetIds = state.id === fullStateId
+      ? [...new Set([...retainedVisibleAssetIds, ...formalAssetIds])]
+      : state.id === emptyStateId
+        ? retainedVisibleAssetIds
+        : retainedVisibleAssetIds;
+    const initialState = initial.states.find((candidate) => candidate.id === state.id);
+    const label = /组件待接入/.test(state.label) && initialState ? initialState.label : state.label;
+    const { actorAssetId, ...stateWithoutActorAsset } = state;
+    return {
+      ...stateWithoutActorAsset,
+      label,
+      visibleAssetIds,
+      ...(actorAssetId && retainedAssetIds.has(actorAssetId) ? { actorAssetId } : {}),
+    };
+  });
+  return {
+    ...base,
+    assets: [...base.assets, ...assets],
+    initialStateId: stateById.has(base.initialStateId) ? base.initialStateId : initial.initialStateId,
+    states,
+  };
+}
+
+/**
+ * Repair entrance drafts from the early component-editor experiment. That
+ * experiment could put umbrella/coat/letter-stack assets in the mailbox
+ * component and leave placeholder assets on the real rack components. Rehome
+ * only the known formal entrance sources, preserving scene-space positions.
+ */
+function normalizeEntranceSceneInteractions(draft: EditorDraft): EditorDraft {
+  if (draft.sceneId !== "entrance") return draft;
+  const initialInteractions = cloneEditorSceneInteractions(entranceInitialSceneInteractions);
+  const normalizedExisting = draft.sceneInteractions
+    ? normalizeEditorSceneInteractions(draft.sceneInteractions, draft.pointsById) ?? {}
+    : {};
+  const candidates = Object.fromEntries(
+    entranceFormalInteractionIds.map((id) => [id, [] as EntranceFormalAssetCandidate[]]),
+  ) as Record<EntranceFormalInteractionId, EntranceFormalAssetCandidate[]>;
+  const strippedExisting: Record<string, EditorSceneInteraction> = {};
+
+  for (const [interactionId, interaction] of Object.entries(normalizedExisting)) {
+    const rawInteraction = draft.sceneInteractions?.[interactionId];
+    for (const asset of interaction.assets) {
+      const owner = entranceFormalInteractionForAssetSource(asset.src);
+      if (!owner) continue;
+      const rawAsset = rawInteraction?.assets.find((candidate) => candidate.id === asset.id);
+      candidates[owner].push({
+        asset,
+        sourceInteractionId: interactionId,
+        rawSource: rawAsset?.src ?? asset.src,
+      });
+    }
+    strippedExisting[interactionId] = stripEntranceFormalAssets(interaction);
+  }
+
+  const nextInteractions: Record<string, EditorSceneInteraction> = {};
+  for (const interactionId of entranceFormalInteractionIds) {
+    const base = strippedExisting[interactionId] ?? stripEntranceFormalAssets(initialInteractions[interactionId]!);
+    nextInteractions[interactionId] = normalizeEntranceFormalInteraction(
+      interactionId,
+      base,
+      initialInteractions[interactionId]!,
+      candidates[interactionId]!,
+    );
+  }
+  for (const [interactionId, interaction] of Object.entries(strippedExisting)) {
+    if (interactionId === "entrance-postcard-rack") continue;
+    if (entranceFormalInteractionIds.includes(interactionId as EntranceFormalInteractionId)) continue;
+    nextInteractions[interactionId] = interaction;
+  }
+
+  if (JSON.stringify(nextInteractions) === JSON.stringify(draft.sceneInteractions ?? {})) return draft;
+  return { ...draft, sceneInteractions: nextInteractions };
+}
+
+/**
+ * The entrance is a single living threshold: home door ↔ outside stair.
+ * The mail stack, coat and umbrella stay as scene components. Route
+ * variants only insert one route-owned midpoint that carries their events.
+ * Old browser drafts that still contain short `home → prop → home` fragments
+ * are folded into semantic route variants.
+ */
+export function ensureEntranceUnifiedRoutesAndTransitions(draft: EditorDraft): EditorDraft {
+  if (draft.sceneId !== "entrance") return draft;
+  const draftWithEntranceInteractions = normalizeEntranceSceneInteractions(draft);
+
+  const pointsById: Record<string, EditorPoint> = { ...draftWithEntranceInteractions.pointsById };
+  const routes: Record<string, string[]> = { ...draftWithEntranceInteractions.routes };
+  const routeMeta: Record<string, EditorRouteMeta> = { ...(draftWithEntranceInteractions.routeMeta ?? {}) };
+  let changed = draftWithEntranceInteractions !== draft;
+
+  for (const pointId of entranceRouteEventPointIds) {
+    if (!pointsById[pointId]) {
+      pointsById[pointId] = entranceEventPoint(pointId, pointsById);
+      changed = true;
+    }
+  }
+
+  for (const legacyRouteKey of entranceLegacyFragmentRouteKeys) {
+    if (routes[legacyRouteKey]) {
+      delete routes[legacyRouteKey];
+      delete routeMeta[legacyRouteKey];
+      changed = true;
+    }
+  }
+
+  for (const legacyPointId of entranceLegacyPointIds) {
+    if (!pointsById[legacyPointId]) continue;
+    delete pointsById[legacyPointId];
+    changed = true;
+  }
+
+  for (const routeKey of entranceUnifiedRouteKeys) {
+    const fallback = entranceInitialRouteMeta[routeKey]!;
+    const fallbackRouteIds = [...entranceInitialRoutes[routeKey]!];
+    const existingRouteIds = (routes[routeKey] ?? []).filter((pointId) => Boolean(pointsById[pointId]));
+    const preservesAuthoredRoute = existingRouteIds.length >= 2
+      && existingRouteIds[0] === fallbackRouteIds[0]
+      && existingRouteIds.at(-1) === fallbackRouteIds.at(-1);
+    let routeIds = preservesAuthoredRoute ? existingRouteIds : fallbackRouteIds;
+    const currentMeta = routeMeta[routeKey];
+    const currentRouteMeta: EditorRouteMeta = entranceWardrobeRouteKeys.has(routeKey)
+      ? (() => {
+          const {
+            facingSwitchAfterPointId: _legacyFacingSwitchAfterPointId,
+            facingAfterSwitch: _legacyFacingAfterSwitch,
+            ...withoutLegacyFacing
+          } = currentMeta ?? {};
+          return { ...fallback, ...withoutLegacyFacing };
+        })()
+      : {
+          ...fallback,
+          ...(currentMeta ?? {}),
+        };
+    const startPointId = routeIds[0];
+    const endPointId = routeIds.at(-1);
+    const startFacing = routeFacingAtProgress(routeIds, pointsById, currentRouteMeta, 0);
+    const eventPointIds = [...new Set((fallback.interactionEvents ?? []).map((event) => event.pointId))];
+    for (const eventPointId of eventPointIds) {
+      if (routeIds.includes(eventPointId)) continue;
+      const insertionIndex = Math.max(1, routeIds.length - 1);
+      routeIds = [
+        ...routeIds.slice(0, insertionIndex),
+        eventPointId,
+        ...routeIds.slice(insertionIndex),
+      ];
+    }
+    const requiredTransitions: EditorRouteTransition[] = [];
+
+    if (startPointId) {
+      requiredTransitions.push(entranceStateTransition(
+        startPointId,
+        "walking",
+        {
+          fromAssetMode: "none",
+          toAssetSource: studyWalkAssetForFacing(startFacing),
+          toAssetMode: "actor",
+        },
+        DEFAULT_EXTERNAL_ENTRY_SMOKE_ANIMATION,
+      ));
+    }
+    for (const eventPointId of eventPointIds) {
+      if (!routeIds.includes(eventPointId)) continue;
+      const eventProgress = routeProgressAtPoint(routeIds, pointsById, eventPointId);
+      const eventFacing = entranceWardrobeRouteKeys.has(routeKey)
+        ? ENTRANCE_WARDROBE_AFTER_EVENT_FACING
+        : routeFacingAtProgress(routeIds, pointsById, currentRouteMeta, eventProgress);
+      const preEventFacing = routeFacingAtProgress(
+        routeIds,
+        pointsById,
+        currentRouteMeta,
+        Math.max(0, eventProgress - 0.000001),
+      );
+      requiredTransitions.push(entranceStateTransition(
+        eventPointId,
+        "walking",
+        {
+          fromAssetSource: studyWalkAssetForFacing(preEventFacing),
+          fromAssetMode: "actor",
+          ...(entranceWardrobeRouteKeys.has(routeKey) ? { fromAssetFacing: preEventFacing } : {}),
+          toAssetSource: studyWalkAssetForFacing(eventFacing),
+          toAssetMode: "actor",
+          ...(entranceWardrobeRouteKeys.has(routeKey) ? { toAssetFacing: eventFacing } : {}),
+        },
+        entranceWardrobeRouteKeys.has(routeKey)
+          ? DEFAULT_ENTRANCE_RACK_EVENT_SMOKE_ANIMATION
+          : DEFAULT_EXTERNAL_ENTRY_SMOKE_ANIMATION,
+      ));
+    }
+    if (endPointId) {
+      const endFacing = entranceWardrobeRouteKeys.has(routeKey)
+        ? ENTRANCE_WARDROBE_AFTER_EVENT_FACING
+        : routeFacingAtProgress(routeIds, pointsById, currentRouteMeta, 1);
+      requiredTransitions.push(entranceStateTransition(
+        endPointId,
+        "gone",
+        {
+          fromAssetSource: studyWalkAssetForFacing(endFacing),
+          fromAssetMode: "actor",
+          ...(entranceWardrobeRouteKeys.has(routeKey) ? { fromAssetFacing: endFacing } : {}),
+          toAssetMode: "none",
+        },
+        routeKey.startsWith("entrance-to-outside") && endPointId === entranceOutsideThresholdPointId
+          ? DEFAULT_ENTRANCE_EXTERNAL_EXIT_SMOKE_ANIMATION
+          : DEFAULT_TERMINAL_SMOKE_ANIMATION,
+      ));
+    }
+
+    const requiredStatePointIds = new Set(requiredTransitions.map((transition) => transition.pointId));
+    const preservedTransitions = (currentRouteMeta.transitions ?? []).filter((transition) => (
+      routeIds.includes(transition.pointId)
+      && (transition.kind !== "state" || !requiredStatePointIds.has(transition.pointId))
+      && !(entranceWardrobeRouteKeys.has(routeKey)
+        && transition.kind === "facing"
+        && eventPointIds.includes(transition.pointId))
+    ));
+    const nextMeta: EditorRouteMeta = {
+      ...fallback,
+      ...(currentMeta ? {
+        ...currentRouteMeta,
+        label: fallback.label,
+        accent: fallback.accent,
+        initialFacing: fallback.initialFacing,
+      } : {}),
+      id: routeKey,
+      ...(startPointId ? { startPointId } : {}),
+      ...(endPointId ? { endPointId } : {}),
+      transitions: [...preservedTransitions, ...requiredTransitions],
+    };
+    if (fallback.interactionEvents) {
+      nextMeta.interactionEvents = fallback.interactionEvents.map((event) => ({ ...event }));
+    } else {
+      delete nextMeta.interactionEvents;
+    }
+
+    if (JSON.stringify(routes[routeKey]) !== JSON.stringify(routeIds)) {
+      routes[routeKey] = [...routeIds];
+      changed = true;
+    }
+    if (JSON.stringify(routeMeta[routeKey]) !== JSON.stringify(nextMeta)) {
+      routeMeta[routeKey] = nextMeta;
+      changed = true;
+    }
+  }
+
+  const migrated = changed ? { ...draftWithEntranceInteractions, pointsById, routes, routeMeta } : draftWithEntranceInteractions;
+  return isolateRouteWaypoints(migrated, { preserveSceneAnchors: true });
 }
 
 function studyRouteIsDeskArrival(routeKey: string, meta: EditorRouteMeta): boolean {
@@ -2147,11 +2668,24 @@ export function routeFacingAtProgress(
     ?? (pathDrivenInitialFacing ? inferredFacing : meta.initialFacing ?? inferredFacing);
   let facing = initialFacing;
   for (const transition of transitions) {
-    if (transition.kind !== "facing") continue;
-    if (transition.pointId === startPointId) continue;
     const transitionProgress = routeProgressAtPoint(routeIds, pointsById, transition.pointId);
+    if (transition.kind === "facing") {
+      if (transition.pointId === startPointId) continue;
+      if (clamp(progress, 0, 1) < transitionProgress) break;
+      facing = transition.facing ?? (facing === "left" ? "right" : "left");
+      continue;
+    }
+    // A walking state transition may carry the direction of its destination
+    // actor. Treat that as the route's new baseline so the smoke handoff owns
+    // the turn instead of requiring a second instant mirror event.
+    if (
+      transition.kind !== "state"
+      || transition.targetStateId !== "walking"
+      || transition.toAssetMode !== "actor"
+      || !transition.toAssetFacing
+    ) continue;
     if (clamp(progress, 0, 1) < transitionProgress) break;
-    facing = transition.facing ?? (facing === "left" ? "right" : "left");
+    facing = transition.toAssetFacing;
   }
   return facing;
 }
@@ -2632,6 +3166,7 @@ function normalizeEditorSceneInteraction(value: unknown, pointsById: Readonly<Re
     || !Array.isArray(raw.assets)
     || !Array.isArray(raw.states)
   ) return null;
+  const anchorPointId = raw.anchorPointId;
 
   const assets: EditorSceneInteractionAsset[] = raw.assets.flatMap((candidate) => {
     if (!candidate || typeof candidate !== "object") return [];
@@ -2642,6 +3177,7 @@ function normalizeEditorSceneInteraction(value: unknown, pointsById: Readonly<Re
       mode?: unknown;
       zIndex?: unknown;
       scale?: unknown;
+      position?: unknown;
       offset?: unknown;
     };
     if (
@@ -2660,6 +3196,21 @@ function normalizeEditorSceneInteraction(value: unknown, pointsById: Readonly<Re
       && Number.isFinite(asset.offset[1])
       ? [asset.offset[0], asset.offset[1]] as [number, number]
       : undefined;
+    const position = Array.isArray(asset.position)
+      && typeof asset.position[0] === "number"
+      && typeof asset.position[1] === "number"
+      && Number.isFinite(asset.position[0])
+      && Number.isFinite(asset.position[1])
+      ? [asset.position[0], asset.position[1]] as [number, number]
+      : undefined;
+    const anchor = pointsById[anchorPointId];
+    const legacyScenePosition = !position && asset.mode === "scene" && anchor
+      ? [
+          anchor.point[0] + (offset?.[0] ?? 0),
+          anchor.point[1] + (offset?.[1] ?? 0),
+        ] as [number, number]
+      : undefined;
+    const normalizedPosition = position ?? legacyScenePosition;
     return [{
       id: asset.id.trim(),
       label: typeof asset.label === "string" && asset.label.trim() ? asset.label.trim() : asset.id.trim(),
@@ -2667,6 +3218,7 @@ function normalizeEditorSceneInteraction(value: unknown, pointsById: Readonly<Re
       mode: asset.mode,
       zIndex: typeof asset.zIndex === "number" && Number.isFinite(asset.zIndex) ? Math.round(asset.zIndex) : 10,
       ...(scale ? { scale } : {}),
+      ...(normalizedPosition ? { position: normalizedPosition } : {}),
       ...(offset ? { offset } : {}),
     }];
   });
@@ -2894,7 +3446,10 @@ function fallbackFacingSwitchPointId(
  * Keep every route's waypoint private. Door and seat anchors are intentionally
  * shared semantic points; ordinary waypoints are geometry owned by one route.
  */
-export function isolateRouteWaypoints(draft: EditorDraft): EditorDraft {
+export function isolateRouteWaypoints(
+  draft: EditorDraft,
+  options: { preserveSceneAnchors?: boolean } = {},
+): EditorDraft {
   const pointsById = { ...draft.pointsById };
   const routes: Record<string, string[]> = {};
   const routeMeta = draft.routeMeta ? { ...draft.routeMeta } : undefined;
@@ -2906,6 +3461,9 @@ export function isolateRouteWaypoints(draft: EditorDraft): EditorDraft {
     routes[routeKey] = routeIds.map((pointId, index) => {
       const point = pointsById[pointId];
       if (!point || point.role !== "waypoint") return pointId;
+      if (options.preserveSceneAnchors && (point.anchorKind === "portal" || point.anchorKind === "interaction")) {
+        return pointId;
+      }
       const owner = firstOwner.get(pointId);
       if (!owner || owner === routeKey) {
         firstOwner.set(pointId, routeKey);
@@ -3914,7 +4472,9 @@ export function normalizeEditorDraft(value: unknown): EditorDraft | null {
         )
         : sceneId === "attic"
           ? ensureAtticFormalStateTransitions(value)
-          : isolateRouteWaypoints(value);
+          : sceneId === "entrance"
+            ? ensureEntranceUnifiedRoutesAndTransitions(value)
+            : isolateRouteWaypoints(value);
   const normalizedSceneInteractions = normalizeEditorSceneInteractions(
     sceneNormalized.sceneInteractions,
     sceneNormalized.pointsById,

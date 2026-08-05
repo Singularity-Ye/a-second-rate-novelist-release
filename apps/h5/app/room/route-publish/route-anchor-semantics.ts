@@ -224,8 +224,7 @@ export function resolveRouteAnchorSemantics(input: {
   if (input.sceneId === "entrance") {
     if (/家门|生活通道|室内|home.?door|entry|door/.test(text)) return portalAt("portal.entrance.home-door");
     if (/楼梯|外出|门槛|outside|stair|exit/.test(text)) return portalAt("portal.entrance.outside");
-    if (/信箱|mailbox/.test(text)) return interaction("entrance.mailbox");
-    if (/明信片|postcard/.test(text)) return interaction("entrance.postcard-rack");
+    if (/信箱|信件|来信|邮件|mailbox|mail|letter/.test(text)) return interaction("entrance.mailbox");
     if (/衣帽|外套|coat|rack/.test(text)) return interaction("entrance.coat-rack");
     if (/雨伞|伞|umbrella/.test(text)) return interaction("entrance.umbrella-rack");
     if (/电梯|elevator/.test(text)) return interaction("entrance.elevator");

@@ -36,10 +36,6 @@ for (const file of await filesBelow(outputRoot)) {
   if (rewritten !== original) await writeFile(file, rewritten, "utf8");
 }
 
-// Branch-based GitHub Pages deployments otherwise run the exported tree
-// through Jekyll, which ignores Next.js' required `_next` directory.
-await writeFile(resolve(outputRoot, ".nojekyll"), "", "utf8");
-
 if (basePath) {
   const unresolved = [];
   for (const file of await filesBelow(outputRoot)) {

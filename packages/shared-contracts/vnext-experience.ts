@@ -1,3 +1,26 @@
+import type { VnextRoomStoryContext } from "./vnext-room-story-context.js";
+
+export { ROOM_STORY_CONTEXT_SCHEMA_VERSION } from "./vnext-room-story-context.js";
+
+export type {
+  RoomStoryCreativeTaskKind,
+  RoomStoryCreativeTaskStatus,
+  RoomStoryProgressState,
+  RoomStoryWorkspaceStatus,
+  VnextRoomStoryContentReference,
+  VnextRoomStoryContext,
+  VnextRoomStoryContextResponse,
+  VnextRoomStoryCreativeJob,
+  VnextRoomStoryUnderstandingReference,
+  VnextRoomStoryCommissionReference,
+} from "./vnext-room-story-context.js";
+export type {
+  VnextRoomDraftFeedback,
+  VnextRoomDraftFeedbackCompleteEvent,
+  VnextRoomDraftFeedbackReadyEvent,
+  VnextRoomDraftFeedbackRequest,
+} from "./vnext-room-draft-feedback.js";
+
 export const EXPERIENCE_STATES = Object.freeze([
   "available",
   "listening",
@@ -95,6 +118,7 @@ export interface VnextRoomRouteEvent {
   readonly intent: RoomMessageIntent;
   readonly handling: RoomMessageHandling;
   readonly projection: ExperienceProjection;
+  readonly storyContext?: VnextRoomStoryContext;
 }
 
 export interface VnextRoomCompleteEvent {
@@ -102,11 +126,12 @@ export interface VnextRoomCompleteEvent {
   readonly requestId: string;
   readonly intent: Exclude<RoomMessageIntent, "conversation">;
   readonly handling: Exclude<RoomMessageHandling, "conversation">;
+  readonly storyContext?: VnextRoomStoryContext;
 }
 
 export interface VnextSessionAdmissionManifest {
   readonly audienceMode: "internal";
-  readonly inputPolicy: "synthetic_only";
+  readonly inputPolicy: "synthetic_only" | "real_input";
   readonly admissionPolicyVersion: string;
   readonly aiIdentityNoticeVersion: string;
   readonly serviceTermsVersion: string;
@@ -781,7 +806,7 @@ export const vnextSessionAdmissionManifestSchema = createVnextResponseSchema(
     );
     if (
       audienceMode !== "internal" ||
-      inputPolicy !== "synthetic_only" ||
+      inputPolicy !== "synthetic_only" && inputPolicy !== "real_input" ||
       !isSessionAdmissionManifestVersion(admissionPolicyVersion) ||
       !isSessionAdmissionManifestVersion(aiIdentityNoticeVersion) ||
       !isSessionAdmissionManifestVersion(serviceTermsVersion) ||

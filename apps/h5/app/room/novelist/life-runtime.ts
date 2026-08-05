@@ -118,6 +118,19 @@ export type LifeRuntimeState = {
   processedEventIds: string[];
 };
 
+/**
+ * The last stable visual stage is persisted separately from transient route
+ * progress. A reload may restore the room and activity the novelist was
+ * visibly inhabiting, but it must not pretend that an in-flight route or
+ * timer survived the page boundary.
+ */
+export type LifeStageSnapshot = {
+  sceneId: FormalSceneId;
+  routeId: string;
+  activity: NovelistActivity;
+  actionId?: string | undefined;
+};
+
 export type LifeRuntimeSnapshot = {
   version: 1;
   savedAt: number;
@@ -127,6 +140,7 @@ export type LifeRuntimeSnapshot = {
   intents: Record<string, LifeIntent>;
   traceIds: string[];
   carriedProps?: readonly LifePropId[];
+  stage?: LifeStageSnapshot | undefined;
 };
 
 export type LifeRuntimeEvent =
@@ -250,14 +264,16 @@ export function lifeRuntimeReducer(state: LifeRuntimeState, event: LifeRuntimeEv
         .map((intent) => intent.id);
       const pendingIntentIds = [...new Set([...event.snapshot.pendingIntentIds, ...recoveredIntentIds])]
         .filter((id) => Boolean(restoredIntents[id]));
+      const restoredSceneId = event.snapshot.stage?.sceneId ?? next.sceneId;
       const host: HostLifeState = {
         ...next.host,
         ...event.snapshot.host,
-        currentScene: next.sceneId,
+        currentScene: restoredSceneId,
         currentActivity: undefined,
       };
       return {
         ...next,
+        sceneId: restoredSceneId,
         phase: pendingIntentIds.length > 0 ? "interrupted" : "idle",
         activityId: undefined,
         activeCueId: undefined,

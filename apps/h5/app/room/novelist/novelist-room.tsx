@@ -62,12 +62,14 @@ import {
   type LifePropId,
   type LifeRuntimeEvent,
   type LifeRuntimeState,
+  type LifeStageSnapshot,
   type EnergyBand,
   type VisualBeat,
 } from "./life-runtime";
 import { expireLifeTraces, listLifeTraces, putLifeTrace } from "./life-trace-store";
 import { createFieldworkPostcard, listLifePostcards, putLifePostcard, type LifePostcard } from "./life-postcards";
 import { loadLifeRuntimeSnapshot, saveLifeRuntimeSnapshot } from "./life-runtime-store";
+import { loadSceneInteractionStates, saveSceneInteractionStates } from "./scene-interaction-store";
 import {
   buildPublishedSceneJourney,
   resolveSceneConnectorTarget,
@@ -229,6 +231,16 @@ function transitionTriggerProgress(
   return routeProgressAtFormalPoint(route, transition.pointId);
 }
 
+function interactionEventTriggerProgress(
+  route: { points: readonly { id: string; x: number; y: number }[]; transitions?: readonly NovelistRouteTransition[] },
+  event: { pointId: string; progress: number },
+): number {
+  const pairedTransition = route.transitions?.find((transition) => (
+    transition.pointId === event.pointId && transition.phase === "arrive"
+  )) ?? route.transitions?.find((transition) => transition.pointId === event.pointId);
+  return pairedTransition ? transitionTriggerProgress(route, pairedTransition) : event.progress;
+}
+
 function formalActionMode(action: { preview?: NovelistSceneActionPreview; actorAsset?: NovelistFormalActorAsset } | null): "scene" | "actor" {
   return action?.preview && !action.preview.transparentOverlay ? "scene" : "actor";
 }
@@ -240,6 +252,22 @@ const states: Array<{ code: NovelistState; label: string; note: string }> = [
   { code: "daydreaming", label: "发呆", note: "他正在看窗外或听一面旧唱片，暂时不回答复杂的问题。" },
   { code: "away", label: "外出", note: "门口留着便签，回来后会从最近一条线索继续。" },
 ];
+
+const stableLifeSignalCopy: Readonly<Record<NovelistState, { icon: string; label: string; fallbackMood: string }>> = {
+  writing: { icon: "✎", label: "写作中", fallbackMood: "笔尖还热着，先让这一句自己长出来。" },
+  eating: { icon: "◒", label: "吃饭中", fallbackMood: "先把这一顿吃完，生活不是写作的暂停键。" },
+  sleeping: { icon: "☾", label: "睡觉中", fallbackMood: "灯已经调暗，今天先收在这里。" },
+  daydreaming: { icon: "⌁", label: "发呆中", fallbackMood: "他暂时不追赶下一句，给脑子留一块空地。" },
+  away: { icon: "↗", label: "外出中", fallbackMood: "他去别的房间走走，回来会带一条新线索。" },
+};
+
+function getStableLifeSignal(state: NovelistState, action: { mood?: string | undefined } | null) {
+  const copy = stableLifeSignalCopy[state];
+  return {
+    ...copy,
+    mood: action?.mood?.trim() || copy.fallbackMood,
+  };
+}
 
 const stateHotspotCopy: Record<NovelistState, string> = {
   writing: "他把椅子拉回书桌前。",
@@ -281,6 +309,28 @@ function firstRouteId(sceneId: FormalSceneId, activity: NovelistActivity) {
   return scene.defaultRouteByActivity[activity] ?? Object.keys(scene.routes)[0] ?? "";
 }
 
+function resolveStableLifeStage(stage: LifeStageSnapshot) {
+  const requestedRoute = getFormalSceneRoute(stage.sceneId, stage.routeId);
+  const fallbackRouteId = firstRouteId(stage.sceneId, stage.activity);
+  const route = requestedRoute ?? (fallbackRouteId ? getFormalSceneRoute(stage.sceneId, fallbackRouteId) : null);
+  if (!route) return null;
+  const requestedActionId = stage.actionId ?? route.arriveActionId;
+  const action = getFormalSceneAction(stage.sceneId, stage.activity, requestedActionId)
+    ?? getFormalSceneAction(stage.sceneId, stage.activity, route.arriveActionId);
+  const actionId = action?.id ?? route.arriveActionId;
+  const canonicalStage: LifeStageSnapshot = {
+    sceneId: stage.sceneId,
+    routeId: route.id,
+    activity: stage.activity,
+    ...(actionId ? { actionId } : {}),
+  };
+  return {
+    stage: canonicalStage,
+    actionPreview: action?.preview && !action.preview.transparentOverlay ? action.preview : null,
+    terminalPoint: route.points.at(-1) ?? null,
+  };
+}
+
 type FormalRouteOption = {
   sceneId: FormalSceneId;
   targetSceneId: FormalSceneId;
@@ -301,6 +351,17 @@ type FormalRouteOptionGroup = {
 };
 
 const formalRouteOptionGraph = buildFormalRouteGraph();
+/**
+ * The daily-life planner intentionally excludes the entrance: it is a
+ * boundary scene, not an autonomously scheduled life activity. The route
+ * catalog has a different contract and must expose every scene that actually
+ * has a published route edge, including the entrance's gear/mail routes.
+ */
+const formalPublishedRouteSceneIds = [
+  ...formalLifeSceneIds,
+  ...formalRouteOptionGraph.edges.map((edge) => edge.sceneId),
+].filter((sceneId, index, sceneIds) => sceneIds.indexOf(sceneId) === index)
+  .filter((sceneId) => formalRouteOptionGraph.sceneEdges(sceneId).length > 0);
 const formalRoutePurposeLabels: Readonly<Record<FormalRoutePurpose, string>> = {
   "scene-transition": "场景互通",
   "scene-entry": "进入动作点",
@@ -360,49 +421,53 @@ function PhaseIconSvg({ phase }: { phase: LifeRuntimeState["host"]["dayPhase"] }
   if (phase === "dawn") {
     return (
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M2 13H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M4 10A4 4 0 0 1 12 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M8 3V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M2.2 12.4H13.8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+        <path d="M4.25 11.15C4.7 8.75 6.05 7.55 8 7.55C9.95 7.55 11.3 8.75 11.75 11.15" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+        <path d="M8 3.2V5.45M4.55 5.2L5.7 6.3M11.45 5.2L10.3 6.3" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
       </svg>
     );
   }
   if (phase === "morning") {
     return (
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="8" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="6.15" cy="7.05" r="2.7" stroke="currentColor" strokeWidth="1.25" />
+        <path d="M6.15 2.1V3.25M2.1 7.05H3.25M3.15 4.05L4 4.9" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+        <path d="M9.45 5.25L13.5 3.55M9.75 7.75L14 7.2M8.65 10L12.2 12.4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
       </svg>
     );
   }
   if (phase === "noon") {
     return (
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="8" cy="8" r="3" fill="currentColor" stroke="currentColor" strokeWidth="1.2" />
-        <path d="M8 1.5V3M8 13V14.5M1.5 8H3M13 8H14.5M3.4 3.4L4.5 4.5M11.5 11.5L12.6 12.6M3.4 12.6L4.5 11.5M11.5 4.5L12.6 3.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        <circle cx="8" cy="8" r="2.6" fill="currentColor" fillOpacity="0.24" stroke="currentColor" strokeWidth="1.25" />
+        <path d="M8 1.65V3.2M8 12.8V14.35M1.65 8H3.2M12.8 8H14.35" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+        <path d="M3.55 3.55L4.65 4.65M11.35 11.35L12.45 12.45M3.55 12.45L4.65 11.35M11.35 4.65L12.45 3.55" stroke="currentColor" strokeWidth="1.05" strokeLinecap="round" />
       </svg>
     );
   }
   if (phase === "afternoon") {
     return (
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M3 11.5C3 9.5 4.8 8 7 8C8.8 8 10.3 9.1 10.8 10.5C11.8 10.3 13 11 13 12.2C13 13.2 12.1 14 11 14H4C3.4 14 3 13.5 3 13V11.5Z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
-        <circle cx="11.5" cy="5.5" r="2.5" stroke="currentColor" strokeWidth="1.2" />
+        <circle cx="10.9" cy="4.8" r="2.25" stroke="currentColor" strokeWidth="1.25" />
+        <path d="M3 12.85H13.55M4.35 11.25L8.15 7.45M7 12.75L10.25 9.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+        <path d="M10.9 1.45V2M14.2 4.8H13.65M8.55 7.15L8.95 6.75" stroke="currentColor" strokeWidth="1.05" strokeLinecap="round" />
       </svg>
     );
   }
   if (phase === "evening") {
     return (
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M2 12H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M4.5 12A3.5 3.5 0 0 1 11.5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M11 4.5L9.5 6M5 4.5L6.5 6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M2 10.9H14M3.6 13.2H12.4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+        <path d="M4.7 10.85C5.1 8.7 6.25 7.65 8 7.65C9.75 7.65 10.9 8.7 11.3 10.85" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+        <path d="M4.45 5.2L5.65 6.25M11.55 5.2L10.35 6.25M8 3.25V5.1" stroke="currentColor" strokeWidth="1.05" strokeLinecap="round" />
       </svg>
     );
   }
   return (
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M12.5 9A5 5 0 1 1 7 3.5A4.5 4.5 0 0 0 12.5 9Z" stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.25" strokeLinejoin="round" />
-      <path d="M12.5 3.5L13 2L13.5 3.5L15 4L13.5 4.5L13 6L12.5 4.5L11 4L12.5 3.5Z" fill="currentColor" />
+      <path d="M11.8 10.3A5.15 5.15 0 1 1 6.3 3.15C5.75 7.05 8.05 9.9 11.8 10.3Z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
+      <circle cx="12.45" cy="3.55" r=".8" fill="currentColor" />
+      <circle cx="13.6" cy="6.25" r=".45" fill="currentColor" fillOpacity=".72" />
     </svg>
   );
 }
@@ -423,6 +488,7 @@ export function NovelistRoom() {
   const [routeCommand, setRouteCommand] = useState({ routeId: "study-desk-stay", token: 0 });
   const [routePaused, setRoutePaused] = useState(false);
   const [sceneInteractionOverrides, setSceneInteractionOverrides] = useState<Record<string, string>>({});
+  const [sceneInteractionStateHydrated, setSceneInteractionStateHydrated] = useState(false);
   const currentActorPointRef = useRef("writing-seat");
   const [actorPosition, setActorPosition] = useState({ x: 0.48, y: 0.79 });
   const [actorPerspectiveScale, setActorPerspectiveScale] = useState(1);
@@ -433,7 +499,8 @@ export function NovelistRoom() {
   const [mapHoverSceneId, setMapHoverSceneId] = useState<FormalSceneId | null>(null);
   const [lifePlanOpen, setLifePlanOpen] = useState(false);
   const [lifeDetailsOpen, setLifeDetailsOpen] = useState(false);
-  const [activeChatChannel, setActiveChatChannel] = useState<NovelistChatChannel | null>("novelist");
+  const [activeChatChannel, setActiveChatChannel] = useState<NovelistChatChannel | null>(null);
+  const [deskEntryOpen, setDeskEntryOpen] = useState(false);
   const [interventionOpen, setInterventionOpen] = useState(false);
   const [systemHandActive, setSystemHandActive] = useState(false);
   const [postcardOpen, setPostcardOpen] = useState(false);
@@ -500,10 +567,14 @@ export function NovelistRoom() {
   const lifeEventSequenceRef = useRef(0);
   const cueCooldownUntilRef = useRef<Record<string, number>>({});
   const lifeRuntimeHydratedRef = useRef(false);
+  const [lifeRuntimeHydrated, setLifeRuntimeHydrated] = useState(false);
   const activeLifeIntentIdRef = useRef<string | null>(null);
   const activeLifeActivityRef = useRef<LifeActivityDefinition | null>(null);
   const suspendedLifeIntentIdRef = useRef<string | null>(null);
-  const lifeAutoplayRef = useRef(false);
+  // The room starts with autoplay enabled. Keep the ref in sync from the
+  // first activity as well; the initial writing seat can settle on mount
+  // before the first post-render synchronization effect runs.
+  const lifeAutoplayRef = useRef(true);
   const autoplayBeatIndexRef = useRef(0);
   const autoplayTendencyCooldownUntilRef = useRef<Partial<Record<LifeNeedKey, number>>>({});
   const executeLifeBeatRef = useRef<(beat: LifeBeat) => void>(() => undefined);
@@ -523,6 +594,13 @@ export function NovelistRoom() {
   const currentRoute = getFormalSceneRoute(sceneId, routeCommand.routeId);
   const currentAction = getFormalSceneAction(sceneId, state, currentRoute?.arriveActionId);
   const activeRuntimeActivity = getLifeActivity(lifeRuntime.activityId);
+  const stageAction = activeRuntimeActivity
+    ? getFormalSceneAction(sceneId, state, activeRuntimeActivity.actionId) ?? currentAction
+    : currentAction;
+  const stageLifeSignal = getStableLifeSignal(state, stageAction);
+  const observationActivityLabel = sceneId === "study" && state === "writing"
+    ? "书房写作"
+    : stageLifeSignal.label;
   const activityProgressPercent = activeActivityDurationMs !== null && activityRemainingMs !== null
     ? clampStagePercent(
       ((activeActivityDurationMs - activityRemainingMs) / activeActivityDurationMs) * 100,
@@ -532,6 +610,13 @@ export function NovelistRoom() {
     : null;
   const activityElapsedMs = activeActivityDurationMs !== null && activityRemainingMs !== null
     ? Math.max(0, activeActivityDurationMs - activityRemainingMs)
+    : null;
+  const activityProgressLabel = activeRuntimeActivity
+    ? activityRemainingMs !== null
+      ? activityRemainingMs <= 1000
+        ? "这一段快结束了"
+        : `还会停留 ${Math.max(1, Math.ceil(activityRemainingMs / 1000))} 秒`
+      : "随时可以打断"
     : null;
   const currentLifeDay = Math.max(calendarLifeDay, lifeRuntime.dayIndex);
   const displayedLifeDay = previewLifeDay ?? currentLifeDay;
@@ -550,7 +635,7 @@ export function NovelistRoom() {
   }, [lifeRuntime.carriedProps]);
   const current = states.find((item) => item.code === state) ?? states[0]!;
   const routeOptionGroups = useMemo<FormalRouteOptionGroup[]>(() => {
-    const orderedSceneIds = [sceneId, ...formalLifeSceneIds.filter((id) => id !== sceneId)];
+    const orderedSceneIds = [sceneId, ...formalPublishedRouteSceneIds.filter((id) => id !== sceneId)];
     return orderedSceneIds
       .map((id) => ({
         sceneId: id,
@@ -647,6 +732,16 @@ export function NovelistRoom() {
   }, []);
 
   useEffect(() => {
+    setSceneInteractionOverrides(loadSceneInteractionStates());
+    setSceneInteractionStateHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!sceneInteractionStateHydrated) return;
+    saveSceneInteractionStates(sceneInteractionOverrides);
+  }, [sceneInteractionOverrides, sceneInteractionStateHydrated]);
+
+  useEffect(() => {
     autoplayContextRef.current = {
       routePaused,
       routeTransition: Boolean(routeTransition),
@@ -721,6 +816,28 @@ export function NovelistRoom() {
     const traces = expireLifeTraces();
     const snapshot = loadLifeRuntimeSnapshot();
     if (snapshot) {
+      const restoredStage = snapshot.stage ? resolveStableLifeStage(snapshot.stage) : null;
+      if (restoredStage) {
+        setSceneId(restoredStage.stage.sceneId);
+        setState(restoredStage.stage.activity);
+        setRouteCommand((previous) => ({ routeId: restoredStage.stage.routeId, token: previous.token + 1 }));
+        setActionPreview(restoredStage.actionPreview);
+        if (restoredStage.terminalPoint) {
+          currentActorPointRef.current = restoredStage.terminalPoint.id;
+          setActorPosition({ x: restoredStage.terminalPoint.x, y: restoredStage.terminalPoint.y });
+          setActorPerspectiveScale(restoredStage.terminalPoint.stableScale);
+        }
+        const restoredPlan = getDailyLifePlan(snapshot.dayIndex);
+        const restoredBeat = restoredPlan.beats.find((beat) => (
+          beat.sceneId === restoredStage.stage.sceneId
+          && beat.routeId === restoredStage.stage.routeId
+          && beat.activity === restoredStage.stage.activity
+        ));
+        if (restoredBeat) setActiveLifeBeatId(restoredBeat.id);
+        emitLifeCue(getSceneLifeCue(restoredStage.stage.sceneId, "thought", {
+          actionId: restoredStage.stage.actionId,
+        }));
+      }
       emitLifeEvent({
         type: "runtime-restored",
         snapshot: {
@@ -735,12 +852,20 @@ export function NovelistRoom() {
     }
     setPostcards(listLifePostcards());
     lifeRuntimeHydratedRef.current = true;
+    setLifeRuntimeHydrated(true);
   }, [emitLifeEvent]);
 
   useEffect(() => {
-    if (!lifeRuntimeHydratedRef.current) return;
-    saveLifeRuntimeSnapshot(lifeRuntime);
-  }, [lifeRuntime]);
+    if (!lifeRuntimeHydratedRef.current || !lifeRuntimeHydrated) return;
+    if (routeTransition || sceneJourney || ["intent-queued", "route-moving", "arrival-settling", "activity-ready"].includes(lifeRuntime.phase)) return;
+    if (!currentRoute) return;
+    saveLifeRuntimeSnapshot(lifeRuntime, Date.now(), {
+      sceneId,
+      routeId: currentRoute.id,
+      activity: state,
+      ...(currentAction?.id ? { actionId: currentAction.id } : {}),
+    });
+  }, [currentAction?.id, currentRoute, lifeRuntime, lifeRuntimeHydrated, routeTransition, sceneId, sceneJourney, state]);
 
   const displayedLifeCue = lifeCue ?? getStateLifeCue(sceneId, lifeSignalContext);
   const displayedNeed: LifeNeedKey | null = displayedLifeCue.id.startsWith("need:")
@@ -758,6 +883,13 @@ export function NovelistRoom() {
 
   const handleActorTap = useCallback(() => {
     setTapPulse((value) => value + 1);
+    if (sceneId === "study" && currentAction?.id === "writing-seat") {
+      setMapOpen(false);
+      setLifePlanOpen(false);
+      setActiveChatChannel(null);
+      setDeskEntryOpen(true);
+      return;
+    }
     const interactionCue = getSceneInteractionCue(sceneId, currentAction?.id);
     emitLifeCue({
       ...interactionCue,
@@ -1665,7 +1797,7 @@ export function NovelistRoom() {
 
   useEffect(() => {
     const handleRoomShortcut = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || event.repeat) return;
+      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || event.repeat || event.isComposing) return;
       const target = event.target instanceof HTMLElement ? event.target : null;
       const isTyping = Boolean(target && (
         target.tagName === "INPUT"
@@ -1673,27 +1805,39 @@ export function NovelistRoom() {
         || target.tagName === "SELECT"
         || target.isContentEditable
       ));
-      const isInteractive = Boolean(target?.closest("button, a, [role='button'], [role='dialog']"));
+      const isPanelContext = Boolean(target?.closest("[data-room-shortcut-scope='system-panel']"));
+      const isInteractive = Boolean(target?.closest("button, a, summary, [role='button'], [role='dialog']"));
 
       if (event.key === "Escape") {
         if (isTyping) (target as HTMLElement).blur();
-        if (activeChatChannel !== null || lifePlanOpen || mapOpen || interventionOpen || postcardOpen) {
+        if (deskEntryOpen) {
+          event.preventDefault();
+          setDeskEntryOpen(false);
+        } else if (interventionOpen) {
+          event.preventDefault();
+          setInterventionOpen(false);
+        } else if (postcardOpen) {
+          event.preventDefault();
+          setPostcardOpen(false);
+        } else if (activeChatChannel !== null) {
           event.preventDefault();
           setActiveChatChannel(null);
+        } else if (lifePlanOpen) {
+          event.preventDefault();
           setLifePlanOpen(false);
+        } else if (mapOpen) {
+          event.preventDefault();
           setMapOpen(false);
-          setInterventionOpen(false);
-          setPostcardOpen(false);
         }
         return;
       }
-      if (isTyping || isInteractive) return;
+      if (isTyping || isInteractive || isPanelContext || interventionOpen || postcardOpen) return;
 
       if (event.key === "Enter") {
         event.preventDefault();
         setLifePlanOpen(false);
         setMapOpen(false);
-        setActiveChatChannel("novelist");
+        setActiveChatChannel((channel) => channel === "novelist" ? null : "novelist");
         return;
       }
       if (event.key === "Tab" && !event.shiftKey) {
@@ -1707,7 +1851,7 @@ export function NovelistRoom() {
         event.preventDefault();
         setLifePlanOpen(false);
         setMapOpen(false);
-        setActiveChatChannel("subsystem");
+        setActiveChatChannel((channel) => channel === "subsystem" ? null : "subsystem");
         return;
       }
       if (event.key.toLowerCase() === "m") {
@@ -1725,7 +1869,7 @@ export function NovelistRoom() {
 
     window.addEventListener("keydown", handleRoomShortcut);
     return () => window.removeEventListener("keydown", handleRoomShortcut);
-  }, [activeChatChannel, interventionOpen, lifePlanOpen, mapOpen, postcardOpen, toggleLifeAutoplay]);
+  }, [activeChatChannel, deskEntryOpen, interventionOpen, lifePlanOpen, mapOpen, postcardOpen, toggleLifeAutoplay]);
 
   const sceneButtons = useMemo(() => formalLifeSceneIds, []);
 
@@ -1750,15 +1894,80 @@ export function NovelistRoom() {
         onRequestChannel={setActiveChatChannel}
         observation={{
           sceneLabel: scene.label,
-          activityLabel: activeRuntimeActivity?.id === "study-writing"
-            ? "书房写作"
-            : activeRuntimeActivity?.id ?? "暂无正式活动",
+          activityLabel: observationActivityLabel,
           focus: lifeRuntime.host.focus,
           fatigue: lifeRuntime.host.fatigue,
           inspiration: lifeRuntime.host.inspiration,
           emotionalLoad: lifeRuntime.host.emotionalLoad,
         }}
       />
+      {deskEntryOpen && (
+        <div
+          className={styles.deskEntryOverlay}
+          data-testid="desk-entry-overlay"
+          role="presentation"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setDeskEntryOpen(false);
+          }}
+        >
+          <div className={styles.deskEntryBackdrop} data-testid="desk-entry-backdrop" aria-hidden="true" />
+          <section className={styles.deskEntryPanel} role="dialog" aria-modal="true" aria-labelledby="desk-entry-title">
+            <img
+              className={styles.deskEntryPaperFrame}
+              src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-paper-frame-v1.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <div className={styles.deskEntryPaperContent}>
+            <header className={styles.deskEntryHeader}>
+              <div>
+                <p className={styles.eyebrow}>书桌 · writing-seat</p>
+                <h2 id="desk-entry-title">他正在写作</h2>
+                <p>从这里选择要进入的工作，不会替他做决定。</p>
+              </div>
+              <button type="button" className={styles.deskEntryClose} onClick={() => setDeskEntryOpen(false)} aria-label="关闭书桌入口">×</button>
+            </header>
+            <div className={styles.deskEntryCards}>
+              <button
+                type="button"
+                className={`${styles.deskEntryCard} ${styles.deskEntryCardChat}`}
+                onClick={() => {
+                  setDeskEntryOpen(false);
+                  setActiveChatChannel("novelist");
+                }}
+              >
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-chat-v1.png" alt="" />
+                <span>
+                  <strong>和小说家说话</strong>
+                  <small>进入主系统对话</small>
+                </span>
+              </button>
+              <a className={`${styles.deskEntryCard} ${styles.deskEntryCardWorldLab}`} href="/vnext/world-lab">
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-world-lab-v1.png" alt="" />
+                <span>
+                  <strong>打开正文工作台</strong>
+                  <small>进入 World Lab 看作品</small>
+                </span>
+              </a>
+              <button
+                type="button"
+                className={`${styles.deskEntryCard} ${styles.deskEntryCardLife}`}
+                onClick={() => {
+                  setDeskEntryOpen(false);
+                  setLifePlanOpen(true);
+                }}
+              >
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-life-v1.png" alt="" />
+                <span>
+                  <strong>看看今日生活</strong>
+                  <small>查看他接下来要做什么</small>
+                </span>
+              </button>
+            </div>
+            </div>
+          </section>
+        </div>
+      )}
       <section className={styles.mapDock} data-testid="room-map" data-open={mapOpen} aria-label="整屋地图">
         <button
           type="button"
@@ -1886,6 +2095,13 @@ export function NovelistRoom() {
                   <p className={styles.eyebrow}>小说家 · 今日生活节奏</p>
                   <h2>先把日子过完，再把故事写完</h2>
                 </div>
+                <a
+                  href="/room/reincarnation"
+                  className={styles.reincarnationLinkBtn}
+                  data-testid="reincarnation-entry-btn"
+                >
+                  🔄 重选前身 / 转生通道 ➔
+                </a>
               </div>
               <button type="button" className={styles.lifePlanClose} onClick={() => setLifePlanOpen(false)} aria-label="收起今日生活规划">×</button>
             </div>
@@ -1966,7 +2182,7 @@ export function NovelistRoom() {
                   <div className={styles.lifeRuntimePhase}>
                     <span className={styles.lifeRuntimePulse} aria-hidden="true" />
                     <span>{runtimePhaseLabels[lifeRuntime.phase] ?? lifeRuntime.phase}</span>
-                    <small>{activeRuntimeActivity?.id ?? "没有强行安排下一件事"}</small>
+                    <small>{observationActivityLabel}</small>
                   </div>
                   <div className={styles.lifeNeedBars}>
                     <div><span>饥饿</span><i><b style={{ width: `${lifeRuntime.host.hunger}%` }} /></i><small>{Math.round(lifeRuntime.host.hunger)}</small></div>
@@ -2195,7 +2411,6 @@ export function NovelistRoom() {
             routePoints={scene.routePoints}
             stateByInteractionId={sceneInteractionStateById}
             actorPosition={actorPosition}
-            hidden={Boolean(actionPreview || routeTransition)}
           />
           {routeTransition?.fromPreview && (
             <img
@@ -2231,6 +2446,31 @@ export function NovelistRoom() {
             <span>{dayPhaseLabels[lifeRuntime.host.dayPhase]}</span>
             <i aria-hidden="true" />
             <span>{energyBandLabels[lifeRuntime.energyBand]}</span>
+          </div>
+          <div
+            className={styles.stageLifeSignal}
+            data-testid="stage-life-signal"
+            data-scene-id={sceneId}
+            data-activity={state}
+            data-activity-running={Boolean(activeRuntimeActivity)}
+            role="status"
+            aria-live="polite"
+            aria-label={`生活状态：${stageLifeSignal.label}。${stageLifeSignal.mood}`}
+          >
+            <span className={styles.stageLifeSignalIcon} aria-hidden="true">{stageLifeSignal.icon}</span>
+            <span className={styles.stageLifeSignalCopy}>
+              <small>生活状态 · {scene.label}</small>
+              <strong>{stageLifeSignal.label}</strong>
+              <em>{stageLifeSignal.mood}</em>
+            </span>
+            {activeRuntimeActivity && (
+              <span className={styles.stageLifeSignalMeta} aria-hidden="true">
+                <span className={styles.stageLifeSignalProgress}>
+                  <i style={{ width: `${activityProgressPercent ?? 0}%` }} />
+                </span>
+                <small>{activityProgressLabel}</small>
+              </span>
+            )}
           </div>
           {sceneJourney && (
             <div
@@ -2341,25 +2581,25 @@ export function NovelistRoom() {
                  currentActorPointRef.current = sample.pointId;
                  setActorPosition({ x: sample.x, y: sample.y });
                  setActorPerspectiveScale(sample.stableScale);
-               }
-
-               const interactionRouteKey = `${sceneId}:${routeCommand.routeId}:${routeCommand.token}`;
-              if (interactionEventRouteKeyRef.current !== interactionRouteKey) {
-                interactionEventRouteKeyRef.current = interactionRouteKey;
-                appliedInteractionEventKeysRef.current = new Set();
-              }
-              if (sample.progress !== undefined) {
-                for (const interactionEvent of activeRoute?.interactionEvents ?? []) {
-                  if (sample.progress < interactionEvent.progress) continue;
-                  const eventKey = `${interactionEvent.interactionId}:${interactionEvent.pointId}:${interactionEvent.stateId}`;
-                  if (appliedInteractionEventKeysRef.current.has(eventKey)) continue;
-                  appliedInteractionEventKeysRef.current.add(eventKey);
-                  setSceneInteractionOverrides((currentOverrides) => ({
-                    ...currentOverrides,
-                    [`${sceneId}:${interactionEvent.interactionId}`]: interactionEvent.stateId,
-                  }));
                 }
-              }
+
+                const interactionRouteKey = `${sceneId}:${routeCommand.routeId}:${routeCommand.token}`;
+                if (interactionEventRouteKeyRef.current !== interactionRouteKey) {
+                  interactionEventRouteKeyRef.current = interactionRouteKey;
+                  appliedInteractionEventKeysRef.current = new Set();
+                }
+                if (sample.progress !== undefined && activeRoute) {
+                  for (const interactionEvent of activeRoute.interactionEvents ?? []) {
+                    if (sample.progress < interactionEventTriggerProgress(activeRoute, interactionEvent)) continue;
+                    const eventKey = `${interactionEvent.interactionId}:${interactionEvent.pointId}:${interactionEvent.stateId}`;
+                    if (appliedInteractionEventKeysRef.current.has(eventKey)) continue;
+                    appliedInteractionEventKeysRef.current.add(eventKey);
+                    setSceneInteractionOverrides((currentOverrides) => ({
+                      ...currentOverrides,
+                      [`${sceneId}:${interactionEvent.interactionId}`]: interactionEvent.stateId,
+                    }));
+                  }
+                }
               const motionCueKey = `${sceneId}:${routeCommand.routeId}:${routeCommand.token}`;
               if (
                 sample.progress !== undefined
@@ -2507,17 +2747,17 @@ export function NovelistRoom() {
               <span className={styles.dayTimelineRail} aria-hidden="true" />
               <span className={styles.dayTimelineProgress} style={{ width: `${clockProgress}%` }} aria-hidden="true" />
               <span className={styles.dayTimelineNow} style={{ left: `${clockProgress}%` }} aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 1L9.8 6.2L15 8L9.8 9.8L8 15L6.2 9.8L1 8L6.2 6.2L8 1Z" fill="#f7d58e" stroke="#ffffff" strokeWidth="1" />
-                </svg>
+                <span className={styles.dayTimelineNowMark} />
               </span>
               {dayPhaseOrder.map((phase) => (
                 <span
                   key={phase}
                   className={styles.dayTimelinePhase}
+                  data-day-phase-marker=""
                   data-phase={phase}
                   data-current={clockPhase === phase}
                   style={{ left: `${(dayPhaseStartMinutes[phase] / (24 * 60)) * 100}%` }}
+                  aria-hidden="true"
                 >
                   <PhaseIconSvg phase={phase} />
                   <small>{dayPhaseLabels[phase]}</small>

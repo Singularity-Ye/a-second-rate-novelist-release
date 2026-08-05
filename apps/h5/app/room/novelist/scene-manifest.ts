@@ -484,6 +484,8 @@ export type NovelistSceneInteractionAsset = {
   mode: "scene" | "actor";
   zIndex: number;
   scale: number;
+  /** Optional normalized scene position for fixed scene props authored in 3001. */
+  position?: { x: number; y: number };
   /** Normalized scene/actor-anchor offset. */
   offset: { x: number; y: number };
 };
@@ -1312,8 +1314,8 @@ export const formalEcologySceneManifest: {
       label: "玄关",
       subtitle: "家与外界的边界；采风、信箱与回家都从这里发生。",
       masterAsset: {
-        assetId: "entrance-scene-master-transit-hub-v1-lossless",
-        src: `${formalSceneRoot}/entrance/entrance-scene-master-transit-hub-v1-lossless.webp`,
+        assetId: "entrance-scene-master-transit-hub-v2-interaction-clean",
+        src: `${formalSceneRoot}/entrance/entrance-scene-master-transit-hub-v2-interaction-clean.webp`,
         width: 1774,
         height: 887,
         status: "approved",
@@ -1321,7 +1323,7 @@ export const formalEcologySceneManifest: {
       },
       runtimeGate: pausedSceneRuntimeGate("玄关暂停运行时接入；等待三场景施工批次完成后再恢复。"),
       assetContract: pendingSceneAssetContract(
-        `${formalSceneRoot}/entrance/entrance-scene-master-transit-hub-v1-lossless.webp`,
+        `${formalSceneRoot}/entrance/entrance-scene-master-transit-hub-v2-interaction-clean.webp`,
         ["outside-door", "return-home", "bathroom-door"],
         "blocked",
         "玄关属于暂停节点，不向正式 room 提供 runtime 动作装配。",

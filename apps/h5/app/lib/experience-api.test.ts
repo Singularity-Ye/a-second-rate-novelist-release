@@ -137,10 +137,12 @@ describe("vNext H5 experience API", () => {
 
   beforeEach(async () => {
     vi.resetModules();
+    window.__ERLIU_RUNTIME_API_BASE_URL__ = "/api";
     api = await import("./experience-api");
   });
 
   afterEach(() => {
+    delete window.__ERLIU_RUNTIME_API_BASE_URL__;
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
   });
@@ -258,7 +260,6 @@ describe("vNext H5 experience API", () => {
   it.each([
     { ...MANIFEST, provider: "private-provider" },
     { ...MANIFEST, audienceMode: "verified_adult_external" },
-    { ...MANIFEST, inputPolicy: "real_input" },
   ])("rejects raw, extra, or non-synthetic admission manifest fields", async (manifest) => {
     const fetchMock = vi
       .fn()
@@ -280,6 +281,27 @@ describe("vNext H5 experience API", () => {
       status: 502,
     });
     expect(JSON.stringify(error)).not.toMatch(/provider|private-provider|real_input/);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("accepts a protected real-input admission manifest from the private preview", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        jsonResponse(401, {
+          code: "authentication_required",
+          recovery: "restore_session",
+        }),
+      )
+      .mockResolvedValueOnce(
+        jsonResponse(200, { ...MANIFEST, inputPolicy: "real_input" }),
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(api.bootstrapExperienceSession()).resolves.toEqual({
+      status: "admission_required",
+      manifest: { ...MANIFEST, inputPolicy: "real_input" },
+    });
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 

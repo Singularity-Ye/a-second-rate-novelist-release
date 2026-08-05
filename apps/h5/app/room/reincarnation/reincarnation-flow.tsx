@@ -89,8 +89,8 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "凤",
     tag: "宫斗风",
     monologue: "本宫卧薪尝胆五年，趁着疯狂星期四在皇上的红豆汤里下了真言散，明日我就是皇太后！",
-    accidentQuote: "本宫斗过了贵妃斗过了皇后...居然没斗过一辆大运送外卖的三轮车！",
-    heroReaction: "系统姐姐...你说话这个‘本宫’和‘受着呗’混搭风，真的不会出戏吗...",
+    accidentQuote: "本宫斗过了贵妃斗过了皇后……居然没斗过一辆大运送外卖的三轮车！",
+    heroReaction: "系统姐姐……你说话这个‘本宫’和‘受着呗’混搭风，真的不会出戏吗……",
   },
   {
     id: "worker",
@@ -98,7 +98,7 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "卷",
     tag: "职场风",
     monologue: "修改完第 18 版 PPT，明早我就能升职加薪当上总经理！",
-    accidentQuote: "老板，这算工伤吗...我不补考了，我下辈子要当老板使唤人！",
+    accidentQuote: "老板，这算工伤吗……我不补考了，我下辈子要当老板使唤人！",
     heroReaction: "喂！怎么感觉你这个金手指系统比我这个卡文作者还想摆烂啊？！",
   },
   {
@@ -107,8 +107,8 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "卦",
     tag: "硬核风",
     monologue: "代码跑通了！全网零 Bug！上线即封神！千万别动这行代码！",
-    accidentQuote: "这 Bug...连大运重卡都无法溢出啊！",
-    heroReaction: "两位系统大哥...你们说的‘堆栈溢出’，能帮我把今天 2000 字直接生成出来吗？",
+    accidentQuote: "这 Bug……连大运重卡都无法溢出啊！",
+    heroReaction: "两位系统大哥……你们说的‘堆栈溢出’，能帮我把今天 2000 字直接生成出来吗？",
   },
   {
     id: "mage",
@@ -116,16 +116,16 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "符",
     tag: "西幻风",
     monologue: "吟唱终极禁咒！大魔王，接受本贤者的天罚吧！",
-    accidentQuote: "禁咒...居然被大运耕地拖拉机给打断了？！",
-    heroReaction: "系统大哥...您别吟唱了，门外催更的编辑不是大魔王啊！",
+    accidentQuote: "禁咒……居然被大运耕地拖拉机给打断了？！",
+    heroReaction: "系统大哥……您别吟唱了，门外催更的编辑不是大魔王啊！",
   },
   {
     id: "detective",
     name: "密室名侦探",
     icon: "镜",
     tag: "悬疑风",
-    monologue: "真相只有一个！凶手就是隐藏在密室里的...",
-    accidentQuote: "密室天花板被大运重卡给砸穿了...这根本不讲物理逻辑啊！",
+    monologue: "真相只有一个！凶手就是隐藏在密室里的……",
+    accidentQuote: "密室天花板被大运重卡给砸穿了……这根本不讲物理逻辑啊！",
     heroReaction: "系统大哥，我只是废稿写砸了，别用看凶手的眼神看我啊！",
   },
   {
@@ -143,8 +143,8 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "鼎",
     tag: "美食风",
     monologue: "一道扬州炒饭，吃得远古大能当场痛哭流涕认我为主！",
-    accidentQuote: "送食材的大运货车直接把老夫的百年来面馆给平推了...",
-    heroReaction: "系统大厨，能给我做盘宵夜吗？写完这章我饿坏了...",
+    accidentQuote: "送食材的大运货车直接把老夫的百年来面馆给平推了……",
+    heroReaction: "系统大厨，能给我做盘宵夜吗？写完这章我饿坏了……",
   },
   {
     id: "gamer",
@@ -152,7 +152,7 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "竞",
     tag: "竞技风",
     monologue: "最后一波决胜团战！看本座闪现开团五杀翻盘！",
-    accidentQuote: "对方居然搬出了大运重卡作弊器，把服务器给物理碾平了...",
+    accidentQuote: "对方居然搬出了大运重卡作弊器，把服务器给物理碾平了……",
     heroReaction: "系统老哥，写小说不能靠手速 R Flash 啊！得讲逻辑啊！",
   },
   {
@@ -161,8 +161,8 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "疾",
     tag: "热血风",
     monologue: "冲过这最后一百米，我就是史上第一位全满贯金牌得主！",
-    accidentQuote: "后面冲上来的不是第二名...居然是一辆冒着蓝光的大运重卡？！",
-    heroReaction: "系统教官...今天能少跑五公里，多写一千字吗？",
+    accidentQuote: "后面冲上来的不是第二名……居然是一辆冒着蓝光的大运重卡？！",
+    heroReaction: "系统教官……今天能少跑五公里，多写一千字吗？",
   },
   {
     id: "artist",
@@ -170,7 +170,7 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "画",
     tag: "艺术风",
     monologue: "完成这幅画作，我的灵魂将与艺术同在！",
-    accidentQuote: "画面还没干，大运重卡就把我的画室给碾成渣了...",
+    accidentQuote: "画面还没干，大运重卡就把我的画室给碾成渣了……",
     heroReaction: "系统大师，要不您帮我画插图，我自己来敲字？",
   },
   {
@@ -179,8 +179,8 @@ export const IDENTITIES: IdentityOption[] = [
     icon: "典",
     tag: "探索风",
     monologue: "解开古墓壁画上的象形文字，终极文明密码即刻揭晓！",
-    accidentQuote: "壁画里封印的不是古代法老...居然是一整排异界大运重卡！",
-    heroReaction: "系统大哥...我那不是象形文字，我只是写快了连笔画混在一起了！别考据了！",
+    accidentQuote: "壁画里封印的不是古代法老……居然是一整排异界大运重卡！",
+    heroReaction: "系统大哥……我那不是象形文字，我只是写快了连笔画混在一起了！别考据了！",
   },
   {
     id: "demon",
@@ -239,6 +239,7 @@ export function SystemReincarnationFlow() {
   const [accidentBeatIndex, setAccidentBeatIndex] = useState(0);
   const [poseAssetErrorIdentityId, setPoseAssetErrorIdentityId] = useState<string | null>(null);
   const identityCardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const identityDockRef = useRef<HTMLDivElement | null>(null);
 
   // 3-Round Gene selections
   const [r1Choice, setR1Choice] = useState<GeneOption | null>(null);
@@ -285,6 +286,12 @@ export function SystemReincarnationFlow() {
     setSelectedIdentity(identity);
     setMangaBeatIndex(0);
     setAccidentBeatIndex(0);
+  };
+
+  const scrollIdentityDock = (delta: number) => {
+    const dock = identityDockRef.current;
+    if (!dock) return;
+    dock.scrollTo({ left: dock.scrollLeft + delta, behavior: "smooth" });
   };
 
   const nextStep = () => {
@@ -402,132 +409,209 @@ export function SystemReincarnationFlow() {
           {currentStep === 6 && "卷六 · 目标检索"}
           {currentStep === 7 && "卷七 · 绑定宿主"}
         </div>
+        {existingBinding && (
+          <div className={styles.existingBindingBadge} data-testid="existing-binding-card">
+            <span>已有系统快照 [{existingBinding.origin.personalityCode}] · 已绑定“{existingBinding.origin.identityName}”</span>
+            <Link href="/room" className={styles.topBindingBtn} data-testid="resume-binding-btn">进入房间 ↗</Link>
+            <button type="button" className={styles.topBindingResetBtn} onClick={restartReincarnation} data-testid="restart-reincarnation-btn">重新体验</button>
+          </div>
+        )}
       </div>
 
       <main className={currentStep === 1 ? styles.characterSelectStage : styles.stageCard}>
-        {/* Step 1: Clean Mother Background Stage (1:1 Pure Artwork) */}
+        {/* Step 1: Open Journal / RPG Character Binder Stage */}
         {currentStep === 1 && (
-          <div className={styles.image2StageContainer}>
-            {/* Left Parchment Attribute Slip Overlay */}
-            <div className={styles.leftParchmentSlip}>
-              <div className={styles.inkStrokeTitle}>
-                <h2 className={styles.inkCharacterName}>{selectedIdentity.name}</h2>
+          <>
+            <div className={styles.journalBinderStage}>
+            {/* Stitched Central Spine / Binder Rings */}
+            <div className={styles.journalSpine} />
+
+            {/* Left Page: Character Dossier Sheet */}
+            <div className={styles.journalLeftPage}>
+              <div className={styles.dossierHeader}>
+                <span className={styles.dossierBadge}>前身档案 · 卷一</span>
+                <h2 className={styles.inkCharacterName}>
+                  {selectedIdentity.name}
+                  <span className={styles.vermilionSealBadge} title="玄烛之印" />
+                </h2>
                 <span className={styles.inkSubTag}>{selectedIdentity.tag}</span>
               </div>
 
-              {/* Ink Astrological Circle */}
-              <div className={styles.inkAstrologicalCircle}>
-                <div className={styles.inkInnerDot} />
+              {/* Character Attributes Section */}
+              <div className={styles.attributeSection}>
+                <div className={styles.attrList}>
+                  <div className={styles.attrItem}>
+                    <span className={styles.attrLabel}>剑意 ✦</span>
+                    <div className={styles.attrTrack}><div className={styles.attrFill} style={{ width: "95%" }} /></div>
+                    <span className={styles.attrVal}>95</span>
+                  </div>
+                  <div className={styles.attrItem}>
+                    <span className={styles.attrLabel}>悟性 ❖</span>
+                    <div className={styles.attrTrack}><div className={styles.attrFill} style={{ width: "90%" }} /></div>
+                    <span className={styles.attrVal}>90</span>
+                  </div>
+                  <div className={styles.attrItem}>
+                    <span className={styles.attrLabel}>灵根 ▲</span>
+                    <div className={styles.attrTrack}><div className={styles.attrFill} style={{ width: "85%" }} /></div>
+                    <span className={styles.attrVal}>85</span>
+                  </div>
+                  <div className={styles.attrItem}>
+                    <span className={styles.attrLabel}>心境 ☯</span>
+                    <div className={styles.attrTrack}><div className={styles.attrFill} style={{ width: "70%" }} /></div>
+                    <span className={styles.attrVal}>70</span>
+                  </div>
+                </div>
+
+                {/* Xianxia Hexagonal Radar Emblem */}
+                <div className={styles.hexRadarWrapper}>
+                  <svg viewBox="0 0 120 120" width="105" height="105">
+                    {/* Outer Hexagon */}
+                    <polygon points="60,10 103,35 103,85 60,110 17,85 17,35" fill="none" stroke="rgba(168,98,50,0.35)" strokeWidth="1.5" />
+                    {/* Inner Hexagon Grid */}
+                    <polygon points="60,25 90,42 90,78 60,95 30,78 30,42" fill="none" stroke="rgba(168,98,50,0.2)" strokeWidth="1" strokeDasharray="3,3" />
+                    {/* Filled Radar Polygon */}
+                    <polygon points="60,15 97,38 92,79 60,90 35,74 24,39" fill="rgba(182,93,61,0.25)" stroke="#b65d3d" strokeWidth="2" />
+                    {/* Vertex Dots */}
+                    <circle cx="60" cy="15" r="3" fill="#b65d3d" />
+                    <circle cx="97" cy="38" r="3" fill="#b65d3d" />
+                    <circle cx="92" cy="79" r="3" fill="#b65d3d" />
+                    <circle cx="60" cy="90" r="3" fill="#b65d3d" />
+                    <circle cx="35" cy="74" r="3" fill="#b65d3d" />
+                    <circle cx="24" cy="39" r="3" fill="#b65d3d" />
+                    {/* Vertex Labels */}
+                    <text x="60" y="6" textAnchor="middle" fill="#78350f" fontSize="9" fontWeight="bold">剑</text>
+                    <text x="110" y="38" textAnchor="start" fill="#78350f" fontSize="9" fontWeight="bold">悟</text>
+                    <text x="104" y="88" textAnchor="start" fill="#78350f" fontSize="9" fontWeight="bold">灵</text>
+                    <text x="60" y="119" textAnchor="middle" fill="#78350f" fontSize="9" fontWeight="bold">心</text>
+                    <text x="16" y="88" textAnchor="end" fill="#78350f" fontSize="9" fontWeight="bold">体</text>
+                    <text x="10" y="38" textAnchor="end" fill="#78350f" fontSize="9" fontWeight="bold">魄</text>
+                  </svg>
+                </div>
               </div>
 
-              {/* 4 Attribute Ink Bar Charts */}
-              <div className={styles.attributeBarList}>
-                <div className={styles.attrRow}>
-                  <span className={styles.attrIcon}>✦</span>
-                  <div className={styles.attrBarFill} style={{ width: "85%" }} />
-                </div>
-                <div className={styles.attrRow}>
-                  <span className={styles.attrIcon}>❖</span>
-                  <div className={styles.attrBarFill} style={{ width: "70%" }} />
-                </div>
-                <div className={styles.attrRow}>
-                  <span className={styles.attrIcon}>▲</span>
-                  <div className={styles.attrBarFill} style={{ width: "90%" }} />
-                </div>
-                <div className={styles.attrRow}>
-                  <span className={styles.attrIcon}>☯</span>
-                  <div className={styles.attrBarFill} style={{ width: "65%" }} />
-                </div>
-              </div>
-
-              {/* Hexagonal Attribute Radar Chart */}
-              <div className={styles.hexRadarChart}>
-                <svg viewBox="0 0 100 100" width="65" height="65">
-                  <polygon points="50,5 90,27 90,73 50,95 10,73 10,27" fill="none" stroke="#78350f" strokeWidth="1.5" />
-                  <polygon points="50,20 78,35 75,68 50,80 25,65 22,35" fill="rgba(120,53,15,0.25)" stroke="#b91c1c" strokeWidth="1.5" />
-                </svg>
-              </div>
-
-              {/* Monologue Quote & Subtitle */}
-              <blockquote className={styles.leftMonologue}>“{selectedIdentity.monologue}”</blockquote>
-              <span className={styles.leftSubtitleHint}>先选一段人生，再让命运负责撞击</span>
+              {/* Character Monologue Quote */}
+              <blockquote className={styles.dossierQuote}>“{selectedIdentity.monologue}”</blockquote>
+              <div className={styles.dossierFooterHint}>先选一段人生，再让命运负责撞击</div>
             </div>
 
-            {/* Center Hero Pose Stage (Standing over background ink splatter) */}
-            <div className={styles.centerHeroPoseStage} data-testid="identity-pose-stage" aria-live="polite">
-              {hasUsablePoseAsset ? (
-                <img
-                  className={styles.heroPoseFullImage}
-                  src={selectedIdentity.poseAssetRef}
-                  alt={`${selectedIdentity.name}的姿态图候选`}
-                  data-testid="identity-pose-image"
-                  onError={() => setPoseAssetErrorIdentityId(selectedIdentity.id)}
-                  onLoad={() => setPoseAssetErrorIdentityId((current) => current === selectedIdentity.id ? null : current)}
-                />
-              ) : (
-                <div className={styles.selectionPosePlaceholder} data-testid="identity-pose-placeholder">
-                  <span>{poseAssetUnavailable ? "POSE ASSET / UNAVAILABLE" : "POSE SLOT / NOT REGISTERED"}</span>
-                  <strong>{poseAssetUnavailable ? "姿态图暂不可用" : "姿态图待补"}</strong>
-                  <small>{poseAssetUnavailable
-                    ? "当前引用无法加载；保留空槽位，不借用其他身份的姿态图。"
-                    : "当前身份已可体验，但纸镜尚未登记独立姿态资产。"}</small>
+            {/* Right Page: Full Ink Artwork Canvas */}
+            <div className={styles.journalRightPage}>
+              {/* Floating Sword-Chi Particle Embers */}
+              <div className={styles.swordChiParticles}>
+                <div className={styles.particleOne} />
+                <div className={styles.particleTwo} />
+                <div className={styles.particleThree} />
+              </div>
+
+              <div className={styles.artworkCanvas} data-testid="identity-pose-stage">
+                {hasUsablePoseAsset ? (
+                  <img
+                    className={styles.heroPoseFullImage}
+                    src={selectedIdentity.poseAssetRef}
+                    alt={`${selectedIdentity.name}的姿态图`}
+                    data-testid="identity-pose-image"
+                    onError={() => setPoseAssetErrorIdentityId(selectedIdentity.id)}
+                    onLoad={() => setPoseAssetErrorIdentityId((current) => current === selectedIdentity.id ? null : current)}
+                  />
+                ) : (
+                  <div className={styles.selectionPosePlaceholder} data-testid="identity-pose-placeholder">
+                    <span>{poseAssetUnavailable ? "POSE SLOT / UNAVAILABLE" : "POSE SLOT / NOT REGISTERED"}</span>
+                    <strong>{poseAssetUnavailable ? "姿态图暂不可用" : "姿态图待补"}</strong>
+                  </div>
+                )}
+
+                {selectedIdentity.id === "xianxia" && (
+                  <>
+                    <div className={styles.interactiveLorePin} style={{ top: "25%", left: "28%" }}>
+                      <span className={styles.pinPulse} />
+                      <span className={styles.pinTag}>✦ 斩天剑意</span>
+                      <div className={styles.pinTooltip}>曾一剑划开诸天九重天穹线</div>
+                    </div>
+
+                    <div className={styles.interactiveLorePin} style={{ top: "58%", left: "20%" }}>
+                      <span className={styles.pinPulse} />
+                      <span className={styles.pinTag}>❖ 本命紫霄</span>
+                      <div className={styles.pinTooltip}>随身温养万载之无上神剑</div>
+                    </div>
+
+                    <div className={styles.interactiveLorePin} style={{ top: "72%", left: "68%" }}>
+                      <span className={styles.pinPulse} />
+                      <span className={styles.pinTag}>☯ 渡劫残卷</span>
+                      <div className={styles.pinTooltip}>九重天劫下留存的飞升秘典</div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Bottom Right CTA Action Bar */}
+              <div className={styles.rightPageBottomBar}>
+                <div className={styles.soleProtagonistBadge}>
+                  <span className={styles.soleIcon}>{selectedIdentity.icon}</span>
+                  <div className={styles.soleMeta}>
+                    <strong>前身主角 · {selectedIdentity.name}</strong>
+                    <small>{selectedIdentity.tag}</small>
+                  </div>
                 </div>
-              )}
+
+                <button
+                  className={styles.soleStageCtaBtn}
+                  onClick={nextStep}
+                  data-testid="goto-step-2-btn"
+                >
+                  <span>翻开记忆册 ➔</span>
+                </button>
+              </div>
+            </div>
             </div>
 
-            {/* Existing Binding Snapshot Card (If available) */}
-            {existingBinding && (
-              <div className={styles.existingBindingOverlay} data-testid="existing-binding-card">
-                <span>LOCAL BINDING / 已有系统快照 [{existingBinding.origin.personalityCode}] · 你已绑定“{existingBinding.origin.identityName}”</span>
-                <Link href="/room" className={styles.actionBtn} data-testid="resume-binding-btn">继续进入房间 ↗</Link>
-                <button type="button" className={styles.secondaryActionBtn} onClick={restartReincarnation} data-testid="restart-reincarnation-btn">重新体验</button>
-              </div>
-            )}
+          <div className={styles.bottomDockBar} aria-label="前身身份档案库">
+            <button
+              type="button"
+              className={styles.dockArrowBtn}
+              aria-label="向左浏览前身身份"
+              onClick={() => scrollIdentityDock(-260)}
+            >
+              ‹
+            </button>
 
-            {/* Bottom Carved Stone/Wood Selector Dock (Overlaying wood dock in background art) */}
-            <div className={styles.bottomDockBar} aria-label="前身身份档案库">
-              <button type="button" className={styles.dockArrowBtn}>‹</button>
-
-              <div className={styles.dockCardGrid}>
-                {IDENTITIES.map((item, index) => {
-                  const isSelected = selectedIdentity.id === item.id;
-                  return (
-                    <button
-                      type="button"
-                      key={item.id}
-                      ref={(element) => {
-                        identityCardRefs.current[item.id] = element;
-                      }}
-                      className={`${styles.dockCard} ${isSelected ? styles.dockCardSelected : ""}`}
-                      onClick={() => selectIdentity(item)}
-                      aria-pressed={isSelected}
-                      aria-controls="identity-pose-stage"
-                      aria-label={`${item.name}，${item.tag}${isSelected ? "，当前选中" : ""}`}
-                      data-testid={`identity-option-${item.id}`}
-                    >
-                      {isSelected && <div className={styles.selectedRedCrest} />}
-                      <div className={styles.sealStampBadge}>
-                        <span>{item.icon}</span>
-                      </div>
-                      <span className={styles.dockName}>{item.name}</span>
-                      {isSelected && <div className={styles.selectedRedTassel} />}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <button type="button" className={styles.dockArrowBtn}>›</button>
-
-              {/* Bottom Right Red Wax Seal Confirm Button */}
-              <button
-                className={styles.bottomConfirmSealBtn}
-                onClick={nextStep}
-                data-testid="goto-step-2-btn"
-              >
-                <span>翻开记忆册</span>
-              </button>
+            <div className={styles.dockCardGrid} ref={identityDockRef}>
+              {IDENTITIES.map((item) => {
+                const isSelected = selectedIdentity.id === item.id;
+                return (
+                  <button
+                    type="button"
+                    key={item.id}
+                    ref={(element) => {
+                      identityCardRefs.current[item.id] = element;
+                    }}
+                    className={`${styles.dockCard} ${isSelected ? styles.dockCardSelected : ""}`}
+                    onClick={() => selectIdentity(item)}
+                    aria-pressed={isSelected}
+                    aria-controls="identity-pose-stage"
+                    aria-label={`${item.name}，${item.tag}${isSelected ? "，当前选中" : ""}`}
+                    data-testid={`identity-option-${item.id}`}
+                  >
+                    {isSelected && <div className={styles.selectedRedCrest} />}
+                    <div className={styles.sealStampBadge}>
+                      <span>{item.icon}</span>
+                    </div>
+                    <span className={styles.dockName}>{item.name}</span>
+                    {isSelected && <div className={styles.selectedRedTassel} />}
+                  </button>
+                );
+              })}
             </div>
+
+            <button
+              type="button"
+              className={styles.dockArrowBtn}
+              aria-label="向右浏览前身身份"
+              onClick={() => scrollIdentityDock(260)}
+            >
+              ›
+            </button>
           </div>
+          </>
         )}
 
         {/* Step 2: Origin manga memory book */}
@@ -554,74 +638,96 @@ export function SystemReincarnationFlow() {
                 >
                   <div className={styles.mangaBeatMeta}>
                     <span>MEMORY BOOK · {page.pageId} · {page.contractBeatId}</span>
-                    <small>{mangaBeatIndex + 1} / {memoryPages.length} 页</small>
+                    <small><span data-testid="manga-beat-counter">{mangaBeatIndex + 1} / {memoryPages.length}</span> 页</small>
                   </div>
-                  <div
-                    className={`${styles.mangaVisual} ${currentMemoryAsset ? styles.comicPageVisual : ""}`}
-                    style={{
-                      backgroundImage: currentMemoryAsset ? `url("${currentMemoryAsset}")` : "none",
-                    }}
-                    role={currentMemoryAsset ? "img" : undefined}
-                    aria-label={currentMemoryAsset ? page.alt : undefined}
-                    data-asset-ref={currentMemoryAsset ?? page.contentRef}
-                    data-asset-status={currentMemoryAsset ? "runtime-selected" : "missing-slot"}
-                    data-layer-owner="paper-mirror"
-                  >
-                    {!currentMemoryAsset && (
-                      <div className={styles.mangaAssetFallback}>
-                        <span>纸镜内容槽</span>
-                        <strong>该页漫画资产尚未接入</strong>
-                        <small>系统保留页框、页码与翻页；不以通用背景冒充漫画。</small>
-                      </div>
-                    )}
-                  </div>
-                  <div className={styles.mangaAssetStatus}>
-                    <span>{currentMemoryAsset ? "玄烛正式运行包已挂载" : "等待纸镜资产注册"}</span>
-                    <small>内容：纸镜 · 交互：系统层 · {page.contentRef}</small>
-                  </div>
-                  {page.textSlots.length > 0 && (
-                    <div className={styles.mangaTextSlots}>
-                      {page.textSlots.map((slot) => <blockquote key={slot}>{slot}</blockquote>)}
+
+                  {/* Center Manga Stage with Left & Right Flank Page Flip Controls */}
+                  <div className={styles.mangaStageWithFlanks}>
+                    {/* Left Flank Button */}
+                    <button
+                      type="button"
+                      className={styles.flankPageBtnLeft}
+                      onClick={() => setMangaBeatIndex((index) => Math.max(0, index - 1))}
+                      disabled={mangaBeatIndex === 0}
+                      data-testid="manga-prev-btn"
+                      title="上一页"
+                    >
+                      <span>‹</span>
+                      <small>上一页</small>
+                    </button>
+
+                    {/* Main Manga Canvas */}
+                    <div
+                      className={`${styles.mangaVisual} ${currentMemoryAsset ? styles.comicPageVisual : ""}`}
+                      style={{
+                        backgroundImage: currentMemoryAsset ? `url("${currentMemoryAsset}")` : "none",
+                      }}
+                      role={currentMemoryAsset ? "img" : undefined}
+                      aria-label={currentMemoryAsset ? page.alt : undefined}
+                      data-asset-ref={currentMemoryAsset ?? page.contentRef}
+                      data-asset-status={currentMemoryAsset ? "runtime-selected" : "missing-slot"}
+                      data-layer-owner="paper-mirror"
+                    >
+                      {!currentMemoryAsset && (
+                        <div className={styles.mangaAssetFallback}>
+                          <span>纸镜内容槽</span>
+                          <strong>该页漫画资产尚未接入</strong>
+                          <small>系统保留页框、页码与翻页；不以通用背景冒充漫画。</small>
+                        </div>
+                      )}
                     </div>
-                  )}
-                  <div className={styles.beatPager}>
-                    <button type="button" onClick={() => setMangaBeatIndex((index) => Math.max(0, index - 1))} disabled={mangaBeatIndex === 0} data-testid="manga-prev-btn">← 上一页</button>
-                    <span data-testid="manga-beat-counter">{mangaBeatIndex + 1} / {memoryPages.length}</span>
-                    <button type="button" onClick={advanceMangaBeat} data-testid="manga-next-btn">{mangaBeatIndex === memoryPages.length - 1 ? "让命运继续" : "下一页 →"}</button>
+
+                    {/* Right Flank Button */}
+                    <button
+                      type="button"
+                      className={styles.flankPageBtnRight}
+                      onClick={advanceMangaBeat}
+                      data-testid="manga-next-btn"
+                      title={mangaBeatIndex === memoryPages.length - 1 ? "让命运继续" : "下一页"}
+                    >
+                      <span>›</span>
+                      <small>{mangaBeatIndex === memoryPages.length - 1 ? "让命运继续" : "下一页"}</small>
+                    </button>
                   </div>
                 </section>
               );
             })()}
-
-            <div className={styles.mangaBox}>
-              <div className={styles.mangaHeader}><span className={styles.mangaTitle}>人生压缩边界</span><span className={styles.geneTraitTag}>不进入小说正史</span></div>
-              <p className={styles.optionText}>这里只记录“他为什么会成为现在的他”；玄烛 B1–B11 已作为独立静态运行时包接入，翻页不调用模型，也不会读取本机 Obsidian 路径。</p>
-            </div>
           </>
         )}
 
         {/* Step 3: The cross-world fortune impact */}
         {currentStep === 3 && (
-          <>
-            <div className={styles.stageHeader}>
-              <div className={styles.stageEyebrow}>FORTUNE IMPACT / FRAME {String(accidentBeatIndex + 1).padStart(2, "0")}</div>
-              <h1 className={styles.title}>异界大运撞击 · {accidentBeats[accidentBeatIndex]?.title}</h1>
-              <p className={styles.subtitle}>人生最庄严的那一刻，先被裂缝打断，再被一辆不讲天道的车负责到底。</p>
-            </div>
+          {...(() => {
+            const beat = accidentBeats[accidentBeatIndex] ?? accidentBeats[0]!;
+            const comicPageId = selectedIdentity.id === "xianxia"
+              ? beat.beatId === "accident-01"
+                ? "B10"
+                : beat.beatId === "accident-02"
+                  ? "B11"
+                  : undefined
+              : undefined;
+            return (
+              <section className={styles.mangaStoryFrame} data-testid="accident-stage" data-beat-id={beat.beatId} data-page-id={comicPageId}>
+                <div className={styles.mangaBeatMeta}>
+                  <span>FORTUNE IMPACT · FRAME {String(accidentBeatIndex + 1).padStart(2, "0")} · {beat.title}</span>
+                  <small>{accidentBeatIndex + 1} / {accidentBeats.length} 拍</small>
+                </div>
 
-            {(() => {
-              const beat = accidentBeats[accidentBeatIndex] ?? accidentBeats[0]!;
-              const comicPageId = selectedIdentity.id === "xianxia"
-                ? beat.beatId === "accident-01"
-                  ? "B10"
-                  : beat.beatId === "accident-02"
-                    ? "B11"
-                    : undefined
-                : undefined;
-              return (
-                <section className={styles.accidentStage} data-testid="accident-stage" data-beat-id={beat.beatId} data-page-id={comicPageId} data-visual-phase={beat.beatId}>
+                <div className={styles.mangaStageWithFlanks}>
+                  <button
+                    type="button"
+                    className={styles.flankPageBtnLeft}
+                    onClick={() => setAccidentBeatIndex((index) => Math.max(0, index - 1))}
+                    disabled={accidentBeatIndex === 0}
+                    data-testid="accident-prev-btn"
+                    title="上一页"
+                  >
+                    <span>‹</span>
+                    <small>上一页</small>
+                  </button>
+
                   <div
-                    className={`${styles.accidentVisual} ${currentAccidentAsset ? styles.comicPageVisual : ""}`}
+                    className={`${styles.mangaVisual} ${currentAccidentAsset ? styles.comicPageVisual : ""}`}
                     style={{
                       backgroundImage: currentAccidentAsset ? `url("${currentAccidentAsset}")` : "none",
                     }}
@@ -631,32 +737,29 @@ export function SystemReincarnationFlow() {
                     data-asset-status={currentAccidentAsset ? "runtime-selected" : "css-stage"}
                   >
                     {!currentAccidentAsset && (
-                      <>
-                        <div className={styles.accidentVisualShade} />
-                        <div className={styles.accidentVisualContent}>
-                          <span className={styles.truckBadge}>{beat.beatId === "accident-02" ? "大运重卡 · 跨界肇事" : beat.beatId === "accident-03" ? "白闪 · 未完念头" : beat.beatId === "blackout" ? "事故报告 · 拒绝申诉" : "天道异常 · 未登记"}</span>
-                          <strong>{beat.title}</strong>
-                          <p>{beat.visibleAction}</p>
-                          <small>{beat.textSlots.join(" / ")}</small>
-                        </div>
-                      </>
+                      <div className={styles.accidentVisualContent}>
+                        <span className={styles.truckBadge}>{beat.beatId === "accident-02" ? "大运重卡 · 跨界肇事" : beat.beatId === "accident-03" ? "白闪 · 未完念头" : beat.beatId === "blackout" ? "事故报告 · 拒绝申诉" : "天道异常 · 未登记"}</span>
+                        <strong>{beat.title}</strong>
+                        <p>{beat.visibleAction}</p>
+                        <small>{beat.textSlots.join(" / ")}</small>
+                      </div>
                     )}
                   </div>
-                  {beat.beatId === "blackout" && (
-                    <div className={styles.accidentReport} data-testid="accident-report">
-                      <span>OFFICIAL REPORT</span>
-                      <p>{originStory.accident.finalReport}</p>
-                    </div>
-                  )}
-                  <div className={styles.beatPager}>
-                    <button type="button" onClick={() => setAccidentBeatIndex((index) => Math.max(0, index - 1))} disabled={accidentBeatIndex === 0} data-testid="accident-prev-btn">← 上一页</button>
-                    <span data-testid="accident-beat-counter">{accidentBeatIndex + 1} / {accidentBeats.length}</span>
-                    <button type="button" onClick={advanceAccidentBeat} data-testid="accident-next-btn">{accidentBeatIndex === accidentBeats.length - 1 ? "接受这次飞升" : "下一拍 →"}</button>
-                  </div>
-                </section>
-              );
-            })()}
-          </>
+
+                  <button
+                    type="button"
+                    className={styles.flankPageBtnRight}
+                    onClick={advanceAccidentBeat}
+                    data-testid="accident-next-btn"
+                    title={accidentBeatIndex === accidentBeats.length - 1 ? "接受这次飞升" : "下一拍"}
+                  >
+                    <span>›</span>
+                    <small>{accidentBeatIndex === accidentBeats.length - 1 ? "接受飞升" : "下一拍"}</small>
+                  </button>
+                </div>
+              </section>
+            );
+          })()}
         )}
 
         {/* Step 4: Awakening as the novelist system */}
@@ -676,12 +779,12 @@ export function SystemReincarnationFlow() {
             >
               <div className={styles.awakeningShade} />
               <div className={styles.systemCore}>
-                <span className={styles.speakerName}>⚡ 主系统核心</span>
+                <span className={styles.speakerName}>主系统核心</span>
                 <strong>小说家晋升系统</strong>
                 <p>观察、理解、发布有理由且可验收的创作任务；不替宿主生活，不替宿主写正文。</p>
               </div>
               <div className={`${styles.dialogueBubble} ${styles.subsystemBubble}`} data-event-type="subsystem_notice">
-                <span className={styles.speakerName}>🤖 子系统 · 证据与边界审计</span>
+                <span className={styles.speakerName}>子系统 · 证据与边界审计</span>
                 <div>【启动报告】权限很低，但会检查任务理由、最小交付物、验收标准，以及路线和活动是否已经登记。</div>
               </div>
               <div className={styles.awakeningConstraint}>
@@ -701,8 +804,8 @@ export function SystemReincarnationFlow() {
               <p className={styles.subtitle}>子系统不替你选择，只把每次回答记录为一条长期语言倾向：世界观、宿主关系、创作动作。</p>
             </div>
             <div className={styles.calibrationBox} data-testid="personality-calibration">
-              <div><span className={styles.speakerName}>🤖 子系统</span><p>请主系统回答三轮问题。漫画解释“你从哪里来”，选项决定“你醒来后怎么说话”。</p></div>
-              <div><span className={styles.speakerName}>⚡ 当前人格载体</span><p>{selectedIdentity.name} · {originStory.genreFamily} · 尚未固化为长期口吻</p></div>
+                <div><span className={styles.speakerName}>子系统</span><p>请主系统回答三轮问题。漫画解释“你从哪里来”，选项决定“你醒来后怎么说话”。</p></div>
+                <div><span className={styles.speakerName}>当前人格载体</span><p>{selectedIdentity.name} · {originStory.genreFamily} · 尚未固化为长期口吻</p></div>
             </div>
 
             <div className={styles.roundProgress}>
@@ -749,7 +852,7 @@ export function SystemReincarnationFlow() {
 
             {r1Choice && r2Choice && r3Choice && (
               <div className={styles.mangaBox}>
-                <div className={styles.mangaHeader}><span className={styles.mangaTitle}>⚡ 64 型人格固化完成</span><span className={styles.geneCodeBadge}>代码 [{geneCode}]</span></div>
+                  <div className={styles.mangaHeader}><span className={styles.mangaTitle}>64 型人格固化完成</span><span className={styles.geneCodeBadge}>代码 [{geneCode}]</span></div>
                 <p className={styles.optionText}>主系统将以这三轮选择生成长期口吻；身份词库来自前身，动作策略来自人格码。</p>
                 <button className={styles.actionBtn} onClick={nextStep} data-testid="goto-step-6-btn">确认口吻 · 检索宿主 ➔</button>
               </div>
@@ -780,33 +883,33 @@ export function SystemReincarnationFlow() {
               <div className={styles.alarmOverlay} />
 
               <div className={styles.targetCard}>
-                <div className={styles.targetAvatar}>💼</div>
+                  <div className={styles.targetAvatar} aria-label="商界目标">商</div>
                 <div className={styles.targetInfo}>
                   <div className={styles.targetName}>身价千亿商界大佬 (首选目标)</div>
                   <div className={styles.targetDesc}>资产千亿、果断利落，主系统想用三天重修化神</div>
                 </div>
-                <span className={styles.targetStatus}>[被拦截 ❌]</span>
+                  <span className={styles.targetStatus}>已拦截归档</span>
               </div>
 
               <div className={`${styles.targetCard} ${styles.targetCardLock}`}>
-                <div className={styles.targetAvatar}>✍️</div>
+                  <div className={styles.targetAvatar} aria-label="小说家目标">韩</div>
                 <div className={styles.targetInfo}>
                   <div className={styles.targetName}>二流小说家小韩 (强锁目标)</div>
                   <div className={styles.targetDesc}>住在废柴小破屋、昨晚卡文没睡好挂着黑眼圈</div>
                 </div>
-                <span className={styles.lockBadge}>🚨 强锁中</span>
+                  <span className={styles.lockBadge}>强制锁定</span>
               </div>
             </div>
 
             <div className={styles.mangaBox}>
               <div className={styles.mangaHeader}>
-                <span className={styles.mangaTitle}>💥 戏剧拉扯对话</span>
+                  <span className={styles.mangaTitle}>系统争执摘录</span>
               </div>
               <blockquote className={styles.mangaQuote}>
-                ⚡ <strong>{selectedIdentity.name} · {previewBinding.persona.interventionLabel}</strong>：“我刚看中那个家财万贯的目标，你却让我去扶持一个住在小破屋里、卡文挂着黑眼圈的二流小说家？！”
+                  <strong>{selectedIdentity.name} · {previewBinding.persona.interventionLabel}</strong>：“我刚看中那个家财万贯的目标，你却让我去扶持一个住在小破屋里、卡文挂着黑眼圈的二流小说家？！”
               </blockquote>
               <blockquote className={styles.mangaQuote}>
-                🤖 <strong>子系统 AI · subsystem_notice</strong>：“【警告！检测到主系统偏离扶持使命。目标已锁定小韩；请先准备有理由、有交付物、有验收标准的任务。】”
+                  <strong>子系统 · subsystem_notice</strong>：“【警告：检测到主系统偏离扶持使命。目标已锁定小韩；请先准备有理由、有交付物、有验收标准的任务。】”
               </blockquote>
             </div>
 
@@ -842,17 +945,17 @@ export function SystemReincarnationFlow() {
 
             <div className={styles.encounterBox}>
               <div className={`${styles.dialogueBubble} ${styles.ancestorBubble}`}>
-                <span className={styles.speakerName}>⚡ 主系统 · {selectedIdentity.name} · 基因 [{geneCode}]</span>
+                <span className={styles.speakerName}>主系统 · {selectedIdentity.name} · 基因 [{geneCode}]</span>
                 <div>“{getSystemDialogue(previewBinding.persona, previewBinding.task, { sceneLabel: "小破屋", activityLabel: "首次接触", focus: 42, fatigue: 78 })}”</div>
               </div>
 
               <div className={`${styles.dialogueBubble} ${styles.subsystemBubble}`}>
-                <span className={styles.speakerName}>🤖 子系统 · subsystem_notice</span>
+                <span className={styles.speakerName}>子系统 · subsystem_notice</span>
                 <div>【滴！检测到主系统口吻已固化为“{previewBinding.persona.worldviewLabel} / {previewBinding.persona.relationshipLabel} / {previewBinding.persona.interventionLabel}”。宿主不是魔丸，只是一个需要自己决定是否写作的小说家。】</div>
               </div>
 
               <div className={`${styles.dialogueBubble} ${styles.heroBubble}`}>
-                <span className={styles.speakerName}>😱 宿主小韩 (惊吓扶额)</span>
+                <span className={styles.speakerName}>宿主小韩 · 惊吓扶额</span>
                 <div>
                   “{selectedIdentity.heroReaction}”
                 </div>
@@ -865,7 +968,7 @@ export function SystemReincarnationFlow() {
               data-testid="enter-room-btn"
               onClick={bindSystemAndEnterRoom}
             >
-              🚪 带着 [{geneCode}] 基因开启房间生态 ➔
+              带着 [{geneCode}] 基因开启房间生态 ➔
             </Link>
           </>
         )}
