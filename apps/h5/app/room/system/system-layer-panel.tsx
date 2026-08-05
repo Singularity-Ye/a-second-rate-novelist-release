@@ -1341,6 +1341,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
   const experienceHandoffView = effectiveExperienceHandoffStatus === null ? null : (
     <section
       className={styles.experienceHandoff}
+      data-art-layer="creative-progress-v6-alpha"
       data-testid="experience-handoff"
       data-experience-status={effectiveExperienceHandoffStatus}
       role="status"
@@ -1484,7 +1485,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
             <small data-testid="system-intent-draft">意图草稿：{hostIntentSuggestion(pendingHostMessage.key).label}（可编辑）</small>
           )}
         </div>
-        <div className={styles.composerField}>
+        <div className={styles.composerField} data-art-layer="writing-input-bar-v6-alpha">
           <textarea
             ref={messageInputRef}
             aria-label={chatMode === "novelist" ? "对小说家说点什么" : "对子系统说点什么"}
@@ -1538,6 +1539,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
         className={styles.panelToggle}
         aria-expanded={expanded}
         aria-controls="novelist-conversation"
+        aria-label={expanded ? "收起小说家房间" : "打开小说家房间"}
         onClick={() => requestChannel(expanded ? null : chatMode)}
       >
         <span className={styles.novelistMark} data-avatar-state={chatMode === "novelist" ? novelistAvatar.state : "subsystem"} aria-hidden="true">{chatMode === "novelist" ? novelistAvatar.icon : "◈"}</span>
@@ -1550,6 +1552,53 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
 
       {expanded && (
         <div className={styles.console} id="novelist-conversation">
+          {chatMode === "novelist" && (
+            <div className={styles.roomFrontstage} data-testid="room-v6-frontstage">
+              <div className={styles.roomTitleBookmark} data-testid="room-title-bookmark">
+                <img
+                  className={styles.roomTitleBookmarkArt}
+                  src="/assets/ui/system-layer-materials-v6/room-title-bookmark-v6-alpha.png"
+                  alt="二流小说家的房间"
+                />
+                <div className={styles.roomBookmarkCopy}>
+                  <span>小说家频道</span>
+                  <small>聊天主轴 · 任务作为附件</small>
+                </div>
+              </div>
+
+              <section
+                className={styles.novelistStatusCard}
+                data-testid="novelist-status-card"
+                data-avatar-state={novelistAvatar.state}
+                aria-label="小说家当前状态"
+              >
+                <img
+                  className={styles.novelistStatusArt}
+                  src="/assets/ui/system-layer-materials-v6/novelist-status-v6-alpha.png"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <div className={styles.novelistStatusIdentity}>
+                  <span className={styles.novelistStatusPortrait} data-avatar-state={novelistAvatar.state}>
+                    <img src={novelistAvatar.src} alt="" />
+                    <b aria-hidden="true">{novelistAvatar.icon}</b>
+                  </span>
+                  <div className={styles.novelistStatusCopy}>
+                    <span>小说家状态</span>
+                    <strong>{presence}</strong>
+                    <small>{novelistAvatar.label.replace(/^小说家：/, "")}</small>
+                  </div>
+                </div>
+                <dl className={styles.novelistStatusMetrics}>
+                  <div><dt>所在</dt><dd>{observation.sceneLabel}</dd></div>
+                  <div><dt>专注</dt><dd>{clamp(observation.focus)}%</dd></div>
+                  <div><dt>关系</dt><dd>{relationshipLabels[novelistPersona.relationshipStage]}</dd></div>
+                </dl>
+                <p className={styles.novelistStatusFootnote}>{observation.activityLabel}</p>
+              </section>
+            </div>
+          )}
+
           <div className={styles.chatHeaderBar}>
             <div className={styles.chatIdentity} data-testid="system-chat-identity">
               <span className={styles.chatIdentitySeal}>主</span>
@@ -1797,7 +1846,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
                 </section>
               )}
 
-              <div className={styles.novelistMain}>
+              <div className={styles.novelistMain} data-art-layer="central-chat-paper-v6-alpha">
                 {dialogueView}
                 {experienceHandoffView}
                 {storyContextView}

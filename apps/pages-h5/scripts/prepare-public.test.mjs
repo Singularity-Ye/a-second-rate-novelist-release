@@ -16,8 +16,19 @@ async function readAllowlist() {
 test("Pages public assets are an explicit runtime-only allowlist", async () => {
   const allowlist = await readAllowlist();
   assert.equal(Array.isArray(allowlist), true);
-  assert.equal(allowlist.length, 57);
+  assert.equal(allowlist.length, 62);
   assert.equal(new Set(allowlist).size, allowlist.length);
+
+  const v6RoomAssets = [
+    "assets/ui/system-layer-materials-v6/central-chat-paper-v6-alpha.png",
+    "assets/ui/system-layer-materials-v6/creative-progress-v6-alpha.png",
+    "assets/ui/system-layer-materials-v6/novelist-status-v6-alpha.png",
+    "assets/ui/system-layer-materials-v6/room-title-bookmark-v6-alpha.png",
+    "assets/ui/system-layer-materials-v6/writing-input-bar-v6-alpha.png",
+  ];
+  for (const asset of v6RoomAssets) {
+    assert.equal(allowlist.includes(asset), true, asset);
+  }
 
   const forbiddenFragments = [
     "reference-pack",

@@ -55,5 +55,10 @@
   "assets/prologue/reincarnation/xuanzhu/v1/b11.webp",
   "assets/prologue/reincarnation/xuanzhu/v1/character-card.webp",
   "assets/prologue/reincarnation/xuanzhu/v1/manifest.json",
-  "assets/ui/paper/handmade-paper-texture-v1.webp"
+  "assets/ui/paper/handmade-paper-texture-v1.webp",
+  "assets/ui/system-layer-materials-v6/central-chat-paper-v6-alpha.png",
+  "assets/ui/system-layer-materials-v6/creative-progress-v6-alpha.png",
+  "assets/ui/system-layer-materials-v6/novelist-status-v6-alpha.png",
+  "assets/ui/system-layer-materials-v6/room-title-bookmark-v6-alpha.png",
+  "assets/ui/system-layer-materials-v6/writing-input-bar-v6-alpha.png"
 ]

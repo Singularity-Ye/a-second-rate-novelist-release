@@ -2883,3 +2883,374 @@
     padding-right: .48rem;
     padding-left: .48rem;
   }
+
+/* v6 frontstage: the generated bookmark and status sheet are skins only.
+ * Live channel, presence, mood and relationship copy stays in the DOM. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle {
+  position: absolute;
+  z-index: 12;
+  top: .78rem;
+  right: 2.72rem;
+  display: grid;
+  place-items: center;
+  width: 1.82rem;
+  min-height: 1.82rem;
+  padding: 0;
+  border: 1px solid rgba(126, 80, 32, .42);
+  border-radius: 50%;
+  color: #6a4224;
+  background: rgba(255, 248, 226, .74);
+  box-shadow: 0 .12rem .24rem rgba(75, 37, 14, .12), inset 0 1px rgba(255, 255, 255, .58);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle:hover,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle:focus-visible {
+  border-color: rgba(151, 91, 28, .78);
+  color: #3f2416;
+  background: #fff8df;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle .novelistMark,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle .panelTitle {
+  display: none;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle .panelCaret {
+  display: grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: inherit;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .console {
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .admissionCard,
+.panel[data-expanded="true"][data-chat-mode="novelist"] .gatewayNotice {
+  position: static;
+  inset: auto;
+  grid-column: 1 / -1;
+  width: auto;
+  max-width: none;
+  margin: 0 .18rem;
+}
+
+.roomFrontstage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(8.6rem, 9rem);
+  gap: .58rem;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+  padding: .12rem .18rem 0;
+}
+
+.roomTitleBookmark {
+  position: relative;
+  width: min(100%, 44rem);
+  aspect-ratio: 4.1;
+  min-width: 0;
+  overflow: hidden;
+  isolation: isolate;
+  filter: drop-shadow(0 .4rem .55rem rgba(59, 33, 15, .16));
+}
+
+.roomTitleBookmarkArt {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  pointer-events: none;
+}
+
+.roomBookmarkCopy {
+  position: absolute;
+  z-index: 1;
+  bottom: 11%;
+  left: 8%;
+  display: grid;
+  gap: .08rem;
+  min-width: 0;
+  padding: .16rem .38rem;
+  border: 1px solid rgba(126, 80, 32, .22);
+  border-radius: 999px;
+  color: #6a4224;
+  background: rgba(255, 247, 220, .72);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .46);
+}
+
+.roomBookmarkCopy span {
+  font-size: .5rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  line-height: 1;
+}
+
+.roomBookmarkCopy small {
+  color: rgba(102, 73, 48, .72);
+  font-size: .42rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.novelistStatusCard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1122 / 1402;
+  min-width: 0;
+  overflow: hidden;
+  isolation: isolate;
+  color: #56351f;
+  filter: drop-shadow(0 .42rem .58rem rgba(59, 33, 15, .16));
+}
+
+.novelistStatusArt {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.novelistStatusIdentity {
+  position: absolute;
+  top: 9%;
+  right: 8%;
+  left: 15%;
+  display: grid;
+  grid-template-columns: 29% minmax(0, 1fr);
+  gap: 7%;
+  align-items: center;
+  min-width: 0;
+}
+
+.novelistStatusPortrait {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 2px solid rgba(166, 111, 44, .28);
+  border-radius: 50%;
+  background: rgba(255, 248, 226, .45);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .34), 0 .1rem .2rem rgba(75, 37, 14, .1);
+}
+
+.novelistStatusPortrait > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 32%;
+}
+
+.novelistStatusPortrait > b {
+  position: absolute;
+  right: -9%;
+  bottom: -7%;
+  display: grid;
+  place-items: center;
+  width: 35%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 246, 213, .9);
+  border-radius: 50%;
+  color: #fff7df;
+  background: #8e5d2f;
+  box-shadow: 0 1px 3px rgba(58, 30, 12, .32);
+  font-size: .4rem;
+  line-height: 1;
+}
+
+.novelistStatusPortrait[data-avatar-state="blocked"] > b { background: #a7533f; }
+.novelistStatusPortrait[data-avatar-state="tired"] > b { background: #67729b; }
+.novelistStatusPortrait[data-avatar-state="relieved"] > b { background: #a27435; }
+
+.novelistStatusCopy {
+  display: grid;
+  min-width: 0;
+  gap: .06rem;
+}
+
+.novelistStatusCopy span {
+  color: rgba(106, 66, 36, .68);
+  font-size: .4rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.novelistStatusCopy strong {
+  overflow: hidden;
+  color: #54311d;
+  font-size: .64rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novelistStatusCopy small {
+  overflow: hidden;
+  color: rgba(91, 61, 40, .72);
+  font-size: .42rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novelistStatusMetrics {
+  position: absolute;
+  top: 40%;
+  right: 13%;
+  left: 13%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .2rem;
+  margin: 0;
+}
+
+.novelistStatusMetrics > div {
+  display: grid;
+  min-width: 0;
+  gap: .05rem;
+}
+
+.novelistStatusMetrics dt {
+  color: rgba(106, 66, 36, .58);
+  font-size: .38rem;
+  line-height: 1;
+}
+
+.novelistStatusMetrics dd {
+  overflow: hidden;
+  margin: 0;
+  color: #654025;
+  font-size: .42rem;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novelistStatusFootnote {
+  position: absolute;
+  right: 14%;
+  bottom: 12%;
+  left: 14%;
+  overflow: hidden;
+  margin: 0;
+  color: rgba(91, 61, 40, .7);
+  font-size: .4rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* v6 paper surfaces: the generated images are skins only. Text, progress,
+ * status and the editable composer remain live DOM content. The horizontal
+ * strips intentionally keep their transparent top/bottom breathing room. */
+.panel[data-expanded="true"][data-chat-mode="novelist"] .novelistMain[data-art-layer="central-chat-paper-v6-alpha"] {
+  border-color: transparent;
+  border-radius: 0;
+  padding: 1.02rem 1.16rem .88rem;
+  background-color: transparent;
+  background-image: url("/assets/ui/system-layer-materials-v6/central-chat-paper-v6-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: none;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .novelistMain[data-art-layer="central-chat-paper-v6-alpha"] .conversation {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .experienceHandoff[data-art-layer="creative-progress-v6-alpha"] {
+  border-color: transparent;
+  border-radius: 0;
+  min-height: 4.9rem;
+  padding: .64rem .72rem .58rem;
+  background-color: transparent;
+  background-image: url("/assets/ui/system-layer-materials-v6/creative-progress-v6-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: none;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField[data-art-layer="writing-input-bar-v6-alpha"] {
+  border-color: transparent;
+  border-radius: 0;
+  background-color: transparent;
+  background-image: url("/assets/ui/system-layer-materials-v6/writing-input-bar-v6-alpha.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: none;
+}
+
+.panel[data-expanded="true"][data-chat-mode="novelist"] .composerField[data-art-layer="writing-input-bar-v6-alpha"]:focus-within {
+  border-color: transparent;
+  box-shadow: 0 0 0 .14rem rgba(204, 143, 58, .12);
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .novelistMain[data-art-layer="central-chat-paper-v6-alpha"] {
+    padding: .76rem .78rem .64rem;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .experienceHandoff[data-art-layer="creative-progress-v6-alpha"] {
+    min-height: 4.7rem;
+    padding: .54rem .56rem .5rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle {
+    top: .62rem;
+    right: 1.72rem;
+    width: 1.58rem;
+    min-height: 1.58rem;
+  }
+
+  .panel[data-expanded="true"][data-chat-mode="novelist"] .panelToggle .panelCaret {
+    width: 1.18rem;
+    height: 1.18rem;
+    font-size: .86rem;
+  }
+
+  .roomFrontstage {
+    grid-template-columns: minmax(0, 1fr) minmax(8.6rem, 9rem);
+    gap: .28rem;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .roomTitleBookmark {
+    width: 100%;
+  }
+
+  .roomBookmarkCopy {
+    bottom: 10%;
+    left: 7%;
+    padding: .12rem .28rem;
+  }
+
+  .roomBookmarkCopy span { font-size: .42rem; }
+  .roomBookmarkCopy small { font-size: .36rem; }
+  .novelistStatusCopy strong { font-size: .56rem; }
+  .novelistStatusMetrics dd { font-size: .38rem; }
+  .novelistStatusFootnote { font-size: .36rem; }
+}

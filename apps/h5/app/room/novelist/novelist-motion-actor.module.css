@@ -4,7 +4,7 @@
   width: 12%;
   min-width: 90px;
   max-width: 190px;
-  aspect-ratio: 1024 / 1536;
+  aspect-ratio: var(--actor-frame-ratio, 1024 / 1536);
   transform: translate(-50%, -89.4%) scale(
     calc(var(--perspective-scale-x, var(--perspective-scale, 1)) * var(--actor-asset-scale, 1)),
     calc(var(--perspective-scale-y, var(--perspective-scale, 1)) * var(--actor-asset-scale, 1))
@@ -120,7 +120,11 @@
    keeps the artwork crisp while making the turn feel like one elastic sheet. */
 .actorTurnLayer {
   position: absolute;
-  inset: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--actor-transition-ratio, 1024 / 1536);
   transform-origin: 50% 100%;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -242,8 +246,8 @@
   object-position: center bottom;
   /* Source PNGs have transparent bottom margins. Move only the pixels down
      to the anchor; the anchor itself remains the normalized floor contact. */
-  transform: translateY(calc((1 - var(--asset-alpha-bottom, 1)) * 100%)) scale(var(--actor-transition-asset-scale, 1)) scaleX(var(--actor-transition-flip, 1));
-  transform-origin: center bottom;
+  transform: translateY(calc((.894 - var(--asset-alpha-bottom, .894)) * 100%)) scale(var(--actor-transition-asset-scale, 1)) scaleX(var(--actor-transition-flip, 1));
+  transform-origin: 50% var(--asset-alpha-bottom, .894);
 }
 
 .idleMoodBubble {

@@ -74,9 +74,31 @@ export type NovelistMotionActorTransition = {
   toFacing?: FacingDirection;
   fromMode?: "scene" | "actor" | "none";
   toMode?: "scene" | "actor" | "none";
-  fromAsset?: Pick<NovelistFormalActorAsset, "assetId" | "src" | "alt" | "nativeFacing" | "alphaBottom" | "assetScale"> | null;
-  toAsset?: Pick<NovelistFormalActorAsset, "assetId" | "src" | "alt" | "nativeFacing" | "alphaBottom" | "assetScale"> | null;
+  fromAsset?: Pick<NovelistFormalActorAsset, "assetId" | "src" | "alt" | "width" | "height" | "nativeFacing" | "alphaBottom" | "assetScale"> | null;
+  toAsset?: Pick<NovelistFormalActorAsset, "assetId" | "src" | "alt" | "width" | "height" | "nativeFacing" | "alphaBottom" | "assetScale"> | null;
 };
+
+export const DEFAULT_ACTOR_FRAME_WIDTH = 1024;
+export const DEFAULT_ACTOR_FRAME_HEIGHT = 1536;
+export const DEFAULT_ACTOR_ALPHA_BOTTOM = 0.894;
+
+/**
+ * Keep the formal actor frame on the source bitmap's natural aspect ratio.
+ * The route editor sizes its actor wrapper from width + height:auto; using a
+ * fixed 1024×1536 frame here makes the cropped terrace cards appear at a
+ * different visual scale even when the route and asset multipliers match.
+ */
+export function actorAssetFrameRatio(
+  asset: Pick<NovelistFormalActorAsset, "width" | "height"> | null | undefined,
+): string {
+  const width = Number.isFinite(asset?.width) && (asset?.width ?? 0) > 0
+    ? asset!.width
+    : DEFAULT_ACTOR_FRAME_WIDTH;
+  const height = Number.isFinite(asset?.height) && (asset?.height ?? 0) > 0
+    ? asset!.height
+    : DEFAULT_ACTOR_FRAME_HEIGHT;
+  return `${width} / ${height}`;
+}
 
 /**
  * Arrival smoke is intentionally allowed to begin at the last authored bend
@@ -660,6 +682,8 @@ export function NovelistMotionActor({
     assetId: actorAsset.assetId,
     src: actorAsset.src,
     alt: actorAsset.alt,
+    width: actorAsset.width,
+    height: actorAsset.height,
     nativeFacing: actorAsset.nativeFacing,
     alphaBottom: actorAsset.alphaBottom,
     assetScale: actorAsset.assetScale,
@@ -668,6 +692,8 @@ export function NovelistMotionActor({
     assetId: actorAsset.assetId,
     src: actorAsset.src,
     alt: actorAsset.alt,
+    width: actorAsset.width,
+    height: actorAsset.height,
     nativeFacing: actorAsset.nativeFacing,
     alphaBottom: actorAsset.alphaBottom,
     assetScale: actorAsset.assetScale,
@@ -691,6 +717,10 @@ export function NovelistMotionActor({
   const flipIncomingAsset = directionalTurnActive
     ? formalEcologySceneManifest.walkingActorAssets[flipToFacing]
     : null;
+  const actorFrameAsset = transitionToAsset
+    ?? flipIncomingAsset
+    ?? actorAsset
+    ?? actorAssetCandidate;
   const referenceId = getCharacterReferenceForAction(activity, facing);
   const characterReference = sceneId === "dining-kitchen"
     ? {
@@ -754,6 +784,8 @@ export function NovelistMotionActor({
       data-scale-y={actorScale.toFixed(4)}
       data-point-facing={facing}
       data-asset-scale={(actorAsset?.assetScale ?? 1).toFixed(4)}
+      data-frame-width={actorFrameAsset?.width ?? DEFAULT_ACTOR_FRAME_WIDTH}
+      data-frame-height={actorFrameAsset?.height ?? DEFAULT_ACTOR_FRAME_HEIGHT}
       data-native-facing={actorAsset?.nativeFacing ?? ""}
        data-direction-turning={directionalTurnActive}
        data-route-transition={transitionActorActive ? "smoke" : "none"}
@@ -779,6 +811,7 @@ export function NovelistMotionActor({
         "--perspective-scale": actorScale,
         "--perspective-scale-x": actorScale,
         "--perspective-scale-y": actorScale,
+        "--actor-frame-ratio": actorAssetFrameRatio(actorFrameAsset),
         // A smoke handoff contains two independently framed assets. Apply
         // their asset-specific correction on each card below and leave this
         // anchor responsible only for route perspective while transitioning.
@@ -788,7 +821,7 @@ export function NovelistMotionActor({
             ?? transitionFromAsset?.assetScale
             ?? transitionToAsset?.assetScale
             ?? 1,
-        "--asset-alpha-bottom": actorAsset?.alphaBottom ?? 1,
+        "--asset-alpha-bottom": actorAsset?.alphaBottom ?? DEFAULT_ACTOR_ALPHA_BOTTOM,
         "--actor-transition-total": `${transition?.durationMs ?? 1100}ms`,
         "--actor-transition-turns": transition?.turns ?? 1,
       } as React.CSSProperties}
@@ -850,7 +883,13 @@ export function NovelistMotionActor({
           {visible && transitionActorActive ? (
             <>
               {transitionFromAsset && (
-                <div className={motionStyles.actorTurnLayer} data-turn-layer="outgoing" data-transition-layer="outgoing" aria-hidden="true">
+                <div
+                  className={motionStyles.actorTurnLayer}
+                  data-turn-layer="outgoing"
+                  data-transition-layer="outgoing"
+                  style={{ "--actor-transition-ratio": actorAssetFrameRatio(transitionFromAsset) } as React.CSSProperties}
+                  aria-hidden="true"
+                >
                   <img
                     className={motionStyles.paperActorImage}
                     src={transitionFromAsset.src}
@@ -858,7 +897,7 @@ export function NovelistMotionActor({
                     data-asset-id={transitionFromAsset.assetId}
                     data-asset-scale={transitionFromAsset.assetScale ?? 1}
                     style={{
-                      "--asset-alpha-bottom": transitionFromAsset.alphaBottom ?? actorAsset?.alphaBottom ?? 1,
+                      "--asset-alpha-bottom": transitionFromAsset.alphaBottom ?? actorAsset?.alphaBottom ?? DEFAULT_ACTOR_ALPHA_BOTTOM,
                       "--actor-transition-asset-scale": transitionFromAsset.assetScale ?? 1,
                       "--actor-transition-flip": transitionFromAsset.nativeFacing && transition?.fromFacing && transitionFromAsset.nativeFacing !== transition.fromFacing ? -1 : 1,
                     } as React.CSSProperties}
@@ -868,7 +907,12 @@ export function NovelistMotionActor({
                 </div>
               )}
               {transitionToAsset && (
-                <div className={motionStyles.actorTurnLayer} data-turn-layer="incoming" data-transition-layer="incoming">
+                <div
+                  className={motionStyles.actorTurnLayer}
+                  data-turn-layer="incoming"
+                  data-transition-layer="incoming"
+                  style={{ "--actor-transition-ratio": actorAssetFrameRatio(transitionToAsset) } as React.CSSProperties}
+                >
                   <img
                     className={motionStyles.paperActorImage}
                     src={transitionToAsset.src}
@@ -876,7 +920,7 @@ export function NovelistMotionActor({
                     data-asset-id={transitionToAsset.assetId}
                     data-asset-scale={transitionToAsset.assetScale ?? 1}
                     style={{
-                      "--asset-alpha-bottom": transitionToAsset.alphaBottom ?? actorAsset?.alphaBottom ?? 1,
+                      "--asset-alpha-bottom": transitionToAsset.alphaBottom ?? actorAsset?.alphaBottom ?? DEFAULT_ACTOR_ALPHA_BOTTOM,
                       "--actor-transition-asset-scale": transitionToAsset.assetScale ?? 1,
                       "--actor-transition-flip": transitionToAsset.nativeFacing && transition?.toFacing && transitionToAsset.nativeFacing !== transition.toFacing ? -1 : 1,
                     } as React.CSSProperties}
@@ -888,10 +932,19 @@ export function NovelistMotionActor({
             </>
           ) : visible && actorAsset && directionalTurnActive && flipOutgoingAsset && flipIncomingAsset ? (
             <>
-              <div className={motionStyles.actorTurnLayer} data-turn-layer="outgoing" aria-hidden="true">
+              <div
+                className={motionStyles.actorTurnLayer}
+                data-turn-layer="outgoing"
+                style={{ "--actor-transition-ratio": actorAssetFrameRatio(flipOutgoingAsset) } as React.CSSProperties}
+                aria-hidden="true"
+              >
                 <img className={motionStyles.paperActorImage} src={flipOutgoingAsset.src} alt="" data-asset-id={flipOutgoingAsset.assetId} data-asset-scale={flipOutgoingAsset.assetScale ?? 1} style={{ "--actor-transition-asset-scale": flipOutgoingAsset.assetScale ?? 1 } as React.CSSProperties} decoding="async" loading="eager" />
               </div>
-              <div className={motionStyles.actorTurnLayer} data-turn-layer="incoming">
+              <div
+                className={motionStyles.actorTurnLayer}
+                data-turn-layer="incoming"
+                style={{ "--actor-transition-ratio": actorAssetFrameRatio(flipIncomingAsset) } as React.CSSProperties}
+              >
                 <img className={motionStyles.paperActorImage} src={flipIncomingAsset.src} alt={flipIncomingAsset.alt} data-asset-id={flipIncomingAsset.assetId} data-asset-scale={flipIncomingAsset.assetScale ?? 1} style={{ "--actor-transition-asset-scale": flipIncomingAsset.assetScale ?? 1 } as React.CSSProperties} decoding="async" loading="eager" />
               </div>
             </>

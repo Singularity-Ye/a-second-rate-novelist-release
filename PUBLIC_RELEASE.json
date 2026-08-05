@@ -1,8 +1,8 @@
 {
   "protocol": "second-rate-novelist-public-release.v1",
-  "sourceCommit": "9c6f95871459ee5a96d56d12f5576766f3287e3d",
+  "sourceCommit": "69e91542f5fbd682c107049560e409f379b18932",
   "historyIncluded": false,
-  "runtimeAssetAllowlistCount": 57,
+  "runtimeAssetAllowlistCount": 62,
   "compileOnlyGeometryFiles": 1,
   "truthStatus": "candidate",
   "reviewStatus": "pending",

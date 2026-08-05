@@ -153,12 +153,20 @@ const LOCAL_TERRACE_ACTOR_DIMENSIONS: Readonly<Record<string, EmbeddedImageDimen
   "terrace-turtle-character-facing-right-asset-cropped-lossless.webp": { width: 177, height: 272 },
 };
 
+const LOCAL_ATTIC_ACTOR_DIMENSIONS: Readonly<Record<string, EmbeddedImageDimensions>> = {
+  "attic-character-reading-transparent-v1.webp": { width: 1024, height: 1536 },
+  "attic-character-retrieve-archive-transparent-v1.webp": { width: 1024, height: 1536 },
+};
+
 function readPublishedAssetDimensions(source: string | undefined): EmbeddedImageDimensions | undefined {
   if (!source) return undefined;
   const embedded = readEmbeddedWebpDimensions(source);
   if (embedded) return embedded;
   const normalized = (source.replace(/\\/g, "/").split("?")[0] ?? "").toLowerCase();
-  const knownAsset = Object.entries(LOCAL_TERRACE_ACTOR_DIMENSIONS).find(([name]) => normalized.endsWith(name));
+  const knownAsset = [
+    ...Object.entries(LOCAL_TERRACE_ACTOR_DIMENSIONS),
+    ...Object.entries(LOCAL_ATTIC_ACTOR_DIMENSIONS),
+  ].find(([name]) => normalized.endsWith(name));
   return knownAsset?.[1];
 }
 
@@ -170,6 +178,8 @@ function readPublishedAssetAlphaBottom(source: string | undefined): number | und
     || normalized.endsWith("terrace-watering-character-asset-cropped-lossless.webp")
     || normalized.endsWith("terrace-turtle-character-facing-right-asset-cropped-lossless.webp")
   ) return 1;
+  if (normalized.endsWith("attic-character-reading-transparent-v1.webp")
+    || normalized.endsWith("attic-character-retrieve-archive-transparent-v1.webp")) return 0.894;
   return undefined;
 }
 
@@ -254,6 +264,19 @@ function canonicalFacingForAsset(
     ?? inferSourceFacing(source);
 }
 
+function routeFacingAtProgress(
+  route: FormalRouteSnapshotRoute,
+  progress: number,
+): FormalFacingDirection {
+  const clamped = Math.max(0, Math.min(1, progress));
+  let selected: FormalRouteSnapshotPhase | undefined;
+  for (const phase of route.phases) {
+    if (phase.startProgress > clamped + 0.00001) continue;
+    if (!selected || phase.startProgress >= selected.startProgress) selected = phase;
+  }
+  return selected?.cameraFacing ?? route.initialFacing;
+}
+
 function eventAssetFacing(
   route: FormalRouteSnapshotRoute,
   event: FormalRouteSnapshotEvent,
@@ -261,7 +284,16 @@ function eventAssetFacing(
   source: string | undefined,
 ): FormalFacingDirection | undefined {
   const explicit = side === "from" ? event.fromAssetFacing : event.toAssetFacing;
-  return explicit ?? canonicalFacingForAsset(route, source, side === "to" ? event.targetStateId : undefined);
+  const canonical = canonicalFacingForAsset(route, source, side === "to" ? event.targetStateId : undefined);
+  if (explicit || canonical) return explicit ?? canonical;
+  const mode = side === "from" ? event.fromAssetMode : event.toAssetMode;
+  const inferredMode = inferAssetMode(
+    source,
+    mode,
+    route,
+    side === "to" ? event.targetStateId : undefined,
+  );
+  return inferredMode === "actor" ? routeFacingAtProgress(route, event.progress) : undefined;
 }
 
 function eventAssetScale(
@@ -395,6 +427,7 @@ function ensureAction(
   side: "from" | "to",
   actionIdHint: string | undefined,
   actionIds: Map<string, string>,
+  assetFacing?: FormalFacingDirection,
 ): string | undefined {
   if (!source || mode === "none" || !mode) return undefined;
   const assetScaleOverride = mode === "actor" ? eventAssetScale(event, side) : undefined;
@@ -418,6 +451,9 @@ function ensureAction(
         canonicalAction.actorAsset = {
           ...existing,
           ...(stateAssets?.canonicalFacing ? { nativeFacing: stateAssets.canonicalFacing as FormalFacingDirection } : {}),
+          ...(!stateAssets?.canonicalFacing && !existing.nativeFacing && assetFacing
+            ? { nativeFacing: assetFacing }
+            : {}),
           ...(typeof stateAssets?.scale === "number" ? { assetScale: stateAssets.scale } : {}),
           ...(typeof stateAssets?.alphaBottom === "number"
             ? { alphaBottom: stateAssets.alphaBottom }
@@ -439,7 +475,7 @@ function ensureAction(
         source,
         route,
         event,
-        side === "from" ? event.fromAssetFacing : event.toAssetFacing,
+        assetFacing ?? (side === "from" ? event.fromAssetFacing : event.toAssetFacing),
         assetScaleOverride,
       )
     : null;
@@ -553,6 +589,8 @@ function buildPublishedRoute(
     const toSource = effectiveSource(snapshotRoute, event, "to");
     const fromMode = effectiveMode(snapshotRoute, event, "from");
     const toMode = effectiveMode(snapshotRoute, event, "to");
+    const fromFacing = eventAssetFacing(snapshotRoute, event, "from", fromSource);
+    const toFacing = eventAssetFacing(snapshotRoute, event, "to", toSource);
     const fromActionId = ensureAction(
       sceneId,
       scene,
@@ -563,6 +601,7 @@ function buildPublishedRoute(
       "from",
       event.targetStateId,
       actionIds,
+      fromFacing,
     );
     let toActionId = ensureAction(
       sceneId,
@@ -574,6 +613,7 @@ function buildPublishedRoute(
       "to",
       event.targetStateId,
       actionIds,
+      toFacing,
     );
     // An initial state event without an explicit asset still means “enter as
     // the normal walking actor”. This is how old terrace exports represented
@@ -581,8 +621,6 @@ function buildPublishedRoute(
     if (!toActionId && event.progress === 0 && snapshotRoute.waypointIds.length > 1 && toMode !== "none") {
       toActionId = "walking";
     }
-    const fromFacing = eventAssetFacing(snapshotRoute, event, "from", fromSource);
-    const toFacing = eventAssetFacing(snapshotRoute, event, "to", toSource);
     bindings.set(index, {
       ...(fromActionId ? { fromActionId } : {}),
       ...(toActionId ? { toActionId } : {}),
