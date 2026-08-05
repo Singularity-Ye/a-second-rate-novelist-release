@@ -336,6 +336,12 @@ function effectiveSource(
   const source = side === "from" ? event.fromAssetSource : event.toAssetSource;
   if (source) return source;
   if (side !== "to" || !event.targetStateId) return undefined;
+  // The editor emits a progress-0 state event for the normal walking entry
+  // even when no destination actor asset is explicitly mounted. A registered
+  // state library must not turn that bookkeeping event into an action card at
+  // the route origin; doing so would reuse the entry facing for the later
+  // arrival handoff and skip the authored turn.
+  if (event.progress === 0 && !event.toAssetMode) return undefined;
   const stateAssets = route.assetLibrary?.states?.[event.targetStateId];
   if (!stateAssets) return undefined;
   const facing = event.toAssetFacing ?? stateAssets.canonicalFacing ?? route.initialFacing;

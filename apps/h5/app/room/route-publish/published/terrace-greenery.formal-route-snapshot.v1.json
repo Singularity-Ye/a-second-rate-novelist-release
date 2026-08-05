@@ -718,6 +718,15 @@
       },
       "initialFacing": "right",
       "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "next-state": {
+            "left": "/assets/ecology/formal-scenes/terrace-greenery/terrace-seated-relaxed-hands-in-pockets-character-asset-cropped-lossless.webp",
+            "right": "/assets/ecology/formal-scenes/terrace-greenery/terrace-seated-relaxed-hands-in-pockets-character-asset-cropped-lossless.webp",
+            "scale": 0.8
+          }
+        }
+      },
       "phases": [
         {
           "id": "entry-to-bench-phase-1",
@@ -795,6 +804,15 @@
       },
       "initialFacing": "left",
       "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "next-state": {
+            "left": "/assets/ecology/formal-scenes/terrace-greenery/terrace-seated-relaxed-hands-in-pockets-character-asset-cropped-lossless.webp",
+            "right": "/assets/ecology/formal-scenes/terrace-greenery/terrace-seated-relaxed-hands-in-pockets-character-asset-cropped-lossless.webp",
+            "scale": 0.8
+          }
+        }
+      },
       "phases": [
         {
           "id": "bench-to-entry-phase-1",
@@ -872,6 +890,15 @@
       },
       "initialFacing": "right",
       "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "next-state": {
+            "left": "/assets/ecology/formal-scenes/terrace-greenery/terrace-turtle-character-facing-right-asset-cropped-lossless.webp",
+            "right": "/assets/ecology/formal-scenes/terrace-greenery/terrace-turtle-character-facing-right-asset-cropped-lossless.webp",
+            "scale": 0.8
+          }
+        }
+      },
       "phases": [
         {
           "id": "entry-to-turtle-pond-phase-1",
@@ -949,6 +976,15 @@
       },
       "initialFacing": "left",
       "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "next-state": {
+            "left": "/assets/ecology/formal-scenes/terrace-greenery/terrace-turtle-character-facing-right-asset-cropped-lossless.webp",
+            "right": "/assets/ecology/formal-scenes/terrace-greenery/terrace-turtle-character-facing-right-asset-cropped-lossless.webp",
+            "scale": 0.8
+          }
+        }
+      },
       "phases": [
         {
           "id": "turtle-pond-to-entry-phase-1",
@@ -1032,6 +1068,15 @@
       },
       "initialFacing": "right",
       "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "next-state": {
+            "left": "/assets/ecology/formal-scenes/terrace-greenery/terrace-watering-character-asset-cropped-lossless.webp",
+            "right": "/assets/ecology/formal-scenes/terrace-greenery/terrace-watering-character-asset-cropped-lossless.webp",
+            "scale": 0.8
+          }
+        }
+      },
       "phases": [
         {
           "id": "entry-to-telescope-phase-1",
@@ -1137,6 +1182,15 @@
       },
       "initialFacing": "left",
       "foregroundPolicy": "none",
+      "assetLibrary": {
+        "states": {
+          "next-state": {
+            "left": "/assets/ecology/formal-scenes/terrace-greenery/terrace-watering-character-asset-cropped-lossless.webp",
+            "right": "/assets/ecology/formal-scenes/terrace-greenery/terrace-watering-character-asset-cropped-lossless.webp",
+            "scale": 0.8
+          }
+        }
+      },
       "phases": [
         {
           "id": "telescope-to-entry-phase-1",
