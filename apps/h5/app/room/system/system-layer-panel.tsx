@@ -30,6 +30,8 @@ import {
   readModelProfileSettings,
   setModelPreference,
 } from "./model-profile-api";
+import { buildContextualSuggestionSet } from "../novelist/life-orchestration";
+import { requestLifeSuggestionCopy } from "./life-suggestion-api";
 import {
   applyCreativeSupportDecision,
   createPreviewSystemBinding,
@@ -52,6 +54,7 @@ export interface SystemLayerObservation {
   fatigue: number;
   inspiration: number;
   emotionalLoad: number;
+  lifeStateVersion?: number;
 }
 
 interface SystemLayerPanelProps {
@@ -300,10 +303,6 @@ function hostIntentCardTitle(key: HostIntentKey) {
   }
 }
 
-function hostIntentCardLine(key: HostIntentKey, persona: SystemBindingSnapshot["persona"]) {
-  return hostIntentVoiceCopy[hostIntentTone(persona)][key].line;
-}
-
 function hostIntentRenderedMessage(key: HostIntentKey, persona: SystemBindingSnapshot["persona"]) {
   const tone = hostIntentTone(persona);
   const address = hostIntentAddress(persona);
@@ -323,20 +322,36 @@ function hostIntentRenderedMessage(key: HostIntentKey, persona: SystemBindingSna
   }
 }
 
+function hostIntentRenderedContextualMessage(
+  persona: SystemBindingSnapshot["persona"],
+  contextualPrefill: string,
+) {
+  const tone = hostIntentTone(persona);
+  const address = hostIntentAddress(persona);
+  const rewardLexicon = hostIntentLexicon(persona, ["完成即结算", "小礼法宝", "火花", "先写一小口"]);
+  const boundaryLexicon = hostIntentLexicon(persona, ["先核对", "证据", "检测到", "拆解一下"]);
+  const suffix = tone === "teasing"
+    ? rewardLexicon ? ` ${rewardLexicon}先记账，空白页不会自己投降。` : ""
+    : tone === "firm" || tone === "observant"
+      ? boundaryLexicon ? ` ${boundaryLexicon}后再决定下一步。` : ""
+      : rewardLexicon ? ` ${rewardLexicon}也可以很小。` : "";
+  return `${address}，${contextualPrefill.trim()}${suffix}`;
+}
+
 function taskVisualFor(
   status: CreativeSupportTaskStatus,
   evidenceStatus: keyof typeof evidenceStatusLabels,
 ) {
   if (evidenceStatus === "needs-revision") {
-    return { kind: "revision", icon: "icon-revision-v2.png", stamp: "返修" } as const;
+    return { kind: "revision", icon: "/assets/ui/system-layer-materials-v2/icon-revision-v2.webp", stamp: "返修" } as const;
   }
   if (status === "deferred") {
-    return { kind: "rest", icon: "icon-teacup-v2.png", stamp: "休息" } as const;
+    return { kind: "rest", icon: "/assets/ui/system-layer-materials-v2/icon-teacup-v2.webp", stamp: "休息" } as const;
   }
   if (status === "accepted" || status === "scoped") {
-    return { kind: "progress", icon: "icon-quill-v2.png", stamp: "推进" } as const;
+    return { kind: "progress", icon: "/assets/ui/system-layer-materials-v2/icon-quill-v2.webp", stamp: "推进" } as const;
   }
-  return { kind: "care", icon: "icon-heart-v2.png", stamp: "建议" } as const;
+  return { kind: "care", icon: "/assets/ui/system-layer-materials-v2/icon-heart-v2.webp", stamp: "建议" } as const;
 }
 
 const projectionPollStatuses = new Set<ExperienceProjection["status"]>([
@@ -348,9 +363,9 @@ const projectionPollStatuses = new Set<ExperienceProjection["status"]>([
 const publicRoomDemo = process.env.NEXT_PUBLIC_PUBLIC_ROOM_DEMO === "true";
 
 const novelistWritingAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-writing-v1-normalized.webp";
-const novelistBlockedAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-blocked-v1-normalized.png";
-const novelistTiredAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-tired-v1-normalized.png";
-const novelistRelievedAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-relieved-v1-normalized.png";
+const novelistBlockedAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-blocked-v1-normalized.webp";
+const novelistTiredAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-tired-v1-normalized.webp";
+const novelistRelievedAvatarSrc = "/assets/ecology/characters/novelist/avatars/novelist-avatar-relieved-v1-normalized.webp";
 
 type NovelistAvatarState = "writing" | "blocked" | "tired" | "relieved" | "eating" | "sleeping" | "daydreaming" | "away";
 
@@ -558,6 +573,59 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
   const gatewayRunIdRef = useRef(0);
   const gatewayRetryAttemptRef = useRef(0);
   const expanded = activeChannel !== undefined ? activeChannel !== null : localExpanded;
+  const contextualSuggestionSet = useMemo(() => buildContextualSuggestionSet({
+    observation,
+    ...(observation.lifeStateVersion === undefined
+      ? {}
+      : { lifeStateVersion: observation.lifeStateVersion }),
+  }), [
+    observation.activityLabel,
+    observation.emotionalLoad,
+    observation.fatigue,
+    observation.focus,
+    observation.inspiration,
+    observation.lifeStateVersion,
+    observation.sceneLabel,
+  ]);
+  const suggestionModelKey = useMemo(() => [
+    contextualSuggestionSet.mood.mood,
+    ...contextualSuggestionSet.mood.signals,
+    observation.sceneLabel,
+    observation.activityLabel,
+    ...contextualSuggestionSet.suggestions.flatMap((suggestion) => suggestion.reasonCodes),
+  ].join("|"), [contextualSuggestionSet, observation.activityLabel, observation.sceneLabel]);
+  const [modelSuggestionCopy, setModelSuggestionCopy] = useState<{
+    readonly key: string;
+    readonly response: Awaited<ReturnType<typeof requestLifeSuggestionCopy>>;
+  } | null>(null);
+  useEffect(() => {
+    if (process.env.NODE_ENV === "test"
+      || !expanded
+      || chatMode !== "novelist"
+      || gatewayState !== "active") return;
+    const controller = new AbortController();
+    void requestLifeSuggestionCopy(contextualSuggestionSet, controller.signal)
+      .then((response) => setModelSuggestionCopy({ key: suggestionModelKey, response }))
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, [expanded, chatMode, gatewayState, suggestionModelKey]);
+  const effectiveSuggestionSet = useMemo(() => {
+    if (modelSuggestionCopy?.key !== suggestionModelKey) return contextualSuggestionSet;
+    const copyByIntent = new Map(modelSuggestionCopy.response.suggestions.map((item) => [item.intentId, item]));
+    return {
+      ...contextualSuggestionSet,
+      provenance: "rules_plus_model" as const,
+      suggestions: contextualSuggestionSet.suggestions.map((suggestion) => {
+        const copy = copyByIntent.get(suggestion.intentId);
+        return copy === undefined ? suggestion : {
+          ...suggestion,
+          reasonText: copy.reasonText,
+          editablePrefill: copy.editablePrefill,
+        };
+      }),
+      modelAttestation: modelSuggestionCopy.response.modelAttestation,
+    };
+  }, [contextualSuggestionSet, modelSuggestionCopy, suggestionModelKey]);
 
   const requestChannel = (channel: NovelistChatChannel | null) => {
     if (activeChannel === undefined) {
@@ -819,9 +887,21 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
   };
 
   const fillHostIntent = (key: HostIntentKey) => {
+    const contextualSuggestion = effectiveSuggestionSet.suggestions.find(
+      (item) => item.intentId === key,
+    );
     const suggestion = {
       ...hostIntentSuggestion(key),
-      renderedHostMessage: hostIntentRenderedMessage(key, binding.persona),
+      rawIntent: contextualSuggestion
+        ? `${hostIntentSuggestion(key).rawIntent} 当前生活依据：${contextualSuggestion.reasonText}。`
+        : hostIntentSuggestion(key).rawIntent,
+      renderedHostMessage: contextualSuggestion !== undefined
+        && effectiveSuggestionSet.provenance === "rules_plus_model"
+        ? hostIntentRenderedContextualMessage(
+            binding.persona,
+            contextualSuggestion.editablePrefill,
+          )
+        : hostIntentRenderedMessage(key, binding.persona),
     };
     const draft = composerMode === "raw" ? suggestion.rawIntent : suggestion.renderedHostMessage;
     setPendingHostMessage(suggestion);
@@ -1300,7 +1380,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           {chatMode === "novelist" && (
             <span className={styles.chatAvatar} data-avatar-state={novelistAvatar.state} aria-label={novelistAvatar.label}>
               <img className={styles.chatAvatarPortrait} src={novelistAvatar.src} alt="" />
-              <img className={styles.chatAvatarFrame} src="/assets/ui/system-layer-materials-v4/avatar-frame-v4-alpha.png" alt="" />
+              <img className={styles.chatAvatarFrame} src="/assets/ui/system-layer-materials-v4/avatar-frame-v4-alpha.webp" alt="" />
               <span className={styles.chatAvatarLifeBadge} aria-hidden="true">{novelistAvatar.icon}</span>
             </span>
           )}
@@ -1319,7 +1399,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           {message.role !== "system" && chatMode === "novelist" && (
             <span className={styles.chatAvatar} data-avatar-state={novelistAvatar.state} aria-label={novelistAvatar.label}>
               <img className={styles.chatAvatarPortrait} src={novelistAvatar.src} alt="" />
-              <img className={styles.chatAvatarFrame} src="/assets/ui/system-layer-materials-v4/avatar-frame-v4-alpha.png" alt="" />
+              <img className={styles.chatAvatarFrame} src="/assets/ui/system-layer-materials-v4/avatar-frame-v4-alpha.webp" alt="" />
               <span className={styles.chatAvatarLifeBadge} aria-hidden="true">{novelistAvatar.icon}</span>
             </span>
           )}
@@ -1557,7 +1637,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
               <div className={styles.roomTitleBookmark} data-testid="room-title-bookmark">
                 <img
                   className={styles.roomTitleBookmarkArt}
-                  src="/assets/ui/system-layer-materials-v6/room-title-bookmark-v6-alpha.png"
+                  src="/assets/ui/system-layer-materials-v6/room-title-bookmark-v6-alpha.webp"
                   alt="二流小说家的房间"
                 />
                 <div className={styles.roomBookmarkCopy}>
@@ -1574,7 +1654,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
               >
                 <img
                   className={styles.novelistStatusArt}
-                  src="/assets/ui/system-layer-materials-v6/novelist-status-v6-alpha.png"
+                  src="/assets/ui/system-layer-materials-v6/novelist-status-v6-alpha.webp"
                   alt=""
                   aria-hidden="true"
                 />
@@ -1803,7 +1883,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
                   <div className={styles.taskPanelLead}>
                     <img
                       className={styles.taskPanelIcon}
-                      src={`/assets/ui/system-layer-materials-v2/${taskVisual.icon}`}
+                      src={taskVisual.icon}
                       alt=""
                       aria-hidden="true"
                     />
@@ -1859,6 +1939,11 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
                 data-task-visual={taskVisual.kind}
                 data-personality-code={binding.origin.personalityCode}
                 data-persona-snapshot-id={binding.persona.personaSnapshotId}
+                data-life-source={effectiveSuggestionSet.source}
+                data-life-mood={effectiveSuggestionSet.mood.mood}
+                data-provenance={effectiveSuggestionSet.provenance}
+                data-model-profile={effectiveSuggestionSet.modelAttestation?.profile ?? "none"}
+                data-model-provider={effectiveSuggestionSet.modelAttestation?.provider ?? "none"}
               >
                 <header>
                   <div><span>建议怎么说</span><small>按已选人格装填，可编辑</small></div>
@@ -1872,23 +1957,27 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
                   <span>4 种</span>
                 </div>
                 <div className={styles.quickReplies} aria-label="装填主系统意图">
-                  {(["nudge", "care", "rest", "stuck"] as const).map((key, index) => (
+                  {effectiveSuggestionSet.suggestions.map((contextualSuggestion, index) => {
+                    const key = contextualSuggestion.intentId as HostIntentKey;
+                    return (
                     <button
                       key={key}
                       type="button"
                       data-testid={key === "nudge" ? "system-task-accept" : key === "care" ? "system-task-scope" : key === "rest" ? "system-task-defer" : "system-task-reject"}
                       data-intent-key={key}
                       data-hit-area="intent-card"
-                      aria-label={`${hostIntentCardTitle(key)}：${hostIntentCardLine(key, binding.persona)}`}
+                      data-life-reason={contextualSuggestion.reasonCodes.join(",")}
+                      aria-label={`${hostIntentCardTitle(key)}：${contextualSuggestion.reasonText}`}
                       onClick={() => fillHostIntent(key)}
                     >
                       <span className={styles.intentCardCopy}>
                         <strong>{hostIntentCardTitle(key)}</strong>
-                        <small>{hostIntentCardLine(key, binding.persona)}</small>
+                        <small>{contextualSuggestion.reasonText}</small>
                       </span>
                       <kbd>{index + 1}</kbd>
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </section>
             </div>

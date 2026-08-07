@@ -26,3 +26,4 @@ export * from "./vnext-model-profiles.js";
 export * from "./vnext-room-story-context.js";
 export * from "./vnext-room-draft-feedback.js";
 export * from "./vnext-room-turn-plan.js";
+export * from "./life-orchestration.js";

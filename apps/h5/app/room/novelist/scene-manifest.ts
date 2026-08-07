@@ -160,8 +160,8 @@ export const novelistSceneManifest = {
   actor: {
     seated: {
       mode: "seated",
-      assetId: "novelist-paper-doll-seated-back-v3",
-      src: "/assets/ecology/novelist-paper-doll-seated-back-v3.png",
+      assetId: "study-writing-seat-back-v1",
+      src: "/assets/ecology/characters/novelist/study-writing-seat-back-v1.webp",
       width: 1024,
       height: 1536,
       alt: "Cartoon paper-doll novelist seated at the desk, rear view, with a round cardboard base",
@@ -180,10 +180,10 @@ export const novelistSceneManifest = {
     },
     walking: {
       mode: "walking",
-      assetId: "novelist-paper-doll-walking-v1",
-      src: "/assets/ecology/novelist-paper-doll-walking-v1.png",
-      width: 1254,
-      height: 1254,
+      assetId: "study-walk-right-v2",
+      src: "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+      width: 1024,
+      height: 1536,
       alt: "小说家向门口摇摆移动的圆底纸板人偶",
       anchor: { x: 0.5, y: 0.58 },
       zIndex: 3,
@@ -941,8 +941,8 @@ export const formalEcologySceneManifest: {
   actorAssets: {
     seated: {
       mode: "seated",
-      assetId: "novelist-paper-doll-seated-back-v3",
-      src: "/assets/ecology/novelist-paper-doll-seated-back-v3.png",
+      assetId: "study-writing-seat-back-v1",
+      src: "/assets/ecology/characters/novelist/study-writing-seat-back-v1.webp",
       width: 1024,
       height: 1536,
       alt: "小说家纯背面坐姿透明人偶（待小圆弧底座重切）",
@@ -961,10 +961,10 @@ export const formalEcologySceneManifest: {
     },
     walking: {
       mode: "walking",
-      assetId: "novelist-paper-doll-walking-v1",
-      src: "/assets/ecology/novelist-paper-doll-walking-v1.png",
-      width: 1254,
-      height: 1254,
+      assetId: "study-walk-right-v2",
+      src: "/assets/ecology/characters/novelist/study-walk-right-v2.webp",
+      width: 1024,
+      height: 1536,
       alt: "小说家摇摆移动透明人偶（待小圆弧底座重切）",
       runtimeAsset: false,
       visualContractStatus: "pending-recut",

@@ -361,6 +361,27 @@ export interface VnextPublishSystemHostTaskRequest {
   readonly opportunityTags: readonly string[];
 }
 
+export interface VnextRecordSystemHostChoiceRequest {
+  readonly clientRequestId: string;
+  readonly basedOnVersionId: string;
+  readonly decision: HostTaskChoiceDecision;
+  readonly reason: string | null;
+  readonly narrowedObjective: string | null;
+  readonly lifeInterventionConsent:
+    | "existing_plan_only"
+    | "allow_registered_nudge";
+}
+
+export interface VnextRecordSystemFormalEvidenceRequest {
+  readonly clientRequestId: string;
+  readonly basedOnVersionId: string;
+  readonly storyContentId: string;
+  readonly verdict: Extract<
+    FormalWorkEvidence["verdict"],
+    "submitted" | "revision_requested"
+  >;
+}
+
 export interface VnextSystemSupportCaseProjection {
   readonly schemaVersion: 1;
   readonly caseId: string;
@@ -423,6 +444,20 @@ const PUBLISH_HOST_TASK_REQUEST_FIELDS = new Set([
   "sourceUseMode",
   "manifestationMode",
   "opportunityTags",
+]);
+const RECORD_HOST_CHOICE_REQUEST_FIELDS = new Set([
+  "clientRequestId",
+  "basedOnVersionId",
+  "decision",
+  "reason",
+  "narrowedObjective",
+  "lifeInterventionConsent",
+]);
+const RECORD_FORMAL_EVIDENCE_REQUEST_FIELDS = new Set([
+  "clientRequestId",
+  "basedOnVersionId",
+  "storyContentId",
+  "verdict",
 ]);
 
 function systemSupportInvalidRequest<T>(): VnextSystemSupportRequestParseResult<T> {
@@ -635,6 +670,69 @@ function parsePublishSystemHostTaskRequest(
   };
 }
 
+function parseRecordSystemHostChoiceRequest(
+  input: Record<string, unknown>,
+): VnextRecordSystemHostChoiceRequest | null {
+  const clientRequestId = systemSupportString(input.clientRequestId, 200);
+  const basedOnVersionId = systemSupportString(input.basedOnVersionId, 80);
+  const reason =
+    input.reason === null ? null : systemSupportString(input.reason, 4_000);
+  const narrowedObjective =
+    input.narrowedObjective === null
+      ? null
+      : systemSupportString(input.narrowedObjective, 4_000);
+  if (
+    clientRequestId === null ||
+    basedOnVersionId === null ||
+    !VNEXT_SYSTEM_SUPPORT_UUID_PATTERN.test(basedOnVersionId) ||
+    (reason === null && input.reason !== null) ||
+    (narrowedObjective === null && input.narrowedObjective !== null) ||
+    !["accepted", "narrowed", "deferred", "rejected"].includes(
+      input.decision as HostTaskChoiceDecision,
+    ) ||
+    !["existing_plan_only", "allow_registered_nudge"].includes(
+      input.lifeInterventionConsent as string,
+    ) ||
+    (input.decision === "narrowed") !== (narrowedObjective !== null)
+  ) {
+    return null;
+  }
+  return {
+    clientRequestId,
+    basedOnVersionId,
+    decision: input.decision as HostTaskChoiceDecision,
+    reason,
+    narrowedObjective,
+    lifeInterventionConsent: input.lifeInterventionConsent as
+      | "existing_plan_only"
+      | "allow_registered_nudge",
+  };
+}
+
+function parseRecordSystemFormalEvidenceRequest(
+  input: Record<string, unknown>,
+): VnextRecordSystemFormalEvidenceRequest | null {
+  const clientRequestId = systemSupportString(input.clientRequestId, 200);
+  const basedOnVersionId = systemSupportString(input.basedOnVersionId, 80);
+  const storyContentId = systemSupportString(input.storyContentId, 80);
+  if (
+    clientRequestId === null ||
+    basedOnVersionId === null ||
+    storyContentId === null ||
+    !VNEXT_SYSTEM_SUPPORT_UUID_PATTERN.test(basedOnVersionId) ||
+    !VNEXT_SYSTEM_SUPPORT_UUID_PATTERN.test(storyContentId) ||
+    !["submitted", "revision_requested"].includes(input.verdict as string)
+  ) {
+    return null;
+  }
+  return {
+    clientRequestId,
+    basedOnVersionId,
+    storyContentId,
+    verdict: input.verdict as "submitted" | "revision_requested",
+  };
+}
+
 export const vnextRegisterSystemSourceRequestSchema =
   createSystemSupportRequestSchema(
     parseRegisterSystemSourceRequest,
@@ -645,4 +743,16 @@ export const vnextPublishSystemHostTaskRequestSchema =
   createSystemSupportRequestSchema(
     parsePublishSystemHostTaskRequest,
     PUBLISH_HOST_TASK_REQUEST_FIELDS,
+  );
+
+export const vnextRecordSystemHostChoiceRequestSchema =
+  createSystemSupportRequestSchema(
+    parseRecordSystemHostChoiceRequest,
+    RECORD_HOST_CHOICE_REQUEST_FIELDS,
+  );
+
+export const vnextRecordSystemFormalEvidenceRequestSchema =
+  createSystemSupportRequestSchema(
+    parseRecordSystemFormalEvidenceRequest,
+    RECORD_FORMAL_EVIDENCE_REQUEST_FIELDS,
   );

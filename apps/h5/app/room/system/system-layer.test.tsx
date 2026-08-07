@@ -396,6 +396,33 @@ describe("system layer binding", () => {
 });
 
 describe("SystemLayerPanel", () => {
+  it("layers the v6 room bookmark and novelist status sheet without baking live state into artwork", () => {
+    render(<SystemLayerPanel observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }} />);
+
+    const frontstage = screen.getByTestId("room-v6-frontstage");
+    const bookmark = screen.getByTestId("room-title-bookmark");
+    const status = screen.getByTestId("novelist-status-card");
+    const paper = screen.getByTestId("novelist-conversation-workspace").querySelector("[data-art-layer=central-chat-paper-v6-alpha]");
+    const inputBar = screen.getByTestId("system-message-input").parentElement;
+
+    expect(bookmark.querySelector("img")?.getAttribute("src")).toBe(
+      "/assets/ui/system-layer-materials-v6/room-title-bookmark-v6-alpha.webp",
+    );
+    expect(frontstage.textContent).toContain("小说家频道");
+    expect(frontstage.textContent).toContain("聊天主轴 · 任务作为附件");
+    expect(status.querySelector("img")?.getAttribute("src")).toBe(
+      "/assets/ui/system-layer-materials-v6/novelist-status-v6-alpha.webp",
+    );
+    expect(status.getAttribute("data-avatar-state")).toBe("writing");
+    expect(status.textContent).toContain("正在写");
+    expect(status.textContent).toContain("书房");
+    expect(status.textContent).toContain("72%");
+    expect(status.textContent).toContain("还没完全服你");
+    expect(paper).toBeTruthy();
+    expect(inputBar?.getAttribute("data-art-layer")).toBe("writing-input-bar-v6-alpha");
+    expect(screen.getByRole("button", { name: "收起小说家房间" })).toBeTruthy();
+  });
+
   it("keeps the writing portrait as the default avatar state", () => {
     render(<SystemLayerPanel observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }} />);
 
@@ -425,7 +452,7 @@ describe("SystemLayerPanel", () => {
     const avatar = screen.getByLabelText("小说家：卡住了");
     expect(avatar.getAttribute("data-avatar-state")).toBe("blocked");
     expect(avatar.querySelector("img")?.getAttribute("src")).toBe(
-      "/assets/ecology/characters/novelist/avatars/novelist-avatar-blocked-v1-normalized.png",
+      "/assets/ecology/characters/novelist/avatars/novelist-avatar-blocked-v1-normalized.webp",
     );
   });
 
@@ -435,7 +462,7 @@ describe("SystemLayerPanel", () => {
     const avatar = screen.getByLabelText("小说家：有点疲惫");
     expect(avatar.getAttribute("data-avatar-state")).toBe("tired");
     expect(avatar.querySelector("img")?.getAttribute("src")).toBe(
-      "/assets/ecology/characters/novelist/avatars/novelist-avatar-tired-v1-normalized.png",
+      "/assets/ecology/characters/novelist/avatars/novelist-avatar-tired-v1-normalized.webp",
     );
   });
 
@@ -445,7 +472,7 @@ describe("SystemLayerPanel", () => {
     const avatar = screen.getByLabelText("小说家：松了一口气");
     expect(avatar.getAttribute("data-avatar-state")).toBe("relieved");
     expect(avatar.querySelector("img")?.getAttribute("src")).toBe(
-      "/assets/ecology/characters/novelist/avatars/novelist-avatar-relieved-v1-normalized.png",
+      "/assets/ecology/characters/novelist/avatars/novelist-avatar-relieved-v1-normalized.webp",
     );
   });
 
@@ -499,6 +526,65 @@ describe("SystemLayerPanel", () => {
     expect(screen.getByTestId("subsystem-notice").getAttribute("data-event-type")).toBe("subsystem_notice");
     expect(screen.getByTestId("system-task")).toBeTruthy();
     expect(screen.getByTestId("system-evidence")).toBeTruthy();
+  });
+
+  it("puts rest first from formal life state when fatigue is urgent", async () => {
+    render(
+      <SystemLayerPanel
+        observation={{
+          sceneLabel: "书房",
+          activityLabel: "书房写作",
+          focus: 78,
+          fatigue: 92,
+          inspiration: 80,
+          emotionalLoad: 20,
+          lifeStateVersion: 17,
+        }}
+      />,
+    );
+
+    await waitForActiveGateway();
+    const rail = screen.getByTestId("system-task-suggestion");
+    const cards = rail.querySelectorAll<HTMLButtonElement>('[data-hit-area="intent-card"]');
+
+    expect(rail.getAttribute("data-life-source")).toBe("life_runtime");
+    expect(rail.getAttribute("data-life-mood")).toBe("exhausted");
+    expect(rail.getAttribute("data-provenance")).toBe("rules_only");
+    expect(cards[0]?.getAttribute("data-intent-key")).toBe("rest");
+    expect(cards[0]?.textContent).toContain("疲劳已经很高");
+
+    const input = screen.getByLabelText("对小说家说点什么") as HTMLTextAreaElement;
+    fireEvent.click(cards[0]!);
+    expect(input.value).toContain("休息");
+    expect(screen.getByTestId("system-task").getAttribute("data-task-status")).toBe("offered");
+  });
+
+  it("puts care first when emotional load is high", async () => {
+    render(
+      <SystemLayerPanel
+        observation={{ sceneLabel: "书房", activityLabel: "发呆", focus: 62, fatigue: 32, inspiration: 48, emotionalLoad: 84, lifeStateVersion: 18 }}
+      />,
+    );
+
+    await waitForActiveGateway();
+    const firstCard = screen.getByTestId("system-task-suggestion")
+      .querySelector<HTMLButtonElement>('[data-hit-area="intent-card"]');
+    expect(firstCard?.getAttribute("data-intent-key")).toBe("care");
+    expect(firstCard?.textContent).toContain("情绪负荷偏高");
+  });
+
+  it("puts a bounded writing nudge first when focus and inspiration are ready", async () => {
+    render(
+      <SystemLayerPanel
+        observation={{ sceneLabel: "书房", activityLabel: "书房写作", focus: 88, fatigue: 14, inspiration: 86, emotionalLoad: 10, lifeStateVersion: 19 }}
+      />,
+    );
+
+    await waitForActiveGateway();
+    const firstCard = screen.getByTestId("system-task-suggestion")
+      .querySelector<HTMLButtonElement>('[data-hit-area="intent-card"]');
+    expect(firstCard?.getAttribute("data-intent-key")).toBe("nudge");
+    expect(firstCard?.textContent).toContain("状态接得上");
   });
 
   it("uses the selected reincarnation persona when filling a polished intent", async () => {
@@ -741,6 +827,7 @@ describe("SystemLayerPanel", () => {
     await waitFor(() => {
       const handoff = screen.getByTestId("experience-handoff");
       expect(handoff.getAttribute("data-experience-status")).toBe("listening");
+      expect(handoff.getAttribute("data-art-layer")).toBe("creative-progress-v6-alpha");
       expect(handoff.textContent).toContain("已提交");
       expect(handoff.textContent).toContain("理解中");
       expect(handoff.textContent).toContain("聊天回复不会被当作正文");

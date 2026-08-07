@@ -39,9 +39,9 @@ interface RuntimeMemoryPage {
 }
 
 const REINCARNATION_VISUAL_ASSETS = {
-  memoryBook: "/assets/prologue/reincarnation/origin-memory-book-v1.png",
-  fortuneImpact: "/assets/prologue/reincarnation/fortune-impact-v1.png",
-  systemAwakening: "/assets/prologue/reincarnation/system-awakening-v1.png",
+  memoryBook: "/assets/prologue/reincarnation/origin-memory-book-v1.webp",
+  fortuneImpact: "/assets/prologue/reincarnation/fortune-impact-v1.webp",
+  systemAwakening: "/assets/prologue/reincarnation/system-awakening-v1.webp",
   xuanzhu: {
     characterCard: "/assets/prologue/reincarnation/xuanzhu/v1/character-card.webp",
     pages: {

@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "node scripts/validate-pages-env.mjs && node scripts/prepare-public.mjs",
     "build": "next build",
-    "postbuild": "node scripts/rewrite-public-paths.mjs",
+    "postbuild": "node scripts/rewrite-public-paths.mjs && node scripts/verify-exported-assets.mjs",
     "test": "node --test scripts/*.test.mjs"
   },
   "dependencies": {

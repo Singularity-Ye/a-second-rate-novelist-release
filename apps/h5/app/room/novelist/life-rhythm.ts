@@ -686,16 +686,39 @@ export function getCalendarLifeDay(date = new Date()): number {
 export function getDailyLifePlan(dayIndex = 1): LifeDayPlan {
   const normalizedDayIndex = normalizeLifeDayIndex(dayIndex);
   const recipe = lifeDayPlanRecipes[(normalizedDayIndex - 1) % lifeDayPlanRecipes.length]!;
+  return materializeLifeDayPlan(normalizedDayIndex, recipe);
+}
+
+function materializeLifeDayPlan(
+  dayIndex: number,
+  recipe: LifeDayPlanRecipe,
+): LifeDayPlan {
   const beats = recipe.beatIds
     .map((beatId) => novelistDailyRhythm.find((beat) => beat.id === beatId))
     .filter((beat): beat is LifeBeat => Boolean(beat));
   return {
-    dayIndex: normalizedDayIndex,
+    dayIndex,
     mode: recipe.mode,
     label: recipe.label,
     intro: recipe.intro,
     beats,
   };
+}
+
+/**
+ * Resolve a previously validated plan mode for a concrete day. This is used
+ * when yesterday committed a contextual next-day draft. The mode still maps
+ * through the authored recipe catalog, so persisted data cannot inject beats,
+ * routes, activities, or coordinates.
+ */
+export function getLifeDayPlanByMode(
+  dayIndex: number,
+  mode: LifePlanMode,
+): LifeDayPlan {
+  const normalizedDayIndex = normalizeLifeDayIndex(dayIndex);
+  const recipe = lifeDayPlanRecipes.find((candidate) => candidate.mode === mode)
+    ?? lifeDayPlanRecipes[(normalizedDayIndex - 1) % lifeDayPlanRecipes.length]!;
+  return materializeLifeDayPlan(normalizedDayIndex, recipe);
 }
 
 const autoplayBeatIdsByPhase: Readonly<Record<HostLifeState["dayPhase"], readonly string[]>> = {
@@ -713,8 +736,11 @@ export function getAutoplayLifeBeat(
   currentBeatId?: string,
   fallbackIndex = 0,
   dayIndex = 1,
+  planMode?: LifePlanMode,
 ): LifeBeat | null {
-  const dailyPlan = getDailyLifePlan(dayIndex);
+  const dailyPlan = planMode
+    ? getLifeDayPlanByMode(dayIndex, planMode)
+    : getDailyLifePlan(dayIndex);
   const preferred = autoplayBeatIdsByPhase[dayPhase]
     .map((id) => dailyPlan.beats.find((beat) => beat.id === id))
     .find((beat) => beat && beat.id !== currentBeatId);

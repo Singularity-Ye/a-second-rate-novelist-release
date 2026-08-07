@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import type { NextDayPlanDraft } from "@erliu/shared-contracts";
 import {
   formalEcologySceneManifest,
   getFormalSceneAction,
@@ -25,7 +26,6 @@ import {
   getLifeFeedbackCue,
   getAutoplayLifeBeat,
   getCalendarLifeDay,
-  getDailyLifePlan,
   getStateLifeCue,
   getNeedLifeCue,
   getSceneInteractionCue,
@@ -37,7 +37,14 @@ import {
   type LifeMoment,
   type LifeNeedKey,
   type LifeTendency,
+  type LifePlanMode,
 } from "./life-rhythm";
+import { buildNextDayPlanDraft } from "./life-orchestration";
+import {
+  commitNextDayPlanDraft,
+  loadNextDayPlanDraft,
+  resolveLifeDayPlan,
+} from "./next-day-plan-store";
 import {
   getLifeActivity,
   getLifeContinuationRouteKey,
@@ -302,6 +309,7 @@ const sceneMapEdges: Array<[FormalSceneId, FormalSceneId]> = [
   ["study", "dining-kitchen"],
   ["study", "terrace-greenery"],
   ["study", "attic"],
+  ["dining-kitchen", "entrance"],
 ];
 
 function firstRouteId(sceneId: FormalSceneId, activity: NovelistActivity) {
@@ -539,6 +547,7 @@ export function NovelistRoom() {
   // runtime day or the host's clock, so trying another rhythm cannot corrupt
   // the actual life state.
   const [previewLifeDay, setPreviewLifeDay] = useState<number | null>(null);
+  const [committedNextDayPlan, setCommittedNextDayPlan] = useState<NextDayPlanDraft | null>(null);
   const particleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const routeTransitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lifeCueTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -586,6 +595,7 @@ export function NovelistRoom() {
     lifeCue: false,
     dayPhase: "morning" as LifeRuntimeState["host"]["dayPhase"],
     dayIndex: 1,
+    planMode: "steady-draft" as LifePlanMode,
     activeBeatId: "",
     tendency: null as LifeTendency | null,
   });
@@ -620,10 +630,35 @@ export function NovelistRoom() {
     : null;
   const currentLifeDay = Math.max(calendarLifeDay, lifeRuntime.dayIndex);
   const displayedLifeDay = previewLifeDay ?? currentLifeDay;
-  const dailyLifePlan = useMemo(
-    () => getDailyLifePlan(displayedLifeDay),
-    [displayedLifeDay],
+  const nextDayPlanDraft = useMemo(() => buildNextDayPlanDraft({
+    sourceDay: currentLifeDay,
+    lifeStateVersion: lifeRuntime.revision,
+    observation: {
+      sceneLabel: scene.label,
+      activityLabel: observationActivityLabel,
+      focus: lifeRuntime.host.focus,
+      fatigue: lifeRuntime.host.fatigue,
+      inspiration: lifeRuntime.host.inspiration,
+      emotionalLoad: lifeRuntime.host.emotionalLoad,
+    },
+  }), [
+    currentLifeDay,
+    lifeRuntime.host.emotionalLoad,
+    lifeRuntime.host.fatigue,
+    lifeRuntime.host.focus,
+    lifeRuntime.host.inspiration,
+    lifeRuntime.revision,
+    observationActivityLabel,
+    scene.label,
+  ]);
+  const dailyLifePlanResolution = useMemo(
+    () => resolveLifeDayPlan(
+      displayedLifeDay,
+      previewLifeDay === null ? committedNextDayPlan : null,
+    ),
+    [committedNextDayPlan, displayedLifeDay, previewLifeDay],
   );
+  const dailyLifePlan = dailyLifePlanResolution.plan;
   const sceneInteractionStateById = useMemo(() => Object.fromEntries(
     (scene.interactions ?? []).map((interaction) => [
       interaction.id,
@@ -749,15 +784,31 @@ export function NovelistRoom() {
       lifeCue: Boolean(lifeCue),
       dayPhase: lifeRuntime.host.dayPhase,
       dayIndex: displayedLifeDay,
+      planMode: dailyLifePlan.mode,
       activeBeatId: activeLifeBeatId,
       tendency: stateDrivenLifeTendency,
     };
     lifeAutoplayRef.current = lifeAutoplay;
-  }, [activeLifeBeatId, displayedLifeDay, lifeAutoplay, lifeCue, lifeRuntime.host.dayPhase, routePaused, routeTransition, sceneJourney, stateDrivenLifeTendency]);
+  }, [activeLifeBeatId, dailyLifePlan.mode, displayedLifeDay, lifeAutoplay, lifeCue, lifeRuntime.host.dayPhase, routePaused, routeTransition, sceneJourney, stateDrivenLifeTendency]);
 
   useEffect(() => {
     setCalendarLifeDay(getCalendarLifeDay());
+    setCommittedNextDayPlan(loadNextDayPlanDraft());
   }, []);
+
+  useEffect(() => {
+    if (!lifeRuntimeHydrated || lifeRuntime.host.dayPhase !== "night") return;
+    if (committedNextDayPlan?.status === "committed"
+      && committedNextDayPlan.sourceDay === currentLifeDay) return;
+    const committed = commitNextDayPlanDraft(nextDayPlanDraft);
+    if (committed) setCommittedNextDayPlan(committed);
+  }, [
+    committedNextDayPlan,
+    currentLifeDay,
+    lifeRuntime.host.dayPhase,
+    lifeRuntimeHydrated,
+    nextDayPlanDraft,
+  ]);
 
   useEffect(() => {
     if (!dailyLifePlan.beats.some((beat) => beat.id === activeLifeBeatId)) {
@@ -827,7 +878,10 @@ export function NovelistRoom() {
           setActorPosition({ x: restoredStage.terminalPoint.x, y: restoredStage.terminalPoint.y });
           setActorPerspectiveScale(restoredStage.terminalPoint.stableScale);
         }
-        const restoredPlan = getDailyLifePlan(snapshot.dayIndex);
+        const restoredPlan = resolveLifeDayPlan(
+          snapshot.dayIndex,
+          loadNextDayPlanDraft(),
+        ).plan;
         const restoredBeat = restoredPlan.beats.find((beat) => (
           beat.sceneId === restoredStage.stage.sceneId
           && beat.routeId === restoredStage.stage.routeId
@@ -1667,7 +1721,10 @@ export function NovelistRoom() {
     }
     const normalizedDay = Math.max(1, Math.floor(nextDay));
     const returningToToday = normalizedDay === currentLifeDay;
-    const nextPlan = getDailyLifePlan(normalizedDay);
+    const nextPlan = resolveLifeDayPlan(
+      normalizedDay,
+      returningToToday ? committedNextDayPlan : null,
+    ).plan;
     setPreviewLifeDay(returningToToday ? null : normalizedDay);
     setActiveLifeBeatId(nextPlan.beats[0]?.id ?? novelistDailyRhythm[0]!.id);
     autoplayBeatIndexRef.current = 0;
@@ -1717,6 +1774,7 @@ export function NovelistRoom() {
             context.activeBeatId,
             autoplayBeatIndexRef.current,
             context.dayIndex,
+            context.planMode,
           );
           autoplayBeatIndexRef.current += 1;
           if (nextBeat) executeLifeBeatRef.current(nextBeat);
@@ -1871,7 +1929,7 @@ export function NovelistRoom() {
     return () => window.removeEventListener("keydown", handleRoomShortcut);
   }, [activeChatChannel, deskEntryOpen, interventionOpen, lifePlanOpen, mapOpen, postcardOpen, toggleLifeAutoplay]);
 
-  const sceneButtons = useMemo(() => formalLifeSceneIds, []);
+  const sceneButtons = useMemo(() => formalPublishedRouteSceneIds, []);
 
   return (
     <main
@@ -1899,6 +1957,7 @@ export function NovelistRoom() {
           fatigue: lifeRuntime.host.fatigue,
           inspiration: lifeRuntime.host.inspiration,
           emotionalLoad: lifeRuntime.host.emotionalLoad,
+          lifeStateVersion: lifeRuntime.revision,
         }}
       />
       {deskEntryOpen && (
@@ -1914,7 +1973,7 @@ export function NovelistRoom() {
           <section className={styles.deskEntryPanel} role="dialog" aria-modal="true" aria-labelledby="desk-entry-title">
             <img
               className={styles.deskEntryPaperFrame}
-              src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-paper-frame-v1.png"
+              src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-paper-frame-v1.webp"
               alt=""
               aria-hidden="true"
             />
@@ -1936,14 +1995,14 @@ export function NovelistRoom() {
                   setActiveChatChannel("novelist");
                 }}
               >
-                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-chat-v1.png" alt="" />
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-chat-v1.webp" alt="" />
                 <span>
                   <strong>和小说家说话</strong>
                   <small>进入主系统对话</small>
                 </span>
               </button>
               <a className={`${styles.deskEntryCard} ${styles.deskEntryCardWorldLab}`} href="/vnext/world-lab">
-                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-world-lab-v1.png" alt="" />
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-world-lab-v1.webp" alt="" />
                 <span>
                   <strong>打开正文工作台</strong>
                   <small>进入 World Lab 看作品</small>
@@ -1957,7 +2016,7 @@ export function NovelistRoom() {
                   setLifePlanOpen(true);
                 }}
               >
-                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-life-v1.png" alt="" />
+                <img src="/assets/ui/system-layer-materials-v3/desk-entry/desk-entry-life-v1.webp" alt="" />
                 <span>
                   <strong>看看今日生活</strong>
                   <small>查看他接下来要做什么</small>
@@ -2066,7 +2125,12 @@ export function NovelistRoom() {
         </div>
       </section>
 
-      <section className={styles.lifePlanDock} data-open={lifePlanOpen} data-testid="life-plan">
+      <section
+        className={styles.lifePlanDock}
+        data-open={lifePlanOpen}
+        data-testid="life-plan"
+        data-plan-source={dailyLifePlanResolution.source}
+      >
         <button
           type="button"
           className={styles.lifePlanToggle}
@@ -2087,7 +2151,7 @@ export function NovelistRoom() {
             <div className={styles.lifePlanHeader}>
               <div className={styles.lifePlanHeaderBrand}>
                 <img
-                  src="/assets/generated/cartoon_journal_logo.jpg"
+                  src="/assets/generated/cartoon_journal_logo.webp"
                   alt="卡通手账徽标"
                   className={styles.journalHeaderEmblem}
                 />
@@ -2108,6 +2172,25 @@ export function NovelistRoom() {
             <p className={styles.lifePlanIntro}>
               第 {dailyLifePlan.dayIndex} 日 · {dailyLifePlan.label}：{dailyLifePlan.intro}
             </p>
+            <section
+              className={styles.lifePulse}
+              data-testid="next-day-plan"
+              data-plan-status={committedNextDayPlan?.sourceDay === currentLifeDay ? "committed" : nextDayPlanDraft.status}
+              data-plan-provenance={nextDayPlanDraft.provenance}
+            >
+              <span className={styles.lifePulseIcon} aria-hidden="true">☽</span>
+              <div className={styles.lifePulseCopy}>
+                <div className={styles.lifePulseMeta}>
+                  <strong>明日倾向 · {nextDayPlanDraft.candidates.find((candidate) => candidate.mode === nextDayPlanDraft.selectedPlanMode)?.label}</strong>
+                  <small>{committedNextDayPlan?.sourceDay === currentLifeDay ? "今晚已冻结" : "随今天的真实状态更新"}</small>
+                </div>
+                <p>
+                  {committedNextDayPlan?.sourceDay === currentLifeDay
+                    ? "已按今晚的生活状态冻结为明日计划；临时变化只记为偏离，不会篡改原计划。"
+                    : "规则先守住休息和活动边界，seed 只在相近的正式日程间做可复现选择；入夜后才提交。"}
+                </p>
+              </div>
+            </section>
             <div className={styles.lifePlanGridBody}>
               <div className={styles.lifePlanColLeft}>
                 <section className={styles.lifeDaySwitcher} data-testid="life-day-switcher" aria-label="切换每日生活节奏">

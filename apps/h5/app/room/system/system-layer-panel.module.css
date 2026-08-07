@@ -668,7 +668,7 @@
   border-radius: 0;
   color: #f9ecd2;
   background-color: rgba(29, 19, 12, .96);
-  background-image: url("/assets/ui/system-layer-materials-v2/chat-frame-wide-v3.1.png");
+  background-image: url("/assets/ui/system-layer-materials-v2/chat-frame-wide-v3.1.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -698,7 +698,7 @@
 
 .panel[data-expanded="true"][data-chat-mode="novelist"] {
   background-color: #d8c09a;
-  background-image: url("/assets/ui/system-layer-materials-v4/chat-frame-wide-v4-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v4/chat-frame-wide-v4-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -929,7 +929,7 @@
   border-radius: .72rem;
   padding: .42rem .48rem .42rem .7rem;
   background-color: #ead7b6;
-  background-image: url("/assets/ui/system-layer-materials-v4/composer-sheet-v4-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v4/composer-sheet-v4-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -959,7 +959,7 @@
   padding: 1.18rem .85rem .85rem;
   color: var(--paper-ink);
   background-color: transparent;
-  background-image: url("/assets/ui/system-layer-materials-v4/suggestion-rail-v4-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v4/suggestion-rail-v4-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -991,10 +991,10 @@
   box-shadow: none;
 }
 
-.systemTaskSuggestion[data-task-visual="care"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-care-v2.png"); }
-.systemTaskSuggestion[data-task-visual="progress"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-progress-v2.png"); }
-.systemTaskSuggestion[data-task-visual="rest"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-rest-v2.png"); }
-.systemTaskSuggestion[data-task-visual="revision"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-revision-v2.png"); }
+.systemTaskSuggestion[data-task-visual="care"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-care-v2.webp"); }
+.systemTaskSuggestion[data-task-visual="progress"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-progress-v2.webp"); }
+.systemTaskSuggestion[data-task-visual="rest"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-rest-v2.webp"); }
+.systemTaskSuggestion[data-task-visual="revision"] .todayCard { background-image: url("/assets/ui/system-layer-materials-v2/card-revision-v2.webp"); }
 .taskCardIcon { display: block; width: 1.9rem; height: 1.9rem; object-fit: contain; object-position: center; filter: drop-shadow(0 2px 2px rgba(74, 38, 13, .18)); }
 .todayCard > div { min-width: 0; }
 .todayCard strong { display: block; overflow: hidden; color: #4c2d1c; font-size: .65rem; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
@@ -1102,7 +1102,7 @@
     bottom: auto;
     width: min(calc(100vw - 1rem), calc((100dvh - 1rem) * .585));
     aspect-ratio: 433 / 740;
-    background-image: url("/assets/ui/system-layer-materials-v4/chat-frame-tall-v4-alpha.png");
+    background-image: url("/assets/ui/system-layer-materials-v4/chat-frame-tall-v4-alpha.webp");
     transform: translate(-50%, -50%);
   }
   .panel[data-expanded="false"] { top: auto; bottom: .55rem; width: min(20rem, calc(100vw - 1rem)); aspect-ratio: auto; background-image: none; transform: translateX(-50%); }
@@ -1113,7 +1113,7 @@
   .novelistWorkspace { display: flex; flex-direction: column; gap: .62rem; }
   .novelistMain { height: auto; min-height: 0; padding: .72rem .76rem .6rem; }
   .conversation { max-height: 10rem; }
-  .systemTaskSuggestion { width: 100%; height: auto; aspect-ratio: 1 / 1.9; padding: 1rem 1rem 1rem 4rem; border: 0; border-radius: 0; background-image: url("/assets/ui/system-layer-materials-v4/suggestion-rail-v4-alpha.png"); background-color: transparent; background-size: 100% 100%; filter: none; }
+  .systemTaskSuggestion { width: 100%; height: auto; aspect-ratio: 1 / 1.9; padding: 1rem 1rem 1rem 4rem; border: 0; border-radius: 0; background-image: url("/assets/ui/system-layer-materials-v4/suggestion-rail-v4-alpha.webp"); background-color: transparent; background-size: 100% 100%; filter: none; }
   .todayCard { min-height: 4.5rem; aspect-ratio: auto; }
   .directiveWorkspace { max-height: none; }
   .subsystemWorkspace { overflow: auto; }
@@ -1260,7 +1260,7 @@
 .composerField {
   border-radius: .62rem;
   background-color: #ead7b6;
-  background-image: url("/assets/ui/system-layer-materials-v4/composer-sheet-v4-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v4/composer-sheet-v4-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -1377,7 +1377,7 @@
   padding: .82rem;
   color: #4b3121;
   background-color: #ead7b6;
-  background-image: url("/assets/ui/system-layer-materials-v4/task-card-v4-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v4/task-card-v4-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -1734,7 +1734,7 @@
   box-sizing: border-box;
   overflow: hidden;
   padding: 2rem .8rem .9rem 1rem;
-  background-image: url("/assets/ui/system-layer-materials-v5/suggestion-rail-v5-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v5/suggestion-rail-v5-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -1888,10 +1888,10 @@
   outline-offset: 2px;
 }
 
-.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="care"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-care-v5-alpha-normalized.png"); }
-.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="nudge"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-nudge-v5-alpha-normalized.png"); }
-.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="rest"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-rest-v5-alpha-normalized.png"); }
-.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="stuck"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-stuck-v5-alpha-normalized.png"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="care"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-care-v5-alpha-normalized.webp"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="nudge"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-nudge-v5-alpha-normalized.webp"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="rest"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-rest-v5-alpha-normalized.webp"); }
+.panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button[data-intent-key="stuck"] { background-image: url("/assets/ui/system-layer-materials-v5/normalized-v5.1/intent-card-stuck-v5-alpha-normalized.webp"); }
 
 .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button:hover,
 .panel[data-expanded="true"] .systemTaskSuggestion .quickReplies button:focus-visible {
@@ -2397,7 +2397,7 @@
   content: "";
   pointer-events: none;
   border-radius: .82rem;
-  background: url("/assets/ui/system-layer-materials-v5/composer-sheet-v5-desktop-10p3-alpha.png") center / 100% 100% no-repeat;
+  background: url("/assets/ui/system-layer-materials-v5/composer-sheet-v5-desktop-10p3-alpha.webp") center / 100% 100% no-repeat;
   clip-path: none;
   opacity: 1;
 }
@@ -2470,7 +2470,7 @@
 
 @media (max-width: 430px) {
   .panel[data-expanded="true"][data-chat-mode="novelist"] .composerField::before {
-    background-image: url("/assets/ui/system-layer-materials-v5/composer-sheet-v5-mobile-4p8-alpha.png");
+    background-image: url("/assets/ui/system-layer-materials-v5/composer-sheet-v5-mobile-4p8-alpha.webp");
   }
 
   .panel[data-expanded="true"][data-chat-mode="novelist"] .composer {
@@ -3164,7 +3164,7 @@
   border-radius: 0;
   padding: 1.02rem 1.16rem .88rem;
   background-color: transparent;
-  background-image: url("/assets/ui/system-layer-materials-v6/central-chat-paper-v6-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v6/central-chat-paper-v6-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -3183,7 +3183,7 @@
   min-height: 4.9rem;
   padding: .64rem .72rem .58rem;
   background-color: transparent;
-  background-image: url("/assets/ui/system-layer-materials-v6/creative-progress-v6-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v6/creative-progress-v6-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -3194,7 +3194,7 @@
   border-color: transparent;
   border-radius: 0;
   background-color: transparent;
-  background-image: url("/assets/ui/system-layer-materials-v6/writing-input-bar-v6-alpha.png");
+  background-image: url("/assets/ui/system-layer-materials-v6/writing-input-bar-v6-alpha.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;

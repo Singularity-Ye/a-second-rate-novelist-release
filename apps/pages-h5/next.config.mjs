@@ -16,6 +16,8 @@ const nextConfig = {
     "@erliu/telemetry",
   ],
   webpack(config) {
+    // shared-contracts uses NodeNext-safe explicit `.js` specifiers while
+    // Pages consumes the workspace TypeScript source during static export.
     config.resolve.extensionAlias = {
       ...(config.resolve.extensionAlias ?? {}),
       ".js": [".ts", ".tsx", ".js"],
