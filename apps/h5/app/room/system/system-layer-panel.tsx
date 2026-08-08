@@ -32,6 +32,7 @@ import {
 } from "./model-profile-api";
 import { buildContextualSuggestionSet } from "../novelist/life-orchestration";
 import { requestLifeSuggestionCopy } from "./life-suggestion-api";
+import { scheduleChatAssetPrewarm } from "./chat-asset-prewarm";
 import {
   applyCreativeSupportDecision,
   createPreviewSystemBinding,
@@ -598,6 +599,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     readonly key: string;
     readonly response: Awaited<ReturnType<typeof requestLifeSuggestionCopy>>;
   } | null>(null);
+  useEffect(() => scheduleChatAssetPrewarm(), []);
   useEffect(() => {
     if (process.env.NODE_ENV === "test"
       || !expanded

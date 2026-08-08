@@ -59,6 +59,12 @@ jobs:
             --header "Access-Control-Request-Method: POST" \
             --header "Access-Control-Request-Headers: content-type" \
             "${gateway}/vnext/room/messages/stream" >/dev/null
+          curl --fail --silent --show-error --connect-timeout 10 --max-time 30 \
+            --request OPTIONS \
+            --header "Origin: https://${owner}.github.io" \
+            --header "Access-Control-Request-Method: POST" \
+            --header "Access-Control-Request-Headers: content-type" \
+            "${gateway}/vnext/room/life-suggestions" >/dev/null
       - run: pnpm --filter pages-h5 test
       - run: pnpm --filter pages-h5 build
       - uses: actions/upload-pages-artifact@v4
