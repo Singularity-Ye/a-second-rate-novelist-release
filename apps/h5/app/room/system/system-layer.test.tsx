@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { ExperienceProjection } from "@erliu/shared-contracts/vnext-experience";
 import {
   applyCreativeSupportDecision,
   createOriginStorySpec,
@@ -20,6 +21,7 @@ import {
   updateNovelistRelationship,
   updateSystemConversation,
 } from "./system-layer";
+import type { RoomUiActionView, RoomUiPresentationalSurfaceProps } from "./room-ui-adapter";
 import { SystemLayerPanel } from "./system-layer-panel";
 
 const xianxia = {
@@ -38,10 +40,71 @@ const availableProjection = {
   understanding: null,
   primaryAction: { code: "submit_intent", label: "说说想看的故事" },
   secondaryActions: [],
+} as const satisfies ExperienceProjection;
+
+const retryProjection = {
+  versionId: "projection:test:retry",
+  status: "unavailable",
+  headline: "现在还写不了",
+  body: "委托仍然保留，可以按当前版本重试。",
+  understanding: null,
+  primaryAction: {
+    code: "retry_current_task",
+    label: "重试",
+    basedOnVersionId: "task:test:retry-v2",
+  },
+  secondaryActions: [{ code: "return_later", label: "稍后再来" }],
+} as const satisfies ExperienceProjection;
+
+const draftProjection = {
+  versionId: "projection:test:draft",
+  status: "draft_ready",
+  headline: "新稿已写好",
+  body: "这仍是等待阅读的草稿。",
+  understanding: null,
+  primaryAction: { code: "open_draft", label: "阅读新稿" },
+  secondaryActions: [],
+} as const satisfies ExperienceProjection;
+
+const writingProjection = {
+  versionId: "projection:test:writing",
+  status: "writing",
+  headline: "正在写",
+  body: "委托已经进入正式写作。",
+  understanding: null,
+  primaryAction: null,
+  secondaryActions: [{ code: "return_later", label: "稍后再来" }],
+} as const satisfies ExperienceProjection;
+
+const correctionProjection = {
+  versionId: "projection:test:correction",
+  status: "listening",
+  headline: "需要补充说明",
+  body: "先确认你的意思。",
+  understanding: {
+    versionId: "understanding:test:correction",
+    statement: "先写雨夜里的相遇。",
+    clarificationQuestion: "你希望谁先开口？",
+  },
+  primaryAction: {
+    code: "correct_understanding",
+    label: "补充说明",
+    basedOnVersionId: "understanding:test:correction",
+  },
+  secondaryActions: [],
+} as const satisfies ExperienceProjection;
+
+const admissionManifest = {
+  audienceMode: "internal",
+  inputPolicy: "synthetic_only",
+  admissionPolicyVersion: "internal-synthetic-v1",
+  aiIdentityNoticeVersion: "ai-notice-v1",
+  serviceTermsVersion: "internal-terms-v1",
+  privacyNoticeVersion: "internal-privacy-v1",
 } as const;
 
-function projectionResponse() {
-  return new Response(JSON.stringify(availableProjection), {
+function projectionResponse(projection: ExperienceProjection = availableProjection) {
+  return new Response(JSON.stringify(projection), {
     status: 200,
     headers: { "content-type": "application/json" },
   });
@@ -112,6 +175,113 @@ const draftReadyRoomStoryContext = {
   updatedAt: draftReadyUpdatedAt,
 } as const;
 
+const variantCandidateSetId = "11111111-1111-4111-8111-111111111111";
+const variantCandidateIds = [
+  "22222222-2222-4222-8222-222222222222",
+  "33333333-3333-4333-8333-333333333333",
+  "44444444-4444-4444-8444-444444444444",
+] as const;
+const variantSelectedContentId = "55555555-5555-4555-8555-555555555555";
+const variantReviewRoomStoryContext = {
+  ...draftReadyRoomStoryContext,
+  progress: "variant_review",
+  workspace: {
+    ...draftReadyRoomStoryContext.workspace,
+    aggregateVersion: 5,
+  },
+  understanding: {
+    id: "66666666-6666-4666-8666-666666666666",
+    version: 2,
+    storyDesire: "雨夜重逢",
+    emotionalTarget: "迟疑",
+    relationshipTension: "旧事未说破",
+  },
+  commission: {
+    id: "77777777-7777-4777-8777-777777777777",
+    version: 3,
+    status: "active",
+    premise: "雨夜重逢",
+    emotionalPromise: "让人物先行动",
+    continuationIntent: "从门锁声开始",
+  },
+  draft: null,
+  creativeJob: {
+    ...draftReadyRoomStoryContext.creativeJob,
+    taskId: "99999999-9999-4999-8999-999999999999",
+    progress: "variant_review",
+    stateVersion: 4,
+    route: {
+      provider: "deepseek",
+      model: "deepseek-v4-flash",
+      fallbackApplied: false,
+    },
+    candidateReview: {
+      candidateSetId: variantCandidateSetId,
+      candidateSetVersion: 1,
+      status: "pending",
+      candidateCount: 3,
+    },
+  },
+} as const;
+
+async function variantCandidateSetPayload(selected = false) {
+  const bodies = ["甲".repeat(500), "乙".repeat(520), "丙".repeat(540)];
+  const candidates = await Promise.all(bodies.map(async (body, index) => {
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(body));
+    const bodyHash = [...new Uint8Array(digest)]
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+    return {
+      candidateId: variantCandidateIds[index],
+      candidateSetId: variantCandidateSetId,
+      candidateSetVersion: 1,
+      ordinal: index + 1,
+      techniqueLabels: [`技法${index + 1}`],
+      techniqueSummary: `第${index + 1}种写法`,
+      body,
+      bodyHash,
+      status: selected ? (index === 1 ? "selected" : "rejected") : "pending",
+    };
+  }));
+  return {
+    candidateSetId: variantCandidateSetId,
+    candidateSetVersion: 1,
+    status: selected ? "selected" : "pending",
+    workspace: {
+      id: draftReadyRoomStoryContext.workspace.id,
+      aggregateVersion: 5,
+    },
+    understanding: {
+      id: variantReviewRoomStoryContext.understanding.id,
+      version: 2,
+    },
+    commission: {
+      id: variantReviewRoomStoryContext.commission.id,
+      version: 3,
+    },
+    task: {
+      id: variantReviewRoomStoryContext.creativeJob.taskId,
+      stateVersion: 4,
+    },
+    trace: {
+      id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      attemptNumber: 1,
+      outputHash: "a".repeat(64),
+    },
+    attestation: {
+      provider: "deepseek",
+      model: "deepseek-v4-flash",
+      route: "creative_large",
+      workflowVersion: "write-opening-variants-v1",
+      providerTraceId: "provider-trace-1",
+      fallbackApplied: false,
+    },
+    candidates,
+    selectedCandidateId: selected ? variantCandidateIds[1] : null,
+    selectedContentId: selected ? variantSelectedContentId : null,
+  };
+}
+
 function roomStoryContextResponse(
   context: typeof blockedRoomStoryContext | typeof draftReadyRoomStoryContext = blockedRoomStoryContext,
   projectionVersionId = context === draftReadyRoomStoryContext
@@ -134,15 +304,99 @@ function unauthenticatedRoomStoryContextResponse() {
   });
 }
 
+function modelProfileSettingsResponse() {
+  return new Response(JSON.stringify({
+    catalogVersion: "v1",
+    profiles: [
+      {
+        id: "deepseek",
+        label: "DeepSeek",
+        provider: "deepseek",
+        model: "deepseek-v4-flash",
+        purposes: ["conversation", "analysis"],
+        status: "available",
+        streaming: true,
+      },
+      {
+        id: "gpt",
+        label: "GPT",
+        provider: null,
+        model: null,
+        purposes: ["conversation", "analysis"],
+        status: "not_configured",
+        streaming: true,
+      },
+      {
+        id: "gemini",
+        label: "Gemini",
+        provider: null,
+        model: null,
+        purposes: ["conversation", "analysis"],
+        status: "not_configured",
+        streaming: true,
+      },
+      {
+        id: "grok",
+        label: "Grok",
+        provider: null,
+        model: null,
+        purposes: ["conversation", "analysis"],
+        status: "not_configured",
+        streaming: true,
+      },
+    ],
+    preferences: {
+      conversation: {
+        purpose: "conversation",
+        profileId: "deepseek",
+        revision: 1,
+        source: "stored",
+        available: true,
+      },
+      analysis: {
+        purpose: "analysis",
+        profileId: "deepseek",
+        revision: 1,
+        source: "stored",
+        available: true,
+      },
+    },
+  }), {
+    status: 200,
+    headers: { "content-type": "application/json" },
+  });
+}
+
+function deepSeekDraftReadyRoomStoryContextResponse() {
+  return new Response(JSON.stringify({
+    projectionVersionId: draftReadyProjectionVersionId,
+    context: {
+      ...draftReadyRoomStoryContext,
+      creativeJob: {
+        ...draftReadyRoomStoryContext.creativeJob,
+        route: {
+          provider: "deepseek",
+          model: "deepseek-v4-creative",
+          fallbackApplied: false,
+        },
+      },
+    },
+  }), {
+    status: 200,
+    headers: { "content-type": "application/json" },
+  });
+}
+
 function stubActiveGateway(
   roomRequest: (input?: RequestInfo | URL, init?: RequestInit) => Promise<Response> = async () => {
     throw new Error("provider offline in local component tests");
   },
   storyContextResponse: () => Response = unauthenticatedRoomStoryContextResponse,
+  experienceProjection: ExperienceProjection = availableProjection,
 ) {
   vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input);
-    if (url.endsWith("/vnext/experience")) return projectionResponse();
+    if (url.endsWith("/vnext/experience")) return projectionResponse(experienceProjection);
     if (url.endsWith("/vnext/model-profiles")) {
       return new Response(JSON.stringify({ code: "provider_unavailable" }), {
         status: 503,
@@ -158,6 +412,139 @@ async function waitForActiveGateway() {
   await waitFor(() => {
     expect(screen.getByTestId("system-model-status").getAttribute("data-gateway-state")).toBe("active");
   });
+}
+
+function PresentationalProbe({ model, onClose, onSendMessage }: RoomUiPresentationalSurfaceProps) {
+  return (
+    <section
+      data-testid="room-presentational-surface"
+      data-chat-phase={model.chat.streamState.phase}
+      data-life-source={model.life.mood?.source ?? "none"}
+      data-progress-source={model.progress.source}
+      data-draft-content-id={model.draftReady?.contentId ?? "none"}
+      data-projection-version-id={model.task.projection?.versionId ?? "none"}
+      data-conversation-model={model.modelRuntime?.conversation?.model ?? "none"}
+      data-conversation-profile={model.modelRuntime?.conversation?.profileId ?? "none"}
+      data-creative-job-model={model.modelRuntime?.creativeJob?.model ?? "none"}
+      data-creative-job-provider={model.modelRuntime?.creativeJob?.provider ?? "none"}
+    >
+      <span data-testid="room-presentational-message-count">{model.chat.messages.length}</span>
+      <button type="button" onClick={onClose}>probe-close</button>
+      <button type="button" onClick={() => onSendMessage("测试已核验模型")}>probe-send</button>
+    </section>
+  );
+}
+
+function ProjectionActionProbe({
+  model,
+  draftReader,
+  onCloseDraftReader,
+  onProjectionAction,
+}: RoomUiPresentationalSurfaceProps) {
+  const projection = model.task.projection;
+  const actions = projection === null
+    ? []
+    : [projection.primaryAction, ...projection.secondaryActions].filter(
+      (action): action is RoomUiActionView => action !== null,
+    );
+  return (
+    <section
+      data-testid="projection-action-probe"
+      data-projection-version-id={projection?.versionId ?? "none"}
+      data-recovery-code={model.recovery?.code ?? "none"}
+    >
+      {actions.map((action) => (
+        <button
+          type="button"
+          key={`${action.code}-${action.basedOnVersionId ?? "none"}`}
+          onClick={() => onProjectionAction(action)}
+        >
+          {`probe-action-${action.code}`}
+        </button>
+      ))}
+      <button
+        type="button"
+        onClick={() => onProjectionAction({
+          code: "retry_current_task",
+          label: "旧重试",
+          basedOnVersionId: "task:test:stale",
+        })}
+      >
+        probe-stale-retry
+      </button>
+      {draftReader !== null && (
+        <aside
+          data-testid="probe-draft-reader"
+          data-content-id={draftReader.contentId}
+          data-version-id={draftReader.versionId}
+          data-draft-kind={draftReader.kind}
+        >
+          <article>{draftReader.body}</article>
+          <button type="button" onClick={onCloseDraftReader}>probe-close-draft-reader</button>
+        </aside>
+      )}
+    </section>
+  );
+}
+
+function GatewayAccessProbe({
+  model,
+  onAdmissionAcknowledge,
+  onGatewayReconnect,
+}: RoomUiPresentationalSurfaceProps) {
+  return (
+    <section
+      data-testid="gateway-access-probe"
+      data-recovery-code={model.recovery?.code ?? "none"}
+      data-conversation-runtime={model.modelRuntime?.conversation?.source ?? "none"}
+      data-creative-runtime={model.modelRuntime?.creativeJob?.source ?? "none"}
+    >
+      {onAdmissionAcknowledge && (
+        <button type="button" onClick={onAdmissionAcknowledge}>probe-admission-acknowledge</button>
+      )}
+      {onGatewayReconnect && (
+        <button type="button" onClick={onGatewayReconnect}>probe-gateway-reconnect</button>
+      )}
+    </section>
+  );
+}
+
+function VariantReviewProbe({
+  model,
+  variantReview,
+  onOpenVariantCandidate,
+  onCloseVariantPreview,
+  onSelectVariantCandidate,
+}: RoomUiPresentationalSurfaceProps) {
+  return (
+    <section
+      data-testid="variant-review-probe"
+      data-state={variantReview?.state ?? "none"}
+      data-preview-id={variantReview?.selectedPreviewId ?? "none"}
+      data-draft-id={model.draftReady?.contentId ?? "none"}
+      data-recovery-code={model.recovery?.code ?? "none"}
+    >
+      {variantReview?.candidates.map((candidate) => (
+        <button
+          key={candidate.candidateId}
+          type="button"
+          onClick={() => onOpenVariantCandidate?.(candidate.candidateId)}
+        >
+          {`probe-open-${candidate.ordinal}`}
+        </button>
+      ))}
+      {variantReview?.selectedPreviewId && (
+        <>
+          <button type="button" onClick={() => onSelectVariantCandidate?.(variantReview.selectedPreviewId!)}>
+            probe-select
+          </button>
+          <button type="button" onClick={() => onCloseVariantPreview?.()}>
+            probe-close-preview
+          </button>
+        </>
+      )}
+    </section>
+  );
 }
 
 describe("system layer binding", () => {
@@ -396,6 +783,397 @@ describe("system layer binding", () => {
 });
 
 describe("SystemLayerPanel", () => {
+  it("passes formal room state and callbacks to an optional presentational surface while keeping the old UI fallback", async () => {
+    const onRequestChannel = vi.fn();
+    stubActiveGateway(async () => {
+      throw new Error("chat is not part of this insertion-point test");
+    }, () => roomStoryContextResponse(draftReadyRoomStoryContext));
+
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={onRequestChannel}
+        presentationalSurface={PresentationalProbe}
+        observation={{ sceneLabel: "涔︽埧", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    const surface = await screen.findByTestId("room-presentational-surface");
+    await waitFor(() => {
+      expect(surface.getAttribute("data-progress-source")).toBe("persisted_story_truth");
+      expect(surface.getAttribute("data-draft-content-id")).toBe(draftReadyContentId);
+      expect(surface.getAttribute("data-creative-job-model")).toBe("grok-4.5");
+      expect(surface.getAttribute("data-creative-job-provider")).toBe("company-router");
+      expect(surface.getAttribute("data-projection-version-id")).toBe(availableProjection.versionId);
+    });
+    expect(surface.getAttribute("data-life-source")).toBe("life_runtime");
+    expect(screen.queryByTestId("room-v6-frontstage")).toBeNull();
+    expect(screen.queryByTestId("system-dialogue")).toBeNull();
+    expect(screen.getByTestId("room-presentational-message-count").textContent).not.toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "probe-close" }));
+    expect(onRequestChannel).toHaveBeenCalledWith(null);
+  });
+
+  it("keeps both model roles unverified until their independent formal proofs exist", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith("/vnext/experience")) return projectionResponse();
+      if (url.endsWith("/vnext/model-profiles")) return modelProfileSettingsResponse();
+      if (url.endsWith("/vnext/room/context")) return roomStoryContextResponse();
+      if (url.endsWith("/vnext/room/life-suggestions")) {
+        return new Response(JSON.stringify({ code: "temporarily_unavailable", recovery: "return_later" }), {
+          status: 503,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      throw new Error(`unexpected request: ${url}`);
+    }));
+
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    const toggle = await screen.findByTestId("system-model-picker-toggle");
+    await waitFor(() => expect((toggle as HTMLButtonElement).disabled).toBe(false));
+    fireEvent.click(toggle);
+
+    expect((await screen.findByTestId("system-conversation-runtime-contract")).textContent)
+      .toBe("聊天模型待发送后核验");
+    expect(screen.getByTestId("system-creative-job-runtime-contract").textContent)
+      .toBe("正式写作模型待服务器确认");
+    expect(screen.getByTestId("model-role-contract").textContent).not.toContain("Grok 4.5");
+  });
+
+  it("shows conversation and creative model identities only from their separate verified sources", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith("/vnext/experience")) return projectionResponse();
+      if (url.endsWith("/vnext/model-profiles")) return modelProfileSettingsResponse();
+      if (url.endsWith("/vnext/room/context")) return deepSeekDraftReadyRoomStoryContextResponse();
+      if (url.endsWith("/vnext/room/life-suggestions")) {
+        return new Response(JSON.stringify({ code: "temporarily_unavailable", recovery: "return_later" }), {
+          status: 503,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      if (url.endsWith("/vnext/room/messages/stream")) {
+        return new Response(
+          `event: route\ndata: ${JSON.stringify({ type: "route", requestId: "room-role-proof", intent: "conversation", handling: "conversation", projection: availableProjection })}\n\n`
+          + "event: ready\ndata: {\"type\":\"ready\",\"requestId\":\"room-role-proof\",\"provider\":\"deepseek\",\"model\":\"deepseek-v4-flash\",\"requestedTier\":\"light\",\"requestedProfileId\":\"deepseek\",\"actualProfileId\":\"deepseek\",\"routeFallbackApplied\":false,\"fallbackApplied\":false}\n\n"
+          + "event: chunk\ndata: {\"type\":\"chunk\",\"requestId\":\"room-role-proof\",\"text\":\"模型职责已分开核验。\"}\n\n"
+          + "event: complete\ndata: {\"type\":\"complete\",\"requestId\":\"room-role-proof\",\"provider\":\"deepseek\",\"model\":\"deepseek-v4-flash\",\"requestedTier\":\"light\",\"requestedProfileId\":\"deepseek\",\"actualProfileId\":\"deepseek\",\"routeFallbackApplied\":false,\"fallbackApplied\":false}\n\n",
+          { status: 200, headers: { "content-type": "text/event-stream" } },
+        );
+      }
+      throw new Error(`unexpected request: ${url}`);
+    }));
+
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    await waitForActiveGateway();
+    const input = screen.getByLabelText("对小说家说点什么") as HTMLTextAreaElement;
+    fireEvent.change(input, { target: { value: "核对两条模型职责" } });
+    fireEvent.click(screen.getByTestId("system-message-send"));
+    await waitFor(() => {
+      expect(screen.getByTestId("system-model-status").getAttribute("data-model")).toBe("deepseek-v4-flash");
+    });
+
+    const toggle = screen.getByTestId("system-model-picker-toggle");
+    await waitFor(() => expect((toggle as HTMLButtonElement).disabled).toBe(false));
+    fireEvent.click(toggle);
+
+    expect((await screen.findByTestId("system-conversation-runtime-contract")).textContent)
+      .toBe("deepseek / deepseek-v4-flash · 对话证明已核验");
+    expect(screen.getByTestId("system-creative-job-runtime-contract").textContent)
+      .toBe("deepseek / deepseek-v4-creative · 服务器作品真值");
+  });
+
+  it.each([
+    [availableProjection, "probe-action-submit_intent", "说说想看的故事"],
+    [correctionProjection, "probe-action-correct_understanding", "补充说明"],
+  ] as const)("keeps %s projection actions as editable composer fills", async (experienceProjection, buttonName, expectedDraft) => {
+    const onRequestChannel = vi.fn();
+    stubActiveGateway(
+      async () => {
+        throw new Error("projection fill must not execute a server action");
+      },
+      () => roomStoryContextResponse(draftReadyRoomStoryContext),
+      experienceProjection,
+    );
+
+    const view = render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={onRequestChannel}
+        presentationalSurface={ProjectionActionProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    await screen.findByRole("button", { name: buttonName });
+    const fetchMock = vi.mocked(fetch);
+    fetchMock.mockClear();
+    fireEvent.click(screen.getByRole("button", { name: buttonName }));
+
+    view.rerender(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={onRequestChannel}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+    expect((await screen.findByLabelText("对小说家说点什么") as HTMLTextAreaElement).value).toBe(expectedDraft);
+    expect(fetchMock.mock.calls.some(([input]) => String(input).endsWith("/vnext/experience/messages"))).toBe(false);
+  });
+
+  it("fails closed when a presentational surface replays a stale versioned action", async () => {
+    stubActiveGateway(
+      async () => {
+        throw new Error("stale projection action must not reach the server");
+      },
+      () => roomStoryContextResponse(draftReadyRoomStoryContext),
+      retryProjection,
+    );
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={ProjectionActionProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    const staleButton = await screen.findByRole("button", { name: "probe-stale-retry" });
+    const fetchMock = vi.mocked(fetch);
+    fetchMock.mockClear();
+    fireEvent.click(staleButton);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("projection-action-probe").getAttribute("data-recovery-code")).toBe("conflict");
+    });
+    expect(fetchMock.mock.calls.some(([input]) => String(input).endsWith("/vnext/experience/messages"))).toBe(false);
+  });
+
+  it("executes retry_current_task only with the current basedOnVersionId", async () => {
+    stubActiveGateway(
+      async (input, init) => {
+        if (String(input).endsWith("/vnext/experience/messages")) {
+          return new Response(JSON.stringify(writingProjection), {
+            status: 202,
+            headers: { "content-type": "application/json" },
+          });
+        }
+        throw new Error(`unexpected request: ${String(input)} ${init?.method ?? "GET"}`);
+      },
+      () => roomStoryContextResponse(draftReadyRoomStoryContext),
+      retryProjection,
+    );
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={ProjectionActionProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "probe-action-retry_current_task" }));
+    await waitFor(() => {
+      expect(screen.getByTestId("projection-action-probe").getAttribute("data-projection-version-id")).toBe(writingProjection.versionId);
+    });
+
+    const actionCall = vi.mocked(fetch).mock.calls.find(([input]) => String(input).endsWith("/vnext/experience/messages"));
+    expect(actionCall).toBeDefined();
+    expect(JSON.parse(String(actionCall?.[1]?.body))).toMatchObject({
+      action: "retry_current_task",
+      basedOnVersionId: "task:test:retry-v2",
+    });
+  });
+
+  it("routes open_draft to the read-only draft endpoint", async () => {
+    stubActiveGateway(
+      async (input) => {
+        if (String(input).endsWith("/vnext/experience/draft")) {
+          return new Response(JSON.stringify({
+            contentId: draftReadyContentId,
+            versionId: `${draftReadyContentId}:1`,
+            kind: "opening",
+            body: "雨声从窗沿落下来。",
+          }), {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          });
+        }
+        throw new Error(`unexpected request: ${String(input)}`);
+      },
+      () => roomStoryContextResponse(draftReadyRoomStoryContext),
+      draftProjection,
+    );
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={ProjectionActionProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "probe-action-open_draft" }));
+    await waitFor(() => {
+      expect(vi.mocked(fetch).mock.calls.some(([input]) => String(input).endsWith("/vnext/experience/draft"))).toBe(true);
+    });
+    const reader = await screen.findByTestId("probe-draft-reader");
+    expect(reader.getAttribute("data-content-id")).toBe(draftReadyContentId);
+    expect(reader.getAttribute("data-version-id")).toBe(`${draftReadyContentId}:1`);
+    expect(reader.getAttribute("data-draft-kind")).toBe("opening");
+    expect(reader.querySelector("article")?.textContent).toBe("雨声从窗沿落下来。");
+    expect(vi.mocked(fetch).mock.calls.some(([input]) => String(input).endsWith("/vnext/experience/messages"))).toBe(false);
+
+    fireEvent.click(screen.getByRole("button", { name: "probe-close-draft-reader" }));
+    expect(screen.queryByTestId("probe-draft-reader")).toBeNull();
+  });
+
+  it("does not expose a stale draft response to the presentational surface", async () => {
+    stubActiveGateway(
+      async (input) => {
+        if (String(input).endsWith("/vnext/experience/draft")) {
+          return new Response(JSON.stringify({
+            contentId: draftReadyContentId,
+            versionId: `${draftReadyContentId}:0`,
+            kind: "opening",
+            body: "这是已经过期的版本。",
+          }), {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          });
+        }
+        throw new Error(`unexpected request: ${String(input)}`);
+      },
+      () => roomStoryContextResponse(draftReadyRoomStoryContext),
+      draftProjection,
+    );
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={ProjectionActionProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "probe-action-open_draft" }));
+    await waitFor(() => {
+      expect(screen.getByTestId("projection-action-probe").getAttribute("data-recovery-code")).toBe("conflict");
+    });
+    expect(screen.queryByTestId("probe-draft-reader")).toBeNull();
+    expect(vi.mocked(fetch).mock.calls.some(([input]) => String(input).endsWith("/vnext/experience/messages"))).toBe(false);
+  });
+
+  it("keeps the draft reader closed when the read endpoint fails", async () => {
+    stubActiveGateway(
+      async (input) => {
+        if (String(input).endsWith("/vnext/experience/draft")) {
+          return new Response(JSON.stringify({
+            code: "temporarily_unavailable",
+            recovery: "return_later",
+          }), {
+            status: 503,
+            headers: { "content-type": "application/json" },
+          });
+        }
+        throw new Error(`unexpected request: ${String(input)}`);
+      },
+      () => roomStoryContextResponse(draftReadyRoomStoryContext),
+      draftProjection,
+    );
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={ProjectionActionProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "probe-action-open_draft" }));
+    await waitFor(() => {
+      expect(screen.getByTestId("projection-action-probe").getAttribute("data-recovery-code")).toBe("temporarily_unavailable");
+    });
+    expect(screen.queryByTestId("probe-draft-reader")).toBeNull();
+  });
+
+  it("keeps return_later local by pausing progress checks and closing the room", async () => {
+    const onRequestChannel = vi.fn();
+    stubActiveGateway(
+      async () => {
+        throw new Error("return_later must not execute a server action");
+      },
+      () => roomStoryContextResponse(draftReadyRoomStoryContext),
+      writingProjection,
+    );
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={onRequestChannel}
+        presentationalSurface={ProjectionActionProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    const fetchMock = vi.mocked(fetch);
+    fireEvent.click(await screen.findByRole("button", { name: "probe-action-return_later" }));
+    expect(onRequestChannel).toHaveBeenCalledWith(null);
+    expect(fetchMock.mock.calls.some(([input]) => String(input).endsWith("/vnext/experience/messages"))).toBe(false);
+  });
+
+  it("passes only a completed chat attestation to the presentational model", async () => {
+    vi.stubEnv("NEXT_PUBLIC_NOVELIST_CHAT_LOCAL_PREVIEW", "false");
+    stubActiveGateway(async () => new Response(
+      `event: route\ndata: ${JSON.stringify({
+        type: "route",
+        requestId: "room-model-runtime",
+        intent: "conversation",
+        handling: "conversation",
+        projection: availableProjection,
+      })}\n\n`
+      + "event: ready\ndata: {\"type\":\"ready\",\"requestId\":\"room-model-runtime\",\"provider\":\"deepseek\",\"model\":\"deepseek-v4-flash\",\"requestedTier\":\"light\",\"requestedProfileId\":\"deepseek\",\"actualProfileId\":\"deepseek\",\"routeFallbackApplied\":false,\"fallbackApplied\":false}\n\n"
+      + "event: chunk\ndata: {\"type\":\"chunk\",\"text\":\"已收到。\"}\n\n"
+      + "event: complete\ndata: {\"type\":\"complete\",\"requestId\":\"room-model-runtime\",\"provider\":\"deepseek\",\"model\":\"deepseek-v4-flash\",\"requestedTier\":\"light\",\"requestedProfileId\":\"deepseek\",\"actualProfileId\":\"deepseek\",\"routeFallbackApplied\":false,\"fallbackApplied\":false}\n\n",
+      { status: 200, headers: { "content-type": "text/event-stream" } },
+    ));
+
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={PresentationalProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    const surface = await screen.findByTestId("room-presentational-surface");
+    await waitFor(() => {
+      expect(surface.getAttribute("data-projection-version-id")).toBe(availableProjection.versionId);
+    });
+    expect(surface.getAttribute("data-conversation-model")).toBe("none");
+    fireEvent.click(screen.getByRole("button", { name: "probe-send" }));
+    await waitFor(() => {
+      expect(surface.getAttribute("data-conversation-model")).toBe("deepseek-v4-flash");
+      expect(surface.getAttribute("data-conversation-profile")).toBe("deepseek");
+    });
+  });
+
   it("layers the v6 room bookmark and novelist status sheet without baking live state into artwork", () => {
     render(<SystemLayerPanel observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }} />);
 
@@ -765,6 +1543,188 @@ describe("SystemLayerPanel", () => {
     expect(assistantMessages.every((message) => /未生成回复|没有伪造回复|连接尚未建立/.test(message.textContent ?? ""))).toBe(true);
   });
 
+  it("exposes the validated admission acknowledgement to v6 and removes it after session activation", async () => {
+    let experienceReads = 0;
+    let admissionPosts = 0;
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      const method = init?.method ?? "GET";
+      if (url.endsWith("/vnext/experience") && method === "GET") {
+        experienceReads += 1;
+        if (experienceReads === 1) {
+          return new Response(JSON.stringify({ code: "authentication_required", recovery: "restore_session" }), {
+            status: 401,
+            headers: { "content-type": "application/json" },
+          });
+        }
+        return projectionResponse();
+      }
+      if (url.endsWith("/vnext/sessions/admission-manifest") && method === "GET") {
+        return new Response(JSON.stringify(admissionManifest), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      if (url.endsWith("/vnext/sessions/guest") && method === "POST") {
+        admissionPosts += 1;
+        return new Response(JSON.stringify({ status: "active" }), {
+          status: 201,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      if (url.endsWith("/vnext/room/context")) return roomStoryContextResponse();
+      if (url.endsWith("/vnext/model-profiles")) {
+        return new Response(JSON.stringify({ code: "provider_unavailable" }), {
+          status: 503,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      throw new Error(`unexpected request: ${method} ${url}`);
+    }));
+
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={GatewayAccessProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    const acknowledge = await screen.findByRole("button", { name: "probe-admission-acknowledge" });
+    expect(screen.queryByRole("button", { name: "probe-gateway-reconnect" })).toBeNull();
+    fireEvent.click(acknowledge);
+
+    await waitFor(() => {
+      expect(screen.queryByRole("button", { name: "probe-admission-acknowledge" })).toBeNull();
+      expect(screen.queryByRole("button", { name: "probe-gateway-reconnect" })).toBeNull();
+    });
+    expect(experienceReads).toBe(2);
+    expect(admissionPosts).toBe(1);
+  });
+
+  it("keeps admission fail closed when the server rejects a stale acknowledgement", async () => {
+    let admissionPosts = 0;
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      const method = init?.method ?? "GET";
+      if (url.endsWith("/vnext/experience") && method === "GET") {
+        return new Response(JSON.stringify({ code: "authentication_required", recovery: "restore_session" }), {
+          status: 401,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      if (url.endsWith("/vnext/sessions/admission-manifest") && method === "GET") {
+        return new Response(JSON.stringify(admissionManifest), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      if (url.endsWith("/vnext/sessions/guest") && method === "POST") {
+        admissionPosts += 1;
+        return new Response(JSON.stringify({ code: "conflict", recovery: "refresh_projection" }), {
+          status: 409,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      throw new Error(`unexpected request: ${method} ${url}`);
+    }));
+
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={GatewayAccessProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "probe-admission-acknowledge" }));
+    await waitFor(() => {
+      const probe = screen.getByTestId("gateway-access-probe");
+      expect(screen.getByRole("button", { name: "probe-admission-acknowledge" })).toBeTruthy();
+      expect(screen.queryByRole("button", { name: "probe-gateway-reconnect" })).toBeNull();
+      expect(probe.getAttribute("data-conversation-runtime")).toBe("none");
+      expect(probe.getAttribute("data-creative-runtime")).toBe("none");
+    });
+    expect(admissionPosts).toBe(1);
+  });
+
+  it("exposes the formal gateway reconnect only after bootstrap failure and clears recovery after success", async () => {
+    let projectionReads = 0;
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith("/vnext/experience")) {
+        projectionReads += 1;
+        if (projectionReads === 1) {
+          return new Response(JSON.stringify({ code: "temporarily_unavailable", recovery: "return_later" }), {
+            status: 503,
+            headers: { "content-type": "application/json" },
+          });
+        }
+        return projectionResponse();
+      }
+      if (url.endsWith("/vnext/room/context")) return roomStoryContextResponse();
+      if (url.endsWith("/vnext/model-profiles")) {
+        return new Response(JSON.stringify({ code: "provider_unavailable" }), {
+          status: 503,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      throw new Error(`unexpected request: ${url}`);
+    }));
+
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={GatewayAccessProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    const reconnect = await screen.findByRole("button", { name: "probe-gateway-reconnect" });
+    expect(screen.getByTestId("gateway-access-probe").getAttribute("data-recovery-code")).toBe("provider_unavailable");
+    fireEvent.click(reconnect);
+
+    await waitFor(() => {
+      expect(screen.queryByRole("button", { name: "probe-gateway-reconnect" })).toBeNull();
+      expect(screen.getByTestId("gateway-access-probe").getAttribute("data-recovery-code")).toBe("none");
+    });
+    expect(projectionReads).toBe(2);
+  });
+
+  it("keeps recovery fail closed when the formal gateway reconnect also fails", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith("/vnext/experience")) {
+        return new Response(JSON.stringify({ code: "temporarily_unavailable", recovery: "return_later" }), {
+          status: 503,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      throw new Error(`unexpected request: ${url}`);
+    }));
+
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={GatewayAccessProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "probe-gateway-reconnect" }));
+    await waitFor(() => {
+      const probe = screen.getByTestId("gateway-access-probe");
+      expect(probe.getAttribute("data-recovery-code")).toBe("provider_unavailable");
+      expect(screen.getByRole("button", { name: "probe-gateway-reconnect" })).toBeTruthy();
+      expect(probe.getAttribute("data-conversation-runtime")).toBe("none");
+      expect(probe.getAttribute("data-creative-runtime")).toBe("none");
+    });
+  });
+
   it("renders a real SSE response as online streaming instead of a local rule reply", async () => {
     vi.stubEnv("NEXT_PUBLIC_NOVELIST_CHAT_LOCAL_PREVIEW", "false");
     stubActiveGateway(async () => new Response(
@@ -1050,6 +2010,140 @@ describe("SystemLayerPanel", () => {
       expect(screen.getByTestId("system-dialogue").textContent).toContain("未生成回复");
       expect(screen.getByTestId("system-layer-panel").textContent).toContain("连接中断");
     });
+  });
+
+  it("discovers three variants, keeps preview read-only, and opens draft only after verified promotion", async () => {
+    let selected = false;
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url.endsWith("/vnext/experience")) {
+        return projectionResponse(selected ? draftProjection : writingProjection);
+      }
+      if (url.endsWith("/vnext/model-profiles")) {
+        return new Response(JSON.stringify({ code: "provider_unavailable" }), { status: 503 });
+      }
+      if (url.endsWith("/vnext/room/context")) {
+        const context = selected
+          ? {
+              ...draftReadyRoomStoryContext,
+              draft: {
+                ...draftReadyRoomStoryContext.draft,
+                contentId: variantSelectedContentId,
+              },
+              creativeJob: {
+                ...draftReadyRoomStoryContext.creativeJob,
+                route: {
+                  provider: "deepseek",
+                  model: "deepseek-v4-flash",
+                  fallbackApplied: false,
+                },
+              },
+            }
+          : variantReviewRoomStoryContext;
+        return new Response(JSON.stringify({
+          projectionVersionId: selected ? draftProjection.versionId : "projection:variant-review",
+          context,
+        }), { status: 200, headers: { "content-type": "application/json" } });
+      }
+      if (url.endsWith(`/write-opening-variants/${variantCandidateSetId}/select`)) {
+        selected = true;
+        return new Response(JSON.stringify(await variantCandidateSetPayload(true)), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      if (url.endsWith(`/write-opening-variants/${variantCandidateSetId}`)) {
+        return new Response(JSON.stringify(await variantCandidateSetPayload(selected)), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      throw new Error(`unexpected request: ${url} ${init?.method ?? "GET"}`);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={VariantReviewProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    await screen.findByRole("button", { name: "probe-open-2" });
+    expect(screen.getByTestId("variant-review-probe").getAttribute("data-state")).toBe("ready");
+    fireEvent.click(screen.getByRole("button", { name: "probe-open-2" }));
+    expect(screen.getByTestId("variant-review-probe").getAttribute("data-preview-id")).toBe(variantCandidateIds[1]);
+    expect(fetchMock.mock.calls.some(([, init]) => init?.method === "POST")).toBe(false);
+    fireEvent.click(screen.getByRole("button", { name: "probe-close-preview" }));
+    expect(screen.getByTestId("variant-review-probe").getAttribute("data-preview-id")).toBe("none");
+
+    fireEvent.click(screen.getByRole("button", { name: "probe-open-2" }));
+    fireEvent.click(screen.getByRole("button", { name: "probe-select" }));
+    await waitFor(() => {
+      expect(screen.getByTestId("variant-review-probe").getAttribute("data-state")).toBe("none");
+      expect(screen.getByTestId("variant-review-probe").getAttribute("data-draft-id")).toBe(variantSelectedContentId);
+    });
+    const selectionCall = fetchMock.mock.calls.find(([, init]) => init?.method === "POST");
+    const selectionBody = JSON.parse(String(selectionCall?.[1]?.body));
+    expect(selectionBody).toMatchObject({
+      candidateId: variantCandidateIds[1],
+      candidateSetVersion: 1,
+      workspaceAggregateVersion: 5,
+      understandingVersion: 2,
+      commissionVersion: 3,
+      taskStateVersion: 4,
+    });
+    expect(JSON.stringify(selectionBody)).not.toMatch(/body|bodyHash|provider|model/);
+  });
+
+  it("does not report success when select returns 200 but context is not promoted", async () => {
+    let selected = false;
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith("/vnext/experience")) return projectionResponse(writingProjection);
+      if (url.endsWith("/vnext/model-profiles")) {
+        return new Response(JSON.stringify({ code: "provider_unavailable" }), { status: 503 });
+      }
+      if (url.endsWith("/vnext/room/context")) {
+        return new Response(JSON.stringify({
+          projectionVersionId: "projection:variant-review",
+          context: variantReviewRoomStoryContext,
+        }), { status: 200, headers: { "content-type": "application/json" } });
+      }
+      if (url.endsWith(`/write-opening-variants/${variantCandidateSetId}/select`)) {
+        selected = true;
+        return new Response(JSON.stringify(await variantCandidateSetPayload(true)), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      if (url.endsWith(`/write-opening-variants/${variantCandidateSetId}`)) {
+        return new Response(JSON.stringify(await variantCandidateSetPayload(selected)), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      throw new Error(`unexpected request: ${url}`);
+    }));
+    render(
+      <SystemLayerPanel
+        activeChannel="novelist"
+        onRequestChannel={vi.fn()}
+        presentationalSurface={VariantReviewProbe}
+        observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+      />,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "probe-open-2" }));
+    fireEvent.click(screen.getByRole("button", { name: "probe-select" }));
+    await waitFor(() => {
+      const probe = screen.getByTestId("variant-review-probe");
+      expect(probe.getAttribute("data-state")).toBe("none");
+      expect(probe.getAttribute("data-draft-id")).toBe("none");
+      expect(probe.getAttribute("data-recovery-code")).toBe("candidate_selection_not_promoted");
+    });
+    expect(screen.getByTestId("system-layer-panel").textContent).not.toContain("已采用所选版本");
   });
 
   it("explains synthetic-only creative access without pretending the model is offline", async () => {

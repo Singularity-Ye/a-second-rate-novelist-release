@@ -20,6 +20,8 @@ describe("NovelistRoom", () => {
     clearLifeRuntimeSnapshot();
     clearNextDayPlanDraft();
     clearSceneInteractionStates();
+    window.localStorage.removeItem("room-ui-formal-surface:v1");
+    window.history.replaceState({}, "", "/room/novelist");
   });
 
   it("renders the formal room without retired control panels or hotspot overlays", () => {
@@ -76,7 +78,9 @@ describe("NovelistRoom", () => {
     expect(screen.getByTestId("stage-life-signal").getAttribute("data-activity")).toBe("sleeping");
     expect(screen.getByTestId("stage-life-signal").textContent).toContain("睡觉中");
     fireEvent.click(within(screen.getByTestId("system-layer-panel")).getByRole("button"));
-    expect(screen.getByTestId("system-observation").textContent).toContain("睡觉中");
+    const statusCard = screen.getByTestId("room-v6-status-card");
+    expect(statusCard.textContent).toContain("睡觉中");
+    expect(statusCard.querySelector('[data-avatar-state="sleeping"]')).toBeTruthy();
   });
 
   it("restores formal scene-owned gear state after the room is reloaded", async () => {
@@ -303,7 +307,8 @@ describe("NovelistRoom", () => {
       expect(panel.getAttribute("data-chat-mode")).toBe("novelist");
       expect(panel.getAttribute("data-expanded")).toBe("true");
     });
-    (screen.getByTestId("system-message-input") as HTMLTextAreaElement).blur();
+    expect(screen.getByTestId("room-v6-presentational-surface")).toBeTruthy();
+    (screen.getByTestId("room-v6-composer") as HTMLTextAreaElement).blur();
     fireEvent.keyDown(window, { key: "Enter" });
     expect(panel.getAttribute("data-expanded")).toBe("false");
 
@@ -314,6 +319,39 @@ describe("NovelistRoom", () => {
     });
     fireEvent.keyDown(window, { key: "b" });
     expect(panel.getAttribute("data-expanded")).toBe("false");
+  });
+
+  it("uses the compiled formal layout instead of browser-local editor calibration", async () => {
+    window.localStorage.setItem("room-ui-formal-surface:v1", JSON.stringify({
+      surface: { x: 999, y: 999, scale: .2, tilt: 12, width: .2, height: .2 },
+      composition: {
+        suggestions: { x: 999, y: 999, scale: .2, tilt: 12, width: .2, height: .2 },
+      },
+    }));
+    render(<NovelistRoom />);
+
+    fireEvent.keyDown(window, { key: "Enter" });
+    const surface = await screen.findByTestId("room-v6-presentational-surface");
+    const suggestions = screen.getByTestId("room-v6-suggestions");
+
+    expect(surface.getAttribute("data-surface-scale")).toBe("1.5");
+    expect(surface.getAttribute("data-calibration-camera")).toBeNull();
+    expect(suggestions.style.getPropertyValue("--layout-x")).toBe("-1px");
+    expect(suggestions.style.getPropertyValue("--layout-scale")).toBe("1.63");
+  });
+
+  it("keeps the legacy novelist console available only through the explicit roomUi fallback", async () => {
+    window.history.replaceState({}, "", "/room/novelist?roomUi=legacy");
+    render(<NovelistRoom />);
+    const panel = screen.getByTestId("system-layer-panel");
+
+    fireEvent.keyDown(window, { key: "Enter" });
+    await waitFor(() => {
+      expect(panel.getAttribute("data-chat-mode")).toBe("novelist");
+      expect(panel.getAttribute("data-expanded")).toBe("true");
+      expect(screen.queryByTestId("room-v6-presentational-surface")).toBeNull();
+      expect(screen.getByTestId("system-message-input")).toBeTruthy();
+    });
   });
 
   it("keeps formal bedroom routes and depth assets in the manifest", () => {

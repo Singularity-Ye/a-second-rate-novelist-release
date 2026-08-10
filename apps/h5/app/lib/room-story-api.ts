@@ -55,6 +55,7 @@ const STORY_PROGRESS_STATES = new Set<RoomStoryProgressState>([
   "idle",
   "understanding",
   "writing",
+  "variant_review",
   "revising",
   "draft_ready",
   "accepted",
@@ -234,7 +235,7 @@ function parseCommission(value: unknown): RoomStoryCommissionReference | null {
 }
 
 function parseCreativeJob(value: unknown): RoomStoryCreativeJob | null {
-  const fields = new Set([
+  const baseFields = new Set([
     "taskId",
     "requestId",
     "kind",
@@ -246,7 +247,14 @@ function parseCreativeJob(value: unknown): RoomStoryCreativeJob | null {
     "updatedAt",
     "route",
   ]);
-  if (!hasExactFields(value, fields)) return null;
+  const fieldsWithCandidateReview = new Set([
+    ...baseFields,
+    "candidateReview",
+  ]);
+  if (
+    !hasExactFields(value, baseFields)
+    && !hasExactFields(value, fieldsWithCandidateReview)
+  ) return null;
   const taskId = field(value, "taskId");
   const requestId = field(value, "requestId");
   const kind = field(value, "kind");
@@ -257,6 +265,7 @@ function parseCreativeJob(value: unknown): RoomStoryCreativeJob | null {
   const completedAt = field(value, "completedAt");
   const updatedAt = field(value, "updatedAt");
   const routeValue = field(value, "route");
+  const candidateReviewValue = field(value, "candidateReview");
   let route: RoomStoryCreativeJob["route"] = null;
   if (routeValue !== null) {
     const routeFields = new Set(["provider", "model", "fallbackApplied"]);
@@ -267,6 +276,34 @@ function parseCreativeJob(value: unknown): RoomStoryCreativeJob | null {
       return null;
     }
     route = { provider, model, fallbackApplied: false };
+  }
+  let candidateReview: RoomStoryCreativeJob["candidateReview"];
+  if (candidateReviewValue !== undefined) {
+    const candidateReviewFields = new Set([
+      "candidateSetId",
+      "candidateSetVersion",
+      "status",
+      "candidateCount",
+    ]);
+    if (!hasExactFields(candidateReviewValue, candidateReviewFields)) return null;
+    const candidateSetId = field(candidateReviewValue, "candidateSetId");
+    const candidateSetVersion = field(candidateReviewValue, "candidateSetVersion");
+    const candidateStatus = field(candidateReviewValue, "status");
+    if (
+      typeof candidateSetId !== "string"
+      || !UUID_V4_PATTERN.test(candidateSetId)
+      || !positiveInteger(candidateSetVersion)
+      || candidateStatus !== "pending"
+      || field(candidateReviewValue, "candidateCount") !== 3
+    ) {
+      return null;
+    }
+    candidateReview = {
+      candidateSetId,
+      candidateSetVersion,
+      status: candidateStatus,
+      candidateCount: 3,
+    };
   }
   if (
     !boundedString(taskId, 200) ||
@@ -281,6 +318,12 @@ function parseCreativeJob(value: unknown): RoomStoryCreativeJob | null {
   ) {
     return null;
   }
+  if (
+    (progress === "variant_review" && candidateReview === undefined)
+    || (progress !== "variant_review" && candidateReview !== undefined)
+  ) {
+    return null;
+  }
   return {
     taskId,
     requestId,
@@ -292,6 +335,7 @@ function parseCreativeJob(value: unknown): RoomStoryCreativeJob | null {
     completedAt,
     updatedAt,
     route,
+    ...(candidateReview === undefined ? {} : { candidateReview }),
   };
 }
 
@@ -396,6 +440,26 @@ export function parseRoomStoryContext(value: unknown): RoomStoryContext | null {
     (draftValue !== null && draft === null) ||
     (creativeJobValue !== null && creativeJob === null)
   ) {
+    return null;
+  }
+
+  if (
+    progress === "variant_review"
+    && (
+      access !== "available"
+      || source !== "persisted_story_truth"
+      || workspace === null
+      || understanding === null
+      || commission === null
+      || draft !== null
+      || creativeJob === null
+      || creativeJob.progress !== "variant_review"
+      || creativeJob.candidateReview === undefined
+    )
+  ) {
+    return null;
+  }
+  if (progress !== "variant_review" && creativeJob?.candidateReview !== undefined) {
     return null;
   }
 
@@ -577,7 +641,7 @@ function apiPath(path: string): string {
   return `${resolveH5ApiBaseUrl()}/vnext${path}`;
 }
 
-export async function readRoomStoryContext(): Promise<RoomStoryContextResponse> {
+export async function readRoomStoryContext(signal?: AbortSignal): Promise<RoomStoryContextResponse> {
   let response: Response;
   try {
     response = await fetch(apiPath("/room/context"), {
@@ -586,8 +650,10 @@ export async function readRoomStoryContext(): Promise<RoomStoryContextResponse> 
       cache: "no-store",
       redirect: "error",
       headers: { accept: "application/json" },
+      ...(signal === undefined ? {} : { signal }),
     });
-  } catch {
+  } catch (error) {
+    if (signal?.aborted) throw error;
     throw new RoomStoryApiError("room_story_unavailable", "return_later", 0);
   }
   let payload: unknown = null;

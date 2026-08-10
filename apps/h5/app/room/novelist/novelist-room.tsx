@@ -86,6 +86,8 @@ import {
 } from "./scene-travel";
 import { buildFormalRouteGraph, type FormalRoutePurpose } from "../route-publish/formal-route-graph";
 import { SystemLayerPanel } from "../system/system-layer-panel";
+import RoomUiPresentationalEditor from "../system/room-ui-presentational-editor";
+import RoomUiPresentationalSurface from "../system/room-ui-presentational-surface";
 import type { NovelistChatChannel } from "../system/novelist-chat-api";
 
 export type NovelistState = NovelistActivity;
@@ -508,6 +510,8 @@ export function NovelistRoom() {
   const [lifePlanOpen, setLifePlanOpen] = useState(false);
   const [lifeDetailsOpen, setLifeDetailsOpen] = useState(false);
   const [activeChatChannel, setActiveChatChannel] = useState<NovelistChatChannel | null>(null);
+  const [roomUiV6Enabled, setRoomUiV6Enabled] = useState(true);
+  const [roomUiEditorEnabled, setRoomUiEditorEnabled] = useState(false);
   const [deskEntryOpen, setDeskEntryOpen] = useState(false);
   const [interventionOpen, setInterventionOpen] = useState(false);
   const [systemHandActive, setSystemHandActive] = useState(false);
@@ -668,6 +672,11 @@ export function NovelistRoom() {
   useEffect(() => {
     carriedPropsRef.current = [...lifeRuntime.carriedProps];
   }, [lifeRuntime.carriedProps]);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setRoomUiV6Enabled(params.get("roomUi") !== "legacy");
+    setRoomUiEditorEnabled(params.get("roomUiEditor") === "1");
+  }, []);
   const current = states.find((item) => item.code === state) ?? states[0]!;
   const routeOptionGroups = useMemo<FormalRouteOptionGroup[]>(() => {
     const orderedSceneIds = [sceneId, ...formalPublishedRouteSceneIds.filter((id) => id !== sceneId)];
@@ -1950,6 +1959,11 @@ export function NovelistRoom() {
       <SystemLayerPanel
         activeChannel={activeChatChannel}
         onRequestChannel={setActiveChatChannel}
+        {...(roomUiV6Enabled ? {
+          presentationalSurface: roomUiEditorEnabled
+            ? RoomUiPresentationalEditor
+            : RoomUiPresentationalSurface,
+        } : {})}
         observation={{
           sceneLabel: scene.label,
           activityLabel: observationActivityLabel,

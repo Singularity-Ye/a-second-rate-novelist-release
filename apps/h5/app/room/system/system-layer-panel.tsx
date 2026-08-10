@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState, type ComponentType } from "react";
 import Link from "next/link";
-import type { ExperienceProjection, VnextSessionAdmissionManifest } from "@erliu/shared-contracts/vnext-experience";
+import type { ExperienceAction, ExperienceProjection, VnextSessionAdmissionManifest } from "@erliu/shared-contracts/vnext-experience";
 import type {
   VnextModelProfileId,
   VnextModelProfileSettings,
   VnextModelPurpose,
+  VnextWriteOpeningCandidateSetResponse,
 } from "@erliu/shared-contracts";
 import {
   acceptExperienceAdmission,
   bootstrapExperienceSession,
+  ExperienceApiError,
   readExperienceDraft,
   readExperienceProjection,
+  submitExperienceAction,
 } from "../../lib/experience-api";
 import {
   readRoomStoryContext,
@@ -33,6 +36,21 @@ import {
 import { buildContextualSuggestionSet } from "../novelist/life-orchestration";
 import { requestLifeSuggestionCopy } from "./life-suggestion-api";
 import { scheduleChatAssetPrewarm } from "./chat-asset-prewarm";
+import {
+  readWriteOpeningVariantSet,
+  RoomWriteOpeningVariantsApiError,
+  selectWriteOpeningVariant,
+} from "./room-write-opening-variants-api";
+import {
+  createRoomUiDraftReaderView,
+  createRoomUiPresentationModel,
+  type RoomUiChatHandling,
+  type RoomUiActionView,
+  type RoomUiDraftReaderView,
+  type RoomUiModelRuntime,
+  type RoomUiPresentationalSurfaceProps,
+  type RoomUiRecoveryInput,
+} from "./room-ui-adapter";
 import {
   applyCreativeSupportDecision,
   createPreviewSystemBinding,
@@ -58,10 +76,12 @@ export interface SystemLayerObservation {
   lifeStateVersion?: number;
 }
 
-interface SystemLayerPanelProps {
+export interface SystemLayerPanelProps {
   observation: SystemLayerObservation;
   activeChannel?: NovelistChatChannel | null;
   onRequestChannel?: (channel: NovelistChatChannel | null) => void;
+  /** Optional visual shell. Omit to keep the existing formal room UI. */
+  presentationalSurface?: ComponentType<RoomUiPresentationalSurfaceProps>;
 }
 
 const taskStatusLabels: Readonly<Record<CreativeSupportTaskStatus, string>> = {
@@ -125,6 +145,7 @@ const roomStoryProgressLabels: Readonly<Record<RoomStoryContext["progress"], str
   idle: "尚未建立作品进度",
   understanding: "理解中",
   writing: "正式写作中",
+  variant_review: "三版待选择",
   revising: "正式返修中",
   draft_ready: "草稿已就绪",
   accepted: "已有已接受内容",
@@ -140,6 +161,23 @@ function handoffStatusForRoomStoryContext(
   if (context.progress === "revising") return "revising";
   if (context.progress === "draft_ready" || context.progress === "accepted") return "draft_ready";
   return null;
+}
+
+const roomUiMoodCopy = {
+  steady: { label: "平稳", text: "先按当前节奏继续。" },
+  energized: { label: "有劲", text: "专注和灵感都还在。" },
+  stuck: { label: "卡住", text: "先拆一个小卡点。" },
+  burdened: { label: "负重", text: "先减轻一点情绪负担。" },
+  exhausted: { label: "疲惫", text: "先休息一下，再决定下一步。" },
+} as const;
+
+function roomUiRecoveryKind(code: string | undefined): RoomUiRecoveryInput["kind"] {
+  if (code === "authentication_required" || code === "restore_session") return "401";
+  if (code === "request_in_progress" || code === "conflict") return "409";
+  if (code === "attestation_mismatch" || code === "invalid_runtime_output") return "attestation_mismatch";
+  if (code === "compliance_blocked" || code === "safety_blocked") return "blocked";
+  if (code === "provider_unavailable" || code === "provider_timeout" || code === "provider_rate_limited") return "5xx";
+  return "unavailable";
 }
 
 function experienceHandoffDescription(
@@ -521,13 +559,20 @@ function directMessageEffect(
   };
 }
 
-export function SystemLayerPanel({ observation, activeChannel, onRequestChannel }: SystemLayerPanelProps) {
+export function SystemLayerPanel({
+  observation,
+  activeChannel,
+  onRequestChannel,
+  presentationalSurface: PresentationalSurface,
+}: SystemLayerPanelProps) {
   const [binding, setBinding] = useState<SystemBindingSnapshot>(() => createPreviewSystemBinding());
   const [localExpanded, setLocalExpanded] = useState(true);
   const [displayMode, setDisplayMode] = useState<"ambient" | "chat_focus" | "chat_history">("chat_focus");
   const [chatMode, setChatMode] = useState<NovelistChatChannel>("novelist");
   const [subsystemChatOpen, setSubsystemChatOpen] = useState(false);
   const [chatStatus, setChatStatus] = useState<ChatStatus>("idle");
+  const [chatHandling, setChatHandling] = useState<RoomUiChatHandling>(null);
+  const [chatRequestId, setChatRequestId] = useState<string | undefined>(undefined);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [taskPanelOpen, setTaskPanelOpen] = useState(false);
   const [streaming, setStreaming] = useState(false);
@@ -537,23 +582,26 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
   const [artifactRef, setArtifactRef] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [gatewayState, setGatewayState] = useState<GatewayState>("checking");
-  const [runtimeAttestation, setRuntimeAttestation] = useState<{
-    provider: string;
-    model: string;
-    profileId?: VnextModelProfileId;
-  } | null>(null);
+  const [runtimeAttestation, setRuntimeAttestation] = useState<RoomUiModelRuntime["conversation"]>(null);
   const [modelSettings, setModelSettings] = useState<VnextModelProfileSettings | null>(null);
   const [modelPickerOpen, setModelPickerOpen] = useState(false);
   const [savingModelPurpose, setSavingModelPurpose] = useState<VnextModelPurpose | null>(null);
   const [admissionManifest, setAdmissionManifest] = useState<VnextSessionAdmissionManifest | null>(null);
   const [projection, setProjection] = useState<ExperienceProjection | null>(null);
+  const [experiencePollingPaused, setExperiencePollingPaused] = useState(false);
   const [experienceHandoffStatus, setExperienceHandoffStatus] = useState<ExperienceHandoffStatus | null>(null);
-  const [draftBody, setDraftBody] = useState<string | null>(null);
+  const [draftReader, setDraftReader] = useState<RoomUiDraftReaderView | null>(null);
   const [roomStorySnapshot, setRoomStorySnapshot] = useState<RoomStoryContextResponse | null>(null);
   const [roomStoryError, setRoomStoryError] = useState<string | null>(null);
   const [draftFeedback, setDraftFeedback] = useState<RoomDraftFeedback | null>(null);
   const [draftFeedbackState, setDraftFeedbackState] = useState<"idle" | "loading" | "ready" | "error">("idle");
   const [draftFeedbackDraftId, setDraftFeedbackDraftId] = useState<string | null>(null);
+  const [draftFeedbackProjectionVersionId, setDraftFeedbackProjectionVersionId] = useState<string | null>(null);
+  const [variantSnapshot, setVariantSnapshot] = useState<VnextWriteOpeningCandidateSetResponse | null>(null);
+  const [variantReviewState, setVariantReviewState] = useState<"idle" | "loading" | "ready" | "selecting" | "error">("idle");
+  const [variantPreviewId, setVariantPreviewId] = useState<string | null>(null);
+  const [variantSelectingId, setVariantSelectingId] = useState<string | null>(null);
+  const [variantErrorCode, setVariantErrorCode] = useState<string | null>(null);
   const [lastFailedRequest, setLastFailedRequest] = useState<{
     channel: NovelistChatChannel;
     text: string;
@@ -571,6 +619,13 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
   const previousActiveChannelRef = useRef(activeChannel);
   const abortRef = useRef<AbortController | null>(null);
   const draftFeedbackAbortRef = useRef<AbortController | null>(null);
+  const variantDiscoveryAbortRef = useRef<AbortController | null>(null);
+  const variantSelectionAbortRef = useRef<AbortController | null>(null);
+  const variantSelectionRequestRef = useRef<{
+    readonly candidateSetId: string;
+    readonly candidateId: string;
+    readonly idempotencyKey: string;
+  } | null>(null);
   const gatewayRunIdRef = useRef(0);
   const gatewayRetryAttemptRef = useRef(0);
   const expanded = activeChannel !== undefined ? activeChannel !== null : localExpanded;
@@ -656,15 +711,23 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     }
   }, [activeChannel]);
 
+  useEffect(() => {
+    if (expanded) setExperiencePollingPaused(false);
+  }, [expanded]);
+
   const refreshRoomStoryContext = useCallback(async () => {
     try {
       const next = await readRoomStoryContext();
       setRoomStorySnapshot(next);
       setRoomStoryError(null);
     } catch (error) {
-      if (error instanceof RoomStoryApiError && error.status === 401) {
-        setRoomStorySnapshot(null);
-      }
+      // A failed refresh cannot prove that the previous projection is still
+      // current. Hide story truth and feedback until the next 200 payload.
+      setRoomStorySnapshot(null);
+      setDraftFeedback(null);
+      setDraftFeedbackState("idle");
+      setDraftFeedbackDraftId(null);
+      setDraftFeedbackProjectionVersionId(null);
       setRoomStoryError(error instanceof RoomStoryApiError ? error.code : "room_story_unavailable");
     }
   }, []);
@@ -734,11 +797,91 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       setDraftFeedback(null);
       setDraftFeedbackState("idle");
       setDraftFeedbackDraftId(null);
+      setDraftFeedbackProjectionVersionId(null);
     }
   }, [draftFeedbackDraftId, roomStorySnapshot]);
 
+  useEffect(() => {
+    if (
+      draftReader !== null
+      && createRoomUiDraftReaderView(draftReader, roomStorySnapshot) === null
+    ) {
+      setDraftReader(null);
+    }
+  }, [draftReader, roomStorySnapshot]);
+
+  const candidateReview = roomStorySnapshot?.context.progress === "variant_review"
+    ? roomStorySnapshot.context.creativeJob?.candidateReview
+    : undefined;
+  const variantDiscoveryKey = candidateReview === undefined
+    ? null
+    : [
+        candidateReview.candidateSetId,
+        candidateReview.candidateSetVersion,
+        roomStorySnapshot?.context.workspace?.id,
+        roomStorySnapshot?.context.workspace?.aggregateVersion,
+        roomStorySnapshot?.context.understanding?.id,
+        roomStorySnapshot?.context.understanding?.version,
+        roomStorySnapshot?.context.commission?.id,
+        roomStorySnapshot?.context.commission?.version,
+        roomStorySnapshot?.context.creativeJob?.taskId,
+        roomStorySnapshot?.context.creativeJob?.stateVersion,
+      ].join(":");
+
+  useEffect(() => {
+    variantDiscoveryAbortRef.current?.abort();
+    if (candidateReview === undefined || variantDiscoveryKey === null) {
+      setVariantSnapshot(null);
+      setVariantReviewState("idle");
+      setVariantPreviewId(null);
+      setVariantSelectingId(null);
+      setVariantErrorCode(null);
+      variantSelectionRequestRef.current = null;
+      return undefined;
+    }
+    const controller = new AbortController();
+    variantDiscoveryAbortRef.current = controller;
+    setVariantSnapshot(null);
+    setVariantReviewState("loading");
+    setVariantPreviewId(null);
+    setVariantSelectingId(null);
+    setVariantErrorCode(null);
+    void readWriteOpeningVariantSet(candidateReview.candidateSetId, controller.signal)
+      .then((next) => {
+        if (controller.signal.aborted) return;
+        if (
+          next.status !== "pending"
+          || next.candidateSetVersion !== candidateReview.candidateSetVersion
+        ) {
+          setVariantReviewState("error");
+          setVariantErrorCode("candidate_set_stale");
+          return;
+        }
+        setVariantSnapshot(next);
+        setVariantReviewState("ready");
+      })
+      .catch((error) => {
+        if (controller.signal.aborted) return;
+        setVariantSnapshot(null);
+        setVariantReviewState("error");
+        setVariantErrorCode(
+          error instanceof RoomWriteOpeningVariantsApiError
+            ? error.code
+            : "temporarily_unavailable",
+        );
+      })
+      .finally(() => {
+        if (variantDiscoveryAbortRef.current === controller) {
+          variantDiscoveryAbortRef.current = null;
+        }
+      });
+    return () => controller.abort();
+  }, [variantDiscoveryKey]);
+
   useEffect(() => () => {
     draftFeedbackAbortRef.current?.abort();
+    variantDiscoveryAbortRef.current?.abort();
+    variantSelectionAbortRef.current?.abort();
   }, []);
 
   useEffect(() => {
@@ -752,7 +895,12 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
 
   useEffect(() => {
     if (publicRoomDemo) return undefined;
-    if (gatewayState !== "active" || projection === null || !projectionPollStatuses.has(projection.status)) return;
+    if (
+      gatewayState !== "active"
+      || projection === null
+      || experiencePollingPaused
+      || !projectionPollStatuses.has(projection.status)
+    ) return;
     const timer = window.setInterval(() => {
       void readExperienceProjection().then((next) => {
         setProjection(next);
@@ -765,7 +913,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       });
     }, 2500);
     return () => window.clearInterval(timer);
-  }, [gatewayState, projection]);
+  }, [experiencePollingPaused, gatewayState, projection]);
 
   useEffect(() => {
     if (publicRoomDemo || gatewayState !== "active") return undefined;
@@ -817,9 +965,6 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     return Boolean(activity && route);
   }, [binding.task.activityKey, binding.task.routeKey]);
   const taskVisual = taskVisualFor(binding.task.status, binding.task.evidence.status);
-  const selectedConversationModel = modelSettings?.profiles.find(
-    (profile) => profile.id === modelSettings.preferences.conversation.profileId,
-  )?.model ?? "发送后核验";
 
   const visibleMessages = channelMessages(binding, chatMode);
   const displayedMessages = displayMode === "chat_focus"
@@ -945,12 +1090,236 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     }
   };
 
+  const openVariantCandidate = (candidateId: string) => {
+    if (
+      variantReviewState !== "ready"
+      || variantSnapshot?.status !== "pending"
+      || !variantSnapshot.candidates.some(
+        (candidate) => candidate.candidateId === candidateId && candidate.status === "pending",
+      )
+    ) return;
+    setVariantPreviewId(candidateId);
+  };
+
+  const closeVariantPreview = () => {
+    setVariantPreviewId(null);
+  };
+
+  const selectVariantCandidate = async (candidateId: string) => {
+    const current = variantSnapshot;
+    const context = roomStorySnapshot?.context;
+    const discovery = context?.creativeJob?.candidateReview;
+    if (
+      variantReviewState !== "ready"
+      || current === null
+      || current.status !== "pending"
+      || context?.access !== "available"
+      || context.source !== "persisted_story_truth"
+      || context.progress !== "variant_review"
+      || context.workspace === null
+      || context.understanding === null
+      || context.commission === null
+      || context.draft !== null
+      || context.creativeJob === null
+      || discovery === undefined
+      || discovery.candidateSetId !== current.candidateSetId
+      || discovery.candidateSetVersion !== current.candidateSetVersion
+      || !current.candidates.some(
+        (candidate) => candidate.candidateId === candidateId && candidate.status === "pending",
+      )
+    ) {
+      setVariantReviewState("error");
+      setVariantErrorCode("candidate_set_stale");
+      return;
+    }
+
+    variantSelectionAbortRef.current?.abort();
+    const controller = new AbortController();
+    variantSelectionAbortRef.current = controller;
+    const previousRequest = variantSelectionRequestRef.current;
+    let idempotencyKey: string;
+    try {
+      idempotencyKey = previousRequest?.candidateSetId === current.candidateSetId
+        && previousRequest.candidateId === candidateId
+        ? previousRequest.idempotencyKey
+        : clientRequestId();
+    } catch {
+      controller.abort();
+      if (variantSelectionAbortRef.current === controller) {
+        variantSelectionAbortRef.current = null;
+      }
+      setVariantReviewState("error");
+      setVariantSelectingId(null);
+      setVariantErrorCode("client_request_id_unavailable");
+      setLastRequestIssue({ code: "client_request_id_unavailable", recovery: "return_later" });
+      return;
+    }
+    variantSelectionRequestRef.current = {
+      candidateSetId: current.candidateSetId,
+      candidateId,
+      idempotencyKey,
+    };
+    setVariantReviewState("selecting");
+    setVariantSelectingId(candidateId);
+    setVariantErrorCode(null);
+    try {
+      const selected = await selectWriteOpeningVariant(
+        current,
+        candidateId,
+        idempotencyKey,
+        controller.signal,
+      );
+      if (controller.signal.aborted) return;
+      setFeedback("服务器已收到选择，正在核对正式草稿身份与版本。");
+      const [freshSet, freshStory, freshProjection] = await Promise.all([
+        readWriteOpeningVariantSet(current.candidateSetId, controller.signal),
+        readRoomStoryContext(controller.signal),
+        readExperienceProjection(),
+      ]);
+      if (controller.signal.aborted) return;
+      const draft = freshStory.context.draft;
+      const promoted =
+        selected.status === "selected"
+        && freshSet.status === "selected"
+        && freshSet.selectedCandidateId === candidateId
+        && freshSet.selectedContentId === selected.selectedContentId
+        && freshStory.context.access === "available"
+        && freshStory.context.source === "persisted_story_truth"
+        && freshStory.context.progress === "draft_ready"
+        && draft !== null
+        && draft.status === "draft"
+        && draft.contentId === selected.selectedContentId
+        && freshProjection.status === "draft_ready";
+      if (!promoted) {
+        throw new RoomWriteOpeningVariantsApiError(
+          "candidate_selection_not_promoted",
+          "refresh_candidate_set",
+          409,
+        );
+      }
+      setRoomStorySnapshot(freshStory);
+      setRoomStoryError(null);
+      setProjection(freshProjection);
+      setExperienceHandoffStatus(handoffStatusForProjection(freshProjection));
+      setVariantSnapshot(null);
+      setVariantReviewState("idle");
+      setVariantPreviewId(null);
+      setVariantSelectingId(null);
+      setVariantErrorCode(null);
+      setLastRequestIssue(null);
+      variantSelectionRequestRef.current = null;
+      setFeedback("已采用所选版本；服务器已将它晋升为当前正式草稿。");
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      const issue = error instanceof RoomWriteOpeningVariantsApiError
+        ? {
+            code: error.code,
+            ...(error.recovery === undefined ? {} : { recovery: error.recovery }),
+          }
+        : { code: "temporarily_unavailable", recovery: "return_later" };
+      setVariantSnapshot(null);
+      setVariantReviewState("error");
+      setVariantSelectingId(null);
+      setVariantErrorCode(issue.code);
+      setRoomStorySnapshot(null);
+      setRoomStoryError(issue.code);
+      setLastRequestIssue(issue);
+      setFeedback("这次采用没有完成服务器真值复核；未显示成功，也没有开放草稿入口。");
+    } finally {
+      if (variantSelectionAbortRef.current === controller) {
+        variantSelectionAbortRef.current = null;
+      }
+    }
+  };
+
   const openDraft = async () => {
+    setDraftReader(null);
     try {
       const draft = await readExperienceDraft();
-      setDraftBody(draft.body);
-    } catch {
+      const currentStory = await readRoomStoryContext();
+      setRoomStorySnapshot(currentStory);
+      setRoomStoryError(null);
+      const verifiedDraft = createRoomUiDraftReaderView(draft, currentStory);
+      if (verifiedDraft === null) {
+        setLastRequestIssue({ code: "conflict", recovery: "refresh_projection" });
+        setFeedback("稿件身份或版本已经变化；没有打开旧稿，请刷新后再试。");
+        return;
+      }
+      setDraftReader(verifiedDraft);
+      setLastRequestIssue(null);
+      setFeedback("已取回服务器确认的当前草稿；本次打开不会改变作品状态。");
+    } catch (error) {
+      if (error instanceof RoomStoryApiError) {
+        setRoomStorySnapshot(null);
+        setRoomStoryError(error.code);
+      }
+      const issue = error instanceof ExperienceApiError || error instanceof RoomStoryApiError
+        ? {
+            code: error.code,
+            ...(error.recovery === undefined ? {} : { recovery: error.recovery }),
+          }
+        : { code: "temporarily_unavailable", recovery: "return_later" };
+      setLastRequestIssue(issue);
       setFeedback("稿子暂时没有取回来，稍后再试。 ");
+    }
+  };
+
+  const rejectStaleProjectionAction = () => {
+    setLastRequestIssue({ code: "conflict", recovery: "refresh_projection" });
+    setFeedback("这项操作对应的投影已经变化；没有执行旧动作，请刷新后再试。");
+  };
+
+  const currentProjectionAction = (action: RoomUiActionView): ExperienceAction | null => {
+    if (projection === null) return null;
+    const candidates = [projection.primaryAction, ...projection.secondaryActions].filter(
+      (candidate): candidate is ExperienceAction => candidate !== null,
+    );
+    return candidates.find((candidate) => (
+      candidate.code === action.code
+      && candidate.basedOnVersionId === action.basedOnVersionId
+    )) ?? null;
+  };
+
+  const handleProjectionAction = async (action: RoomUiActionView) => {
+    const currentAction = currentProjectionAction(action);
+    if (currentAction === null) {
+      rejectStaleProjectionAction();
+      return;
+    }
+
+    if (currentAction.code === "submit_intent" || currentAction.code === "correct_understanding") {
+      fillComposerText(currentAction.label);
+      return;
+    }
+    if (currentAction.code === "open_draft") {
+      await openDraft();
+      return;
+    }
+    if (currentAction.code === "return_later") {
+      setExperiencePollingPaused(true);
+      setFeedback("已暂停自动检查；下次打开小说家房间时再继续读取正式进度。");
+      requestChannel(null);
+      return;
+    }
+    if (currentAction.code !== "retry_current_task") return;
+
+    try {
+      const next = await submitExperienceAction({
+        action: "retry_current_task",
+        basedOnVersionId: currentAction.basedOnVersionId,
+      }, projection);
+      setProjection(next);
+      setExperienceHandoffStatus(handoffStatusForProjection(next));
+      setLastRequestIssue(null);
+      setExperiencePollingPaused(false);
+      setFeedback(projectionFeedback(next));
+      void refreshRoomStoryContext();
+    } catch (error) {
+      const issue = error instanceof ExperienceApiError
+        ? { code: error.code, recovery: error.recovery }
+        : { code: "temporarily_unavailable", recovery: "return_later" };
+      setLastRequestIssue(issue);
+      setFeedback("这次重试没有通过正式入口；旧投影仍保留，没有生成新的作品状态。");
     }
   };
 
@@ -973,24 +1342,29 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     draftFeedbackAbortRef.current = controller;
     setDraftFeedbackState("loading");
     setDraftFeedback(null);
+    setDraftFeedbackDraftId(null);
+    setDraftFeedbackProjectionVersionId(null);
     try {
       const ready = await streamRoomDraftFeedback(
         {
           draftContentId: draft.contentId,
           basedOnProjectionVersionId: snapshot.projectionVersionId,
         },
-        (event) => {
-          setDraftFeedback(event.feedback);
-          setRoomStorySnapshot({
+         (event) => {
+           setDraftFeedback(event.feedback);
+           setDraftFeedbackDraftId(event.draftContentId);
+           setDraftFeedbackProjectionVersionId(event.projectionVersionId);
+           setRoomStorySnapshot({
             projectionVersionId: event.projectionVersionId,
             context: event.storyContext,
           });
         },
         controller.signal,
       );
-      setDraftFeedback(ready.feedback);
-      setDraftFeedbackDraftId(ready.draftContentId);
-      setRoomStorySnapshot({
+       setDraftFeedback(ready.feedback);
+       setDraftFeedbackDraftId(ready.draftContentId);
+       setDraftFeedbackProjectionVersionId(ready.projectionVersionId);
+       setRoomStorySnapshot({
         projectionVersionId: ready.projectionVersionId,
         context: ready.storyContext,
       });
@@ -998,8 +1372,10 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       setFeedback("小说家已经根据这份真实草稿汇报；这条反馈不是正文、Canon 或作品证据。 ");
     } catch (error) {
       if (controller.signal.aborted) return;
-      setDraftFeedback(null);
-      setDraftFeedbackState("error");
+       setDraftFeedback(null);
+       setDraftFeedbackState("error");
+       setDraftFeedbackDraftId(null);
+       setDraftFeedbackProjectionVersionId(null);
       setFeedback(error instanceof RoomStoryApiError
         ? `这次没有拿到真实稿件汇报（${error.code}）；原有作品状态保持不变。 `
         : "这次没有拿到真实稿件汇报；原有作品状态保持不变。 ");
@@ -1026,6 +1402,9 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       setFeedback("随便说一句就好，不用写成任务书。 ");
       return;
     }
+    // A new request makes the previous model proof stale. It becomes visible
+    // again only after this stream reaches the API parser's verified result.
+    setRuntimeAttestation(null);
     if (gatewayState !== "active") {
       const createdAt = new Date().toISOString();
       const assistantMessageId = options.retry && lastFailedRequest
@@ -1048,6 +1427,8 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       setMessageDraft("");
       setPendingHostMessage(null);
       setChatStatus(gatewayState === "checking" ? "connecting" : "error");
+      setChatHandling(null);
+      setChatRequestId(requestId);
       setLastFailedRequest({
         channel,
         text,
@@ -1086,6 +1467,8 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
     setFeedback("正在把你的话交给他……");
     setLastRequestIssue(null);
     setChatStatus("connecting");
+    setChatHandling(null);
+    setChatRequestId(requestId);
     setStreaming(true);
     setLastFailedRequest({
       channel,
@@ -1138,6 +1521,8 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           return updateChannelMessages(previous, channel, updated);
         });
       }, controller.signal, (route) => {
+        setChatHandling(route.handling);
+        setChatRequestId(requestId);
         setProjection(route.projection);
         if (route.storyContext !== undefined) {
           setRoomStorySnapshot({
@@ -1156,6 +1541,8 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       });
 
       setProjection(result.route.projection);
+      setChatHandling(result.route.handling);
+      setChatRequestId(result.requestId ?? requestId);
       if (result.storyContext !== undefined) {
         setRoomStorySnapshot({
           projectionVersionId: result.route.projection.versionId,
@@ -1172,6 +1559,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
           ...(result.profileId === undefined
             ? {}
             : { profileId: result.profileId }),
+          source: "chat_attestation",
         });
       }
       if (result.route.handling === "conversation") {
@@ -1197,6 +1585,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       const requestError = error instanceof NovelistChatRequestError ? error : null;
       if (controller.signal.aborted) {
         setChatStatus("idle");
+        setChatHandling(null);
         setFeedback(received ? "已停止，当前已经收到的内容保留在这里。" : "已停止这次回复。 ");
         setLastFailedRequest(null);
         if (!received) {
@@ -1209,6 +1598,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
         if (allowLocalPreview) {
           const localReply = effect?.reply ?? localSubsystemReply(text, taskContractReady);
           setChatStatus("local");
+          setChatHandling(null);
           setFeedback(effect?.feedback ?? "写作引擎没有接通；当前只是明确标注的开发预览，按 R 可以重试。 ");
           setBinding((previous) => {
             const taskBinding = effect
@@ -1234,6 +1624,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
         } else {
           if (code === "compliance_blocked" && (requestError?.recovery === undefined || requestError.recovery === "none")) {
             setChatStatus("restricted");
+            setChatHandling("not_available");
             if (channel === "novelist") setExperienceHandoffStatus("unavailable");
             setLastFailedRequest(null);
             setLastRequestIssue(requestError
@@ -1414,6 +1805,102 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       ))}
     </section>
   );
+
+  const roomUiRecovery = useMemo<RoomUiRecoveryInput | null>(() => {
+    const code = lastRequestIssue?.code
+      ?? roomStoryError
+      ?? (gatewayState === "error" ? "provider_unavailable" : undefined);
+    if (code === undefined && chatStatus !== "restricted") return null;
+    const kind = chatStatus === "restricted" ? "blocked" : roomUiRecoveryKind(code);
+    return {
+      kind,
+      message: kind === "blocked"
+        ? "当前链路受限，正式房间不会显示猜测的作品状态。"
+        : "当前链路暂未完成，原话会保留并可按服务端 recovery 重试。",
+      retryable: kind !== "blocked",
+      ...(code === undefined ? {} : { code }),
+      ...(lastRequestIssue?.requestId === undefined ? {} : { requestId: lastRequestIssue.requestId }),
+      ...(lastRequestIssue?.recovery === undefined ? {} : { recovery: lastRequestIssue.recovery }),
+    };
+  }, [chatStatus, gatewayState, lastRequestIssue, roomStoryError]);
+
+  const roomUiPresentationModel = useMemo(() => {
+    const mood = roomUiMoodCopy[effectiveSuggestionSet.mood.mood];
+    return createRoomUiPresentationModel({
+      chat: {
+        messages: channelMessages(binding, chatMode),
+        handling: chatHandling,
+        phase: chatStatus,
+        ...(chatRequestId === undefined ? {} : { requestId: chatRequestId }),
+        modelAttestation: runtimeAttestation,
+      },
+      life: {
+        sceneLabel: observation.sceneLabel,
+        activityLabel: observation.activityLabel,
+        avatar: {
+          src: novelistAvatar.src,
+          state: novelistAvatar.state,
+          label: novelistAvatar.label,
+        },
+        focus: clamp(observation.focus),
+        fatigue: clamp(observation.fatigue),
+        inspiration: clamp(observation.inspiration),
+        emotionalLoad: clamp(observation.emotionalLoad),
+        mood: { ...mood, source: "life_runtime" },
+      },
+      projection,
+      roomStory: roomStorySnapshot,
+      draftFeedback,
+      draftFeedbackState,
+      feedbackDraftContentId: draftFeedbackDraftId,
+      feedbackProjectionVersionId: draftFeedbackProjectionVersionId,
+      variantReview: {
+        snapshot: variantSnapshot,
+        state: variantReviewState,
+        previewCandidateId: variantPreviewId,
+        selectingCandidateId: variantSelectingId,
+        errorCode: variantErrorCode,
+      },
+      recovery: roomUiRecovery,
+    });
+  }, [
+    binding,
+    chatHandling,
+    chatMode,
+    chatRequestId,
+    chatStatus,
+    draftFeedback,
+    draftFeedbackDraftId,
+    draftFeedbackProjectionVersionId,
+    draftFeedbackState,
+    effectiveSuggestionSet.mood.mood,
+    novelistAvatar.label,
+    novelistAvatar.src,
+    novelistAvatar.state,
+    observation.activityLabel,
+    observation.emotionalLoad,
+    observation.fatigue,
+    observation.focus,
+    observation.inspiration,
+    observation.sceneLabel,
+    projection,
+    roomStorySnapshot,
+    roomUiRecovery,
+    runtimeAttestation,
+    variantErrorCode,
+    variantPreviewId,
+    variantReviewState,
+    variantSelectingId,
+    variantSnapshot,
+  ]);
+  const verifiedConversationRuntime = roomUiPresentationModel.modelRuntime?.conversation ?? null;
+  const verifiedCreativeJobRuntime = roomUiPresentationModel.modelRuntime?.creativeJob ?? null;
+  const conversationRuntimeContractLabel = verifiedConversationRuntime === null
+    ? "聊天模型待发送后核验"
+    : `${verifiedConversationRuntime.provider} / ${verifiedConversationRuntime.model} · 对话证明已核验`;
+  const creativeJobRuntimeContractLabel = verifiedCreativeJobRuntime === null
+    ? "正式写作模型待服务器确认"
+    : `${verifiedCreativeJobRuntime.provider} / ${verifiedCreativeJobRuntime.model} · 服务器作品真值`;
 
   const roomStoryHandoffStatus = roomStorySnapshot === null
     ? null
@@ -1613,6 +2100,7 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
       data-display-mode={displayMode}
       data-binding-status={binding.origin.bindingStatus}
       data-chat-mode={chatMode}
+      data-room-ui-surface={PresentationalSurface && expanded && chatMode === "novelist" ? "v6" : undefined}
       data-room-shortcut-scope="system-panel"
       aria-label={chatMode === "novelist" ? "和小说家说话" : "子系统任务台"}
     >
@@ -1634,6 +2122,34 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
 
       {expanded && (
         <div className={styles.console} id="novelist-conversation">
+          {PresentationalSurface && chatMode === "novelist" ? (
+            <PresentationalSurface
+              model={roomUiPresentationModel}
+              draftReader={draftReader}
+              variantReview={roomUiPresentationModel.variantReview ?? null}
+              onClose={() => requestChannel(null)}
+              onCloseDraftReader={() => setDraftReader(null)}
+              onSendMessage={(text) => void sendMessage(text)}
+              onStopStreaming={stopStreaming}
+              onRetry={lastFailedRequest
+                ? () => void sendMessage(lastFailedRequest.text, { retry: true })
+                : null}
+              onAdmissionAcknowledge={gatewayState === "admission" && admissionManifest !== null
+                ? () => void acceptAdmission()
+                : null}
+              onGatewayReconnect={gatewayState === "error"
+                ? () => void runGatewayBootstrap("manual")
+                : null}
+              onFillComposer={fillComposerText}
+              onProjectionAction={(action) => void handleProjectionAction(action)}
+              onRequestDraftFeedback={() => void requestDraftFeedback()}
+              onOpenDraft={() => void openDraft()}
+              onOpenVariantCandidate={openVariantCandidate}
+              onCloseVariantPreview={closeVariantPreview}
+              onSelectVariantCandidate={(candidateId) => void selectVariantCandidate(candidateId)}
+            />
+          ) : (
+            <>
           {chatMode === "novelist" && (
             <div className={styles.roomFrontstage} data-testid="room-v6-frontstage">
               <div className={styles.roomTitleBookmark} data-testid="room-title-bookmark">
@@ -1804,11 +2320,11 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
                 <span>职责分流</span>
                 <div>
                   <strong>房间聊天</strong>
-                  <small>{selectedConversationModel} · 速度优先</small>
+                  <small data-testid="system-conversation-runtime-contract">{conversationRuntimeContractLabel}</small>
                 </div>
                 <div>
                   <strong>正式正文</strong>
-                  <small>Grok 4.5 · 后端 Worker 已切换，正式运行时待验收</small>
+                  <small data-testid="system-creative-job-runtime-contract">{creativeJobRuntimeContractLabel}</small>
                 </div>
                 <p>两条链路互不冒充：聊天回复不会直接成为正文，只有正式创作台回传的 DRAFT 才能进入后续验收。</p>
               </div>
@@ -1832,10 +2348,10 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
             </section>
           )}
 
-          {draftBody !== null && (
+          {draftReader !== null && (
             <section className={styles.draftReader} role="dialog" aria-label="候选稿">
-              <header><strong>他刚写完的稿子</strong><button type="button" onClick={() => setDraftBody(null)}>×</button></header>
-              <article>{draftBody}</article>
+              <header><strong>他刚写完的稿子</strong><button type="button" onClick={() => setDraftReader(null)}>×</button></header>
+              <article>{draftReader.body}</article>
             </section>
           )}
 
@@ -2109,6 +2625,8 @@ export function SystemLayerPanel({ observation, activeChannel, onRequestChannel 
               {lastRequestIssue.recovery ? ` · recovery=${lastRequestIssue.recovery}` : ""}
               {lastRequestIssue.requestId ? ` · requestId=${lastRequestIssue.requestId}` : ""}
             </small>
+          )}
+            </>
           )}
         </div>
       )}

@@ -14,6 +14,7 @@ export const ROOM_STORY_PROGRESS_STATES = Object.freeze([
   "idle",
   "understanding",
   "writing",
+  "variant_review",
   "revising",
   "draft_ready",
   "accepted",
@@ -90,6 +91,12 @@ export interface VnextRoomStoryCreativeJob {
     readonly model: string;
     readonly fallbackApplied: false;
   } | null;
+  readonly candidateReview?: {
+    readonly candidateSetId: string;
+    readonly candidateSetVersion: number;
+    readonly status: "pending" | "selected" | "rejected";
+    readonly candidateCount: 3;
+  };
 }
 
 export interface VnextRoomStoryContext {

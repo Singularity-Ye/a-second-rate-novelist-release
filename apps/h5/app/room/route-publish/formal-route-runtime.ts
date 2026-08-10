@@ -438,8 +438,16 @@ function ensureAction(
   if (!source || mode === "none" || !mode) return undefined;
   const assetScaleOverride = mode === "actor" ? eventAssetScale(event, side) : undefined;
   // An event-local multiplier must not mutate a shared canonical action such
-  // as `walking`; give that transition its own action card instead.
-  const canonical = assetScaleOverride === undefined
+  // as `walking`; give that transition its own action card instead. Terrace
+  // published state assets also need route-local cards: the legacy scene
+  // manifest may already contain a same-source action (for example `bench`)
+  // whose facing belongs to a different direction. Reusing it would let the
+  // first route silently overwrite the later route's authored facing.
+  const hasPublishedStateAsset = Boolean(
+    event.targetStateId && route.assetLibrary?.states?.[event.targetStateId],
+  );
+  const routeOwnsTerraceAction = sceneId === "terrace-greenery" && hasPublishedStateAsset;
+  const canonical = assetScaleOverride === undefined && !routeOwnsTerraceAction
     ? existingActionForAsset(scene.actions, source, mode)
     : undefined;
   if (canonical) {

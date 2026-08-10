@@ -3254,3 +3254,71 @@
   .novelistStatusMetrics dd { font-size: .38rem; }
   .novelistStatusFootnote { font-size: .36rem; }
 }
+
+/* The v6 shell owns its floating-panel dimensions. These rules apply only
+   while the formal presentationalSurface prop is mounted; ?roomUi=legacy
+   remains the explicit fallback path. */
+.panel[data-room-ui-surface="v6"] {
+  top: 0;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  display: block;
+  grid-template-rows: none;
+  /* Keep the approved 140% composition large on wide displays while sizing
+     its unzoomed parent from the actual viewport height. The former 150dvh
+     basis ignored Surface zoom and pushed the progress paper below 2K rooms. */
+  width: min(96vw, 1536px, calc(122dvh - 2rem));
+  max-width: none;
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+  overflow: visible;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 0;
+  padding: clamp(.7rem, 1.45vw, 1.25rem);
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transform: translateX(-50%);
+  transition: none;
+}
+
+/* The legacy novelist frame selector carries one more attribute and would
+   otherwise win the cascade. Restate the v6 stage background at equal/higher
+   specificity so the old wooden chat frame cannot flash or remain mounted. */
+.panel[data-expanded="true"][data-chat-mode="novelist"][data-room-ui-surface="v6"] {
+  background: transparent;
+}
+
+.panel[data-room-ui-surface="v6"] > .panelToggle {
+  display: none;
+}
+
+.panel[data-room-ui-surface="v6"] > .console {
+  display: block;
+  max-height: none;
+  overflow: visible;
+  padding: 0;
+}
+
+@media (max-width: 760px) {
+  .panel[data-room-ui-surface="v6"] {
+    top: max(.5rem, env(safe-area-inset-top));
+    bottom: auto;
+    width: calc(100vw - 1rem);
+    max-height: calc(100dvh - 1rem - env(safe-area-inset-top));
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 1rem;
+    padding: .45rem;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+
+  .panel[data-room-ui-surface="v6"]::-webkit-scrollbar {
+    display: none;
+  }
+}

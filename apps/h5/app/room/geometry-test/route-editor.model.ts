@@ -1047,6 +1047,17 @@ const TERRACE_TURTLE_ACTOR_ASSET_SRC =
   "/assets/ecology/formal-scenes/terrace-greenery/terrace-turtle-character-facing-right-asset-cropped-lossless.webp";
 const TERRACE_WATERING_ACTOR_ASSET_SRC =
   "/assets/ecology/formal-scenes/terrace-greenery/terrace-watering-character-asset-cropped-lossless.webp";
+const TERRACE_ACTION_ASSET_SCALE = 0.8;
+
+const terraceActionAssetLibrary = (source: string): EditorRouteAssetLibrary => ({
+  states: {
+    "next-state": {
+      left: source,
+      right: source,
+      scale: TERRACE_ACTION_ASSET_SCALE,
+    },
+  },
+});
 
 const terraceActionArrivalTransition = (pointId: string, source: string): EditorRouteTransition => ({
   pointId,
@@ -1115,6 +1126,7 @@ const terraceGreeneryInitialRouteMeta: Readonly<Record<string, EditorRouteMeta>>
     accent: "cyan",
     initialFacing: "right",
     foregroundPolicy: "none",
+    assetLibrary: terraceActionAssetLibrary(TERRACE_NIGHT_VIEW_ACTOR_ASSET_SRC),
     transitions: [terraceActionArrivalTransition("terrace-bench", TERRACE_NIGHT_VIEW_ACTOR_ASSET_SRC)],
   },
   "bench-to-entry": {
@@ -1124,6 +1136,7 @@ const terraceGreeneryInitialRouteMeta: Readonly<Record<string, EditorRouteMeta>>
     accent: "magenta",
     initialFacing: "left",
     foregroundPolicy: "none",
+    assetLibrary: terraceActionAssetLibrary(TERRACE_NIGHT_VIEW_ACTOR_ASSET_SRC),
     transitions: [terraceActionDepartureTransition("terrace-bench", TERRACE_NIGHT_VIEW_ACTOR_ASSET_SRC)],
   },
   "entry-to-turtle-pond": {
@@ -1133,6 +1146,7 @@ const terraceGreeneryInitialRouteMeta: Readonly<Record<string, EditorRouteMeta>>
     accent: "amber",
     initialFacing: "right",
     foregroundPolicy: "none",
+    assetLibrary: terraceActionAssetLibrary(TERRACE_TURTLE_ACTOR_ASSET_SRC),
     transitions: [terraceActionArrivalTransition("turtle-pond", TERRACE_TURTLE_ACTOR_ASSET_SRC)],
   },
   "turtle-pond-to-entry": {
@@ -1142,6 +1156,7 @@ const terraceGreeneryInitialRouteMeta: Readonly<Record<string, EditorRouteMeta>>
     accent: "violet",
     initialFacing: "left",
     foregroundPolicy: "none",
+    assetLibrary: terraceActionAssetLibrary(TERRACE_TURTLE_ACTOR_ASSET_SRC),
     transitions: [terraceActionDepartureTransition("turtle-pond", TERRACE_TURTLE_ACTOR_ASSET_SRC)],
   },
   "entry-to-telescope": {
@@ -1151,6 +1166,7 @@ const terraceGreeneryInitialRouteMeta: Readonly<Record<string, EditorRouteMeta>>
     accent: "cyan",
     initialFacing: "right",
     foregroundPolicy: "none",
+    assetLibrary: terraceActionAssetLibrary(TERRACE_WATERING_ACTOR_ASSET_SRC),
     transitions: [terraceActionArrivalTransition("terrace-telescope", TERRACE_WATERING_ACTOR_ASSET_SRC)],
   },
   "telescope-to-entry": {
@@ -1160,6 +1176,7 @@ const terraceGreeneryInitialRouteMeta: Readonly<Record<string, EditorRouteMeta>>
     accent: "magenta",
     initialFacing: "left",
     foregroundPolicy: "none",
+    assetLibrary: terraceActionAssetLibrary(TERRACE_WATERING_ACTOR_ASSET_SRC),
     transitions: [terraceActionDepartureTransition("terrace-telescope", TERRACE_WATERING_ACTOR_ASSET_SRC)],
   },
 };
@@ -3048,6 +3065,64 @@ export function ensureInitialNodeTransitionAnimationDefaults(draft: EditorDraft)
 }
 
 /**
+ * Repair old browser drafts for terrace departures without touching authored
+ * route geometry. The entry-to-action routes leave the scene's embedded
+ * character behind, so their first state event must only record the scene
+ * boundary (`none`). Older local drafts could retain the action card as a
+ * `toAssetSource`, which made that transparent scene asset render as the
+ * walking actor for the whole departure.
+ */
+function ensureTerraceDepartureWalkingTransitions(draft: EditorDraft): EditorDraft {
+  if (draft.sceneId !== "terrace-greenery" || !draft.routeMeta) return draft;
+
+  const routeMeta = { ...draft.routeMeta };
+  let changed = false;
+  for (const [routeKey, routeIds] of Object.entries(draft.routes)) {
+    if (routeIds[0] !== "terrace-entry") continue;
+    const meta = routeMeta[routeKey];
+    if (!meta?.transitions) continue;
+
+    const transitions = meta.transitions.map((transition) => {
+      if (transition.kind !== "state" || transition.pointId !== routeIds[0]) return transition;
+
+      const hasStaleBoundaryAsset = Boolean(
+        transition.fromAssetSource
+        || transition.fromAssetMode !== "none"
+        || transition.fromAssetFacing
+        || transition.fromAssetScale !== undefined
+        || transition.toAssetSource
+        || transition.toAssetMode !== undefined
+        || transition.toAssetFacing
+        || transition.toAssetScale !== undefined,
+      );
+      if (!hasStaleBoundaryAsset) return transition;
+
+      changed = true;
+      const {
+        fromAssetSource: _fromAssetSource,
+        fromAssetFacing: _fromAssetFacing,
+        fromAssetScale: _fromAssetScale,
+        toAssetSource: _toAssetSource,
+        toAssetMode: _toAssetMode,
+        toAssetFacing: _toAssetFacing,
+        toAssetScale: _toAssetScale,
+        ...walkingBoundary
+      } = transition;
+      return {
+        ...walkingBoundary,
+        fromAssetMode: "none" as const,
+      };
+    });
+
+    if (transitions.some((transition, index) => transition !== meta.transitions?.[index])) {
+      routeMeta[routeKey] = { ...meta, transitions };
+    }
+  }
+
+  return changed ? { ...draft, routeMeta } : draft;
+}
+
+/**
  * Return explicit route events and, for old drafts, synthesize the previous single facing event.
  * `transitions: []` is intentional: it means the editor user explicitly disabled legacy events.
  */
@@ -3322,10 +3397,36 @@ export function routeStateAtProgress(
     // A first-node state transition can describe either a departure into a
     // transparent actor (the state persists after the handoff) or a scene
     // exit (toAssetMode === "none", so the state is only visible at t=0).
+    // A departure that only declares fromAssetSource is the other common
+    // direction: it consumes the endpoint action asset and returns to the
+    // route's ordinary walking actor.  Terrace return routes use this compact
+    // form, so do not keep their seated/watering/turtle state alive for the
+    // whole walk.
     // Keep the latter compatibility rule while allowing routes such as
     // dining counter -> table to stay on their carry-bowl asset for the walk.
     if (transition.pointId === startPointId && clampedProgress > transitionProgress) {
       if (transition.toAssetMode === "none") continue;
+      if (
+        transition.fromAssetMode === "none"
+        && !transition.fromAssetSource
+        && !transition.toAssetSource
+        && transition.toAssetMode === undefined
+      ) {
+        // A progress-0 event with no destination asset is only bookkeeping
+        // for a normal walking departure. Do not let its target state turn
+        // the registered endpoint action into a persistent mid-route actor.
+        state = null;
+        continue;
+      }
+      if (
+        transition.fromAssetMode === "actor"
+        && transition.fromAssetSource
+        && !transition.toAssetSource
+        && transition.toAssetMode === undefined
+      ) {
+        state = null;
+        continue;
+      }
       state = transition.targetStateId;
       continue;
     }
@@ -4513,10 +4614,11 @@ export function normalizeEditorDraft(value: unknown): EditorDraft | null {
     ...(normalizedSceneInteractions ? { sceneInteractions: normalizedSceneInteractions } : {}),
     ...(normalizedRouteMeta ? { routeMeta: normalizedRouteMeta } : {}),
   });
+  const withTerraceDepartureContracts = ensureTerraceDepartureWalkingTransitions(withSceneContracts);
   return ensureInitialNodeTransitionAnimationDefaults(
     sceneId === "attic"
-      ? stripAtticLegacyAssetSizing(withSceneContracts)
-      : withSceneContracts,
+      ? stripAtticLegacyAssetSizing(withTerraceDepartureContracts)
+      : withTerraceDepartureContracts,
   );
 }
 
