@@ -7,6 +7,7 @@ export default defineConfig({
       "@erliu/shared-contracts/vnext-experience": path.resolve(__dirname, "../../packages/shared-contracts/vnext-experience.ts"),
       "@erliu/shared-contracts/runtime-hosts": path.resolve(__dirname, "../../packages/shared-contracts/runtime-hosts.ts"),
       "@erliu/shared-contracts": path.resolve(__dirname, "../../packages/shared-contracts/index.ts"),
+      "@erliu/telemetry": path.resolve(__dirname, "../../packages/telemetry/index.ts"),
     },
   },
   test: {
