@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { webcrypto } from "node:crypto";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ExperienceProjection } from "@erliu/shared-contracts/vnext-experience";
@@ -549,6 +550,7 @@ function VariantReviewProbe({
 
 describe("system layer binding", () => {
   beforeEach(() => {
+    vi.stubGlobal("crypto", webcrypto);
     localStorage.clear();
     vi.stubGlobal("fetch", vi.fn(async () => {
       throw new Error("provider offline in local component tests");
