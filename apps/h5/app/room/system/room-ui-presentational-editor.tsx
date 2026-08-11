@@ -19,8 +19,12 @@ export const ROOM_UI_PRESENTATIONAL_LAYOUT_STORAGE_KEY = "room-ui-formal-surface
 const STORAGE_KEY = ROOM_UI_PRESENTATIONAL_LAYOUT_STORAGE_KEY;
 const LEGACY_STORAGE_KEY = "room-ui-test-v6:calibration:v4";
 const SIDE_TEXT_LAYOUT_REVISION = 2;
+const RIGHT_RAIL_LAYOUT_REVISION = 1;
+const INTERNAL_GEOMETRY_LAYOUT_REVISION = 1;
 const MIN_SURFACE_SCALE = 0.3;
 const MAX_SURFACE_SCALE = 1.8;
+const EDITOR_PANEL_SAFE_MARGIN = 12;
+const INTERNAL_GEOMETRY_ERROR_MAX = 2.2;
 
 type EditableLayerId =
   | RoomUiVisualLayerId
@@ -29,6 +33,8 @@ type EditableLayerId =
   | "backdrop";
 type EditableLayout = Readonly<{
   sideTextLayoutRevision: number;
+  rightRailLayoutRevision: number;
+  internalGeometryLayoutRevision: number;
   surface: RoomUiVisualGeometry;
   backdrop: RoomUiVisualGeometry;
   composition: Readonly<Record<RoomUiVisualLayerId, RoomUiVisualGeometry>>;
@@ -52,6 +58,40 @@ type PointerGesture = Readonly<{
   rect: SelectionRect;
   layer: EditableLayerId | null;
 }>;
+
+type EditorPanelPosition = Readonly<{
+  left: number;
+  top: number;
+}>;
+
+type EditorPanelDrag = Readonly<EditorPanelPosition & {
+  pointerId: number;
+  startX: number;
+  startY: number;
+}>;
+
+type GeometryDimensionControl = Readonly<{
+  min: number;
+  max: number;
+  step: number;
+  unit: "%" | "倍率";
+}>;
+
+const internalGeometryMigrationLayers = new Set<RoomUiInternalVisualLayerId>([
+  "status-avatar",
+  "status-identity",
+  "status-scene",
+  "status-needs-primary",
+  "status-needs-secondary",
+  "status-mood",
+  "suggestion-icon",
+  "suggestion-title",
+  "suggestion-detail",
+  "progress-observe-text",
+  "progress-breakdown-text",
+  "progress-draft-text",
+  "progress-review-text",
+]);
 
 type LegacySnapshot = Readonly<{
   version: 4;
@@ -86,6 +126,8 @@ const editableLayers = [
 function cloneDefaultLayout(): EditableLayout {
   return {
     sideTextLayoutRevision: SIDE_TEXT_LAYOUT_REVISION,
+    rightRailLayoutRevision: RIGHT_RAIL_LAYOUT_REVISION,
+    internalGeometryLayoutRevision: INTERNAL_GEOMETRY_LAYOUT_REVISION,
     surface: { ...ROOM_UI_SURFACE_GEOMETRY_V6 },
     backdrop: { ...ROOM_UI_VISUAL_LAYOUT_V6.backdrop },
     composition: {
@@ -107,8 +149,74 @@ function cloneDefaultLayout(): EditableLayout {
   };
 }
 
+export function getEditorGeometryDimensionControl(
+  layer: EditableLayerId | null,
+  value: number,
+): GeometryDimensionControl {
+  const isInternal = layer !== null && Object.prototype.hasOwnProperty.call(ROOM_UI_VISUAL_LAYOUT_V6.internal, layer);
+  const baselineMin = isInternal ? 1 : 0.2;
+  const baselineMax = isInternal ? 100 : 2.2;
+  return {
+    min: Math.min(baselineMin, value),
+    max: Math.max(baselineMax, value),
+    step: isInternal ? 0.1 : 0.01,
+    unit: isInternal ? "%" : "倍率",
+  };
+}
+
+function migrateInternalGeometry(
+  parsed: Partial<Record<RoomUiInternalVisualLayerId, RoomUiVisualGeometry>> | undefined,
+  defaults: Record<RoomUiInternalVisualLayerId, RoomUiVisualGeometry>,
+  shouldRepair: boolean,
+): Record<RoomUiInternalVisualLayerId, RoomUiVisualGeometry> {
+  const merged = { ...defaults, ...parsed };
+  if (!shouldRepair) return merged;
+
+  for (const layer of internalGeometryMigrationLayers) {
+    const saved = parsed?.[layer];
+    const formal = defaults[layer];
+    if (!saved) continue;
+    const repaired = { ...merged[layer] };
+    let changed = false;
+    for (const dimension of ["width", "height"] as const) {
+      if (
+        formal[dimension] > INTERNAL_GEOMETRY_ERROR_MAX
+        && saved[dimension] <= INTERNAL_GEOMETRY_ERROR_MAX
+      ) {
+        repaired[dimension] = formal[dimension];
+        changed = true;
+      }
+    }
+    if (changed) merged[layer] = repaired;
+  }
+  return merged;
+}
+
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
+}
+
+export function clampEditorPanelPosition(
+  position: EditorPanelPosition,
+  panelWidth: number,
+  panelHeight: number,
+  viewportWidth: number,
+  viewportHeight: number,
+): EditorPanelPosition {
+  const horizontalMargin = Math.min(
+    EDITOR_PANEL_SAFE_MARGIN,
+    Math.max(0, (viewportWidth - panelWidth) / 2),
+  );
+  const verticalMargin = Math.min(
+    EDITOR_PANEL_SAFE_MARGIN,
+    Math.max(0, (viewportHeight - panelHeight) / 2),
+  );
+  const maxLeft = Math.max(horizontalMargin, viewportWidth - panelWidth - horizontalMargin);
+  const maxTop = Math.max(verticalMargin, viewportHeight - panelHeight - verticalMargin);
+  return {
+    left: Number(clamp(position.left, horizontalMargin, maxLeft).toFixed(2)),
+    top: Number(clamp(position.top, verticalMargin, maxTop).toFixed(2)),
+  };
 }
 
 function validGeometry(value: unknown): value is RoomUiVisualGeometry {
@@ -119,30 +227,49 @@ function validGeometry(value: unknown): value is RoomUiVisualGeometry {
   );
 }
 
+export function migrateRoomUiStoredLayout(value: unknown): EditableLayout | null {
+  const parsed = value as EditableLayout | null;
+  if (!parsed || !validGeometry(parsed.surface) || !parsed.composition) return null;
+  const {
+    suggestionShell: _ignoredSuggestionShell,
+    suggestionShellLayoutRevision: _ignoredSuggestionShellRevision,
+    ...storedLayout
+  } = parsed as EditableLayout & Record<string, unknown>;
+  const defaults = cloneDefaultLayout();
+  const keepSavedSideText = parsed.sideTextLayoutRevision === SIDE_TEXT_LAYOUT_REVISION;
+  const keepSavedRightRail = parsed.rightRailLayoutRevision === RIGHT_RAIL_LAYOUT_REVISION;
+  const keepSavedInternalGeometry = parsed.internalGeometryLayoutRevision === INTERNAL_GEOMETRY_LAYOUT_REVISION;
+  return {
+    ...defaults,
+    ...storedLayout,
+    sideTextLayoutRevision: SIDE_TEXT_LAYOUT_REVISION,
+    rightRailLayoutRevision: RIGHT_RAIL_LAYOUT_REVISION,
+    internalGeometryLayoutRevision: INTERNAL_GEOMETRY_LAYOUT_REVISION,
+    backdrop: validGeometry(parsed.backdrop) ? parsed.backdrop : defaults.backdrop,
+    composition: {
+      ...defaults.composition,
+      ...parsed.composition,
+      suggestions: keepSavedRightRail
+        ? parsed.composition.suggestions ?? defaults.composition.suggestions
+        : defaults.composition.suggestions,
+    },
+    nested: {
+      ...defaults.nested,
+      ...parsed.nested,
+      "status-copy": keepSavedSideText
+        ? parsed.nested?.["status-copy"] ?? defaults.nested["status-copy"]
+        : defaults.nested["status-copy"],
+      "suggestions-copy": keepSavedSideText
+        ? parsed.nested?.["suggestions-copy"] ?? defaults.nested["suggestions-copy"]
+        : defaults.nested["suggestions-copy"],
+    },
+    internal: migrateInternalGeometry(parsed.internal, defaults.internal, !keepSavedInternalGeometry),
+  };
+}
+
 function readSavedLayout(): EditableLayout | null {
   try {
-    const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null") as EditableLayout | null;
-    if (!parsed || !validGeometry(parsed.surface) || !parsed.composition) return null;
-    const defaults = cloneDefaultLayout();
-    const keepSavedSideText = parsed.sideTextLayoutRevision === SIDE_TEXT_LAYOUT_REVISION;
-    return {
-      ...defaults,
-      ...parsed,
-      sideTextLayoutRevision: SIDE_TEXT_LAYOUT_REVISION,
-      backdrop: validGeometry(parsed.backdrop) ? parsed.backdrop : defaults.backdrop,
-      composition: { ...defaults.composition, ...parsed.composition },
-      nested: {
-        ...defaults.nested,
-        ...parsed.nested,
-        "status-copy": keepSavedSideText
-          ? parsed.nested?.["status-copy"] ?? defaults.nested["status-copy"]
-          : defaults.nested["status-copy"],
-        "suggestions-copy": keepSavedSideText
-          ? parsed.nested?.["suggestions-copy"] ?? defaults.nested["suggestions-copy"]
-          : defaults.nested["suggestions-copy"],
-      },
-      internal: { ...defaults.internal, ...parsed.internal },
-    };
+    return migrateRoomUiStoredLayout(JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null"));
   } catch {
     return null;
   }
@@ -158,14 +285,14 @@ function readLegacyLayout(): EditableLayout | null {
       surface: parsed.backdrop && validGeometry(parsed.backdrop)
         ? { ...parsed.backdrop, scale: Number((parsed.backdrop.scale * 1.1).toFixed(6)) }
         : defaults.surface,
-      composition: { ...defaults.composition, ...parsed.composition },
+      composition: { ...defaults.composition, ...parsed.composition, suggestions: defaults.composition.suggestions },
       nested: {
         conversation: parsed.conversation ?? defaults.nested.conversation,
         composer: parsed.composer ?? defaults.nested.composer,
         "status-copy": defaults.nested["status-copy"],
         "suggestions-copy": defaults.nested["suggestions-copy"],
       },
-      internal: { ...defaults.internal, ...parsed.internal },
+      internal: migrateInternalGeometry(parsed.internal, defaults.internal, true),
     };
   } catch {
     return null;
@@ -218,8 +345,11 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
   const [selectionRect, setSelectionRect] = useState<SelectionRect | null>(null);
   const [saveRevision, setSaveRevision] = useState(0);
   const hostRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLElement | null>(null);
   const layoutRef = useRef(layout);
   const gestureRef = useRef<PointerGesture | null>(null);
+  const panelDragRef = useRef<EditorPanelDrag | null>(null);
+  const [panelPosition, setPanelPosition] = useState<EditorPanelPosition | null>(null);
   layoutRef.current = layout;
 
   useEffect(() => {
@@ -280,6 +410,40 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
     };
   }, [editorOpen, hydrated, layout, refreshSelection, selectedLayer, targetElement]);
 
+  const clampCurrentPanelPosition = useCallback(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+    setPanelPosition((current) => {
+      if (!current) return current;
+      const rect = panel.getBoundingClientRect();
+      return clampEditorPanelPosition(
+        current,
+        rect.width,
+        rect.height,
+        window.innerWidth,
+        window.innerHeight,
+      );
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated || !editorOpen || panelCollapsed) return undefined;
+    const handleViewportChange = () => clampCurrentPanelPosition();
+    const panel = panelRef.current;
+    const observer = panel && typeof ResizeObserver !== "undefined"
+      ? new ResizeObserver(handleViewportChange)
+      : null;
+    if (panel) observer?.observe(panel);
+    window.addEventListener("resize", handleViewportChange);
+    window.addEventListener("scroll", handleViewportChange, true);
+    handleViewportChange();
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", handleViewportChange);
+      window.removeEventListener("scroll", handleViewportChange, true);
+    };
+  }, [clampCurrentPanelPosition, editorOpen, hydrated, panelCollapsed]);
+
   const updateSurface = (geometry: RoomUiVisualGeometry) => {
     setLayout((current) => ({ ...current, surface: geometry }));
   };
@@ -313,11 +477,11 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
     ? layout.surface
     : selectedLayer === "backdrop"
       ? layout.backdrop
-      : selectedLayer in layout.nested
-        ? layout.nested[selectedLayer as RoomUiNestedVisualLayerId]
-        : selectedLayer in layout.internal
-          ? layout.internal[selectedLayer as RoomUiInternalVisualLayerId]
-          : layout.composition[selectedLayer as RoomUiVisualLayerId];
+        : selectedLayer in layout.nested
+          ? layout.nested[selectedLayer as RoomUiNestedVisualLayerId]
+          : selectedLayer in layout.internal
+            ? layout.internal[selectedLayer as RoomUiInternalVisualLayerId]
+            : layout.composition[selectedLayer as RoomUiVisualLayerId];
 
   const beginGesture = (kind: PointerGesture["kind"], event: React.PointerEvent<HTMLElement>) => {
     if (!selectionRect) return;
@@ -403,6 +567,103 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
     else updateComponent(selectedLayer, next);
   };
 
+  const resetSelectedLayer = () => {
+    const current = layoutRef.current;
+    const next = selectedLayer === null
+      ? { ...current, surface: { ...ROOM_UI_SURFACE_GEOMETRY_V6 } }
+      : selectedLayer === "backdrop"
+        ? { ...current, backdrop: { ...ROOM_UI_VISUAL_LAYOUT_V6.backdrop } }
+        : selectedLayer in current.nested
+          ? {
+              ...current,
+              nested: {
+                ...current.nested,
+                [selectedLayer]: { ...ROOM_UI_VISUAL_LAYOUT_V6.nested[selectedLayer as RoomUiNestedVisualLayerId] },
+              },
+            }
+          : selectedLayer in current.internal
+            ? {
+                ...current,
+                internal: {
+                  ...current.internal,
+                  [selectedLayer]: { ...ROOM_UI_VISUAL_LAYOUT_V6.internal[selectedLayer as RoomUiInternalVisualLayerId] },
+                },
+              }
+            : {
+                ...current,
+                composition: {
+                  ...current.composition,
+                  [selectedLayer]: { ...ROOM_UI_VISUAL_LAYOUT_V6.geometry[selectedLayer as RoomUiVisualLayerId] },
+                },
+              };
+    layoutRef.current = next;
+    setLayout(next);
+    saveLayout(next);
+  };
+
+  const widthControl = getEditorGeometryDimensionControl(selectedLayer, selectedGeometry.width);
+  const heightControl = getEditorGeometryDimensionControl(selectedLayer, selectedGeometry.height);
+
+  const beginPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    const target = event.target;
+    if (target instanceof Element && target.closest("button, input, select, textarea, [data-panel-no-drag]")) return;
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const rect = panel.getBoundingClientRect();
+    const position = clampEditorPanelPosition(
+      { left: rect.left, top: rect.top },
+      rect.width,
+      rect.height,
+      window.innerWidth,
+      window.innerHeight,
+    );
+    panelDragRef.current = {
+      ...position,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+    };
+    setPanelPosition(position);
+    event.preventDefault();
+    event.stopPropagation();
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const movePanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    const drag = panelDragRef.current;
+    const panel = panelRef.current;
+    if (!drag || !panel || drag.pointerId !== event.pointerId) return;
+    const rect = panel.getBoundingClientRect();
+    setPanelPosition(clampEditorPanelPosition(
+      {
+        left: drag.left + event.clientX - drag.startX,
+        top: drag.top + event.clientY - drag.startY,
+      },
+      rect.width,
+      rect.height,
+      window.innerWidth,
+      window.innerHeight,
+    ));
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const endPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (panelDragRef.current?.pointerId !== event.pointerId) return;
+    panelDragRef.current = null;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+  };
+
+  const resetPanelPosition = () => {
+    panelDragRef.current = null;
+    setPanelPosition(null);
+  };
+
+  const panelStyle = panelPosition === null
+    ? undefined
+    : { left: `${panelPosition.left}px`, top: `${panelPosition.top}px`, right: "auto" };
+
   return (
     <div
       ref={hostRef}
@@ -422,10 +683,23 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
       {hydrated && createPortal(
         <>
       {editorOpen && !panelCollapsed ? (
-        <aside className={styles.editorPanel} data-testid="room-v6-editor-panel">
-          <div className={styles.editorHeading}>
+        <aside ref={panelRef} className={styles.editorPanel} data-testid="room-v6-editor-panel" style={panelStyle}>
+          <div
+            className={styles.editorHeading}
+            data-testid="room-v6-editor-panel-drag-handle"
+            data-panel-drag-handle="true"
+            onPointerDown={beginPanelDrag}
+            onPointerMove={movePanelDrag}
+            onPointerUp={endPanelDrag}
+            onPointerCancel={endPanelDrag}
+          >
             <span><strong>正式 Surface 临时编辑器</strong><small>当前直接编辑正式组件，不是复制版</small></span>
             <div className={styles.headingActions}>
+              <button
+                type="button"
+                data-testid="room-v6-editor-reset-position"
+                onClick={resetPanelPosition}
+              >归位</button>
               <button
                 type="button"
                 data-testid="room-v6-editor-collapse"
@@ -463,6 +737,9 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
             <span>保存 #{saveRevision}</span>
           </div>
           <div className={styles.geometryControls}>
+            <div className={styles.readout} data-testid="room-v6-editor-geometry-unit">
+              <span>宽高单位：{widthControl.unit === "%" ? "百分比" : "倍率"}</span>
+            </div>
             <label className={styles.scaleControl}>
               <span>整体缩放</span>
               <input
@@ -478,10 +755,12 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
             <label className={styles.scaleControl}>
               <span>横向宽度</span>
               <input
+                data-testid="room-v6-editor-width"
+                data-geometry-unit={widthControl.unit}
                 type="range"
-                min="0.2"
-                max="2.2"
-                step="0.01"
+                min={widthControl.min}
+                max={widthControl.max}
+                step={widthControl.step}
                 value={selectedGeometry.width}
                 onChange={(event) => updateSelectedGeometry({ width: Number(event.target.value) })}
                 onPointerUp={() => saveLayout()}
@@ -490,10 +769,12 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
             <label className={styles.scaleControl}>
               <span>纵向高度</span>
               <input
+                data-testid="room-v6-editor-height"
+                data-geometry-unit={heightControl.unit}
                 type="range"
-                min="0.2"
-                max="2.2"
-                step="0.01"
+                min={heightControl.min}
+                max={heightControl.max}
+                step={heightControl.step}
                 value={selectedGeometry.height}
                 onChange={(event) => updateSelectedGeometry({ height: Number(event.target.value) })}
                 onPointerUp={() => saveLayout()}
@@ -514,6 +795,7 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
           </div>
           <div className={styles.quickActions}>
             <button type="button" onClick={() => updateSelectedGeometry({ x: 0, y: 0 })}>位置归零</button>
+            <button type="button" data-testid="room-v6-editor-reset-selected-layer" onClick={resetSelectedLayer}>恢复当前图层</button>
             <button type="button" onClick={() => updateSelectedGeometry({ scale: Number(clamp(selectedGeometry.scale / 1.05, MIN_SURFACE_SCALE, MAX_SURFACE_SCALE).toFixed(4)) })}>缩小</button>
             <button type="button" onClick={() => updateSelectedGeometry({ scale: Number(clamp(selectedGeometry.scale * 1.05, MIN_SURFACE_SCALE, MAX_SURFACE_SCALE).toFixed(4)) })}>放大</button>
           </div>

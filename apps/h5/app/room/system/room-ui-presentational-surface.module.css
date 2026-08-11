@@ -242,29 +242,6 @@
   white-space: nowrap;
 }
 
-.closeButton {
-  position: absolute;
-  z-index: 3;
-  top: .15rem;
-  right: .45rem;
-  display: grid;
-  width: 1.55rem;
-  height: 1.55rem;
-  place-items: center;
-  border: 1px solid rgba(102, 65, 27, .28);
-  border-radius: 50%;
-  color: #5c3b20;
-  background: rgba(255, 246, 218, .7);
-  cursor: pointer;
-}
-
-.closeButton:hover,
-.closeButton:focus-visible {
-  background: #ffe6a4;
-  outline: 2px solid rgba(91, 57, 25, .4);
-  outline-offset: 2px;
-}
-
 .statusContainer {
   grid-area: status;
   position: relative;
@@ -442,13 +419,14 @@
   position: relative;
   width: calc(100% * var(--layout-width-factor));
   height: var(--slot-height);
-  z-index: 20;
+  z-index: 40;
   display: grid;
   min-height: 0;
   justify-self: center;
   place-items: start center;
   overflow: hidden;
   border-radius: 1rem;
+  pointer-events: none;
   transform: translate(var(--layout-x), var(--layout-y)) scale(var(--layout-scale)) rotate(var(--layout-tilt));
   transform-origin: center;
 }
@@ -501,6 +479,9 @@
   border-radius: .56rem;
   padding: .25rem .35rem;
   background: rgba(255, 252, 240, .08);
+  pointer-events: auto;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: subpixel-antialiased;
   transform: translate(var(--layout-x), var(--layout-y)) scale(var(--layout-scale)) rotate(var(--layout-tilt));
   transform-origin: center;
 }
@@ -619,17 +600,21 @@
   color: #493020;
   background: rgba(255, 252, 240, .72);
   box-shadow: 0 .15rem .45rem rgba(74, 43, 18, .07);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .message small {
   color: rgba(104, 68, 34, .68);
-  font-size: clamp(.34rem, 1.05cqw, .43rem);
+  font-size: clamp(.38rem, 1.18cqw, .48rem);
   letter-spacing: .04em;
 }
 
 .message p {
   margin: 0;
-  font-size: clamp(.43rem, 1.42cqw, .59rem);
+  color: #432817;
+  font-size: clamp(.5rem, 1.62cqw, .68rem);
+  font-weight: 520;
   line-height: 1.36;
   overflow-wrap: anywhere;
 }
@@ -785,6 +770,7 @@
   padding: 0;
   background: transparent;
   overflow: hidden;
+  pointer-events: auto;
   transform: translate(calc(-50% + var(--layout-x)), var(--layout-y)) scale(var(--layout-scale)) rotate(var(--layout-tilt));
   transform-origin: top center;
 }
@@ -908,19 +894,43 @@
 }
 
 .chatSendDock button {
+  position: relative;
   width: clamp(1.75rem, 7cqw, 2.25rem);
   aspect-ratio: 1;
-  border: 1px solid rgba(104, 65, 27, .35);
+  border: 0;
   border-radius: 50%;
-  padding: .2rem;
-  color: #fff2cf;
-  background: #79502d;
+  padding: .24rem;
+  color: #35402c;
+  background-color: transparent;
+  background-image: url("/assets/ui/room-presentational-v6/composer-send-token-olive-brass-v1.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   font-size: clamp(.38rem, 1.05cqw, .48rem);
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 1px 1px rgba(212, 174, 83, .72);
   cursor: pointer;
+  transition: transform 140ms ease, filter 140ms ease;
+}
+
+.chatSendDock button:hover:not(:disabled) {
+  filter: brightness(1.08) saturate(1.08);
+  transform: translateY(-.04rem) scale(1.04);
+}
+
+.chatSendDock button:active:not(:disabled) {
+  transform: translateY(.03rem) scale(.97);
+}
+
+.chatSendDock button:focus-visible {
+  outline: 2px solid rgba(255, 229, 166, .92);
+  outline-offset: 2px;
 }
 
 .chatSendDock button:disabled {
   cursor: not-allowed;
+  filter: saturate(.58);
   opacity: .48;
 }
 
@@ -929,7 +939,7 @@
   position: relative;
   width: calc(100% * var(--layout-width-factor));
   height: var(--slot-height);
-  z-index: 30;
+  z-index: 50;
   min-height: 0;
   overflow: visible;
   transform: translate(var(--layout-x), var(--layout-y)) scale(var(--layout-scale)) rotate(var(--layout-tilt));
@@ -997,18 +1007,66 @@
   box-sizing: border-box;
 }
 
+.suggestionGroupLabels {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  pointer-events: none;
+}
+
+.suggestionGroupLabels span {
+  position: absolute;
+  right: 1.5%;
+  display: inline-flex;
+  width: fit-content;
+  min-width: 0;
+  max-width: 4.2rem;
+  height: 1.15rem;
+  justify-content: center;
+  border: 1px solid rgba(237, 211, 164, .32);
+  border-radius: 999px;
+  padding: .08rem .28rem;
+  color: rgba(255, 239, 200, .88);
+  background: rgba(39, 29, 20, .56);
+  box-shadow: 0 .12rem .3rem rgba(0, 0, 0, .18);
+  font-size: clamp(.38rem, 1.1cqw, .52rem);
+  line-height: 1.2;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+.suggestionGroupLabels span:first-child {
+  top: 1.2%;
+}
+
+.suggestionGroupLabels span:last-child {
+  top: 51.2%;
+}
+
+.suggestionCardRow {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
 .suggestionCard {
   --suggestion-hover-tilt: -1deg;
   position: relative;
   z-index: 0;
   display: block;
-  width: auto;
+  width: 92%;
   height: 100%;
   max-width: 100%;
   min-width: 0;
   min-height: 0;
   aspect-ratio: 1536 / 1024;
   justify-self: center;
+  margin-inline: auto;
   border: 0;
   padding: 0;
   color: #65372a;
@@ -1020,15 +1078,15 @@
   container: suggestion-card / inline-size;
 }
 
-.suggestionCard:nth-child(4n + 2) {
+.suggestionCardRow:nth-child(3) .suggestionCard {
   --suggestion-hover-tilt: .8deg;
 }
 
-.suggestionCard:nth-child(4n + 3) {
+.suggestionCardRow:nth-child(4) .suggestionCard {
   --suggestion-hover-tilt: -.65deg;
 }
 
-.suggestionCard:nth-child(4n + 4) {
+.suggestionCardRow:nth-child(5) .suggestionCard {
   --suggestion-hover-tilt: 1deg;
 }
 
@@ -1078,18 +1136,46 @@
   position: absolute;
   inset: 0;
   display: block;
+  pointer-events: none;
   transition: transform 180ms ease;
   transform-origin: center;
 }
 
-.suggestionCardArtStage::before {
+.suggestionGuideTrigger {
   position: absolute;
-  z-index: 0;
-  inset: 7% 5.8% 8%;
-  border-radius: .35rem;
-  background: #fff;
-  content: "";
-  pointer-events: none;
+  z-index: 10;
+  top: 8%;
+  right: 5%;
+  box-sizing: border-box;
+  display: inline-flex;
+  width: clamp(2rem, 18%, 3.2rem);
+  max-width: 3.2rem;
+  min-width: 2rem;
+  height: clamp(1.05rem, 16%, 1.5rem);
+  max-height: 1.5rem;
+  min-height: 1.05rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(108, 69, 29, .34);
+  border-radius: 999px;
+  padding: .08rem .24rem;
+  color: #684221;
+  background: rgba(255, 248, 225, .88);
+  box-shadow: 0 .1rem .28rem rgba(74, 43, 18, .12);
+  font-size: clamp(.34rem, .9cqw, .48rem);
+  line-height: 1;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestionGuideTrigger:hover,
+.suggestionGuideTrigger:focus-visible {
+  border-color: rgba(111, 72, 33, .62);
+  background: rgba(255, 243, 211, .98);
+  outline: 2px solid rgba(255, 229, 166, .72);
+  outline-offset: 2px;
 }
 
 .suggestionCardArt {
@@ -1140,6 +1226,7 @@
   left: var(--internal-x);
   width: var(--internal-width);
   height: var(--internal-height);
+  overflow: hidden;
   padding: 0 2% 0 31%;
   transform: scale(var(--internal-scale)) rotate(var(--internal-tilt));
   transform-origin: center;
@@ -1195,6 +1282,7 @@
   width: var(--internal-width);
   height: var(--internal-height);
   align-items: flex-start;
+  overflow: hidden;
   padding: 1% 4%;
   transform: scale(var(--internal-scale)) rotate(var(--internal-tilt));
   transform-origin: center;
@@ -1203,10 +1291,15 @@
 .suggestionCardDetailSlot small {
   display: -webkit-box;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   overflow: hidden;
   color: #6e4a27;
   font-size: clamp(.34rem, 2.9cqw, .44rem);
   line-height: 1.18;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  word-break: break-word;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
@@ -1472,6 +1565,27 @@
   .suggestionCard {
     min-height: 3.7rem;
   }
+
+  .suggestionGuideTrigger {
+    top: 7%;
+    right: 4%;
+    width: clamp(2rem, 18%, 3.2rem);
+    max-width: 3.2rem;
+    min-width: 2rem;
+    height: clamp(1.05rem, 16%, 1.5rem);
+    max-height: 1.5rem;
+    min-height: 1.05rem;
+  }
+
+  .writingGuideBackdrop {
+    inset: 0;
+    padding: .7rem;
+  }
+
+  .writingGuide {
+    width: min(100%, 32rem);
+    max-height: 94%;
+  }
 }
 
 @media (max-width: 390px) {
@@ -1494,6 +1608,149 @@
   .suggestionsContainer {
     min-height: 24rem;
   }
+
+  .suggestionGroupLabels span {
+    right: 1%;
+    min-width: 2rem;
+    padding-inline: .2rem;
+    font-size: .42rem;
+  }
+
+  .writingGuideFields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .writingGuide {
+    padding: .78rem .75rem .85rem;
+  }
+}
+
+.writingGuideBackdrop {
+  position: absolute;
+  z-index: 220;
+  inset: 2% 3%;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  padding: clamp(.75rem, 3vw, 2rem);
+  background: rgba(8, 19, 18, .58);
+  backdrop-filter: blur(4px);
+  pointer-events: auto;
+}
+
+.writingGuide {
+  display: grid;
+  width: min(100%, 31rem);
+  max-height: 92%;
+  min-width: 0;
+  gap: .72rem;
+  overflow: auto;
+  box-sizing: border-box;
+  border: 1px solid rgba(142, 91, 38, .46);
+  border-radius: .78rem;
+  padding: .9rem 1rem 1rem;
+  color: #4b3020;
+  background: linear-gradient(180deg, rgba(255, 251, 233, .98), rgba(244, 226, 187, .98));
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, .42), inset 0 0 0 1px rgba(255, 255, 255, .5);
+}
+
+.writingGuideHeader {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .7rem;
+  border-bottom: 1px solid rgba(117, 70, 31, .2);
+  padding-bottom: .55rem;
+}
+
+.writingGuideHeader > div {
+  display: grid;
+  min-width: 0;
+  gap: .2rem;
+}
+
+.writingGuideHeader strong {
+  font-family: Georgia, "Microsoft YaHei", serif;
+  font-size: clamp(.78rem, 1.5vw, 1rem);
+}
+
+.writingGuideHeader small {
+  color: rgba(94, 61, 30, .72);
+  font-size: clamp(.52rem, 1.1vw, .66rem);
+  line-height: 1.35;
+}
+
+.writingGuideClose {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(117, 70, 31, .28);
+  border-radius: 999px;
+  color: #573720;
+  background: rgba(255, 251, 232, .72);
+  cursor: pointer;
+}
+
+.writingGuideClose:hover,
+.writingGuideClose:focus-visible {
+  border-color: rgba(117, 70, 31, .58);
+  background: rgba(255, 247, 217, .96);
+  outline: 2px solid rgba(117, 70, 31, .3);
+  outline-offset: 2px;
+}
+
+.writingGuideFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .36rem .7rem;
+  margin: 0;
+}
+
+.writingGuideFields div {
+  min-width: 0;
+}
+
+.writingGuideFields dt {
+  color: #805528;
+  font-size: .58rem;
+  font-weight: 700;
+}
+
+.writingGuideFields dd {
+  margin: .12rem 0 0;
+  color: rgba(94, 61, 30, .74);
+  font-size: .56rem;
+  line-height: 1.3;
+}
+
+.writingGuideTemplateLabel {
+  color: #805528;
+  font-size: .6rem;
+  font-weight: 700;
+}
+
+.writingGuideTemplate {
+  width: 100%;
+  min-height: 7rem;
+  box-sizing: border-box;
+  resize: vertical;
+  border: 1px solid rgba(117, 70, 31, .24);
+  border-radius: .45rem;
+  padding: .5rem .6rem;
+  color: #4b3020;
+  background: rgba(255, 252, 238, .72);
+  font: inherit;
+  font-size: .62rem;
+  line-height: 1.55;
+}
+
+.writingGuideTemplate:focus-visible {
+  border-color: rgba(117, 70, 31, .56);
+  outline: 2px solid rgba(117, 70, 31, .24);
+  outline-offset: 1px;
 }
 
 .variantReviewOverlay {
@@ -1528,5 +1785,142 @@
 
   .variantReviewFrame {
     max-height: calc(100dvh - 1.1rem);
+  }
+}
+
+.utilityActions {
+  position: fixed;
+  z-index: 85;
+  right: max(.8rem, env(safe-area-inset-right));
+  bottom: max(.8rem, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .42rem;
+  pointer-events: auto;
+}
+
+.utilityAction {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(117, 70, 31, .34);
+  border-radius: 999px;
+  padding: .35rem .72rem;
+  color: #67451f;
+  background: rgba(255, 248, 225, .9);
+  box-shadow: 0 .25rem .8rem rgba(78, 42, 16, .12);
+  cursor: pointer;
+  font-size: clamp(.55rem, 1vw, .7rem);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.utilityAction:hover,
+.utilityAction:focus-visible {
+  border-color: rgba(117, 70, 31, .72);
+  background: #fff7d9;
+  outline: 2px solid rgba(117, 70, 31, .24);
+  outline-offset: 2px;
+}
+
+.utilityAction:disabled,
+.utilityAction[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.rulesBackdrop {
+  position: absolute;
+  z-index: 225;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  padding: 1rem;
+  background: rgba(34, 21, 15, .18);
+  pointer-events: auto;
+}
+
+.rulesPanel {
+  display: grid;
+  width: min(100%, 28rem);
+  gap: .75rem;
+  box-sizing: border-box;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(117, 70, 31, .28);
+  border-radius: .85rem;
+  color: #5e3d1e;
+  background: rgba(255, 249, 230, .97);
+  box-shadow: 0 1rem 2.5rem rgba(44, 24, 12, .22);
+}
+
+.rulesHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .75rem;
+  border-bottom: 1px solid rgba(117, 70, 31, .18);
+  padding-bottom: .65rem;
+}
+
+.rulesHeader > div {
+  display: grid;
+  gap: .2rem;
+}
+
+.rulesHeader strong {
+  font-family: Georgia, "Microsoft YaHei", serif;
+  font-size: 1rem;
+}
+
+.rulesHeader small {
+  color: rgba(94, 61, 30, .72);
+  font-size: .64rem;
+  line-height: 1.35;
+}
+
+.rulesClose {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(117, 70, 31, .28);
+}
+
+.rulesClose:hover,
+.rulesClose:focus-visible {
+  border-color: rgba(117, 70, 31, .6);
+  background: #fff7d9;
+  outline: 2px solid rgba(117, 70, 31, .24);
+  outline-offset: 2px;
+}
+
+.rulesList {
+  display: grid;
+  gap: .5rem;
+  margin: 0;
+  padding-left: 1.15rem;
+  color: rgba(94, 61, 30, .82);
+  font-size: .7rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .utilityActions {
+    right: max(.5rem, env(safe-area-inset-right));
+    bottom: max(.5rem, env(safe-area-inset-bottom));
+    width: min(23rem, calc(100vw - 1rem));
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .utilityAction {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: .45rem;
   }
 }

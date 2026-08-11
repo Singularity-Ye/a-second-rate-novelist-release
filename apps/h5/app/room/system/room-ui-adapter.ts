@@ -255,6 +255,8 @@ export interface RoomUiPresentationalSurfaceProps {
   readonly model: RoomUiPresentationModel;
   readonly draftReader: RoomUiDraftReaderView | null;
   readonly variantReview?: RoomUiVariantReviewView | null;
+  /** False until the formal session bootstrap/admission has fully activated. */
+  readonly gatewayReady?: boolean;
   readonly onClose: () => void;
   readonly onCloseDraftReader: () => void;
   readonly onSendMessage: (text: string) => void;

@@ -65,7 +65,7 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
   // The approved camera geometry is already compiled into the outer Surface.
   // Keep the inner stage at identity so it fills that Surface exactly instead
   // of applying the editor camera a second time.
-  backdrop: { x: 0, y: 0, scale: 1, tilt: 0, width: 1, height: 1 },
+  backdrop: { x: 10, y: -18.85, scale: 1, tilt: 0, width: 1, height: 0.84 },
   slots: {
     title: { x: 31.5, y: 2.5, width: 37, height: 16 },
     status: { x: 2.2, y: 20, width: 20, height: 57 },
@@ -78,28 +78,28 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
     progress: { x: 18.97, y: 74.18, width: 62.05, height: 23.12 },
   } satisfies Record<RoomUiVisualLayerId, StageSlot>,
   geometry: {
-    title: { x: 86, y: -31, scale: 0.95, tilt: 0, width: 1, height: 1 },
-    status: { x: -19.34, y: 35.23, scale: 1.43, tilt: -1.3, width: 1.41, height: 1.37 },
-    chat: { x: -7, y: 31, scale: 1.65, tilt: 0.1, width: 0.69, height: 1.11 },
-    suggestions: { x: -1, y: 37.52, scale: 1.63, tilt: 4.3, width: 0.93, height: 0.78 },
-    progress: { x: 46, y: -83.62, scale: 1, tilt: 0.2, width: 0.84, height: 0.49 },
+    title: { x: 74.86, y: -3.57, scale: 0.95, tilt: 0, width: 1, height: 1 },
+    status: { x: -23.05, y: 35.52, scale: 1.43, tilt: -1.3, width: 1.52, height: 1.37 },
+    chat: { x: -6.71, y: 25.86, scale: 1.65, tilt: 0.1, width: 0.69, height: 1.11 },
+    suggestions: { x: 7.15, y: 43.53, scale: 1.6148, tilt: 2, width: 0.93, height: 0.78 },
+    progress: { x: 34.28, y: -60.19, scale: 1, tilt: 0.2, width: 0.84, height: 0.49 },
   } satisfies Record<RoomUiVisualLayerId, RoomUiVisualGeometry>,
   nested: {
-    conversation: { x: 9, y: -24, scale: 0.81, tilt: 0, width: 1, height: 0.8 },
-    composer: { x: 0, y: -45, scale: 0.81, tilt: 0, width: 0.98, height: 0.2 },
+    conversation: { x: 1.29, y: 0.85, scale: 0.8084, tilt: 0, width: 0.97, height: 0.74 },
+    composer: { x: 6, y: -15.29, scale: 0.81, tilt: 0, width: 0.98, height: 0.2 },
     "status-copy": { x: 0, y: 0, scale: 1, tilt: 0, width: 1, height: 1 },
     "suggestions-copy": { x: 0, y: 0, scale: 1, tilt: 0, width: 1, height: 1 },
   } satisfies Record<RoomUiNestedVisualLayerId, RoomUiVisualGeometry>,
   internal: {
     "status-avatar": { x: 25.6, y: 14.9, scale: 1, tilt: 0, width: 17.9, height: 14.6 },
-    "status-identity": { x: 48, y: 19.5, scale: 1, tilt: 0, width: 32, height: 15 },
-    "status-scene": { x: 24, y: 35.5, scale: 1, tilt: 0, width: 56, height: 7 },
-    "status-needs-primary": { x: 24, y: 43, scale: 1, tilt: 0, width: 56, height: 13 },
-    "status-needs-secondary": { x: 24, y: 56.5, scale: 1, tilt: 0, width: 56, height: 13 },
-    "status-mood": { x: 24, y: 76, scale: 1, tilt: 0, width: 56, height: 8 },
-    "suggestion-icon": { x: 10.5, y: 12, scale: 1, tilt: 0, width: 21.5, height: 27 },
-    "suggestion-title": { x: 9, y: 12, scale: 1, tilt: 0, width: 83, height: 27 },
-    "suggestion-detail": { x: 9, y: 49, scale: 1, tilt: 0, width: 82, height: 29 },
+    "status-identity": { x: 44.57, y: 16.64, scale: 1, tilt: 0, width: 32, height: 15 },
+    "status-scene": { x: 25.14, y: 34.36, scale: 1, tilt: 0, width: 56, height: 7 },
+    "status-needs-primary": { x: 25.14, y: 40.43, scale: 1, tilt: 0, width: 56, height: 13 },
+    "status-needs-secondary": { x: 25.71, y: 50.22, scale: 1, tilt: 0, width: 56, height: 13 },
+    "status-mood": { x: 25.14, y: 63.14, scale: 1, tilt: 0, width: 56, height: 8 },
+    "suggestion-icon": { x: 25.09, y: 16.03, scale: 1.5747, tilt: 0, width: 21.5, height: 27 },
+    "suggestion-title": { x: 12.23, y: -21.67, scale: 0.8201, tilt: -1.7, width: 82.3, height: 96.5 },
+    "suggestion-detail": { x: 22.39, y: 44.82, scale: 0.79, tilt: 0, width: 57.7, height: 41.2 },
     "progress-observe-dot": { x: 30, y: 43.3, scale: 0.75, tilt: 0, width: 5.5, height: 9.2 },
     "progress-observe-text": { x: 26.6, y: 51.7, scale: 1.07, tilt: 0, width: 12.6, height: 9.4 },
     "progress-breakdown-dot": { x: 45.3, y: 43.6, scale: 0.75, tilt: 0, width: 5.5, height: 9.2 },
@@ -116,17 +116,18 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
  * camera. It is presentation geometry only: formal /room never reads the
  * calibration hash or localStorage at runtime.
  *
- * The approved 3013 formal-live Surface is shown at 150% overall scale
- * with a 117% x 125% visible frame and an offset of (-57.21px, -13.69px).
- * Compile that final Surface camera directly so formal /room preserves the
- * approved overall size while every child layer grows and moves as one.
+ * The approved editor snapshot stored in the user's 127.0.0.1:3000 browser
+ * profile is shown at 180% overall scale with the same approved visible
+ * frame and an offset of (-126.72px, -31.7px). Compile that final Surface
+ * camera directly so formal /room preserves the approved overall size while
+ * every child layer grows and moves as one.
  */
 export const ROOM_UI_SURFACE_GEOMETRY_V6 = {
-  x: -57.21,
-  y: -13.69,
-  scale: 1.5,
+  x: -126.72,
+  y: -31.7,
+  scale: 1.8,
   tilt: 0,
-  width: 0.835714,
+  width: 0.87,
   height: 0.892857,
 } satisfies RoomUiVisualGeometry;
 

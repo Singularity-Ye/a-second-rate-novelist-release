@@ -7,7 +7,8 @@
   position: fixed;
   z-index: 1200;
   top: max(.65rem, env(safe-area-inset-top));
-  right: max(.65rem, env(safe-area-inset-right));
+  left: max(.65rem, env(safe-area-inset-left));
+  right: auto;
   display: grid;
   width: min(22rem, calc(100vw - 1.3rem));
   max-height: calc(100dvh - 1.3rem);
@@ -29,6 +30,18 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: .75rem;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.editorHeading:active {
+  cursor: grabbing;
+}
+
+.editorHeading button {
+  touch-action: manipulation;
+  user-select: auto;
 }
 
 .editorHeading > span {
@@ -211,7 +224,8 @@
 @media (max-width: 760px) {
   .editorPanel {
     top: max(.4rem, env(safe-area-inset-top));
-    right: .4rem;
+    left: .4rem;
+    right: auto;
     width: calc(100vw - .8rem);
     max-height: min(17rem, calc(100dvh - .8rem));
   }

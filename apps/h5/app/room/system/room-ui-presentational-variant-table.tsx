@@ -127,6 +127,7 @@ export function RoomUiPresentationalVariantTable({
       ? createPortal(
           <div
             className={styles.previewOverlay}
+            data-room-shortcut-scope="system-panel"
             data-testid="room-v6-variant-preview-overlay"
             onClick={(event) => {
               if (event.target === event.currentTarget) onClose();
