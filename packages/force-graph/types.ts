@@ -39,6 +39,8 @@ export interface GraphNodeState<Metadata = Record<string, unknown>>
   y: number;
   vx: number;
   vy: number;
+  fx?: number | null;
+  fy?: number | null;
 }
 
 export interface ResolvedGraphEdge<NodeMetadata = Record<string, unknown>, EdgeMetadata = Record<string, unknown>> {

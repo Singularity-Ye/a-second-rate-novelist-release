@@ -701,14 +701,25 @@ export function RoomUiPresentationalSurface({
           </header>
           <div className={styles.suggestionList} data-testid="room-v6-suggestion-list">
             <div className={styles.suggestionGroupLabels} aria-label="建议分组">
-              <span data-testid="room-v6-suggestion-group-life">生活</span>
-              <span data-testid="room-v6-suggestion-group-creative">创作</span>
+              <span
+                data-testid="room-v6-suggestion-group-life"
+                style={roomUiInternalVisualStyle("suggestion-group-life", visualLayout)}
+              >生活</span>
+              <span
+                data-testid="room-v6-suggestion-group-creative"
+                style={roomUiInternalVisualStyle("suggestion-group-creative", visualLayout)}
+              >创作</span>
             </div>
             {suggestionCards.map((card, index) => {
               const guideKey: WritingGuideKey | null = card.key === "share-story-spark"
                 ? "story-spark"
                 : card.key === "start-writing" || card.key === "continue-writing"
                   ? "writing-entry"
+                  : null;
+              const guideLayer = guideKey === "story-spark"
+                ? "suggestion-guide-story-spark"
+                : guideKey === "writing-entry"
+                  ? "suggestion-guide-writing-entry"
                   : null;
               const cardDisabled = composerDisabled
                 || (card.kind === "projection_action" && !card.action);
@@ -785,6 +796,7 @@ export function RoomUiPresentationalSurface({
                       type="button"
                       className={styles.suggestionGuideTrigger}
                       data-testid={`room-v6-suggestion-guide-${card.key}`}
+                      style={guideLayer ? roomUiInternalVisualStyle(guideLayer, visualLayout) : undefined}
                       aria-label={`${card.label}写作指南`}
                       aria-haspopup="dialog"
                       aria-controls="room-v6-writing-guide"

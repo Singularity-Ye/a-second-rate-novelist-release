@@ -121,6 +121,10 @@ const editableLayers = [
   { id: "suggestion-icon", label: "右卡图标槽", testId: "room-v6-suggestion-icon-slot" },
   { id: "suggestion-title", label: "右卡标题槽", testId: "room-v6-suggestion-title-slot" },
   { id: "suggestion-detail", label: "右卡说明槽", testId: "room-v6-suggestion-detail-slot" },
+  { id: "suggestion-group-life", label: "生活分组提示", testId: "room-v6-suggestion-group-life" },
+  { id: "suggestion-group-creative", label: "创作分组提示", testId: "room-v6-suggestion-group-creative" },
+  { id: "suggestion-guide-story-spark", label: "灵感指南按钮", testId: "room-v6-suggestion-guide-share-story-spark" },
+  { id: "suggestion-guide-writing-entry", label: "写作指南按钮", testId: "room-v6-suggestion-guide-start-writing" },
 ] as const satisfies readonly Readonly<{ id: EditableLayerId; label: string; testId: string }>[];
 
 function cloneDefaultLayout(): EditableLayout {

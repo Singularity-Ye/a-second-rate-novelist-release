@@ -1016,31 +1016,29 @@
 
 .suggestionGroupLabels span {
   position: absolute;
-  right: 1.5%;
+  top: var(--internal-y);
+  left: var(--internal-x);
+  width: var(--internal-width);
   display: inline-flex;
-  width: fit-content;
   min-width: 0;
-  max-width: 4.2rem;
-  height: 1.15rem;
+  max-width: 100%;
+  height: var(--internal-height);
   justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
   border: 1px solid rgba(237, 211, 164, .32);
   border-radius: 999px;
-  padding: .08rem .28rem;
+  padding: .02rem .16rem;
   color: rgba(255, 239, 200, .88);
   background: rgba(39, 29, 20, .56);
   box-shadow: 0 .12rem .3rem rgba(0, 0, 0, .18);
-  font-size: clamp(.38rem, 1.1cqw, .52rem);
-  line-height: 1.2;
+  font-size: clamp(.28rem, .65cqw, .36rem);
+  line-height: 1;
   letter-spacing: .08em;
+  text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.suggestionGroupLabels span:first-child {
-  top: 1.2%;
-}
-
-.suggestionGroupLabels span:last-child {
-  top: 51.2%;
+  transform: scale(var(--internal-scale)) rotate(var(--internal-tilt));
+  transform-origin: center;
 }
 
 .suggestionCardRow {
@@ -1144,29 +1142,31 @@
 .suggestionGuideTrigger {
   position: absolute;
   z-index: 10;
-  top: 8%;
-  right: 5%;
+  top: var(--internal-y);
+  left: var(--internal-x);
+  width: var(--internal-width);
+  height: var(--internal-height);
   box-sizing: border-box;
   display: inline-flex;
-  width: clamp(2rem, 18%, 3.2rem);
-  max-width: 3.2rem;
-  min-width: 2rem;
-  height: clamp(1.05rem, 16%, 1.5rem);
-  max-height: 1.5rem;
-  min-height: 1.05rem;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 0;
+  max-height: 100%;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border: 1px solid rgba(108, 69, 29, .34);
-  border-radius: 999px;
-  padding: .08rem .24rem;
+  border-radius: .28rem;
+  padding: .02rem .1rem;
   color: #684221;
   background: rgba(255, 248, 225, .88);
   box-shadow: 0 .1rem .28rem rgba(74, 43, 18, .12);
-  font-size: clamp(.34rem, .9cqw, .48rem);
+  font-size: .3rem;
   line-height: 1;
   cursor: pointer;
   text-overflow: ellipsis;
+  transform: scale(var(--internal-scale)) rotate(var(--internal-tilt));
+  transform-origin: center;
   white-space: nowrap;
 }
 
@@ -1566,17 +1566,6 @@
     min-height: 3.7rem;
   }
 
-  .suggestionGuideTrigger {
-    top: 7%;
-    right: 4%;
-    width: clamp(2rem, 18%, 3.2rem);
-    max-width: 3.2rem;
-    min-width: 2rem;
-    height: clamp(1.05rem, 16%, 1.5rem);
-    max-height: 1.5rem;
-    min-height: 1.05rem;
-  }
-
   .writingGuideBackdrop {
     inset: 0;
     padding: .7rem;
@@ -1610,10 +1599,11 @@
   }
 
   .suggestionGroupLabels span {
-    right: 1%;
-    min-width: 2rem;
-    padding-inline: .2rem;
-    font-size: .42rem;
+    right: 9%;
+    min-width: 0;
+    height: .68rem;
+    padding-inline: .14rem;
+    font-size: .3rem;
   }
 
   .writingGuideFields {
