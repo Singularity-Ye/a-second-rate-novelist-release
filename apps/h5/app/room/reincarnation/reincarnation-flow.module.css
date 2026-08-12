@@ -2231,7 +2231,8 @@
   --skin-selected-card: url("/assets/ui/reincarnation-skins/selected-card-shell.webp");
   --skin-panel: url("/assets/ui/reincarnation-skins/panel-shell.webp");
   --skin-bottom-bar: url("/assets/ui/reincarnation-skins/bottom-bar-shell.webp");
-  --skin-page-tab: url("/assets/ui/reincarnation-skins/page-tab-shell.webp");
+  --skin-manga-prev: url("/assets/ui/reincarnation-skins/manga-prev-shell-v2.webp");
+  --skin-manga-next: url("/assets/ui/reincarnation-skins/manga-next-shell-v2.webp");
   --skin-divider: url("/assets/ui/reincarnation-skins/divider-shell.webp");
   --ink-dark: #322015;
   --ink-soft: #67462f;
@@ -2689,7 +2690,7 @@
 .flankPageBtnRight {
   background-image:
     linear-gradient(180deg, rgba(255, 250, 240, 0.72), rgba(237, 219, 180, 0.72)),
-    var(--skin-page-tab);
+    var(--skin-manga-prev);
   background-size: 100% 100%;
   background-position: center;
   border: none;
@@ -2699,12 +2700,24 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.46);
 }
 
+.flankPageBtnRight {
+  background-image:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.72), rgba(237, 219, 180, 0.72)),
+    var(--skin-manga-next);
+}
+
 .flankPageBtnLeft:hover:not(:disabled),
 .flankPageBtnRight:hover:not(:disabled) {
   background-image:
     linear-gradient(180deg, rgba(255, 253, 247, 0.86), rgba(244, 226, 190, 0.8)),
-    var(--skin-page-tab);
+    var(--skin-manga-prev);
   transform: translateY(-2px);
+}
+
+.flankPageBtnRight:hover:not(:disabled) {
+  background-image:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.86), rgba(244, 226, 190, 0.8)),
+    var(--skin-manga-next);
 }
 
 .mangaTextSlots blockquote {
@@ -3100,16 +3113,28 @@
 .flankPageBtnLeft,
 .flankPageBtnRight {
   background-image:
-    var(--skin-page-tab),
+    var(--skin-manga-prev),
     linear-gradient(180deg, rgba(255, 250, 240, 0.44), rgba(235, 214, 175, 0.36));
   background-size: 100% 100%, 100% 100%;
   filter: saturate(1.06) contrast(1.03);
 }
 
+.flankPageBtnRight {
+  background-image:
+    var(--skin-manga-next),
+    linear-gradient(180deg, rgba(255, 250, 240, 0.44), rgba(235, 214, 175, 0.36));
+}
+
 .flankPageBtnLeft:hover:not(:disabled),
 .flankPageBtnRight:hover:not(:disabled) {
   background-image:
-    var(--skin-page-tab),
+    var(--skin-manga-prev),
+    linear-gradient(180deg, rgba(255, 253, 247, 0.38), rgba(244, 226, 190, 0.34));
+}
+
+.flankPageBtnRight:hover:not(:disabled) {
+  background-image:
+    var(--skin-manga-next),
     linear-gradient(180deg, rgba(255, 253, 247, 0.38), rgba(244, 226, 190, 0.34));
 }
 
