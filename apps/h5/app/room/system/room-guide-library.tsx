@@ -248,7 +248,7 @@ export function RoomGuideLibrary({ onClose }: RoomGuideLibraryProps) {
           仅此浏览器 / 本机草稿，尚未进入作品；这里的内容不会发送给模型或创建写作任务。
         </p>
 
-        <div className={styles.tabs} role="tablist" aria-label="指南类型">
+        <div className={styles.tabs} data-testid="room-v6-guide-library-tabs" role="tablist" aria-label="指南类型">
           {(["style", "story", "mine"] as const).map((tabId) => (
             <button
               key={tabId}
@@ -273,7 +273,7 @@ export function RoomGuideLibrary({ onClose }: RoomGuideLibraryProps) {
               role="tabpanel"
               aria-labelledby={`room-v6-guide-library-tab-${tab}`}
             >
-              <div className={styles.templateList} aria-label="内置指南模板">
+              <div className={styles.templateList} data-testid="room-v6-guide-library-template-list" aria-label="内置指南模板">
                 {visibleBuiltIns.map((template) => (
                   <button
                     key={template.id}
@@ -286,7 +286,7 @@ export function RoomGuideLibrary({ onClose }: RoomGuideLibraryProps) {
                   </button>
                 ))}
               </div>
-              <article className={styles.preview}>
+              <article className={styles.preview} data-testid="room-v6-guide-library-preview">
                 <h2>{selectedBuiltIn.title}</h2>
                 <pre>{selectedBuiltIn.content}</pre>
                 <button type="button" className={styles.primaryAction} onClick={() => copyBuiltIn(selectedBuiltIn)}>
@@ -301,7 +301,7 @@ export function RoomGuideLibrary({ onClose }: RoomGuideLibraryProps) {
               role="tabpanel"
               aria-labelledby="room-v6-guide-library-tab-mine"
             >
-              <div className={styles.templateList} aria-label="我的模板列表">
+              <div className={styles.templateList} data-testid="room-v6-guide-library-template-list" aria-label="我的模板列表">
                 <button type="button" className={styles.newTemplate} onClick={createTemplate}>
                   + 新建模板
                 </button>
@@ -318,7 +318,7 @@ export function RoomGuideLibrary({ onClose }: RoomGuideLibraryProps) {
                 ))}
                 {userTemplates.length === 0 && <p className={styles.empty}>还没有本机模板，先新建一个吧。</p>}
               </div>
-              <article className={styles.editor}>
+              <article className={styles.editor} data-testid="room-v6-guide-library-editor">
                 <label>
                   模板名称
                   <input
@@ -338,7 +338,7 @@ export function RoomGuideLibrary({ onClose }: RoomGuideLibraryProps) {
                     disabled={selectedUser === null}
                   />
                 </label>
-                <div className={styles.editorActions}>
+                <div className={styles.editorActions} data-testid="room-v6-guide-library-actions">
                   <button type="button" className={styles.primaryAction} onClick={saveTemplate} disabled={selectedUser === null}>
                     保存本机模板
                   </button>

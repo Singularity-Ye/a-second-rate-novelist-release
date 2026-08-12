@@ -124,15 +124,8 @@ describe("room UI v6 formal visual layout", () => {
       "--internal-y": "-21.67%",
       "--internal-height": "96.5%",
     });
-    expect(roomUiInternalVisualStyle("suggestion-group-life")).toMatchObject({
-      "--internal-x": "78%",
-      "--internal-y": "1.2%",
-      "--internal-width": "15%",
-      "--internal-height": "2.6%",
-    });
-    expect(roomUiInternalVisualStyle("suggestion-guide-writing-entry")).toMatchObject({
+    expect(roomUiInternalVisualStyle("suggestion-guide-library")).toMatchObject({
       "--internal-x": "84.2%",
-      "--internal-y": "8.5%",
       "--internal-width": "7.8%",
       "--internal-height": "8.5%",
     });

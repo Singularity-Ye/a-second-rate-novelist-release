@@ -738,21 +738,11 @@ export function RoomUiPresentationalSurface({
             <small>{composerDisabled ? "生活 / 创作入口 · 恢复后可用" : "生活聊近况 · 创作按正式状态启用"}</small>
           </header>
           <div className={styles.suggestionList} data-testid="room-v6-suggestion-list">
-            <div className={styles.suggestionGroupLabels} aria-label="建议分组">
-              <span
-                data-testid="room-v6-suggestion-group-life"
-                style={roomUiInternalVisualStyle("suggestion-group-life", visualLayout)}
-              >生活</span>
-              <span
-                data-testid="room-v6-suggestion-group-creative"
-                style={roomUiInternalVisualStyle("suggestion-group-creative", visualLayout)}
-              >创作</span>
-            </div>
             <button
               type="button"
               className={styles.suggestionGuideTrigger}
               data-testid="room-v6-suggestion-guide-library"
-              style={roomUiInternalVisualStyle("suggestion-guide-writing-entry", visualLayout)}
+              style={roomUiInternalVisualStyle("suggestion-guide-library", visualLayout)}
               aria-label="打开指南库"
               aria-haspopup="dialog"
               aria-controls="room-v6-guide-library"

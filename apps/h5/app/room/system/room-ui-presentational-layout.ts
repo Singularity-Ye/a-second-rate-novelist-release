@@ -16,10 +16,7 @@ export type RoomUiInternalVisualLayerId =
   | "suggestion-icon"
   | "suggestion-title"
   | "suggestion-detail"
-  | "suggestion-group-life"
-  | "suggestion-group-creative"
-  | "suggestion-guide-story-spark"
-  | "suggestion-guide-writing-entry"
+  | "suggestion-guide-library"
   | "suggestion-card-life-now"
   | "suggestion-card-life-break"
   | "suggestion-card-creative-spark"
@@ -122,10 +119,7 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
     "suggestion-icon": { x: 25.09, y: 16.03, scale: 1.5747, tilt: 0, width: 21.5, height: 27 },
     "suggestion-title": { x: 12.23, y: -21.67, scale: 0.8201, tilt: -1.7, width: 82.3, height: 96.5 },
     "suggestion-detail": { x: 22.39, y: 44.82, scale: 0.79, tilt: 0, width: 57.7, height: 41.2 },
-    "suggestion-group-life": { x: 78, y: 1.2, scale: 1, tilt: 0, width: 15, height: 2.6 },
-    "suggestion-group-creative": { x: 78, y: 51.2, scale: 1, tilt: 0, width: 15, height: 2.6 },
-    "suggestion-guide-story-spark": { x: 84.2, y: 8.5, scale: 1, tilt: 0, width: 7.8, height: 8.5 },
-    "suggestion-guide-writing-entry": { x: 84.2, y: 8.5, scale: 1, tilt: 0, width: 7.8, height: 8.5 },
+    "suggestion-guide-library": { x: 84.2, y: 8.5, scale: 1, tilt: 0, width: 7.8, height: 8.5 },
     "suggestion-card-life-now": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
     "suggestion-card-life-break": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
     "suggestion-card-creative-spark": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },

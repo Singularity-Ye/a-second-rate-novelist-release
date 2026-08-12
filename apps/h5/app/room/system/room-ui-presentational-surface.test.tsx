@@ -386,7 +386,7 @@ describe("RoomUiPresentationalSurface", () => {
     expect(handlers.onProjectionAction).not.toHaveBeenCalled();
   });
 
-  it("splits the right rail into life and creative groups with fail-closed writing action", () => {
+  it("keeps four right-rail prompts and a single readable guide-library entry", () => {
     const handlers = callbacks();
     render(
       <RoomUiPresentationalSurface
@@ -395,10 +395,8 @@ describe("RoomUiPresentationalSurface", () => {
       />,
     );
 
-    expect(screen.getByTestId("room-v6-suggestion-group-life").textContent).toBe("生活");
-    expect(screen.getByTestId("room-v6-suggestion-group-creative").textContent).toBe("创作");
-    expect(screen.getByTestId("room-v6-suggestion-group-life").style.getPropertyValue("--internal-width")).toBe("15%");
-    expect(screen.getByTestId("room-v6-suggestion-group-creative").style.getPropertyValue("--internal-y")).toBe("51.2%");
+    expect(screen.queryByTestId("room-v6-suggestion-group-life")).toBeNull();
+    expect(screen.queryByTestId("room-v6-suggestion-group-creative")).toBeNull();
     const cards = screen.getAllByTestId(/^room-v6-suggestion-\d+$/);
     expect(cards).toHaveLength(4);
     expect(cards.map((card) => card.getAttribute("data-card-group"))).toEqual([
@@ -570,14 +568,10 @@ describe("RoomUiPresentationalSurface", () => {
     expect(draftReaderPanelStyle).toContain("height: min(88dvh, 60rem)");
     const guideStyle = stylesheet.match(/\.suggestionGuideTrigger \{[\s\S]*?\n\}/)?.[0] ?? "";
     expect(guideStyle).toContain("left: var(--internal-x)");
-    expect(guideStyle).toContain("width: var(--internal-width)");
-    expect(guideStyle).toContain("height: var(--internal-height)");
-    expect(guideStyle).toContain("overflow: hidden");
+    expect(guideStyle).toContain("width: max(4.5rem, var(--internal-width))");
+    expect(guideStyle).toContain("height: max(1.35rem, var(--internal-height))");
+    expect(guideStyle).toContain("overflow: visible");
     expect(guideStyle).toContain("white-space: nowrap");
-    const groupStyle = stylesheet.match(/\.suggestionGroupLabels span \{[\s\S]*?\n\}/)?.[0] ?? "";
-    expect(groupStyle).toContain("left: var(--internal-x)");
-    expect(groupStyle).toContain("width: var(--internal-width)");
-    expect(groupStyle).toContain("height: var(--internal-height)");
   });
 
   it("makes the send button a real composer submit control only after text is present", () => {

@@ -95,12 +95,10 @@ describe("RoomUiPresentationalEditor stored layout migration", () => {
     expect(migrated?.internal["suggestion-title"]).toEqual(title);
     expect(migrated?.internal["suggestion-detail"]).toEqual(detail);
     expect(migrated?.internal["suggestion-icon"]).toEqual(icon);
-    expect(migrated?.internal["suggestion-group-life"]).toEqual(
-      ROOM_UI_VISUAL_LAYOUT_V6.internal["suggestion-group-life"],
-    );
-    expect(migrated?.internal["suggestion-guide-writing-entry"]).toEqual(
-      ROOM_UI_VISUAL_LAYOUT_V6.internal["suggestion-guide-writing-entry"],
-    );
+    expect(migrated?.internal).not.toHaveProperty("suggestion-group-life");
+    expect(migrated?.internal).not.toHaveProperty("suggestion-group-creative");
+    expect(migrated?.internal).not.toHaveProperty("suggestion-guide-story-spark");
+    expect(migrated?.internal).not.toHaveProperty("suggestion-guide-writing-entry");
   });
 
   it("repairs old percentage sliders for title, detail, and icon without changing current-revision values", () => {
@@ -211,15 +209,13 @@ describe("RoomUiPresentationalEditor panel drag", () => {
       "suggestion-card-life-break",
       "suggestion-card-creative-spark",
       "suggestion-card-creative-writing",
-      "suggestion-group-life",
-      "suggestion-group-creative",
-      "suggestion-guide-story-spark",
-      "suggestion-guide-writing-entry",
+      "suggestion-guide-library",
     ]) {
       expect(screen.getByTestId(`room-v6-editor-select-${layer}`)).toBeTruthy();
     }
 
-    fireEvent.click(screen.getByTestId("room-v6-editor-select-suggestion-guide-story-spark"));
+    expect(screen.getByTestId("room-v6-editor-select-suggestion-guide-library")).toBeTruthy();
+    fireEvent.click(screen.getByTestId("room-v6-editor-select-suggestion-guide-library"));
     expect((screen.getByTestId("room-v6-editor-width") as HTMLInputElement).value).toBe("7.8");
     expect((screen.getByTestId("room-v6-editor-height") as HTMLInputElement).value).toBe("8.5");
     expect(screen.getByTestId("room-v6-editor-geometry-unit").textContent).toContain("百分比");
