@@ -21,6 +21,31 @@ afterEach(() => cleanup());
 beforeEach(() => localStorage.clear());
 
 describe("RoomUiPresentationalEditor stored layout migration", () => {
+  it("repairs only the guide layer inherited from the oversized legacy geometry", () => {
+    const migrated = migrateRoomUiStoredLayout({
+      internalGeometryLayoutRevision: 1,
+      guideLibraryGeometryRevision: 0,
+      surface: savedSurface,
+      composition: {},
+      internal: {
+        "suggestion-guide-library": {
+          ...ROOM_UI_VISUAL_LAYOUT_V6.internal["suggestion-guide-library"],
+          scale: 1.8,
+          width: 4.2,
+          height: 8.5,
+        },
+        "suggestion-title": { ...ROOM_UI_VISUAL_LAYOUT_V6.internal["suggestion-title"], x: 19 },
+      },
+    });
+
+    expect(migrated?.internal["suggestion-guide-library"]).toEqual(
+      ROOM_UI_VISUAL_LAYOUT_V6.internal["suggestion-guide-library"],
+    );
+    expect(migrated?.internal["suggestion-title"].x).toBe(19);
+    expect(migrated?.internalGeometryLayoutRevision).toBe(1);
+    expect(migrated?.guideLibraryGeometryRevision).toBe(1);
+  });
+
   it("resets only the suggestions geometry when the right-rail revision is old or missing", () => {
     const migrated = migrateRoomUiStoredLayout({
       surface: savedSurface,
@@ -216,8 +241,8 @@ describe("RoomUiPresentationalEditor panel drag", () => {
 
     expect(screen.getByTestId("room-v6-editor-select-suggestion-guide-library")).toBeTruthy();
     fireEvent.click(screen.getByTestId("room-v6-editor-select-suggestion-guide-library"));
-    expect((screen.getByTestId("room-v6-editor-width") as HTMLInputElement).value).toBe("7.8");
-    expect((screen.getByTestId("room-v6-editor-height") as HTMLInputElement).value).toBe("8.5");
+    expect((screen.getByTestId("room-v6-editor-width") as HTMLInputElement).value).toBe("11.5");
+    expect((screen.getByTestId("room-v6-editor-height") as HTMLInputElement).value).toBe("5.8");
     expect(screen.getByTestId("room-v6-editor-geometry-unit").textContent).toContain("百分比");
   });
 

@@ -23,6 +23,7 @@ const LEGACY_STORAGE_KEY = "room-ui-test-v6:calibration:v4";
 const SIDE_TEXT_LAYOUT_REVISION = 2;
 const RIGHT_RAIL_LAYOUT_REVISION = 1;
 const INTERNAL_GEOMETRY_LAYOUT_REVISION = 1;
+const GUIDE_LIBRARY_GEOMETRY_REVISION = 1;
 const SUGGESTION_CARD_LAYOUT_REVISION = 1;
 const MIN_SURFACE_SCALE = 0.3;
 const MAX_SURFACE_SCALE = 1.8;
@@ -38,6 +39,7 @@ type EditableLayout = Readonly<{
   sideTextLayoutRevision: number;
   rightRailLayoutRevision: number;
   internalGeometryLayoutRevision: number;
+  guideLibraryGeometryRevision: number;
   suggestionCardLayoutRevision: number;
   surface: RoomUiVisualGeometry;
   backdrop: RoomUiVisualGeometry;
@@ -145,6 +147,7 @@ function cloneDefaultLayout(): EditableLayout {
     sideTextLayoutRevision: SIDE_TEXT_LAYOUT_REVISION,
     rightRailLayoutRevision: RIGHT_RAIL_LAYOUT_REVISION,
     internalGeometryLayoutRevision: INTERNAL_GEOMETRY_LAYOUT_REVISION,
+    guideLibraryGeometryRevision: GUIDE_LIBRARY_GEOMETRY_REVISION,
     suggestionCardLayoutRevision: SUGGESTION_CARD_LAYOUT_REVISION,
     surface: { ...ROOM_UI_SURFACE_GEOMETRY_V6 },
     backdrop: { ...ROOM_UI_VISUAL_LAYOUT_V6.backdrop },
@@ -276,13 +279,26 @@ export function migrateRoomUiStoredLayout(value: unknown): EditableLayout | null
   const keepSavedSideText = parsed.sideTextLayoutRevision === SIDE_TEXT_LAYOUT_REVISION;
   const keepSavedRightRail = parsed.rightRailLayoutRevision === RIGHT_RAIL_LAYOUT_REVISION;
   const keepSavedInternalGeometry = parsed.internalGeometryLayoutRevision === INTERNAL_GEOMETRY_LAYOUT_REVISION;
+  const keepSavedGuideLibraryGeometry =
+    parsed.guideLibraryGeometryRevision === GUIDE_LIBRARY_GEOMETRY_REVISION;
   const keepSavedSuggestionCards = parsed.suggestionCardLayoutRevision === SUGGESTION_CARD_LAYOUT_REVISION;
+  const migratedInternal = migrateInternalGeometry(
+    parsed.internal,
+    defaults.internal,
+    !keepSavedInternalGeometry,
+  );
+  if (!keepSavedGuideLibraryGeometry) {
+    migratedInternal["suggestion-guide-library"] = {
+      ...defaults.internal["suggestion-guide-library"],
+    };
+  }
   return {
     ...defaults,
     ...storedLayout,
     sideTextLayoutRevision: SIDE_TEXT_LAYOUT_REVISION,
     rightRailLayoutRevision: RIGHT_RAIL_LAYOUT_REVISION,
     internalGeometryLayoutRevision: INTERNAL_GEOMETRY_LAYOUT_REVISION,
+    guideLibraryGeometryRevision: GUIDE_LIBRARY_GEOMETRY_REVISION,
     suggestionCardLayoutRevision: SUGGESTION_CARD_LAYOUT_REVISION,
     backdrop: validGeometry(parsed.backdrop) ? parsed.backdrop : defaults.backdrop,
     composition: {
@@ -302,7 +318,7 @@ export function migrateRoomUiStoredLayout(value: unknown): EditableLayout | null
         ? parsed.nested?.["suggestions-copy"] ?? defaults.nested["suggestions-copy"]
         : defaults.nested["suggestions-copy"],
     },
-    internal: migrateInternalGeometry(parsed.internal, defaults.internal, !keepSavedInternalGeometry),
+    internal: migratedInternal,
     suggestionTypography: migrateSuggestionTypography(
       parsed.suggestionTypography,
       defaults.suggestionTypography,

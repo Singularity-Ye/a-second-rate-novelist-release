@@ -125,9 +125,9 @@ describe("room UI v6 formal visual layout", () => {
       "--internal-height": "96.5%",
     });
     expect(roomUiInternalVisualStyle("suggestion-guide-library")).toMatchObject({
-      "--internal-x": "84.2%",
-      "--internal-width": "7.8%",
-      "--internal-height": "8.5%",
+      "--internal-x": "82.5%",
+      "--internal-width": "11.5%",
+      "--internal-height": "5.8%",
     });
     expect(roomUiInternalVisualStyle("suggestion-card-life-now")).toMatchObject({
       "--internal-x": "4%",
