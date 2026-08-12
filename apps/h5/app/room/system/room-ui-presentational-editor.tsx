@@ -9,6 +9,8 @@ import {
   type RoomUiInternalVisualLayerId,
   type RoomUiNestedVisualLayerId,
   type RoomUiPresentationalLayoutOverride,
+  type RoomUiSuggestionCardLayerId,
+  type RoomUiSuggestionCardTypography,
   type RoomUiVisualGeometry,
   type RoomUiVisualLayerId,
 } from "./room-ui-presentational-layout";
@@ -21,6 +23,7 @@ const LEGACY_STORAGE_KEY = "room-ui-test-v6:calibration:v4";
 const SIDE_TEXT_LAYOUT_REVISION = 2;
 const RIGHT_RAIL_LAYOUT_REVISION = 1;
 const INTERNAL_GEOMETRY_LAYOUT_REVISION = 1;
+const SUGGESTION_CARD_LAYOUT_REVISION = 1;
 const MIN_SURFACE_SCALE = 0.3;
 const MAX_SURFACE_SCALE = 1.8;
 const EDITOR_PANEL_SAFE_MARGIN = 12;
@@ -35,11 +38,13 @@ type EditableLayout = Readonly<{
   sideTextLayoutRevision: number;
   rightRailLayoutRevision: number;
   internalGeometryLayoutRevision: number;
+  suggestionCardLayoutRevision: number;
   surface: RoomUiVisualGeometry;
   backdrop: RoomUiVisualGeometry;
   composition: Readonly<Record<RoomUiVisualLayerId, RoomUiVisualGeometry>>;
   nested: typeof ROOM_UI_VISUAL_LAYOUT_V6.nested;
   internal: Readonly<Record<RoomUiInternalVisualLayerId, RoomUiVisualGeometry>>;
+  suggestionTypography: Readonly<Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography>>;
 }>;
 
 type SelectionRect = Readonly<{
@@ -93,6 +98,13 @@ const internalGeometryMigrationLayers = new Set<RoomUiInternalVisualLayerId>([
   "progress-review-text",
 ]);
 
+const suggestionCardLayerIds: readonly RoomUiSuggestionCardLayerId[] = [
+  "suggestion-card-life-now",
+  "suggestion-card-life-break",
+  "suggestion-card-creative-spark",
+  "suggestion-card-creative-writing",
+];
+
 type LegacySnapshot = Readonly<{
   version: 4;
   composition?: Partial<Record<RoomUiVisualLayerId, RoomUiVisualGeometry>>;
@@ -125,6 +137,10 @@ const editableLayers = [
   { id: "suggestion-group-creative", label: "创作分组提示", testId: "room-v6-suggestion-group-creative" },
   { id: "suggestion-guide-story-spark", label: "灵感指南按钮", testId: "room-v6-suggestion-guide-share-story-spark" },
   { id: "suggestion-guide-writing-entry", label: "写作指南按钮", testId: "room-v6-suggestion-guide-start-writing" },
+  { id: "suggestion-card-life-now", label: "生活·聊聊近况入口", testId: "room-v6-suggestion-1" },
+  { id: "suggestion-card-life-break", label: "生活·歇一会儿入口", testId: "room-v6-suggestion-2" },
+  { id: "suggestion-card-creative-spark", label: "创作·说个灵感入口", testId: "room-v6-suggestion-3" },
+  { id: "suggestion-card-creative-writing", label: "创作·继续创作入口", testId: "room-v6-suggestion-4" },
 ] as const satisfies readonly Readonly<{ id: EditableLayerId; label: string; testId: string }>[];
 
 function cloneDefaultLayout(): EditableLayout {
@@ -132,6 +148,7 @@ function cloneDefaultLayout(): EditableLayout {
     sideTextLayoutRevision: SIDE_TEXT_LAYOUT_REVISION,
     rightRailLayoutRevision: RIGHT_RAIL_LAYOUT_REVISION,
     internalGeometryLayoutRevision: INTERNAL_GEOMETRY_LAYOUT_REVISION,
+    suggestionCardLayoutRevision: SUGGESTION_CARD_LAYOUT_REVISION,
     surface: { ...ROOM_UI_SURFACE_GEOMETRY_V6 },
     backdrop: { ...ROOM_UI_VISUAL_LAYOUT_V6.backdrop },
     composition: {
@@ -150,6 +167,9 @@ function cloneDefaultLayout(): EditableLayout {
     internal: Object.fromEntries(
       Object.entries(ROOM_UI_VISUAL_LAYOUT_V6.internal).map(([key, value]) => [key, { ...value }]),
     ) as unknown as Record<RoomUiInternalVisualLayerId, RoomUiVisualGeometry>,
+    suggestionTypography: Object.fromEntries(
+      Object.entries(ROOM_UI_VISUAL_LAYOUT_V6.suggestionTypography).map(([key, value]) => [key, { ...value }]),
+    ) as unknown as Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography>,
   };
 }
 
@@ -194,6 +214,22 @@ function migrateInternalGeometry(
     if (changed) merged[layer] = repaired;
   }
   return merged;
+}
+
+function migrateSuggestionTypography(
+  parsed: Partial<Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography>> | undefined,
+  defaults: Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography>,
+  shouldKeep: boolean,
+): Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography> {
+  return Object.fromEntries(
+    Object.entries(defaults).map(([key, value]) => [
+      key,
+      {
+        ...value,
+        ...(shouldKeep ? parsed?.[key as RoomUiSuggestionCardLayerId] : undefined),
+      },
+    ]),
+  ) as unknown as Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography>;
 }
 
 function clamp(value: number, min: number, max: number) {
@@ -243,12 +279,14 @@ export function migrateRoomUiStoredLayout(value: unknown): EditableLayout | null
   const keepSavedSideText = parsed.sideTextLayoutRevision === SIDE_TEXT_LAYOUT_REVISION;
   const keepSavedRightRail = parsed.rightRailLayoutRevision === RIGHT_RAIL_LAYOUT_REVISION;
   const keepSavedInternalGeometry = parsed.internalGeometryLayoutRevision === INTERNAL_GEOMETRY_LAYOUT_REVISION;
+  const keepSavedSuggestionCards = parsed.suggestionCardLayoutRevision === SUGGESTION_CARD_LAYOUT_REVISION;
   return {
     ...defaults,
     ...storedLayout,
     sideTextLayoutRevision: SIDE_TEXT_LAYOUT_REVISION,
     rightRailLayoutRevision: RIGHT_RAIL_LAYOUT_REVISION,
     internalGeometryLayoutRevision: INTERNAL_GEOMETRY_LAYOUT_REVISION,
+    suggestionCardLayoutRevision: SUGGESTION_CARD_LAYOUT_REVISION,
     backdrop: validGeometry(parsed.backdrop) ? parsed.backdrop : defaults.backdrop,
     composition: {
       ...defaults.composition,
@@ -268,6 +306,11 @@ export function migrateRoomUiStoredLayout(value: unknown): EditableLayout | null
         : defaults.nested["suggestions-copy"],
     },
     internal: migrateInternalGeometry(parsed.internal, defaults.internal, !keepSavedInternalGeometry),
+    suggestionTypography: migrateSuggestionTypography(
+      parsed.suggestionTypography,
+      defaults.suggestionTypography,
+      keepSavedSuggestionCards,
+    ),
   };
 }
 
@@ -371,6 +414,7 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
     composition: layout.composition,
     nested: layout.nested,
     internal: layout.internal,
+    suggestionTypography: layout.suggestionTypography,
   }), [layout]);
 
   const saveLayout = useCallback((next = layoutRef.current) => {
@@ -477,6 +521,18 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
     }));
   };
 
+  const updateSuggestionTypography = (patch: Partial<RoomUiSuggestionCardTypography>) => {
+    if (!selectedLayer || !selectedLayer.startsWith("suggestion-card-")) return;
+    const layer = selectedLayer as RoomUiSuggestionCardLayerId;
+    setLayout((current) => ({
+      ...current,
+      suggestionTypography: {
+        ...current.suggestionTypography,
+        [layer]: { ...current.suggestionTypography[layer], ...patch },
+      },
+    }));
+  };
+
   const selectedGeometry = selectedLayer === null
     ? layout.surface
     : selectedLayer === "backdrop"
@@ -573,7 +629,19 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
 
   const resetSelectedLayer = () => {
     const current = layoutRef.current;
-    const next = selectedLayer === null
+    const next = selectedLayer !== null && selectedLayer.startsWith("suggestion-card-")
+      ? {
+          ...current,
+          internal: {
+            ...current.internal,
+            [selectedLayer]: { ...ROOM_UI_VISUAL_LAYOUT_V6.internal[selectedLayer as RoomUiInternalVisualLayerId] },
+          },
+          suggestionTypography: {
+            ...current.suggestionTypography,
+            [selectedLayer]: { ...ROOM_UI_VISUAL_LAYOUT_V6.suggestionTypography[selectedLayer as RoomUiSuggestionCardLayerId] },
+          },
+        }
+      : selectedLayer === null
       ? { ...current, surface: { ...ROOM_UI_SURFACE_GEOMETRY_V6 } }
       : selectedLayer === "backdrop"
         ? { ...current, backdrop: { ...ROOM_UI_VISUAL_LAYOUT_V6.backdrop } }
@@ -605,8 +673,33 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
     saveLayout(next);
   };
 
+  const resetSuggestionCards = () => {
+    const current = layoutRef.current;
+    const next = {
+      ...current,
+      internal: {
+        ...current.internal,
+        ...Object.fromEntries(
+          suggestionCardLayerIds.map((layer) => [layer, { ...ROOM_UI_VISUAL_LAYOUT_V6.internal[layer] }]),
+        ),
+      } as Record<RoomUiInternalVisualLayerId, RoomUiVisualGeometry>,
+      suggestionTypography: {
+        ...current.suggestionTypography,
+        ...Object.fromEntries(
+          suggestionCardLayerIds.map((layer) => [layer, { ...ROOM_UI_VISUAL_LAYOUT_V6.suggestionTypography[layer] }]),
+        ),
+      } as Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography>,
+    };
+    layoutRef.current = next;
+    setLayout(next);
+    saveLayout(next);
+  };
+
   const widthControl = getEditorGeometryDimensionControl(selectedLayer, selectedGeometry.width);
   const heightControl = getEditorGeometryDimensionControl(selectedLayer, selectedGeometry.height);
+  const selectedSuggestionTypography = selectedLayer?.startsWith("suggestion-card-")
+    ? layout.suggestionTypography[selectedLayer as RoomUiSuggestionCardLayerId]
+    : null;
 
   const beginPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     const target = event.target;
@@ -797,9 +890,67 @@ export function RoomUiPresentationalEditor({ fixtureLabel, ...surfaceProps }: Ro
               />
             </label>
           </div>
+          {selectedSuggestionTypography && (
+            <div className={styles.geometryControls} data-testid="room-v6-editor-suggestion-typography">
+              <div className={styles.readout}><span>入口文字适配</span><span>只影响当前卡</span></div>
+              <label className={styles.scaleControl}>
+                <span>标题字号</span>
+                <input
+                  data-testid="room-v6-editor-title-scale"
+                  type="range"
+                  min="0.6"
+                  max="1.5"
+                  step="0.01"
+                  value={selectedSuggestionTypography.titleScale}
+                  onChange={(event) => updateSuggestionTypography({ titleScale: Number(event.target.value) })}
+                  onPointerUp={() => saveLayout()}
+                />
+              </label>
+              <label className={styles.scaleControl}>
+                <span>说明字号</span>
+                <input
+                  data-testid="room-v6-editor-detail-scale"
+                  type="range"
+                  min="0.6"
+                  max="1.5"
+                  step="0.01"
+                  value={selectedSuggestionTypography.detailScale}
+                  onChange={(event) => updateSuggestionTypography({ detailScale: Number(event.target.value) })}
+                  onPointerUp={() => saveLayout()}
+                />
+              </label>
+              <label className={styles.scaleControl}>
+                <span>说明行高</span>
+                <input
+                  data-testid="room-v6-editor-detail-line-height"
+                  type="range"
+                  min="1"
+                  max="1.8"
+                  step="0.01"
+                  value={selectedSuggestionTypography.detailLineHeight}
+                  onChange={(event) => updateSuggestionTypography({ detailLineHeight: Number(event.target.value) })}
+                  onPointerUp={() => saveLayout()}
+                />
+              </label>
+              <label className={styles.scaleControl}>
+                <span>说明宽度</span>
+                <input
+                  data-testid="room-v6-editor-detail-width"
+                  type="range"
+                  min="45"
+                  max="100"
+                  step="1"
+                  value={selectedSuggestionTypography.detailWidth}
+                  onChange={(event) => updateSuggestionTypography({ detailWidth: Number(event.target.value) })}
+                  onPointerUp={() => saveLayout()}
+                />
+              </label>
+            </div>
+          )}
           <div className={styles.quickActions}>
             <button type="button" onClick={() => updateSelectedGeometry({ x: 0, y: 0 })}>位置归零</button>
             <button type="button" data-testid="room-v6-editor-reset-selected-layer" onClick={resetSelectedLayer}>恢复当前图层</button>
+            <button type="button" data-testid="room-v6-editor-reset-suggestion-cards" onClick={resetSuggestionCards}>四卡一键布局</button>
             <button type="button" onClick={() => updateSelectedGeometry({ scale: Number(clamp(selectedGeometry.scale / 1.05, MIN_SURFACE_SCALE, MAX_SURFACE_SCALE).toFixed(4)) })}>缩小</button>
             <button type="button" onClick={() => updateSelectedGeometry({ scale: Number(clamp(selectedGeometry.scale * 1.05, MIN_SURFACE_SCALE, MAX_SURFACE_SCALE).toFixed(4)) })}>放大</button>
           </div>

@@ -25,6 +25,10 @@ import {
   type RoomStoryContext,
   type RoomStoryContextResponse,
 } from "../../lib/room-story-api";
+import {
+  EARLY_ROOM_HYDRATED_DATASET_KEY,
+  EARLY_ROOM_OPEN_PENDING_DATASET_KEY,
+} from "../../lib/early-room-open-intent";
 import { getFormalSceneRoute } from "../novelist/scene-manifest";
 import { getLifeActivity } from "../novelist/life-activities";
 import { createNovelistPersona, novelistOpeningLine, resolveNovelistReply } from "../novelist/novelist-persona";
@@ -34,7 +38,6 @@ import {
   setModelPreference,
 } from "./model-profile-api";
 import { buildContextualSuggestionSet } from "../novelist/life-orchestration";
-import { requestLifeSuggestionCopy } from "./life-suggestion-api";
 import { scheduleChatAssetPrewarm } from "./chat-asset-prewarm";
 import {
   readWriteOpeningVariantSet,
@@ -643,48 +646,13 @@ export function SystemLayerPanel({
     observation.lifeStateVersion,
     observation.sceneLabel,
   ]);
-  const suggestionModelKey = useMemo(() => [
-    contextualSuggestionSet.mood.mood,
-    ...contextualSuggestionSet.mood.signals,
-    observation.sceneLabel,
-    observation.activityLabel,
-    ...contextualSuggestionSet.suggestions.flatMap((suggestion) => suggestion.reasonCodes),
-  ].join("|"), [contextualSuggestionSet, observation.activityLabel, observation.sceneLabel]);
-  const [modelSuggestionCopy, setModelSuggestionCopy] = useState<{
-    readonly key: string;
-    readonly response: Awaited<ReturnType<typeof requestLifeSuggestionCopy>>;
-  } | null>(null);
   useEffect(() => scheduleChatAssetPrewarm(), []);
-  useEffect(() => {
-    if (process.env.NODE_ENV === "test"
-      || !expanded
-      || chatMode !== "novelist"
-      || gatewayState !== "active") return;
-    const controller = new AbortController();
-    void requestLifeSuggestionCopy(contextualSuggestionSet, controller.signal)
-      .then((response) => setModelSuggestionCopy({ key: suggestionModelKey, response }))
-      .catch(() => undefined);
-    return () => controller.abort();
-  }, [expanded, chatMode, gatewayState, suggestionModelKey]);
-  const effectiveSuggestionSet = useMemo(() => {
-    if (modelSuggestionCopy?.key !== suggestionModelKey) return contextualSuggestionSet;
-    const copyByIntent = new Map(modelSuggestionCopy.response.suggestions.map((item) => [item.intentId, item]));
-    return {
-      ...contextualSuggestionSet,
-      provenance: "rules_plus_model" as const,
-      suggestions: contextualSuggestionSet.suggestions.map((suggestion) => {
-        const copy = copyByIntent.get(suggestion.intentId);
-        return copy === undefined ? suggestion : {
-          ...suggestion,
-          reasonText: copy.reasonText,
-          editablePrefill: copy.editablePrefill,
-        };
-      }),
-      modelAttestation: modelSuggestionCopy.response.modelAttestation,
-    };
-  }, [contextualSuggestionSet, modelSuggestionCopy, suggestionModelKey]);
+  // Keep the room's critical open-and-type path deterministic. Model-backed
+  // wording is an optional enhancement and must not consume capacity merely
+  // because the panel became visible.
+  const effectiveSuggestionSet = contextualSuggestionSet;
 
-  const requestChannel = (channel: NovelistChatChannel | null) => {
+  const requestChannel = useCallback((channel: NovelistChatChannel | null) => {
     if (activeChannel === undefined) {
       setLocalExpanded(channel !== null);
       if (channel !== null) setChatMode(channel);
@@ -692,7 +660,19 @@ export function SystemLayerPanel({
     }
     onRequestChannel?.(channel);
     if (channel !== null) setChatMode(channel);
-  };
+  }, [activeChannel, onRequestChannel]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset[EARLY_ROOM_HYDRATED_DATASET_KEY] = "true";
+    if (root.dataset[EARLY_ROOM_OPEN_PENDING_DATASET_KEY] === "true") {
+      delete root.dataset[EARLY_ROOM_OPEN_PENDING_DATASET_KEY];
+      requestChannel("novelist");
+    }
+    return () => {
+      delete root.dataset[EARLY_ROOM_HYDRATED_DATASET_KEY];
+    };
+  }, [requestChannel]);
 
   useEffect(() => {
     const stored = loadSystemBinding();
@@ -2107,6 +2087,7 @@ export function SystemLayerPanel({
       <button
         type="button"
         className={styles.panelToggle}
+        data-room-entry-action={!expanded && chatMode === "novelist" ? "open-novelist" : undefined}
         aria-expanded={expanded}
         aria-controls="novelist-conversation"
         aria-label={expanded ? "收起小说家房间" : "打开小说家房间"}
@@ -2117,7 +2098,7 @@ export function SystemLayerPanel({
           <strong>{chatMode === "novelist" ? "二流小说家" : "子系统任务台"}</strong>
           <small><i />{chatMode === "novelist" ? `${presence} · ${relationshipLabels[novelistPersona.relationshipStage]}` : "任务草案与边界校验"} · {chatStatusLabels[chatStatus]}</small>
         </span>
-        <span className={styles.panelCaret} aria-hidden="true">{expanded ? "−" : "+"}</span>
+        <span className={styles.panelCaret} aria-hidden="true">{expanded ? "×" : "+"}</span>
       </button>
 
       {expanded && (
@@ -2127,6 +2108,7 @@ export function SystemLayerPanel({
               model={roomUiPresentationModel}
               draftReader={draftReader}
               variantReview={roomUiPresentationModel.variantReview ?? null}
+              gatewayReady={gatewayState === "active"}
               onClose={() => requestChannel(null)}
               onCloseDraftReader={() => setDraftReader(null)}
               onSendMessage={(text) => void sendMessage(text)}

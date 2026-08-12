@@ -29,12 +29,25 @@ export interface StoryRecord {
   premise: string;
   branchId?: string;
   checkpointId?: string;
+  /** Formal registration metadata; this is not a manuscript body or canon. */
+  formalAvailability?: FormalStoryAvailability;
+  /** A human-facing registration summary kept outside the manuscript body. */
+  summaryLedger?: string;
   continuationContext?: {
     chapterTitle: string;
     brief: string;
     excerpt: string;
   };
 }
+
+export type FormalStoryAvailability = {
+  contentRegistration: "registered";
+  runtime: "disconnected";
+  manuscriptImport: "blocked" | "pending";
+  body: "unavailable";
+  canon: "unavailable";
+  reason: "missing_verified_manuscript_artifact" | "immutable_manuscript_artifact_backend_persistence_pending";
+};
 
 export interface WorldNode {
   id: string;
@@ -358,9 +371,28 @@ export function createOpeningWorld(openingId: OpeningId, toneId: ToneId): WorldR
       ? {
           storyId: "story-xueying-chengzhen-001",
           branchId: "branch-xueying-main-r1",
-          checkpointId: "checkpoint-xueying-c1-c3-accepted",
-        }
+        checkpointId: "checkpoint-xueying-c1-c3-accepted",
+      }
       : null;
+  const formalAvailability: FormalStoryAvailability | undefined = opening.id === "zifu"
+    ? {
+        contentRegistration: "registered",
+        runtime: "disconnected",
+        manuscriptImport: "blocked",
+        body: "unavailable",
+        canon: "unavailable",
+        reason: "missing_verified_manuscript_artifact",
+      }
+    : opening.id === "xueying"
+      ? {
+          contentRegistration: "registered",
+          runtime: "disconnected",
+          manuscriptImport: "pending",
+          body: "unavailable",
+          canon: "unavailable",
+          reason: "immutable_manuscript_artifact_backend_persistence_pending",
+        }
+      : undefined;
   const storyId = stableMetadata?.storyId ?? `story-${opening.id}-01`;
   const worldId = `world-${opening.id}`;
   const protagonist = opening.id === "court" || opening.id === "xueying"
@@ -399,6 +431,61 @@ export function createOpeningWorld(openingId: OpeningId, toneId: ToneId): WorldR
     node("event", tone.title, "event", tone.copy, 342, 352, storyId),
   ];
 
+  const formalNodes = formalAvailability
+    ? nodes.map((item) => ({
+        ...item,
+        truthStatus: "candidate" as const,
+        salience: "latent" as const,
+        character: item.character
+          ? {
+              ...item.character,
+              fields: item.character.fields.map((field) => ({
+                ...field,
+                status: field.status === "unknown" ? "unknown" as const : "candidate" as const,
+              })),
+            }
+          : undefined,
+      }))
+    : nodes;
+  const formalEdges = formalAvailability
+    ? [
+        { id: "e1", source: "writer", target: "protagonist", label: "记得", storyIds: [storyId], truthStatus: "candidate" as const },
+        { id: "e2", source: "protagonist", target: "place", label: "醒于", storyIds: [storyId], truthStatus: "candidate" as const },
+        { id: "e3", source: "object", target: "protagonist", label: "选中", storyIds: [storyId], truthStatus: "candidate" as const },
+        { id: "e4", source: "faction", target: "place", label: "控制", storyIds: [storyId], truthStatus: "candidate" as const },
+        { id: "e5", source: "event", target: "protagonist", label: "改变", storyIds: [storyId], truthStatus: "candidate" as const },
+      ]
+    : [
+        { id: "e1", source: "writer", target: "protagonist", label: "记得", storyIds: [storyId] },
+        { id: "e2", source: "protagonist", target: "place", label: "醒于", storyIds: [storyId] },
+        { id: "e3", source: "object", target: "protagonist", label: "选中", storyIds: [storyId] },
+        { id: "e4", source: "faction", target: "place", label: "控制", storyIds: [storyId] },
+        { id: "e5", source: "event", target: "protagonist", label: "改变", storyIds: [storyId] },
+      ];
+  const facts = [
+    {
+      id: "fact-1",
+      statement: `${protagonist}第一次听见${object}说话。`,
+      source: "开篇第 1 段",
+      status: "candidate" as const,
+      storyIds: [storyId],
+    },
+    {
+      id: "fact-2",
+      statement: `${faction}与${anchorPlace}存在尚未公开的控制关系。`,
+      source: "场景推断，等待确认",
+      status: "candidate" as const,
+      storyIds: [storyId],
+    },
+    {
+      id: "fact-3",
+      statement: `${object}知道主角过去的一段隐秘。`,
+      source: "开篇钩子",
+      status: "candidate" as const,
+      storyIds: [storyId],
+    },
+  ];
+
   return {
     id: worldId,
     title: `${opening.title}世界`,
@@ -407,44 +494,19 @@ export function createOpeningWorld(openingId: OpeningId, toneId: ToneId): WorldR
       {
         id: storyId,
         title: `${opening.title}：第一夜`,
-        premise: OPENING_COPY[opening.id][tone.id],
+        premise: formalAvailability ? "" : OPENING_COPY[opening.id][tone.id],
+        ...(formalAvailability
+          ? { formalAvailability, summaryLedger: opening.scene }
+          : {}),
         ...(stableMetadata ? {
           branchId: stableMetadata.branchId,
           checkpointId: stableMetadata.checkpointId,
         } : {}),
       },
     ],
-    nodes,
-    edges: [
-      { id: "e1", source: "writer", target: "protagonist", label: "记得", storyIds: [storyId] },
-      { id: "e2", source: "protagonist", target: "place", label: "醒于", storyIds: [storyId] },
-      { id: "e3", source: "object", target: "protagonist", label: "选中", storyIds: [storyId] },
-      { id: "e4", source: "faction", target: "place", label: "控制", storyIds: [storyId] },
-      { id: "e5", source: "event", target: "protagonist", label: "改变", storyIds: [storyId] },
-    ],
-    facts: [
-      {
-        id: "fact-1",
-        statement: `${protagonist}第一次听见${object}说话。`,
-        source: "开篇第 1 段",
-        status: "candidate",
-        storyIds: [storyId],
-      },
-      {
-        id: "fact-2",
-        statement: `${faction}与${anchorPlace}存在尚未公开的控制关系。`,
-        source: "场景推断，等待确认",
-        status: "candidate",
-        storyIds: [storyId],
-      },
-      {
-        id: "fact-3",
-        statement: `${object}知道主角过去的一段隐秘。`,
-        source: "开篇钩子",
-        status: "candidate",
-        storyIds: [storyId],
-      },
-    ],
+    nodes: formalNodes,
+    edges: formalEdges,
+    facts,
   };
 }
 

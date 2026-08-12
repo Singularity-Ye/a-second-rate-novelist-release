@@ -1,5 +1,4 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { webcrypto } from "node:crypto";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ExperienceProjection } from "@erliu/shared-contracts/vnext-experience";
@@ -24,6 +23,10 @@ import {
 } from "./system-layer";
 import type { RoomUiActionView, RoomUiPresentationalSurfaceProps } from "./room-ui-adapter";
 import { SystemLayerPanel } from "./system-layer-panel";
+import {
+  EARLY_ROOM_HYDRATED_DATASET_KEY,
+  EARLY_ROOM_OPEN_PENDING_DATASET_KEY,
+} from "../../lib/early-room-open-intent";
 
 const xianxia = {
   id: "xianxia",
@@ -490,6 +493,7 @@ function ProjectionActionProbe({
 
 function GatewayAccessProbe({
   model,
+  gatewayReady,
   onAdmissionAcknowledge,
   onGatewayReconnect,
 }: RoomUiPresentationalSurfaceProps) {
@@ -499,6 +503,7 @@ function GatewayAccessProbe({
       data-recovery-code={model.recovery?.code ?? "none"}
       data-conversation-runtime={model.modelRuntime?.conversation?.source ?? "none"}
       data-creative-runtime={model.modelRuntime?.creativeJob?.source ?? "none"}
+      data-gateway-ready={gatewayReady === true ? "true" : "false"}
     >
       {onAdmissionAcknowledge && (
         <button type="button" onClick={onAdmissionAcknowledge}>probe-admission-acknowledge</button>
@@ -550,7 +555,6 @@ function VariantReviewProbe({
 
 describe("system layer binding", () => {
   beforeEach(() => {
-    vi.stubGlobal("crypto", webcrypto);
     localStorage.clear();
     vi.stubGlobal("fetch", vi.fn(async () => {
       throw new Error("provider offline in local component tests");
@@ -785,6 +789,27 @@ describe("system layer binding", () => {
 });
 
 describe("SystemLayerPanel", () => {
+  it("replays a room-open intent captured before hydration", async () => {
+    const onRequestChannel = vi.fn();
+    document.documentElement.dataset[EARLY_ROOM_OPEN_PENDING_DATASET_KEY] = "true";
+    try {
+      render(
+        <SystemLayerPanel
+          activeChannel={null}
+          onRequestChannel={onRequestChannel}
+          observation={{ sceneLabel: "书房", activityLabel: "study-writing", focus: 72, fatigue: 20, inspiration: 48, emotionalLoad: 18 }}
+        />,
+      );
+
+      await waitFor(() => expect(onRequestChannel).toHaveBeenCalledWith("novelist"));
+      expect(document.documentElement.dataset[EARLY_ROOM_OPEN_PENDING_DATASET_KEY]).toBeUndefined();
+      expect(document.documentElement.dataset[EARLY_ROOM_HYDRATED_DATASET_KEY]).toBe("true");
+    } finally {
+      delete document.documentElement.dataset[EARLY_ROOM_OPEN_PENDING_DATASET_KEY];
+      delete document.documentElement.dataset[EARLY_ROOM_HYDRATED_DATASET_KEY];
+    }
+  });
+
   it("passes formal room state and callbacks to an optional presentational surface while keeping the old UI fallback", async () => {
     const onRequestChannel = vi.fn();
     stubActiveGateway(async () => {
@@ -1201,6 +1226,7 @@ describe("SystemLayerPanel", () => {
     expect(paper).toBeTruthy();
     expect(inputBar?.getAttribute("data-art-layer")).toBe("writing-input-bar-v6-alpha");
     expect(screen.getByRole("button", { name: "收起小说家房间" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "收起小说家房间" }).textContent).toContain("×");
   });
 
   it("keeps the writing portrait as the default avatar state", () => {
@@ -1594,12 +1620,14 @@ describe("SystemLayerPanel", () => {
     );
 
     const acknowledge = await screen.findByRole("button", { name: "probe-admission-acknowledge" });
+    expect(screen.getByTestId("gateway-access-probe").getAttribute("data-gateway-ready")).toBe("false");
     expect(screen.queryByRole("button", { name: "probe-gateway-reconnect" })).toBeNull();
     fireEvent.click(acknowledge);
 
     await waitFor(() => {
       expect(screen.queryByRole("button", { name: "probe-admission-acknowledge" })).toBeNull();
       expect(screen.queryByRole("button", { name: "probe-gateway-reconnect" })).toBeNull();
+      expect(screen.getByTestId("gateway-access-probe").getAttribute("data-gateway-ready")).toBe("true");
     });
     expect(experienceReads).toBe(2);
     expect(admissionPosts).toBe(1);

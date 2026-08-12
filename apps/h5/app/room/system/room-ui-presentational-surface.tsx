@@ -12,12 +12,15 @@ import {
   type RoomUiPresentationalLayoutOverride,
   roomUiBackdropStyle,
   roomUiInternalVisualStyle,
+  roomUiSuggestionTypographyStyle,
+  type RoomUiSuggestionCardLayerId,
   roomUiNestedVisualStyle,
   roomUiSurfaceStyle,
   roomUiVisualSlotStyle,
 } from "./room-ui-presentational-layout";
 import styles from "./room-ui-presentational-surface.module.css";
 import { RoomUiPresentationalVariantTable } from "./room-ui-presentational-variant-table";
+import { RoomGuideLibrary } from "./room-guide-library";
 
 const ASSET_ROOT = "/assets/ui/room-presentational-v6";
 
@@ -29,6 +32,12 @@ const progressSteps = [
 ] as const;
 
 const progressOrder = ["idle", "understanding", "writing", "variant_review", "revising", "draft_ready", "accepted"] as const;
+const suggestionCardLayerIds: readonly RoomUiSuggestionCardLayerId[] = [
+  "suggestion-card-life-now",
+  "suggestion-card-life-break",
+  "suggestion-card-creative-spark",
+  "suggestion-card-creative-writing",
+];
 
 type SuggestionCardView = Readonly<{
   kind: "composer_preset" | "projection_action";
@@ -70,13 +79,6 @@ const storySparkCard: SuggestionCardView = {
   detail: "先聊主题和人物，不自动创建写作任务",
   composerText: "我有一个故事灵感，想先和你聊聊。",
   illustration: "suggestion-illustration-feather-letter-v6-alpha.webp",
-};
-
-type WritingGuideKey = "story-spark" | "writing-entry";
-
-const writingGuideTemplates: Readonly<Record<WritingGuideKey, string>> = {
-  "story-spark": "主题：\n人物：\n场景 / 冲突：\n语气 / 技法：\n篇幅：",
-  "writing-entry": "我想写一个关于【主题】的故事。\n人物是【人物】，从【场景】里的【冲突】开始。\n希望语气偏【语气】，采用【技法】，篇幅约【篇幅】。",
 };
 
 function writingActionFor(
@@ -122,6 +124,19 @@ function actionList(model: RoomUiPresentationalSurfaceProps["model"]): readonly 
   );
 }
 
+const unwiredProjectionActionCodes = [
+  "request_revision",
+  "accept_current",
+  "accept_and_continue",
+  "reject_and_rebrief",
+] as const;
+
+function isUnwiredProjectionAction(action: RoomUiActionView | null | undefined) {
+  return action !== null
+    && action !== undefined
+    && (unwiredProjectionActionCodes as readonly string[]).includes(action.code);
+}
+
 function messageLabel(message: RoomUiChatMessage) {
   return message.role === "user" ? "你" : "小说家";
 }
@@ -144,6 +159,7 @@ export type RoomUiPresentationalSurfaceVisualProps = Readonly<{
 export function RoomUiPresentationalSurface({
   model,
   draftReader,
+  onClose,
   variantReview,
   gatewayReady = true,
   onCloseDraftReader,
@@ -169,9 +185,9 @@ export function RoomUiPresentationalSurface({
   const [composerOverflowing, setComposerOverflowing] = useState(false);
   const [composerMaxRows, setComposerMaxRows] = useState(DESKTOP_COMPOSER_MAX_ROWS);
   const [variantPortalReady, setVariantPortalReady] = useState(false);
-  const [writingGuideOpen, setWritingGuideOpen] = useState<WritingGuideKey | null>(null);
-  const [writingGuideDraft, setWritingGuideDraft] = useState("");
+  const [guideLibraryOpen, setGuideLibraryOpen] = useState(false);
   const [rulesOpen, setRulesOpen] = useState(false);
+  const [dismissedDraftContentId, setDismissedDraftContentId] = useState<string | null>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const messageListRef = useRef<HTMLDivElement>(null);
   const followLatestMessageRef = useRef(true);
@@ -186,11 +202,18 @@ export function RoomUiPresentationalSurface({
     && model.progress.roomContextProgress === "draft_ready"
     && model.draftReady !== null
     && model.draftReady.status === "draft";
+  const draftCardVisible = draftReady
+    && model.draftReady !== null
+    && dismissedDraftContentId !== model.draftReady.contentId;
   const activeProgressIndex = progressIndex(model.progress.roomContextProgress);
   const hasPersistedProgress = model.progress.source === "persisted_story_truth";
   const admissionPending = onAdmissionAcknowledge !== null && onAdmissionAcknowledge !== undefined;
   const reconnectPending = onGatewayReconnect !== null && onGatewayReconnect !== undefined;
   const gatewayActionPending = admissionPending || reconnectPending;
+  // The draft is local UI state and must remain writable while the formal
+  // gateway is bootstrapping, awaiting admission, reconnecting, or recovering.
+  // Only the send/action path waits for those runtime gates.
+  const composerInputDisabled = !model.chat.composer.enabled;
   const composerDisabled = !gatewayReady
     || !model.chat.composer.enabled
     || recovery !== null
@@ -239,17 +262,6 @@ export function RoomUiPresentationalSurface({
     && onCloseVariantPreview !== undefined
     && onSelectVariantCandidate !== null
     && onSelectVariantCandidate !== undefined;
-
-  useEffect(() => {
-    if (writingGuideOpen === null) return undefined;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      event.preventDefault();
-      setWritingGuideOpen(null);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [writingGuideOpen]);
 
   useEffect(() => {
     if (!rulesOpen) return undefined;
@@ -331,13 +343,6 @@ export function RoomUiPresentationalSurface({
     onFillComposer(text);
     composerRef.current?.focus();
   };
-
-  const openWritingGuide = (guide: WritingGuideKey) => {
-    setWritingGuideDraft(writingGuideTemplates[guide]);
-    setWritingGuideOpen(guide);
-  };
-
-  const closeWritingGuide = () => setWritingGuideOpen(null);
 
   const submitComposer = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -559,9 +564,18 @@ export function RoomUiPresentationalSurface({
                           data-testid={`room-v6-projection-action-${action.code}`}
                           data-action-code={action.code}
                           data-based-on-version-id={action.basedOnVersionId ?? ""}
-                          onClick={() => onProjectionAction(action)}
+                          data-action-availability={isUnwiredProjectionAction(action) ? "unwired" : "available"}
+                          aria-disabled={isUnwiredProjectionAction(action)}
+                          disabled={isUnwiredProjectionAction(action)}
+                          title={isUnwiredProjectionAction(action) ? "尚未接入正式写作动作" : undefined}
+                          onClick={() => {
+                            if (!isUnwiredProjectionAction(action)) onProjectionAction(action);
+                          }}
                         >
                           {action.label}
+                          {isUnwiredProjectionAction(action) && (
+                            <small className={styles.projectionActionUnavailable}>尚未接入正式写作动作</small>
+                          )}
                         </button>
                       ))}
                     </div>
@@ -579,7 +593,7 @@ export function RoomUiPresentationalSurface({
                 }}
               >
                 {model.chat.messages.length === 0 ? (
-                  <p className={styles.emptyMessage}>等小说家回应。</p>
+                  <p className={styles.emptyMessage}>还没有对话，输入一句话开始聊。</p>
                 ) : model.chat.messages.map((message) => (
                   <article
                     className={`${styles.message} ${message.role === "user" ? styles.userMessage : styles.assistantMessage}`}
@@ -594,7 +608,7 @@ export function RoomUiPresentationalSurface({
                   </article>
                 ))}
               </div>
-              {draftReady && model.draftReady !== null && (
+              {draftCardVisible && model.draftReady !== null && (
                 <section className={styles.draftCard} data-testid="room-v6-draft-ready">
                   <div>
                     <small>服务端已确认 · {model.draftReady.contentId} · v{model.draftReady.version}</small>
@@ -602,6 +616,13 @@ export function RoomUiPresentationalSurface({
                     <p>{model.draftReady.preview}</p>
                   </div>
                   <div className={styles.draftActions}>
+                    <button
+                      type="button"
+                      data-testid="room-v6-draft-card-close"
+                      onClick={() => setDismissedDraftContentId(model.draftReady!.contentId)}
+                    >
+                      收起结果
+                    </button>
                     <button type="button" onClick={onOpenDraft}>打开草稿</button>
                     <button
                       type="button"
@@ -612,6 +633,21 @@ export function RoomUiPresentationalSurface({
                       {model.draftReady.feedbackState === "loading" ? "汇报中…" : "让他汇报"}
                     </button>
                   </div>
+                  {model.draftReady.feedbackState !== "idle" && (
+                    <p
+                      className={styles.draftFeedbackStatus}
+                      data-testid="room-v6-draft-feedback-status"
+                      data-feedback-state={model.draftReady.feedbackState}
+                      aria-live="polite"
+                      role="status"
+                    >
+                      {model.draftReady.feedbackState === "loading"
+                        ? "正在获取汇报…"
+                        : model.draftReady.feedbackState === "ready"
+                          ? "汇报已收到。"
+                          : "这次未拿到汇报，草稿状态未改变。"}
+                    </p>
+                  )}
                   {model.draftReady.feedbackState === "ready" && model.draftReady.feedback !== null && (
                     <aside className={styles.feedbackCard} data-testid="room-v6-draft-feedback-result">
                       <strong>伴随反馈 · 不是正文</strong>
@@ -640,14 +676,16 @@ export function RoomUiPresentationalSurface({
                 <textarea
                   ref={composerRef}
                   value={composerDraft}
-                  disabled={composerDisabled}
+                  disabled={composerInputDisabled}
                   rows={1}
                   maxLength={600}
-                  placeholder={admissionPending
-                    ? "确认后可继续输入…"
-                    : reconnectPending || recovery?.retryable
-                      ? "恢复后可继续输入…"
-                      : model.chat.composer.placeholder}
+                  placeholder={!gatewayReady
+                    ? "可先输入，连接后发送…"
+                    : admissionPending
+                      ? "可先输入，确认连接后发送…"
+                      : reconnectPending || recovery !== null
+                        ? "可先输入，恢复后发送…"
+                        : model.chat.composer.placeholder}
                   aria-label="和小说家说点什么"
                   data-testid="room-v6-composer"
                   data-chat-input-grow="downward"
@@ -710,19 +748,26 @@ export function RoomUiPresentationalSurface({
                 style={roomUiInternalVisualStyle("suggestion-group-creative", visualLayout)}
               >创作</span>
             </div>
+            <button
+              type="button"
+              className={styles.suggestionGuideTrigger}
+              data-testid="room-v6-suggestion-guide-library"
+              style={roomUiInternalVisualStyle("suggestion-guide-writing-entry", visualLayout)}
+              aria-label="打开指南库"
+              aria-haspopup="dialog"
+              aria-controls="room-v6-guide-library"
+              onClick={() => setGuideLibraryOpen(true)}
+            >
+              指南库
+            </button>
             {suggestionCards.map((card, index) => {
-              const guideKey: WritingGuideKey | null = card.key === "share-story-spark"
-                ? "story-spark"
-                : card.key === "start-writing" || card.key === "continue-writing"
-                  ? "writing-entry"
-                  : null;
-              const guideLayer = guideKey === "story-spark"
-                ? "suggestion-guide-story-spark"
-                : guideKey === "writing-entry"
-                  ? "suggestion-guide-writing-entry"
-                  : null;
+              const cardLayerId = suggestionCardLayerIds[index];
+              if (cardLayerId === undefined) {
+                throw new Error("suggestion card layout layer is missing");
+              }
               const cardDisabled = composerDisabled
-                || (card.kind === "projection_action" && !card.action);
+                || (card.kind === "projection_action" && (!card.action || isUnwiredProjectionAction(card.action)));
+              const cardActionUnavailable = card.kind === "projection_action" && isUnwiredProjectionAction(card.action);
               const cardBody = (
                 <span className={styles.suggestionCardArtStage}>
                   <img
@@ -773,6 +818,10 @@ export function RoomUiPresentationalSurface({
                   <button
                     type="button"
                     className={styles.suggestionCard}
+                    style={{
+                      ...roomUiInternalVisualStyle(cardLayerId, visualLayout),
+                      ...roomUiSuggestionTypographyStyle(cardLayerId, visualLayout),
+                    }}
                     disabled={cardDisabled}
                     aria-disabled={cardDisabled}
                     data-testid={`room-v6-suggestion-${index + 1}`}
@@ -781,9 +830,14 @@ export function RoomUiPresentationalSurface({
                     data-preset-key={card.key}
                     data-action-code={card.action?.code}
                     data-based-on-version-id={card.action?.basedOnVersionId}
+                    data-action-availability={cardActionUnavailable ? "unwired" : "available"}
+                    data-card-layout-layer={cardLayerId}
+                    title={cardActionUnavailable ? "尚未接入正式写作动作" : undefined}
                     onClick={() => {
                       if (card.kind === "projection_action") {
-                        if (card.action !== null && card.action !== undefined) onProjectionAction(card.action);
+                        if (card.action !== null && card.action !== undefined && !isUnwiredProjectionAction(card.action)) {
+                          onProjectionAction(card.action);
+                        }
                         return;
                       }
                       if (card.composerText !== undefined) fillComposer(card.composerText);
@@ -791,20 +845,6 @@ export function RoomUiPresentationalSurface({
                   >
                     {cardBody}
                   </button>
-                  {guideKey !== null && (
-                    <button
-                      type="button"
-                      className={styles.suggestionGuideTrigger}
-                      data-testid={`room-v6-suggestion-guide-${card.key}`}
-                      style={guideLayer ? roomUiInternalVisualStyle(guideLayer, visualLayout) : undefined}
-                      aria-label={`${card.label}写作指南`}
-                      aria-haspopup="dialog"
-                      aria-controls="room-v6-writing-guide"
-                      onClick={() => openWritingGuide(guideKey)}
-                    >
-                      指南
-                    </button>
-                  )}
                 </div>
               );
             })}
@@ -885,54 +925,9 @@ export function RoomUiPresentationalSurface({
         </div>
       )}
 
-      {writingGuideOpen !== null && (
-        <div className={styles.writingGuideBackdrop} data-testid="room-v6-writing-guide-backdrop">
-          <section
-            className={styles.writingGuide}
-            id="room-v6-writing-guide"
-            data-testid="room-v6-writing-guide"
-            data-guide-kind={writingGuideOpen}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="room-v6-writing-guide-title"
-          >
-            <header className={styles.writingGuideHeader}>
-              <div>
-                <strong id="room-v6-writing-guide-title">
-                  {writingGuideOpen === "story-spark" ? "说个灵感 · 写作指南" : "开始写作 · 写作指南"}
-                </strong>
-                <small>先把想法说清楚，指南本身不会创建写作任务。</small>
-              </div>
-              <button
-                type="button"
-                className={styles.writingGuideClose}
-                data-testid="room-v6-writing-guide-close"
-                onClick={closeWritingGuide}
-                aria-label="关闭写作指南"
-              >
-                ×
-              </button>
-            </header>
-            <dl className={styles.writingGuideFields}>
-              <div><dt>主题</dt><dd>故事想写什么</dd></div>
-              <div><dt>人物</dt><dd>谁在经历这件事</dd></div>
-              <div><dt>场景 / 冲突</dt><dd>事情发生在哪里，卡在哪里</dd></div>
-              <div><dt>语气 / 技法</dt><dd>想要怎样的叙述感觉</dd></div>
-              <div><dt>篇幅</dt><dd>准备写到多长</dd></div>
-            </dl>
-            <label className={styles.writingGuideTemplateLabel} htmlFor="room-v6-writing-guide-template">
-              可编辑模板
-            </label>
-            <textarea
-              id="room-v6-writing-guide-template"
-              className={styles.writingGuideTemplate}
-              data-testid="room-v6-writing-guide-template"
-              value={writingGuideDraft}
-              onChange={(event) => setWritingGuideDraft(event.target.value)}
-              rows={6}
-            />
-          </section>
-        </div>
+      {variantPortalReady && guideLibraryOpen && createPortal(
+        <RoomGuideLibrary onClose={() => setGuideLibraryOpen(false)} />,
+        document.body,
       )}
 
       <footer
@@ -994,7 +989,7 @@ export function RoomUiPresentationalSurface({
         </div>
       </footer>
 
-      {draftReader !== null && (
+      {variantPortalReady && draftReader !== null && createPortal(
         <div className={styles.draftReaderOverlay} data-testid="room-v6-draft-reader-overlay">
           <section
             className={styles.draftReaderPanel}
@@ -1010,6 +1005,14 @@ export function RoomUiPresentationalSurface({
               <strong id="room-v6-draft-reader-title">当前草稿</strong>
               <button
                 type="button"
+                className={styles.draftReaderReturn}
+                data-testid="room-v6-draft-reader-return"
+                onClick={onClose}
+              >
+                返回房间
+              </button>
+              <button
+                type="button"
                 className={styles.draftReaderClose}
                 data-testid="room-v6-draft-reader-close"
                 onClick={onCloseDraftReader}
@@ -1020,7 +1023,8 @@ export function RoomUiPresentationalSurface({
             </header>
             <article className={styles.draftReaderBody} tabIndex={0}>{draftReader.body}</article>
           </section>
-        </div>
+        </div>,
+        document.body,
       )}
       {variantPortalReady && showVariantReview && createPortal(
         <div

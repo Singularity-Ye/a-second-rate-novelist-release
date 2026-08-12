@@ -20,6 +20,10 @@ export type RoomUiInternalVisualLayerId =
   | "suggestion-group-creative"
   | "suggestion-guide-story-spark"
   | "suggestion-guide-writing-entry"
+  | "suggestion-card-life-now"
+  | "suggestion-card-life-break"
+  | "suggestion-card-creative-spark"
+  | "suggestion-card-creative-writing"
   | "progress-observe-dot"
   | "progress-observe-text"
   | "progress-breakdown-dot"
@@ -38,6 +42,19 @@ export type RoomUiVisualGeometry = Readonly<{
   height: number;
 }>;
 
+export type RoomUiSuggestionCardLayerId =
+  | "suggestion-card-life-now"
+  | "suggestion-card-life-break"
+  | "suggestion-card-creative-spark"
+  | "suggestion-card-creative-writing";
+
+export type RoomUiSuggestionCardTypography = Readonly<{
+  titleScale: number;
+  detailScale: number;
+  detailLineHeight: number;
+  detailWidth: number;
+}>;
+
 type StageSlot = Readonly<{
   x: number;
   y: number;
@@ -53,6 +70,7 @@ export type RoomUiPresentationalLayoutOverride = Readonly<{
   composition?: Partial<Readonly<Record<RoomUiVisualLayerId, RoomUiVisualGeometry>>>;
   nested?: Partial<Readonly<Record<RoomUiNestedVisualLayerId, RoomUiVisualGeometry>>>;
   internal?: Partial<Readonly<Record<RoomUiInternalVisualLayerId, RoomUiVisualGeometry>>>;
+  suggestionTypography?: Partial<Readonly<Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography>>>;
 }>;
 
 function percentage(value: number) {
@@ -108,6 +126,10 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
     "suggestion-group-creative": { x: 78, y: 51.2, scale: 1, tilt: 0, width: 15, height: 2.6 },
     "suggestion-guide-story-spark": { x: 84.2, y: 8.5, scale: 1, tilt: 0, width: 7.8, height: 8.5 },
     "suggestion-guide-writing-entry": { x: 84.2, y: 8.5, scale: 1, tilt: 0, width: 7.8, height: 8.5 },
+    "suggestion-card-life-now": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
+    "suggestion-card-life-break": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
+    "suggestion-card-creative-spark": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
+    "suggestion-card-creative-writing": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
     "progress-observe-dot": { x: 30, y: 43.3, scale: 0.75, tilt: 0, width: 5.5, height: 9.2 },
     "progress-observe-text": { x: 26.6, y: 51.7, scale: 1.07, tilt: 0, width: 12.6, height: 9.4 },
     "progress-breakdown-dot": { x: 45.3, y: 43.6, scale: 0.75, tilt: 0, width: 5.5, height: 9.2 },
@@ -117,6 +139,12 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
     "progress-review-dot": { x: 75.4, y: 43.8, scale: 0.75, tilt: 0, width: 5.5, height: 9.2 },
     "progress-review-text": { x: 72.1, y: 51.6, scale: 1.07, tilt: 0, width: 11.5, height: 9.5 },
   } satisfies Record<RoomUiInternalVisualLayerId, RoomUiVisualGeometry>,
+  suggestionTypography: {
+    "suggestion-card-life-now": { titleScale: 1, detailScale: 1, detailLineHeight: 1.18, detailWidth: 100 },
+    "suggestion-card-life-break": { titleScale: 1, detailScale: 1, detailLineHeight: 1.18, detailWidth: 100 },
+    "suggestion-card-creative-spark": { titleScale: 1, detailScale: 1, detailLineHeight: 1.18, detailWidth: 100 },
+    "suggestion-card-creative-writing": { titleScale: 1, detailScale: 1, detailLineHeight: 1.18, detailWidth: 100 },
+  } satisfies Record<RoomUiSuggestionCardLayerId, RoomUiSuggestionCardTypography>,
 } as const;
 
 /**
@@ -205,5 +233,18 @@ export function roomUiInternalVisualStyle(
     "--internal-height": percentage(geometry.height),
     "--internal-scale": String(geometry.scale),
     "--internal-tilt": `${geometry.tilt}deg`,
+  };
+}
+
+export function roomUiSuggestionTypographyStyle(
+  layer: RoomUiSuggestionCardLayerId,
+  override?: RoomUiPresentationalLayoutOverride,
+): VisualLayoutStyle {
+  const typography = override?.suggestionTypography?.[layer] ?? ROOM_UI_VISUAL_LAYOUT_V6.suggestionTypography[layer];
+  return {
+    "--suggestion-title-scale": String(typography.titleScale),
+    "--suggestion-detail-scale": String(typography.detailScale),
+    "--suggestion-detail-line-height": String(typography.detailLineHeight),
+    "--suggestion-detail-width": percentage(typography.detailWidth),
   };
 }

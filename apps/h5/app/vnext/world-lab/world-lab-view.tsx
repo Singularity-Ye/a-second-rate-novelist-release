@@ -141,6 +141,37 @@ function isCharacterNode(node: WorldNode | null | undefined): node is WorldNode 
   return node?.kind === "character" && node.character !== undefined;
 }
 
+function FormalStoryGate({ story }: { story: StoryRecord }) {
+  const availability = story.formalAvailability;
+  if (!availability) return null;
+  const importCopy = availability.manuscriptImport === "blocked"
+    ? `正文导入阻塞：${availability.reason}`
+    : "正式正文待导入：不可展示为 backend accepted body / Canon";
+  return (
+    <section aria-labelledby="formal-story-gate-heading" className={styles.workspacePage} data-testid="formal-story-gate">
+      <header className={styles.workspacePageHeader}>
+        <div>
+          <span>正式内容登记</span>
+          <h2 id="formal-story-gate-heading">《{story.title}》尚未进入正文运行时</h2>
+          <p>这里仅显示登记状态与摘要元数据；摘要不会被当作正文、续写上下文或正史。</p>
+        </div>
+      </header>
+      <dl>
+        <div><dt>内容登记</dt><dd>{availability.contentRegistration === "registered" ? "已登记" : "未登记"}</dd></div>
+        <div><dt>运行时</dt><dd>{availability.runtime === "disconnected" ? "未接通" : availability.runtime}</dd></div>
+        <div><dt>正文状态</dt><dd>{importCopy}</dd></div>
+        <div><dt>正史状态</dt><dd>不可用；未写入 Canon</dd></div>
+      </dl>
+      {story.summaryLedger ? (
+        <aside aria-label="登记摘要" className={styles.openingCopy}>
+          <strong>登记摘要（非正文）</strong>
+          <p>{story.summaryLedger}</p>
+        </aside>
+      ) : null}
+    </section>
+  );
+}
+
 function currentHeadId(state: InteractiveStoryState | undefined) {
   if (!state) return "turn-0";
   return state.branches.find((branch) => branch.id === state.activeBranchId)?.headTurnId ?? "turn-0";
@@ -497,11 +528,12 @@ interface CanonPanelProps {
   activeStoryId: string | null;
   candidateFactCount: number;
   canonApprovalNotice: string | null;
+  readOnly?: boolean;
   approveAllCandidateFacts(): void;
   setFactStatus(factId: string, status: FactStatus): void;
 }
 
-function CanonPanel({ world, activeStoryId, candidateFactCount, canonApprovalNotice, approveAllCandidateFacts, setFactStatus }: CanonPanelProps) {
+function CanonPanel({ world, activeStoryId, candidateFactCount, canonApprovalNotice, readOnly = false, approveAllCandidateFacts, setFactStatus }: CanonPanelProps) {
   const facts = activeStoryId ? world.facts.filter((fact) => fact.storyIds.includes(activeStoryId)) : world.facts;
 
   return (
@@ -514,12 +546,13 @@ function CanonPanel({ world, activeStoryId, candidateFactCount, canonApprovalNot
         </div>
         <button
           aria-label="一键审批并写入正史"
-          disabled={candidateFactCount === 0}
+          disabled={readOnly || candidateFactCount === 0}
           onClick={approveAllCandidateFacts}
           title="只处理当前故事中等待确认的候选事实"
           type="button"
         >一键审批并写入正史{candidateFactCount > 0 ? `（${candidateFactCount}）` : ""}</button>
       </div>
+      {readOnly ? <p aria-live="polite" className={styles.canonApprovalNotice} role="status">当前内容尚未完成不可变正文导入，候选事实只能观察，不能写入 Canon。</p> : null}
       {canonApprovalNotice ? <p aria-live="polite" className={styles.canonApprovalNotice} role="status">{canonApprovalNotice}</p> : null}
       <div className={styles.sectionHeading}>
         <div><span>正史候选</span><strong>让 AI 先提议，由你拍板</strong></div>
@@ -530,7 +563,7 @@ function CanonPanel({ world, activeStoryId, candidateFactCount, canonApprovalNot
             <article key={fact.id} data-status={fact.status}>
               <span>{fact.status === "candidate" ? "等待确认" : fact.status === "accepted" ? "已入正史" : "已忽略"}</span>
               <p>{fact.statement}</p><small>{fact.source}</small>
-              {fact.status === "candidate" ? <div><button onClick={() => setFactStatus(fact.id, "accepted")} type="button">写入正史</button><button onClick={() => setFactStatus(fact.id, "rejected")} type="button">忽略</button></div> : <button onClick={() => setFactStatus(fact.id, "candidate")} type="button">重新审阅</button>}
+              {fact.status === "candidate" ? <div><button disabled={readOnly} onClick={() => setFactStatus(fact.id, "accepted")} type="button">写入正史</button><button disabled={readOnly} onClick={() => setFactStatus(fact.id, "rejected")} type="button">忽略</button></div> : <button disabled={readOnly} onClick={() => setFactStatus(fact.id, "candidate")} type="button">重新审阅</button>}
             </article>
           ))}
         </div>
@@ -698,10 +731,13 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
   const resumeManuscript = manuscripts.find((manuscript) => manuscript.id === resumeManuscriptId) ?? null;
   const resumeAnalysis = resumeManuscript?.analysis ?? (resumeManuscript && activeWorld?.sourceManuscriptId === resumeManuscript.id ? analysisFromImportedWorld(activeWorld) : null);
   const activeStory = activeWorld?.stories.find((story) => story.id === activeStoryId) ?? null;
+  const formalStoryBlocked = Boolean(activeStory?.formalAvailability);
   const candidateFactCount = activeWorld && activeStoryId
     ? activeWorld.facts.filter((fact) => fact.status === "candidate" && fact.storyIds.includes(activeStoryId)).length
     : 0;
-  const activeInteractiveState = activeStoryId ? interactiveStories[activeStoryId] : undefined;
+  const activeInteractiveState = formalStoryBlocked
+    ? undefined
+    : activeStoryId ? interactiveStories[activeStoryId] : undefined;
   const selectedInteractiveTurn = activeInteractiveState?.turns.find((turn) => turn.id === selectedTurnId) ?? null;
   const activeBranch = activeInteractiveState?.branches.find((branch) => branch.id === activeInteractiveState.activeBranchId) ?? null;
   const currentTurn = selectedInteractiveTurn
@@ -1033,7 +1069,9 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
     setActiveStoryId(world.stories[0]?.id ?? null);
     setSelectedNodeId(null);
     setCharacterCardNodeId(null);
-    setInteractiveStories((current) => ({ ...current, [world.stories[0]!.id]: createInteractiveStory(world, world.stories[0]!) }));
+    if (!world.stories[0]?.formalAvailability) {
+      setInteractiveStories((current) => ({ ...current, [world.stories[0]!.id]: createInteractiveStory(world, world.stories[0]!) }));
+    }
     setSelectedTurnId("turn-0");
     setPhase("workspace");
     window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
@@ -1421,12 +1459,12 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
   };
 
   const setFactStatus = (factId: string, status: FactStatus) => {
-    if (!activeWorld) return;
+    if (!activeWorld || formalStoryBlocked) return;
     setWorlds((current) => current.map((world) => (world.id === activeWorld.id ? updateFact(world, factId, status) : world)));
   };
 
   const approveAllCandidateFacts = () => {
-    if (!activeWorld || !activeStoryId) return;
+    if (!activeWorld || !activeStoryId || formalStoryBlocked) return;
     const candidateFacts = activeWorld.facts.filter((fact) => fact.status === "candidate" && fact.storyIds.includes(activeStoryId));
     if (candidateFacts.length === 0) return;
     setWorlds((current) => current.map((world) => {
@@ -1467,7 +1505,7 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
       setSelectedTurnId(currentHeadId(existing));
       return;
     }
-    if (world.nodes.length > 0) {
+    if (world.nodes.length > 0 && !story.formalAvailability) {
       const state = createInteractiveStory(world, story);
       setInteractiveStories((current) => ({ ...current, [story.id]: state }));
       setSelectedTurnId("turn-0");
@@ -1475,7 +1513,7 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
   };
 
   const advanceInteractive = async (selection: Parameters<typeof selectedActionFor>[1]) => {
-    if (turnRequestLockRef.current || !activeStoryId || !interactiveState || !activeWorld || !activeStory) return;
+    if (formalStoryBlocked || turnRequestLockRef.current || !activeStoryId || !interactiveState || !activeWorld || !activeStory) return;
     const { action, parent } = selectedActionFor(interactiveState, selection);
     turnRequestLockRef.current = true;
     setTurnPending(true);
@@ -1691,6 +1729,7 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
           <span className={styles.paperStack} />
         </div>
         <header className={styles.openingHeader}>
+          <Link href="/room/novelist" className={styles.returnRoomLink}>← 返回小说家房间</Link>
           <Link href="/vnext">二流小说家</Link>
           {worlds.length > 0 ? <button onClick={() => setPhase("workspace")} type="button">返回当前故事</button> : null}
           <span>真实委托入口 · 世界生长实验</span>
@@ -1756,6 +1795,7 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
       <div className={styles.workspaceGrid} data-mode={workspaceMode}>
         <aside className={styles.library} aria-label="小说与世界">
           <div className={styles.libraryIdentity}>
+            <Link href="/room/novelist" className={styles.returnRoomLink}>← 返回小说家房间</Link>
             <div><Link href="/vnext" className={styles.brand}>二流小说家</Link><span className={styles.prototypeBadge}>交互原型</span></div>
             <small>写作台 · 正文优先</small>
           </div>
@@ -1832,7 +1872,9 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
               ))}
             </div>
             <span className={styles.workspaceModeHint}>
-              {workspaceMode === "write" ? "当前任务：继续正文" : workspaceMode === "branches" ? "当前任务：整理走线" : workspaceMode === "director" ? "当前任务：安排后续" : workspaceMode === "graph" ? "当前任务：探索世界" : "当前任务：确认正史"}
+              {formalStoryBlocked
+                ? "当前任务：等待正式正文导入"
+                : workspaceMode === "write" ? "当前任务：继续正文" : workspaceMode === "branches" ? "当前任务：整理走线" : workspaceMode === "director" ? "当前任务：安排后续" : workspaceMode === "graph" ? "当前任务：探索世界" : "当前任务：确认正史"}
             </span>
           </nav>
           <div className={styles.sectionHeading}>
@@ -1989,7 +2031,9 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
                 </header>
               )}
 
-              {workspaceMode === "write" && activeStory && interactiveState ? (
+              {workspaceMode === "write" && activeStory?.formalAvailability ? (
+                <FormalStoryGate story={activeStory} />
+              ) : workspaceMode === "write" && activeStory && interactiveState ? (
                 <NovelOutputPanel
                   onDownload={(format) => downloadNovelDraft(activeStory, interactiveState, format)}
                   onSelectTurn={setSelectedTurnId}
@@ -2008,6 +2052,7 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
                     approveAllCandidateFacts={approveAllCandidateFacts}
                     candidateFactCount={candidateFactCount}
                     canonApprovalNotice={canonApprovalNotice}
+                    readOnly={formalStoryBlocked}
                     setFactStatus={setFactStatus}
                     world={activeWorld}
                   />
@@ -2035,7 +2080,7 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
                 </section>
               ) : null}
 
-              {workspaceMode === "branches" && interactiveState ? (
+              {workspaceMode === "branches" && !formalStoryBlocked && interactiveState ? (
                 <section aria-label="走线与存档页面" className={styles.workspacePage} data-testid="branches-workspace-page">
                   <InteractiveBranchPanel
                     onAdvance={advanceInteractive}
@@ -2056,7 +2101,7 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
                   />
                 </section>
               ) : null}
-              {workspaceMode === "write" && interactiveState ? (
+              {workspaceMode === "write" && !formalStoryBlocked && interactiveState ? (
                 <InteractiveBranchPanel
                   onAdvance={advanceInteractive}
                   onCreateCheckpoint={createCheckpoint}
@@ -2119,15 +2164,17 @@ export function WorldLabView({ localDistillationProgressEnabled = false }: { loc
               <div>
                 <span>当前工作上下文</span>
                 <strong id="workspace-context-heading">
-                  {workspaceMode === "write"
-                    ? "正文工作台"
-                    : workspaceMode === "branches"
-                      ? "走线工作台"
-                      : workspaceMode === "director"
-                        ? "剧情导演台"
-                        : workspaceMode === "graph"
-                          ? "知识图谱"
-                          : "正史审核"}
+                  {formalStoryBlocked
+                    ? "正式内容状态"
+                    : workspaceMode === "write"
+                      ? "正文工作台"
+                      : workspaceMode === "branches"
+                        ? "走线工作台"
+                        : workspaceMode === "director"
+                          ? "剧情导演台"
+                          : workspaceMode === "graph"
+                            ? "知识图谱"
+                            : "正史审核"}
                 </strong>
               </div>
               <span className={styles.contextLive}>实时</span>

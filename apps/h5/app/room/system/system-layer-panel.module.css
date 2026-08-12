@@ -2068,6 +2068,17 @@
   outline: none;
 }
 
+:global(html[data-erliu-novelist-room-open-pending="true"]) .panel[data-expanded="false"] .panelToggle {
+  cursor: progress;
+  box-shadow: inset 0 0 0 2px rgba(255, 226, 157, .2);
+  animation: earlyRoomOpenPending 900ms ease-in-out infinite alternate;
+}
+
+@keyframes earlyRoomOpenPending {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.16); }
+}
+
 .panel[data-expanded="false"] .novelistMark {
   width: 2.48rem;
   height: 2.48rem;
@@ -3253,6 +3264,10 @@
   .novelistStatusCopy strong { font-size: .56rem; }
   .novelistStatusMetrics dd { font-size: .38rem; }
   .novelistStatusFootnote { font-size: .36rem; }
+}
+
+.panel:has([aria-modal="true"]) {
+  z-index: 90;
 }
 
 /* The v6 shell owns its floating-panel dimensions. These rules apply only

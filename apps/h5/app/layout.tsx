@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { H5Shell } from "./h5-shell";
+import { buildEarlyRoomOpenIntentScript } from "./lib/early-room-open-intent";
 import { buildFrontstageSessionBootstrapScript } from "./lib/frontstage-session-storage";
 
 export const metadata: Metadata = {
@@ -38,6 +39,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Script id="erliu-frontstage-session-bootstrap" strategy="beforeInteractive">
           {buildFrontstageSessionBootstrapScript()}
         </Script>
+        <script
+          id="erliu-early-room-open-intent"
+          dangerouslySetInnerHTML={{ __html: buildEarlyRoomOpenIntentScript() }}
+        />
         <Suspense fallback={<ShellFallback>{children}</ShellFallback>}>
           <H5Shell>{children}</H5Shell>
         </Suspense>
