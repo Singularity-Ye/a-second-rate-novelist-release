@@ -45,6 +45,40 @@ describe("NovelistRoom", () => {
     expect(screen.queryByTestId("formal-route-smoke")).toBeNull();
   });
 
+  it("opens the local room settings below the map and closes them from Escape", () => {
+    render(<NovelistRoom />);
+
+    const settingsToggle = screen.getByTestId("room-settings-toggle");
+    expect(settingsToggle.textContent).toContain("设置");
+    fireEvent.click(settingsToggle);
+
+    const settings = screen.getByTestId("room-settings");
+    expect(settings.getAttribute("role")).toBe("dialog");
+    expect(screen.getByTestId("room-settings-volume")).toBeTruthy();
+    expect(screen.getByTestId("room-settings-motion")).toBeTruthy();
+    expect(screen.getByTestId("room-settings-reduced-motion")).toBeTruthy();
+    expect(screen.getByTestId("room-settings-auto-scroll")).toBeTruthy();
+    expect((screen.getByLabelText("发送快捷键") as HTMLInputElement).value).toBe("Enter");
+    expect(screen.getByText("Shift+Enter")).toBeTruthy();
+    expect((screen.getByLabelText("任务台快捷键") as HTMLInputElement).value).toBe("B");
+    expect((screen.getByLabelText("关闭快捷键") as HTMLInputElement).value).toBe("Escape");
+    expect((screen.getByLabelText("地图快捷键") as HTMLInputElement).value).toBe("M");
+    expect((screen.getByLabelText("设置快捷键") as HTMLInputElement).value).toBe("S");
+
+    fireEvent.click(screen.getByTestId("room-settings-reduced-motion"));
+    expect(screen.getByTestId("novelist-room").getAttribute("data-room-reduced-motion")).toBe("true");
+    fireEvent.keyDown(window, { key: "Escape" });
+    expect(screen.queryByTestId("room-settings")).toBeNull();
+  });
+
+  it("keeps one settings toggle inside the map dock after map content", () => {
+    render(<NovelistRoom />);
+    const map = screen.getByTestId("room-map");
+    expect(map.querySelectorAll('[data-testid="room-settings-toggle"]')).toHaveLength(1);
+    const content = screen.getByTestId("room-map-popover");
+    expect(content.compareDocumentPosition(screen.getByTestId("room-settings-toggle")) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it("keeps life cues out of the stage and actor canvas", () => {
     render(<NovelistRoom />);
 
@@ -144,6 +178,18 @@ describe("NovelistRoom", () => {
 
     fireEvent.click(within(daySwitcher).getByRole("button", { name: "今天" }));
     expect(daySwitcher.textContent).toContain("今日");
+  });
+
+  it("keeps the daily-life panel close control visibly attached to the paper", () => {
+    render(<NovelistRoom />);
+    const lifePlan = screen.getByTestId("life-plan");
+    fireEvent.click(within(lifePlan).getByRole("button", { name: /今日生活/ }));
+    const panel = screen.getByRole("dialog", { name: "小说家今日生活规划" });
+    const close = within(panel).getByRole("button", { name: "收起今日生活规划" });
+    expect(close.textContent).toBe("×");
+    expect(close.className).toContain("lifePlanClose");
+    fireEvent.click(close);
+    expect(screen.queryByRole("dialog", { name: "小说家今日生活规划" })).toBeNull();
   });
 
   it("shows a bounded next-day tendency and commits it only after the life runtime reaches night", async () => {
@@ -321,12 +367,30 @@ describe("NovelistRoom", () => {
     expect(panel.getAttribute("data-expanded")).toBe("false");
   });
 
-  it("uses the compiled formal layout instead of browser-local editor calibration", async () => {
+  it("does not let the room-level Escape shortcut close a system-panel portal", async () => {
+    render(<NovelistRoom />);
+    const panel = screen.getByTestId("system-layer-panel");
+    fireEvent.keyDown(window, { key: "Enter" });
+    await waitFor(() => expect(panel.getAttribute("data-expanded")).toBe("true"));
+
+    const portal = document.createElement("div");
+    portal.dataset.roomShortcutScope = "system-panel";
+    portal.tabIndex = -1;
+    document.body.append(portal);
+    portal.focus();
+    fireEvent.keyDown(portal, { key: "Escape" });
+
+    expect(panel.getAttribute("data-expanded")).toBe("true");
+    portal.remove();
+  });
+
+  it("uses the same-origin saved layout in ordinary v6 room mode", async () => {
     window.localStorage.setItem("room-ui-formal-surface:v1", JSON.stringify({
-      surface: { x: 999, y: 999, scale: .2, tilt: 12, width: .2, height: .2 },
+      surface: { x: 10, y: 11, scale: 1.25, tilt: 0, width: 90, height: 80 },
       composition: {
-        suggestions: { x: 999, y: 999, scale: .2, tilt: 12, width: .2, height: .2 },
+        suggestions: { x: 13.5, y: 14.5, scale: 1.1, tilt: 0, width: 30, height: 80 },
       },
+      rightRailLayoutRevision: 1,
     }));
     render(<NovelistRoom />);
 
@@ -334,10 +398,21 @@ describe("NovelistRoom", () => {
     const surface = await screen.findByTestId("room-v6-presentational-surface");
     const suggestions = screen.getByTestId("room-v6-suggestions");
 
-    expect(surface.getAttribute("data-surface-scale")).toBe("1.5");
-    expect(surface.getAttribute("data-calibration-camera")).toBeNull();
-    expect(suggestions.style.getPropertyValue("--layout-x")).toBe("-1px");
-    expect(suggestions.style.getPropertyValue("--layout-scale")).toBe("1.63");
+    expect(surface.getAttribute("data-surface-scale")).toBe("1.25");
+    expect(surface.getAttribute("data-calibration-camera")).toBe("desktop");
+    expect(suggestions.style.getPropertyValue("--layout-x")).toBe("13.5px");
+    expect(suggestions.style.getPropertyValue("--layout-scale")).toBe("1.1");
+  });
+
+  it("keeps the explicit roomUiEditor route on the editor surface", async () => {
+    window.history.replaceState({}, "", "/room/novelist?roomUi=v6&roomUiEditor=1");
+    render(<NovelistRoom />);
+
+    fireEvent.keyDown(window, { key: "Enter" });
+    const editor = await screen.findByTestId("room-v6-presentational-editor");
+
+    expect(editor.getAttribute("data-editor-source")).toBe("RoomUiPresentationalSurface");
+    expect(screen.getByTestId("room-v6-editor-panel")).toBeTruthy();
   });
 
   it("keeps the legacy novelist console available only through the explicit roomUi fallback", async () => {

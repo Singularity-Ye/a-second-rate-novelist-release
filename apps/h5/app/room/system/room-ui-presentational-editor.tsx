@@ -23,7 +23,7 @@ const LEGACY_STORAGE_KEY = "room-ui-test-v6:calibration:v4";
 const SIDE_TEXT_LAYOUT_REVISION = 2;
 const RIGHT_RAIL_LAYOUT_REVISION = 1;
 const INTERNAL_GEOMETRY_LAYOUT_REVISION = 1;
-const GUIDE_LIBRARY_GEOMETRY_REVISION = 1;
+const GUIDE_LIBRARY_GEOMETRY_REVISION = 2;
 const SUGGESTION_CARD_LAYOUT_REVISION = 1;
 const MIN_SURFACE_SCALE = 0.3;
 const MAX_SURFACE_SCALE = 1.8;
@@ -136,6 +136,7 @@ const editableLayers = [
   { id: "suggestion-title", label: "右卡标题槽", testId: "room-v6-suggestion-title-slot" },
   { id: "suggestion-detail", label: "右卡说明槽", testId: "room-v6-suggestion-detail-slot" },
   { id: "suggestion-guide-library", label: "指南库入口", testId: "room-v6-suggestion-guide-library" },
+  { id: "composer-send", label: "发送按钮图片", testId: "room-v6-composer-submit" },
   { id: "suggestion-card-life-now", label: "生活·聊聊近况入口", testId: "room-v6-suggestion-1" },
   { id: "suggestion-card-life-break", label: "生活·歇一会儿入口", testId: "room-v6-suggestion-2" },
   { id: "suggestion-card-creative-spark", label: "创作·说个灵感入口", testId: "room-v6-suggestion-3" },

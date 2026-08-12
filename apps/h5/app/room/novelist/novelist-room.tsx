@@ -86,11 +86,40 @@ import {
 } from "./scene-travel";
 import { buildFormalRouteGraph, type FormalRoutePurpose } from "../route-publish/formal-route-graph";
 import { SystemLayerPanel } from "../system/system-layer-panel";
-import RoomUiPresentationalEditor from "../system/room-ui-presentational-editor";
-import RoomUiPresentationalSurface from "../system/room-ui-presentational-surface";
+import RoomUiPresentationalEditor, {
+  RoomUiPresentationalStoredSurface,
+} from "../system/room-ui-presentational-editor";
 import type { NovelistChatChannel } from "../system/novelist-chat-api";
 
 export type NovelistState = NovelistActivity;
+
+type RoomSettings = {
+  volume: number;
+  motion: boolean;
+  reducedMotion: boolean;
+  autoScroll: boolean;
+  shortcuts: {
+    send: string;
+    taskDesk: string;
+    close: string;
+    map: string;
+    settings: string;
+  };
+};
+
+const defaultRoomSettings: RoomSettings = {
+  volume: 70,
+  motion: true,
+  reducedMotion: false,
+  autoScroll: true,
+  shortcuts: {
+    send: "Enter",
+    taskDesk: "B",
+    close: "Escape",
+    map: "M",
+    settings: "S",
+  },
+};
 
 const WHITE_SMOKE_ASSET_SRC = "/assets/ecology/effects/transitions/white-smoke-puff-v1.webp";
 const FORMAL_SMOKE_TURNS = 1;
@@ -507,6 +536,8 @@ export function NovelistRoom() {
   const [sceneJourney, setSceneJourney] = useState<ActiveSceneJourney | null>(null);
   const [mapOpen, setMapOpen] = useState(false);
   const [mapHoverSceneId, setMapHoverSceneId] = useState<FormalSceneId | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settings, setSettings] = useState<RoomSettings>(defaultRoomSettings);
   const [lifePlanOpen, setLifePlanOpen] = useState(false);
   const [lifeDetailsOpen, setLifeDetailsOpen] = useState(false);
   const [activeChatChannel, setActiveChatChannel] = useState<NovelistChatChannel | null>(null);
@@ -1875,9 +1906,13 @@ export function NovelistRoom() {
       const isPanelContext = Boolean(target?.closest("[data-room-shortcut-scope='system-panel']"));
       const isInteractive = Boolean(target?.closest("button, a, summary, [role='button'], [role='dialog']"));
 
-      if (event.key === "Escape") {
+      if (event.key === settings.shortcuts.close) {
+        if (isPanelContext) return;
         if (isTyping) (target as HTMLElement).blur();
-        if (deskEntryOpen) {
+        if (settingsOpen) {
+          event.preventDefault();
+          setSettingsOpen(false);
+        } else if (deskEntryOpen) {
           event.preventDefault();
           setDeskEntryOpen(false);
         } else if (interventionOpen) {
@@ -1900,7 +1935,7 @@ export function NovelistRoom() {
       }
       if (isTyping || isInteractive || isPanelContext || interventionOpen || postcardOpen) return;
 
-      if (event.key === "Enter") {
+      if (event.key === settings.shortcuts.send) {
         event.preventDefault();
         setLifePlanOpen(false);
         setMapOpen(false);
@@ -1914,18 +1949,25 @@ export function NovelistRoom() {
         setLifePlanOpen((open) => !open);
         return;
       }
-      if (event.key.toLowerCase() === "b") {
+      if (event.key.toLowerCase() === settings.shortcuts.taskDesk.toLowerCase()) {
         event.preventDefault();
         setLifePlanOpen(false);
         setMapOpen(false);
         setActiveChatChannel((channel) => channel === "subsystem" ? null : "subsystem");
         return;
       }
-      if (event.key.toLowerCase() === "m") {
+      if (event.key.toLowerCase() === settings.shortcuts.map.toLowerCase()) {
         event.preventDefault();
+        setSettingsOpen(false);
         setActiveChatChannel(null);
         setLifePlanOpen(false);
         setMapOpen((open) => !open);
+        return;
+      }
+      if (event.key.toLowerCase() === settings.shortcuts.settings.toLowerCase()) {
+        event.preventDefault();
+        setMapOpen(false);
+        setSettingsOpen((open) => !open);
         return;
       }
       if (event.code === "Space") {
@@ -1936,7 +1978,7 @@ export function NovelistRoom() {
 
     window.addEventListener("keydown", handleRoomShortcut);
     return () => window.removeEventListener("keydown", handleRoomShortcut);
-  }, [activeChatChannel, deskEntryOpen, interventionOpen, lifePlanOpen, mapOpen, postcardOpen, toggleLifeAutoplay]);
+  }, [activeChatChannel, deskEntryOpen, interventionOpen, lifePlanOpen, mapOpen, postcardOpen, settings, settingsOpen, toggleLifeAutoplay]);
 
   const sceneButtons = useMemo(() => formalPublishedRouteSceneIds, []);
 
@@ -1953,6 +1995,10 @@ export function NovelistRoom() {
       data-life-autoplay={lifeAutoplay}
       data-life-system={lifeSystem.schema}
       data-life-dominant-signal={lifeSystem.dominantSignal.key}
+      data-room-volume={settings.volume}
+      data-room-motion={settings.motion ? "full" : "off"}
+      data-room-reduced-motion={settings.reducedMotion}
+      data-chat-auto-scroll={settings.autoScroll}
       data-journey-active={Boolean(sceneJourney)}
       data-journey-step={sceneJourney ? sceneJourney.index + 1 : 0}
     >
@@ -1962,7 +2008,7 @@ export function NovelistRoom() {
         {...(roomUiV6Enabled ? {
           presentationalSurface: roomUiEditorEnabled
             ? RoomUiPresentationalEditor
-            : RoomUiPresentationalSurface,
+            : RoomUiPresentationalStoredSurface,
         } : {})}
         observation={{
           sceneLabel: scene.label,
@@ -2137,6 +2183,91 @@ export function NovelistRoom() {
             <p className={styles.mapLegend}>浮标会跟着小说家当前所在房间移动 · 点击房间可直接切换</p>
           </div>
         </div>
+        <button
+          type="button"
+          className={styles.settingsToggle}
+          data-testid="room-settings-toggle"
+          aria-expanded={settingsOpen}
+          aria-controls="room-settings-panel"
+          onClick={() => {
+            setMapOpen(false);
+            setSettingsOpen((open) => !open);
+          }}
+        >
+          <span className={styles.settingsGlyph} aria-hidden="true">⚙</span>
+          <span>设置</span>
+        </button>
+        {settingsOpen && (
+          <aside
+            className={styles.settingsPanel}
+            id="room-settings-panel"
+            data-testid="room-settings"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="room-settings-title"
+          >
+            <header className={styles.settingsHeader}>
+              <strong id="room-settings-title">房间设置</strong>
+              <button
+                type="button"
+                className={styles.settingsClose}
+                data-testid="room-settings-close"
+                onClick={() => setSettingsOpen(false)}
+                aria-label="关闭设置"
+              >
+                ×
+              </button>
+            </header>
+            <label className={styles.settingsRange}>
+              <span>音量</span>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={settings.volume}
+                data-testid="room-settings-volume"
+                onChange={(event) => setSettings((current) => ({ ...current, volume: Number(event.target.value) }))}
+              />
+              <output>{settings.volume}%</output>
+            </label>
+            <label className={styles.settingsCheck}>
+              <input
+                type="checkbox"
+                checked={settings.motion}
+                data-testid="room-settings-motion"
+                onChange={(event) => setSettings((current) => ({ ...current, motion: event.target.checked }))}
+              />
+              <span>动效</span>
+            </label>
+            <label className={styles.settingsCheck}>
+              <input
+                type="checkbox"
+                checked={settings.reducedMotion}
+                data-testid="room-settings-reduced-motion"
+                onChange={(event) => setSettings((current) => ({ ...current, reducedMotion: event.target.checked }))}
+              />
+              <span>减少动态</span>
+            </label>
+            <label className={styles.settingsCheck}>
+              <input
+                type="checkbox"
+                checked={settings.autoScroll}
+                data-testid="room-settings-auto-scroll"
+                onChange={(event) => setSettings((current) => ({ ...current, autoScroll: event.target.checked }))}
+              />
+              <span>聊天自动滚动</span>
+            </label>
+            <section className={styles.settingsShortcuts} aria-labelledby="room-settings-shortcuts-title">
+              <h3 id="room-settings-shortcuts-title">按键说明与绑定</h3>
+              <label><span>Enter · 发送 / 开关聊天</span><input aria-label="发送快捷键" value={settings.shortcuts.send} onChange={(event) => setSettings((current) => ({ ...current, shortcuts: { ...current.shortcuts, send: event.target.value } }))} /></label>
+              <p><kbd>Shift+Enter</kbd> 换行</p>
+              <label><span>B · 任务台</span><input aria-label="任务台快捷键" value={settings.shortcuts.taskDesk} onChange={(event) => setSettings((current) => ({ ...current, shortcuts: { ...current.shortcuts, taskDesk: event.target.value } }))} /></label>
+              <label><span>Esc · 关闭</span><input aria-label="关闭快捷键" value={settings.shortcuts.close} onChange={(event) => setSettings((current) => ({ ...current, shortcuts: { ...current.shortcuts, close: event.target.value } }))} /></label>
+              <label><span>M · 地图</span><input aria-label="地图快捷键" value={settings.shortcuts.map} onChange={(event) => setSettings((current) => ({ ...current, shortcuts: { ...current.shortcuts, map: event.target.value } }))} /></label>
+              <label><span>S · 设置</span><input aria-label="设置快捷键" value={settings.shortcuts.settings} onChange={(event) => setSettings((current) => ({ ...current, shortcuts: { ...current.shortcuts, settings: event.target.value } }))} /></label>
+            </section>
+          </aside>
+        )}
       </section>
 
       <section

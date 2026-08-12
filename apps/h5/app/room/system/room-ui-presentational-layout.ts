@@ -17,6 +17,7 @@ export type RoomUiInternalVisualLayerId =
   | "suggestion-title"
   | "suggestion-detail"
   | "suggestion-guide-library"
+  | "composer-send"
   | "suggestion-card-life-now"
   | "suggestion-card-life-break"
   | "suggestion-card-creative-spark"
@@ -101,11 +102,11 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
     status: { x: -23.05, y: 35.52, scale: 1.43, tilt: -1.3, width: 1.52, height: 1.37 },
     chat: { x: -6.71, y: 25.86, scale: 1.65, tilt: 0.1, width: 0.69, height: 1.11 },
     suggestions: { x: 7.15, y: 43.53, scale: 1.6148, tilt: 2, width: 0.93, height: 0.78 },
-    progress: { x: 34.28, y: -60.19, scale: 1, tilt: 0.2, width: 0.84, height: 0.49 },
+    progress: { x: 33.72, y: -66.02, scale: 1, tilt: 0.2, width: 0.84, height: 0.49 },
   } satisfies Record<RoomUiVisualLayerId, RoomUiVisualGeometry>,
   nested: {
     conversation: { x: 1.29, y: 0.85, scale: 0.8084, tilt: 0, width: 0.97, height: 0.74 },
-    composer: { x: 6, y: -15.29, scale: 0.81, tilt: 0, width: 0.98, height: 0.2 },
+    composer: { x: 0.72, y: -9.73, scale: 0.81, tilt: 0, width: 0.98, height: 0.2 },
     "status-copy": { x: 0, y: 0, scale: 1, tilt: 0, width: 1, height: 1 },
     "suggestions-copy": { x: 0, y: 0, scale: 1, tilt: 0, width: 1, height: 1 },
   } satisfies Record<RoomUiNestedVisualLayerId, RoomUiVisualGeometry>,
@@ -119,7 +120,8 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
     "suggestion-icon": { x: 25.09, y: 16.03, scale: 1.5747, tilt: 0, width: 21.5, height: 27 },
     "suggestion-title": { x: 12.23, y: -21.67, scale: 0.8201, tilt: -1.7, width: 82.3, height: 96.5 },
     "suggestion-detail": { x: 22.39, y: 44.82, scale: 0.79, tilt: 0, width: 57.7, height: 41.2 },
-    "suggestion-guide-library": { x: 82.5, y: 4.2, scale: 1, tilt: 0, width: 11.5, height: 5.8 },
+    "suggestion-guide-library": { x: 67.24, y: 57.26, scale: 1, tilt: 4.7, width: 11.5, height: 5.8 },
+    "composer-send": { x: 4.5, y: -7.16, scale: 0.89, tilt: -0.2, width: 82.5, height: 82.1 },
     "suggestion-card-life-now": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
     "suggestion-card-life-break": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
     "suggestion-card-creative-spark": { x: 4, y: 0, scale: 1, tilt: 0, width: 92, height: 100 },
@@ -153,8 +155,8 @@ export const ROOM_UI_VISUAL_LAYOUT_V6 = {
  * every child layer grows and moves as one.
  */
 export const ROOM_UI_SURFACE_GEOMETRY_V6 = {
-  x: -126.72,
-  y: -31.7,
+  x: -95.89,
+  y: -29.76,
   scale: 1.8,
   tilt: 0,
   width: 0.87,

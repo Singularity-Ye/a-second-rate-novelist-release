@@ -180,7 +180,7 @@ describe("RoomUiPresentationalSurface", () => {
     const surface = screen.getByTestId("room-v6-presentational-surface");
     expect(surface.getAttribute("data-visual-layout")).toBe("room-ui-v6-1536x1024");
     expect(surface.getAttribute("data-surface-scale")).toBe("1.8");
-    expect(surface.getAttribute("style")).toContain("--surface-layout-x: -126.72px");
+    expect(surface.getAttribute("style")).toContain("--surface-layout-x: -95.89px");
     expect(screen.getByTestId("room-v6-title-bookmark").getAttribute("style")).toContain("--layout-x: 74.86px");
     expect(screen.getByTestId("room-v6-chat-paper").getAttribute("style")).toContain("--layout-scale: 1.65");
     expect(screen.getByTestId("room-v6-status-card").getAttribute("style")).toContain("--layout-x: -23.05px");
@@ -188,8 +188,8 @@ describe("RoomUiPresentationalSurface", () => {
     expect(screen.getByTestId("room-v6-suggestions").getAttribute("style")).toContain("--layout-x: 7.15px");
     expect(screen.getByTestId("room-v6-suggestions").getAttribute("style")).toContain("--layout-y: 43.53px");
     expect(screen.getByTestId("room-v6-suggestions").getAttribute("style")).toContain("--layout-scale: 1.6148");
-    expect(screen.getByTestId("room-v6-progress").getAttribute("style")).toContain("--layout-x: 34.28px");
-    expect(screen.getByTestId("room-v6-progress").getAttribute("style")).toContain("--layout-y: -60.19px");
+    expect(screen.getByTestId("room-v6-progress").getAttribute("style")).toContain("--layout-x: 33.72px");
+    expect(screen.getByTestId("room-v6-progress").getAttribute("style")).toContain("--layout-y: -66.02px");
     expect(screen.getByTestId("room-v6-status-card").querySelector('[data-visual-layer="status-avatar"]')).toBeTruthy();
     expect(screen.getByTestId("room-v6-progress").querySelector('[data-visual-layer="progress-review-text"]')).toBeTruthy();
     expect(screen.getByTestId("room-v6-progress").querySelector('[data-progress-verified="true"]')).toBeTruthy();
@@ -421,9 +421,11 @@ describe("RoomUiPresentationalSurface", () => {
     expect(cards[3].getAttribute("data-action-code")).toBeNull();
     const guideLibraryTrigger = screen.getByTestId("room-v6-suggestion-guide-library");
     expect(guideLibraryTrigger).toBeTruthy();
+    expect(guideLibraryTrigger.closest('[data-testid="room-v6-suggestion-list"]')).toBeNull();
+    expect(screen.getByTestId("room-v6-suggestion-guide-library-overlay").contains(guideLibraryTrigger)).toBe(true);
     expect(screen.getAllByRole("button", { name: "打开指南库" })).toHaveLength(1);
-    expect(guideLibraryTrigger.style.getPropertyValue("--internal-width")).toBe("7.8%");
-    expect(guideLibraryTrigger.style.getPropertyValue("--internal-height")).toBe("8.5%");
+    expect(guideLibraryTrigger.style.getPropertyValue("--internal-width")).toBe("11.5%");
+    expect(guideLibraryTrigger.style.getPropertyValue("--internal-height")).toBe("5.8%");
     fireEvent.click(cards[0]);
     fireEvent.click(cards[1]);
     fireEvent.click(cards[2]);
@@ -559,6 +561,10 @@ describe("RoomUiPresentationalSurface", () => {
     expect(stylesheet).not.toContain("suggestion-shell");
     expect(stylesheet).toContain("text-rendering: geometricPrecision");
     expect(stylesheet).toContain("composer-send-token-olive-brass-v1.webp");
+    const sendDockStyle = stylesheet.match(/\.chatSendDock button \{[\s\S]*?\n\}/)?.[0] ?? "";
+    expect(sendDockStyle).toContain("top: var(--internal-y)");
+    expect(sendDockStyle).toContain("width: var(--internal-width)");
+    expect(sendDockStyle).toContain("height: var(--internal-height)");
     expect(stylesheet).not.toContain("background: #79502d");
     const draftReaderOverlayStyle = stylesheet.match(/\.draftReaderOverlay \{[\s\S]*?\n\}/)?.[0] ?? "";
     expect(draftReaderOverlayStyle).toContain("position: fixed");
@@ -566,12 +572,16 @@ describe("RoomUiPresentationalSurface", () => {
     const draftReaderPanelStyle = stylesheet.match(/\.draftReaderPanel \{[\s\S]*?\n\}/)?.[0] ?? "";
     expect(draftReaderPanelStyle).toContain("width: min(92vw, 88rem)");
     expect(draftReaderPanelStyle).toContain("height: min(88dvh, 60rem)");
-    const guideStyle = stylesheet.match(/\.suggestionGuideTrigger \{[\s\S]*?\n\}/)?.[0] ?? "";
+    const guideStyle = stylesheet.match(/^\.suggestionGuideTrigger \{[\s\S]*?^\}/m)?.[0] ?? "";
     expect(guideStyle).toContain("left: var(--internal-x)");
     expect(guideStyle).toContain("width: max(4.5rem, var(--internal-width))");
     expect(guideStyle).toContain("height: max(1.35rem, var(--internal-height))");
     expect(guideStyle).toContain("overflow: visible");
     expect(guideStyle).toContain("white-space: nowrap");
+    const guideOverlayStyle = stylesheet.match(/\.guideLibraryOverlay \{[\s\S]*?\n\}/)?.[0] ?? "";
+    expect(guideOverlayStyle).toContain("position: absolute");
+    expect(guideOverlayStyle).toContain("z-index: 260");
+    expect(guideOverlayStyle).toContain("pointer-events: none");
   });
 
   it("makes the send button a real composer submit control only after text is present", () => {
@@ -677,6 +687,10 @@ describe("RoomUiPresentationalSurface", () => {
     expect(screen.getByTestId("room-v6-conversation-panel").style.getPropertyValue("--layout-height-factor")).toBe("0.74");
     expect(screen.getByTestId("room-v6-composer-shell").style.getPropertyValue("--layout-height-factor")).toBe("0.2");
     expect(screen.getByTestId("room-v6-suggestions-copy").style.getPropertyValue("--layout-width-factor")).toBe("1");
+    const sendButton = screen.getByTestId("room-v6-composer-submit");
+    expect(sendButton.getAttribute("data-visual-layer")).toBe("composer-send");
+    expect(sendButton.style.getPropertyValue("--internal-width")).toBe("82.5%");
+    expect(sendButton.style.getPropertyValue("--internal-height")).toBe("82.1%");
     expect(screen.getByTestId("room-v6-status-scene").style.getPropertyValue("--internal-y")).toBe("34.36%");
     expect(screen.getByTestId("room-v6-status-needs-primary").children).toHaveLength(2);
     expect(screen.getByTestId("room-v6-status-needs-secondary").children).toHaveLength(2);

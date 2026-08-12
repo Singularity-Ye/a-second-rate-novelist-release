@@ -706,6 +706,8 @@ export function RoomUiPresentationalSurface({
                   disabled={sendButtonDisabled}
                   onClick={model.chat.streamState.phase === "streaming" ? onStopStreaming : undefined}
                   data-testid="room-v6-composer-submit"
+                  data-visual-layer="composer-send"
+                  style={roomUiInternalVisualStyle("composer-send", visualLayout)}
                 >
                   {model.chat.streamState.phase === "streaming" ? "停止" : "发送"}
                 </button>
@@ -738,18 +740,6 @@ export function RoomUiPresentationalSurface({
             <small>{composerDisabled ? "生活 / 创作入口 · 恢复后可用" : "生活聊近况 · 创作按正式状态启用"}</small>
           </header>
           <div className={styles.suggestionList} data-testid="room-v6-suggestion-list">
-            <button
-              type="button"
-              className={styles.suggestionGuideTrigger}
-              data-testid="room-v6-suggestion-guide-library"
-              style={roomUiInternalVisualStyle("suggestion-guide-library", visualLayout)}
-              aria-label="打开指南库"
-              aria-haspopup="dialog"
-              aria-controls="room-v6-guide-library"
-              onClick={() => setGuideLibraryOpen(true)}
-            >
-              指南库
-            </button>
             {suggestionCards.map((card, index) => {
               const cardLayerId = suggestionCardLayerIds[index];
               if (cardLayerId === undefined) {
@@ -844,6 +834,25 @@ export function RoomUiPresentationalSurface({
           )}
         </div>
       </aside>
+      </div>
+
+      <div
+        className={styles.guideLibraryOverlay}
+        data-testid="room-v6-suggestion-guide-library-overlay"
+        aria-hidden="false"
+      >
+        <button
+          type="button"
+          className={styles.suggestionGuideTrigger}
+          data-testid="room-v6-suggestion-guide-library"
+          style={roomUiInternalVisualStyle("suggestion-guide-library", visualLayout)}
+          aria-label="打开指南库"
+          aria-haspopup="dialog"
+          aria-controls="room-v6-guide-library"
+          onClick={() => setGuideLibraryOpen(true)}
+        >
+          指南库
+        </button>
       </div>
 
       {variantPortalReady && createPortal(

@@ -14,7 +14,11 @@ import {
 const savedSurface = { ...ROOM_UI_SURFACE_GEOMETRY_V6 };
 
 vi.mock("./room-ui-presentational-surface", () => ({
-  default: () => React.createElement("div", { "data-testid": "room-v6-presentational-surface" }),
+  default: () => React.createElement(
+    "div",
+    { "data-testid": "room-v6-presentational-surface" },
+    React.createElement("button", { "data-testid": "room-v6-composer-submit" }),
+  ),
 }));
 
 afterEach(() => cleanup());
@@ -24,7 +28,7 @@ describe("RoomUiPresentationalEditor stored layout migration", () => {
   it("repairs only the guide layer inherited from the oversized legacy geometry", () => {
     const migrated = migrateRoomUiStoredLayout({
       internalGeometryLayoutRevision: 1,
-      guideLibraryGeometryRevision: 0,
+      guideLibraryGeometryRevision: 1,
       surface: savedSurface,
       composition: {},
       internal: {
@@ -43,7 +47,7 @@ describe("RoomUiPresentationalEditor stored layout migration", () => {
     );
     expect(migrated?.internal["suggestion-title"].x).toBe(19);
     expect(migrated?.internalGeometryLayoutRevision).toBe(1);
-    expect(migrated?.guideLibraryGeometryRevision).toBe(1);
+    expect(migrated?.guideLibraryGeometryRevision).toBe(2);
   });
 
   it("resets only the suggestions geometry when the right-rail revision is old or missing", () => {
@@ -235,6 +239,7 @@ describe("RoomUiPresentationalEditor panel drag", () => {
       "suggestion-card-creative-spark",
       "suggestion-card-creative-writing",
       "suggestion-guide-library",
+      "composer-send",
     ]) {
       expect(screen.getByTestId(`room-v6-editor-select-${layer}`)).toBeTruthy();
     }
@@ -244,6 +249,10 @@ describe("RoomUiPresentationalEditor panel drag", () => {
     expect((screen.getByTestId("room-v6-editor-width") as HTMLInputElement).value).toBe("11.5");
     expect((screen.getByTestId("room-v6-editor-height") as HTMLInputElement).value).toBe("5.8");
     expect(screen.getByTestId("room-v6-editor-geometry-unit").textContent).toContain("百分比");
+    fireEvent.click(screen.getByTestId("room-v6-editor-select-composer-send"));
+    expect((screen.getByTestId("room-v6-editor-width") as HTMLInputElement).value).toBe("82.5");
+    expect((screen.getByTestId("room-v6-editor-height") as HTMLInputElement).value).toBe("82.1");
+    expect(screen.getByTestId("room-v6-composer-submit")).toBeTruthy();
   });
 
   it("keeps per-card typography controls independent and restores only the selected card", async () => {

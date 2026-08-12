@@ -31,6 +31,18 @@
   z-index: 250;
 }
 
+.guideLibraryOverlay {
+  position: absolute;
+  z-index: 260;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.guideLibraryOverlay .suggestionGuideTrigger {
+  pointer-events: auto;
+}
+
 /* Preserve the approved 140% Surface on 2K desktops. On narrower desktop
    viewports, scale the entire composition as one canvas so docked DevTools or
    a 1440px screen cannot clip the calibrated left/right rails. */
@@ -934,6 +946,8 @@
 .chatSendDock {
   position: relative;
   display: grid;
+  width: clamp(2rem, 8cqw, 2.6rem);
+  height: clamp(2rem, 8cqw, 2.6rem);
   min-width: clamp(2rem, 8cqw, 2.6rem);
   min-height: 1.32rem;
   flex: 0 0 clamp(2rem, 8cqw, 2.6rem);
@@ -953,9 +967,14 @@
 }
 
 .chatSendDock button {
-  position: relative;
-  width: clamp(1.75rem, 7cqw, 2.25rem);
-  aspect-ratio: 1;
+  position: absolute;
+  top: var(--internal-y);
+  left: var(--internal-x);
+  width: var(--internal-width);
+  height: var(--internal-height);
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
   border: 0;
   border-radius: 50%;
   padding: .24rem;
